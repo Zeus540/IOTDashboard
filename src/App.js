@@ -44,6 +44,9 @@ padding: 20px;
 border-radius: 5px;
 margin-bottom:40px;
 width:calc(100%/3)
+@media(max-width:426px){
+  width:calc(100%/1)
+}
 `;
 
 
