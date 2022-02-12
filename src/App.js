@@ -27,7 +27,7 @@ ChartJS.register(
 
 
 const Root = styled.div`
-background: #2f2f2f;
+background: #1f1f1f;
 padding: 20px;
 color:white;
 min-height: 100vh;
@@ -35,21 +35,26 @@ min-height: 100vh;
 
 
 const Heading = styled.h1`
-background: #2f2f2f;
+
 padding: 20px;
 color:white;
 `;
 const Holder = styled.div`
-background: #01a001;
+background: #d1e5ff;
 padding: 20px;
 border-radius: 5px;
 margin-bottom:40px;
-width:calc(100%/3)
+width:calc(100%/3);
+overflow: hidden;
+position:relative;
 @media(max-width:426px){
-  width:calc(100%/1)
+  width:unset
 }
 `;
-
+const TextHolder = styled.div`
+position:relative;
+z-index:20px;
+`;
 
 
 
@@ -57,8 +62,8 @@ function App() {
   var d = new Date();
 const [datas,setDatas] = useState()
 const [labels,setLabels] = useState([])
-const [max,setMax] = useState(120) //Dry 120-200
-const [min,setMin] = useState(64) //Wet 64-70
+const [max,setMax] = useState(199) //Dry 120-200
+const [min,setMin] = useState(68) //Wet 64-70
 
 
 useEffect(() => {
@@ -89,7 +94,18 @@ useEffect(() => {
 
 }, [datas])
 
- 
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
+};
 
 const data = {
   labels:datas?.map((d) => d.Time),
@@ -111,29 +127,43 @@ const data = {
 
 
 const getMoisture =(d)=>{
-  if(d.Moisture < max  && d.Moisture > 100 ){
-   
+
+  if(d.Moisture <= min ){
     d.perc = "100%"
   }
-
-   if(d.Moisture < max && d.Moisture >= 90 && d.Moisture <= 100){
-     d.perc = "80%"
-   }
-   if(d.Moisture < max && d.Moisture >= 80  && d.Moisture <= 90){
-     d.perc = "60%"
-   }
-   if(d.Moisture < max && d.Moisture >= 70  && d.Moisture < 80){
-     d.perc = "40%"
-   }
-   if(d.Moisture < max && d.Moisture >= 65  && d.Moisture < 70){
-     d.perc = "20%"
-   }
-
-
-  if(d.Moisture < 65 ){
-    d.status = "Dry"
+  if(d.Moisture > min && d.Moisture <= 75 ){
+    d.perc = "90%"
+  }
+  if(d.Moisture > min && d.Moisture > 75 && d.Moisture <= 85){
+    d.perc = "80%"
+  }
+  if(d.Moisture > min && d.Moisture > 85 && d.Moisture <= 95){
+    d.perc = "70%"
+  }
+  if(d.Moisture > min && d.Moisture > 95 && d.Moisture <= 105){
+    d.perc = "60%"
+  }
+  if(d.Moisture > min && d.Moisture > 105 && d.Moisture <= 115){
+    d.perc = "50%"
+  }
+  if(d.Moisture > min && d.Moisture > 115 && d.Moisture <= 120){
+    d.perc = "40%"
+  }
+  if(d.Moisture > min && d.Moisture > 120 && d.Moisture <= 130){
+    d.perc = "30%"
+  }
+  if(d.Moisture > min && d.Moisture > 130 && d.Moisture <= 140){
+    d.perc = "20%"
+  }
+  if(d.Moisture > min && d.Moisture > 140 && d.Moisture <= 150){
+    d.perc = "10%"
+  }
+  if(d.Moisture >= max ){
     d.perc = "0%"
   }
+  
+ 
+ 
 
 }
 
@@ -146,8 +176,16 @@ const getMoisture =(d)=>{
        
       
         <Holder>
-          <p>Plant 1</p>
-          {datas?.map((d,index)=>{
+        
+
+          <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+
+       <TextHolder>
+       <p>Pot 1</p>
+       {datas?.map((d,index)=>{
               if (index + 1 === datas.length) {
                 return(
                   <>
@@ -163,9 +201,10 @@ const getMoisture =(d)=>{
               }
          
           })}
+       </TextHolder>
         </Holder>
 
-        <Line data={data}/>
+        <Line data={data} options={options}/>
         </div>
     </Root>
   );
