@@ -111,14 +111,28 @@ const data = {
 
 
 const getMoisture =(d)=>{
-  if(d.Moisture < max ){
-    d.status = "Wet"
-
+  if(d.Moisture < max  && d.Moisture > 100 ){
+   
+    d.perc = "100%"
   }
 
-  if(d.Moisture >= max ){
-    d.status = "Dry"
+   if(d.Moisture < max && d.Moisture >= 90 && d.Moisture <= 100){
+     d.perc = "80%"
+   }
+   if(d.Moisture < max && d.Moisture >= 80  && d.Moisture <= 90){
+     d.perc = "60%"
+   }
+   if(d.Moisture < max && d.Moisture >= 70  && d.Moisture < 80){
+     d.perc = "40%"
+   }
+   if(d.Moisture < max && d.Moisture >= 65  && d.Moisture < 70){
+     d.perc = "20%"
+   }
 
+
+  if(d.Moisture < 65 ){
+    d.status = "Dry"
+    d.perc = "0%"
   }
 
 }
@@ -138,12 +152,14 @@ const getMoisture =(d)=>{
                 return(
                   <>
                   {getMoisture(d)}
-                  {d.status}
-                  {console.log('adadasdas',d.status)}
+              
+                  Water Level<br/>
+                  {d?.perc}
+            
                   </>
                 )
               } else {
-                // Not last one.
+             
               }
          
           })}
