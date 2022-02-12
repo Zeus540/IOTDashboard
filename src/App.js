@@ -102,7 +102,7 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Pot #1',
     },
   },
 };
@@ -184,7 +184,7 @@ const getMoisture =(d)=>{
           </div>
 
        <TextHolder>
-       <p>Pot 1</p>
+       <p>Pot #1</p>
        {datas?.map((d,index)=>{
               if (index + 1 === datas.length) {
                 return(
