@@ -30,6 +30,7 @@ const Root = styled.div`
 background: #2f2f2f;
 padding: 20px;
 color:white;
+height: 100vh;
 `;
 
 
