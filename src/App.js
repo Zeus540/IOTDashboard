@@ -30,7 +30,7 @@ const Root = styled.div`
 background: #2f2f2f;
 padding: 20px;
 color:white;
-height: 100vh;
+min-height: 100vh;
 `;
 
 
@@ -62,12 +62,13 @@ const [min,setMin] = useState(64) //Wet 64-70
 
 
 useEffect(() => {
+
  setInterval(() => {
   axios.get('https://api.odinsgate.co.za/cricket/data')
   .then(function (response) {
     // handle success
     setDatas(response.data)
-    
+  
    
     
   })
@@ -75,10 +76,10 @@ useEffect(() => {
     // handle error
     console.log(error);
   })
- }, 5000);
+ }, 1000);
 
 }, [])
-
+console.log("response.data",datas?.map((d) => d.Time));
  
 useEffect(() => {
   var d = new Date();
@@ -88,10 +89,10 @@ useEffect(() => {
 
 }, [datas])
 
-  
+ 
 
 const data = {
-  labels: labels?.map((d) => d?.time),
+  labels:datas?.map((d) => d.Time),
   datasets: [
     {
       label: 'Temp',
@@ -108,19 +109,7 @@ const data = {
   ],
 };
 
-const data2 = {
-  labels: labels?.map((d) => d?.time),
-  datasets: [
- 
-    {
-      label: 'Batt',
-      data:  datas?.map((d) => d?.Batt * 3.3 / 1024 * 2),
-      borderColor: 'red',
-      backgroundColor: 'red',
-    },
 
-  ],
-};
 const getMoisture =(d)=>{
   if(d.Moisture < max ){
     d.status = "Wet"
