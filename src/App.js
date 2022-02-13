@@ -42,6 +42,12 @@ const Heading = styled.h1`
 padding: 20px;
 color:white;
 `;
+const Text = styled.p`
+
+margin-top: 0px;
+
+`;
+
 const Holder = styled.div`
 background: #d1e5ff;
 padding: 20px;
@@ -68,7 +74,9 @@ const ButtonHolder = styled.div`
 display:flex;
 flex-wrap:wrap;
 margin-bottom:20px;
-
+@media(max-width:426px){
+  justify-content: space-between;
+}
 `;
 const Code = styled.div`
 position:absolute;
@@ -87,12 +95,16 @@ height:400px!important;
 const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
-border-radius:30px;
+border-radius:5px;
 background: linear-gradient(180deg,#006b8a,#015871);
 
 border:none;
 cursor:pointer;
 color:white;
+@media(max-width:426px){
+  width: 46%;
+  margin-right:0px;
+}
 `;
 const Battery = styled.div`
 height: 80%;
@@ -217,8 +229,8 @@ const handleRangeFilterReset=()=>{
         </div>
 
      <TextHolder>
-       <Code>Pot #1 </Code>
-     <p>Water Level</p>
+   
+     <Text>Water Level</Text>
      {datas?.map((d,index)=>{
             if (index + 1 === datas.length) {
               return(
@@ -246,7 +258,7 @@ const handleRangeFilterReset=()=>{
         </Battery>
 
      <TextHolder>
-     <p> Battery Level</p>
+     <Text> Battery Level</Text>
      {datas?.map((d,index)=>{
             if (index + 1 === datas.length) {
               return(
@@ -272,7 +284,7 @@ const handleRangeFilterReset=()=>{
         </div>
 
      <TextHolder>
-     <p>Temperature</p>
+     <Text>Temperature</Text>
      {datas?.map((d,index)=>{
             if (index + 1 === datas.length) {
               return(
@@ -292,8 +304,9 @@ const handleRangeFilterReset=()=>{
       </Holder>
        </Flex>
       <ButtonHolder>
-        <Button onClick={()=>{handleRangeFilterBack()}}>Back</Button>
-        <Button onClick={()=>{handleRangeFilterReset()}}>Reset</Button>
+      <Button onClick={()=>{handleRangeFilterReset()}}>Reset</Button>
+        <Button onClick={()=>{handleRangeFilterBack()}}>Load More</Button>
+      
       </ButtonHolder>
 
       <ChartHolder>
@@ -302,7 +315,7 @@ const handleRangeFilterReset=()=>{
     
         <Bar options={optionsBatt} data={dataBatt} /></BarStyled>
      
-        <h2>Pot #1</h2>
+        <h2>Moisture</h2>
         <Line data={data} options={options}/>
         </ChartHolder>
 
