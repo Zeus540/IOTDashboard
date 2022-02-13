@@ -230,7 +230,7 @@ const handleRangeFilterReset=()=>{
 
      <TextHolder>
    
-     <Text>Water Level</Text>
+     <Text>Moisture Level</Text>
      {datas?.map((d,index)=>{
             if (index + 1 === datas.length) {
               return(
