@@ -4,7 +4,10 @@ import { useEffect,useState} from 'react';
 import './App.css';
 import { Line,Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
-
+import Card from './components/Card';
+import Card2 from './components/Card2';
+import Card3 from './components/Card3';
+import { ThemeProvider } from 'styled-components';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -32,40 +35,19 @@ ChartJS.register(
 const Root = styled.div`
 background: #1f1f1f;
 padding: 20px;
+padding-top: 0px;
 color:white;
 min-height: 100vh;
 `;
 
 
 const Heading = styled.h1`
-
-padding: 20px;
+margin: 0px;
+padding:10px 0px;
 color:white;
 `;
-const Text = styled.p`
 
-margin-top: 0px;
 
-`;
-
-const Holder = styled.div`
-background: #d1e5ff;
-padding: 20px;
-border-radius: 5px;
-margin-bottom:40px;
-width:calc(100%/3 - 60px);
-overflow: hidden;
-position:relative;
-margin-right:20px;
-@media(max-width:426px){
-  width:100%;
-  margin-right:0px;
-}
-`;
-const TextHolder = styled.div`
-position:relative;
-z-index:20px;
-`;
 const Flex = styled.div`
 display:flex;
 flex-wrap:wrap;
@@ -78,10 +60,7 @@ margin-bottom:20px;
   justify-content: space-between;
 }
 `;
-const Code = styled.div`
-position:absolute;
-top: -25px;
-`;
+
 
 
 const BarStyled = styled.div`
@@ -96,7 +75,7 @@ const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
 border-radius:5px;
-background: linear-gradient(180deg,#006b8a,#015871);
+background: linear-gradient(180deg,#7adb76,#057101);
 
 border:none;
 cursor:pointer;
@@ -106,16 +85,29 @@ color:white;
   margin-right:0px;
 }
 `;
-const Battery = styled.div`
-height: 80%;
-width:100%;
-position:absolute;
-bottom:0;
-left:0;
-background: linear-gradient(180deg,#7adb76,#057101);
+const ButtonReset = styled.button`
+margin-right:20px;
+padding:10px 40px;
+border-radius:5px;
+background: linear-gradient(180deg,#fc6565,#e43030);
+
+border:none;
+cursor:pointer;
+color:white;
+@media(max-width:426px){
+  width: 46%;
+  margin-right:0px;
+}
 `;
 const ChartHolder = styled.div`
 text-align:left;
+`;
+const Pre = styled.pre`
+text-align:left;
+
+`;
+const Span = styled.span`
+color:#7adb76;
 `;
 
 function App() {
@@ -208,103 +200,38 @@ const handleRangeFilterReset=()=>{
   setRange(10)
   }
 
+  const theme = {
+    mh:`${datas?.pop()?.Moisture}px!important`,
+    mc:`180deg,#006b8a,#015871`,
 
+    bh:`${datas?.pop()?.Batt}px!important`,
+    bc:`180deg,#7adb76,#057101`,
+
+    th:`${datas?.pop()?.Temp}px!important`,
+    tc:` 180deg,#fc6565,#e43030`,
+  }
 
 
   return (
+    <ThemeProvider theme={theme}>
     <Root className="App">
         <Heading>
-         IoT Plant Dashboard
+         <Pre> IoT <Span>Plant</Span> Monitor</Pre>
         </Heading>
         <div>
        
       
        <Flex>
-       <Holder>
-        
-
-        <div class="ocean">
-          <div class="wave"></div>
-          <div class="wave"></div>
-        </div>
-
-     <TextHolder>
-   
-     <Text>Moisture Level</Text>
-     {datas?.map((d,index)=>{
-            if (index + 1 === datas.length) {
-              return(
-                <>
-          
-            
-           
-                {d?.Moisture}%
-          
-                </>
-              )
-            } else {
-           
-            }
-       
-        })}
-     </TextHolder>
-      </Holder>
       
-      <Holder>
+      <Card  data={datas} heading="Moisture Level"/>
+      <Card2 data={datas} heading="Battery Level"/>
+      <Card3  data={datas} heading="Temperature"/>
+     
       
-
-        <Battery >
-        
-        </Battery>
-
-     <TextHolder>
-     <Text> Battery Level</Text>
-     {datas?.map((d,index)=>{
-            if (index + 1 === datas.length) {
-              return(
-                <>
-                 
-                 {d?.Batt}%
-          
-                </>
-              )
-            } else {
-           
-            }
-       
-        })}
-     </TextHolder>
-      </Holder>
-      <Holder>
-        
-
-        <div class="temp">
-   
-
-        </div>
-
-     <TextHolder>
-     <Text>Temperature</Text>
-     {datas?.map((d,index)=>{
-            if (index + 1 === datas.length) {
-              return(
-                <>
-               
-          
-                {d?.Temp}&#8451;
-          
-                </>
-              )
-            } else {
-           
-            }
-       
-        })}
-     </TextHolder>
-      </Holder>
        </Flex>
+    
       <ButtonHolder>
-      <Button onClick={()=>{handleRangeFilterReset()}}>Reset</Button>
+      <ButtonReset onClick={()=>{handleRangeFilterReset()}}>Reset</ButtonReset>
         <Button onClick={()=>{handleRangeFilterBack()}}>Load More</Button>
       
       </ButtonHolder>
@@ -322,7 +249,9 @@ const handleRangeFilterReset=()=>{
         
         </div>
     </Root>
+    </ThemeProvider> 
   );
 }
 
 export default App;
+
