@@ -2,14 +2,16 @@
 import axios from 'axios';
 import { useEffect,useState} from 'react';
 import './App.css';
-import { Line } from 'react-chartjs-2';
+import { Line,Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
+
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -19,6 +21,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Title,
   Tooltip,
@@ -72,6 +75,15 @@ position:absolute;
 top: -25px;
 `;
 
+
+const BarStyled = styled.div`
+overflow : auto;
+height:400px!important;
+@media(max-width:426px){
+  height:200px!important;
+}
+`;
+
 const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
@@ -90,7 +102,9 @@ bottom:0;
 left:0;
 background: linear-gradient(180deg,#7adb76,#057101);
 `;
-
+const ChartHolder = styled.div`
+text-align:left;
+`;
 
 function App() {
 const [datas,setDatas] = useState()
@@ -105,7 +119,7 @@ useEffect(() => {
   .then(function (response) {
     // handle success
     setDatas(response.data)
-  
+  console.log(response.data)
    
     
   })
@@ -126,28 +140,50 @@ const options = {
     legend: {
       position: 'top' ,
     },
-    title: {
-      display: true,
-      text: 'Pot #1',
-    },
+
   },
 };
 
+const optionsBatt = {
+  indexAxis: 'y' ,
+  elements: {
+    bar: {
+      borderWidth: 2,
+    },
+  },
+  responsive: true,
+  
+};
+
+const dataBatt = {
+  labels:datas?.slice(-range).map((d) => d?.Time),
+  datasets: [
+ 
+    {
+      label: 'Battery Level',
+      data:  datas?.slice(-range).map((d) => d?.Batt),
+      borderColor: '#7adb76',
+      backgroundColor: '#7adb76',
+    },
+  ],
+};
+
 const data = {
-  labels:datas?.slice(-range).map((d) => d.Time),
+  labels:datas?.slice(-range).map((d) => d?.Time),
   datasets: [
     {
-      label: 'Temperature',
+      label: 'Temperature Level',
       data:  datas?.slice(-range).map((d) => d?.Temp),
       borderColor: '#ff4141',
       backgroundColor: '#ff4141',
     },
     {
-      label: 'Moisture',
+      label: 'Moisture Level',
       data:  datas?.slice(-range).map((d) => d?.Moisture),
       borderColor: '#006b8a',
       backgroundColor: '#006b8a',
     },
+
   ],
 };
 
@@ -161,46 +197,7 @@ const handleRangeFilterReset=()=>{
   }
 
 
-const getMoisture =(d)=>{
 
-  if(d.Moisture <= min ){
-    d.perc = "100%"
-  }
-  if(d.Moisture > min && d.Moisture <= 75 ){
-    d.perc = "90%"
-  }
-  if(d.Moisture > min && d.Moisture > 75 && d.Moisture <= 85){
-    d.perc = "80%"
-  }
-  if(d.Moisture > min && d.Moisture > 85 && d.Moisture <= 95){
-    d.perc = "70%"
-  }
-  if(d.Moisture > min && d.Moisture > 95 && d.Moisture <= 105){
-    d.perc = "60%"
-  }
-  if(d.Moisture > min && d.Moisture > 105 && d.Moisture <= 115){
-    d.perc = "50%"
-  }
-  if(d.Moisture > min && d.Moisture > 115 && d.Moisture <= 120){
-    d.perc = "40%"
-  }
-  if(d.Moisture > min && d.Moisture > 120 && d.Moisture <= 130){
-    d.perc = "30%"
-  }
-  if(d.Moisture > min && d.Moisture > 130 && d.Moisture <= 140){
-    d.perc = "20%"
-  }
-  if(d.Moisture > min && d.Moisture > 140 && d.Moisture <= 150){
-    d.perc = "10%"
-  }
-  if(d.Moisture >= max ){
-    d.perc = "0%"
-  }
-  
- 
- 
-
-}
 
   return (
     <Root className="App">
@@ -226,10 +223,10 @@ const getMoisture =(d)=>{
             if (index + 1 === datas.length) {
               return(
                 <>
-                {getMoisture(d)}
+          
             
            
-                {d?.perc}
+                {d?.Moisture}%
           
                 </>
               )
@@ -280,7 +277,7 @@ const getMoisture =(d)=>{
             if (index + 1 === datas.length) {
               return(
                 <>
-                {getMoisture(d)}
+               
           
                 {d?.Temp}&#8451;
           
@@ -298,7 +295,18 @@ const getMoisture =(d)=>{
         <Button onClick={()=>{handleRangeFilterBack()}}>Back</Button>
         <Button onClick={()=>{handleRangeFilterReset()}}>Reset</Button>
       </ButtonHolder>
+
+      <ChartHolder>
+      <h2>Battery</h2>
+      <BarStyled> 
+    
+        <Bar options={optionsBatt} data={dataBatt} /></BarStyled>
+     
+        <h2>Pot #1</h2>
         <Line data={data} options={options}/>
+        </ChartHolder>
+
+        
         </div>
     </Root>
   );
