@@ -44,7 +44,7 @@ background: #d1e5ff;
 padding: 20px;
 border-radius: 5px;
 margin-bottom:40px;
-width:calc(100%/3 - 20px);
+width:calc(100%/3 - 60px);
 overflow: hidden;
 position:relative;
 margin-right:20px;
@@ -66,12 +66,17 @@ display:flex;
 flex-wrap:wrap;
 
 `;
+const Code = styled.div`
+position:absolute;
+top: -25px;
+`;
 
 const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
 border-radius:30px;
-background:#015871;
+background: linear-gradient(180deg,#006b8a,#015871);
+
 border:none;
 cursor:pointer;
 color:white;
@@ -123,27 +128,27 @@ const data = {
   labels:datas?.slice(-range).map((d) => d.Time),
   datasets: [
     {
-      label: 'Temp',
+      label: 'Temperature',
       data:  datas?.slice(-range).map((d) => d?.Temp),
-      borderColor: 'red',
-      backgroundColor: 'red',
+      borderColor: '#ff4141',
+      backgroundColor: '#ff4141',
     },
     {
       label: 'Moisture',
       data:  datas?.slice(-range).map((d) => d?.Moisture),
-      borderColor: '#015871',
-      backgroundColor: '#015871',
+      borderColor: '#006b8a',
+      backgroundColor: '#006b8a',
     },
   ],
 };
 
-const handleRangeFilterBack=(e)=>{
+const handleRangeFilterBack=()=>{
 
 setRange(range + 5)
 }
-const handleRangeFilterReset=(e)=>{
+const handleRangeFilterReset=()=>{
 
-  setRange(5)
+  setRange(10)
   }
 
 
@@ -206,14 +211,15 @@ const getMoisture =(d)=>{
         </div>
 
      <TextHolder>
-     <p>Pot #1</p>
+       <Code>Pot #1 </Code>
+     <p>Water Level</p>
      {datas?.map((d,index)=>{
             if (index + 1 === datas.length) {
               return(
                 <>
                 {getMoisture(d)}
             
-                Water Level<br/>
+           
                 {d?.perc}
           
                 </>
@@ -240,6 +246,33 @@ const getMoisture =(d)=>{
               return(
                 <>
                 80%
+          
+                </>
+              )
+            } else {
+           
+            }
+       
+        })}
+     </TextHolder>
+      </Holder>
+      <Holder>
+        
+
+        <div class="temp">
+   
+
+        </div>
+
+     <TextHolder>
+     <p>Temperature</p>
+     {datas?.map((d,index)=>{
+            if (index + 1 === datas.length) {
+              return(
+                <>
+                {getMoisture(d)}
+          
+                {d?.Temp}&#8451;
           
                 </>
               )
