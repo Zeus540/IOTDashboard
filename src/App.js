@@ -64,6 +64,7 @@ flex-wrap:wrap;
 const ButtonHolder = styled.div`
 display:flex;
 flex-wrap:wrap;
+margin-bottom:20px;
 
 `;
 const Code = styled.div`
