@@ -82,6 +82,14 @@ border:none;
 cursor:pointer;
 color:white;
 `;
+const Battery = styled.div`
+height: 80%;
+width:100%;
+position:absolute;
+bottom:0;
+left:0;
+background: linear-gradient(180deg,#7adb76,#057101);
+`;
 
 
 function App() {
@@ -236,9 +244,9 @@ const getMoisture =(d)=>{
       <Holder>
       
 
-        <div class="battery">
+        <Battery >
         
-        </div>
+        </Battery>
 
      <TextHolder>
      <p> Battery Level</p>
@@ -246,7 +254,8 @@ const getMoisture =(d)=>{
             if (index + 1 === datas.length) {
               return(
                 <>
-                80%
+                 
+                 {d?.Batt}%
           
                 </>
               )
