@@ -44,27 +44,45 @@ background: #d1e5ff;
 padding: 20px;
 border-radius: 5px;
 margin-bottom:40px;
-width:calc(100%/3);
+width:calc(100%/3 - 20px);
 overflow: hidden;
 position:relative;
+margin-right:20px;
 @media(max-width:426px){
-  width:unset
+  width:100%;
+  margin-right:0px;
 }
 `;
 const TextHolder = styled.div`
 position:relative;
 z-index:20px;
 `;
+const Flex = styled.div`
+display:flex;
+flex-wrap:wrap;
+`;
+const ButtonHolder = styled.div`
+display:flex;
+flex-wrap:wrap;
 
+`;
+
+const Button = styled.button`
+margin-right:20px;
+padding:10px 40px;
+border-radius:30px;
+background:#015871;
+border:none;
+cursor:pointer;
+color:white;
+`;
 
 
 function App() {
-  var d = new Date();
 const [datas,setDatas] = useState()
-const [labels,setLabels] = useState([])
 const [max,setMax] = useState(199) //Dry 120-200
 const [min,setMin] = useState(68) //Wet 64-70
-
+const [range,setRange] = useState(5) //Wet 64-70
 
 useEffect(() => {
 
@@ -84,15 +102,9 @@ useEffect(() => {
  }, 1000);
 
 }, [])
-console.log("response.data",datas?.map((d) => d.Time));
- 
-useEffect(() => {
-  var d = new Date();
-  let m = Math.random()
-    let obj ={name:"name",time:d.toLocaleTimeString()}
-  setLabels([...labels,obj])
 
-}, [datas])
+ 
+
 
 const options = {
   responsive: true,
@@ -108,22 +120,31 @@ const options = {
 };
 
 const data = {
-  labels:datas?.map((d) => d.Time),
+  labels:datas?.slice(-range).map((d) => d.Time),
   datasets: [
     {
       label: 'Temp',
-      data:  datas?.map((d) => d?.Temp),
+      data:  datas?.slice(-range).map((d) => d?.Temp),
       borderColor: 'red',
       backgroundColor: 'red',
     },
     {
       label: 'Moisture',
-      data:  datas?.map((d) => d?.Moisture),
-      borderColor: 'blue',
-      backgroundColor: 'blue',
+      data:  datas?.slice(-range).map((d) => d?.Moisture),
+      borderColor: '#015871',
+      backgroundColor: '#015871',
     },
   ],
 };
+
+const handleRangeFilterBack=(e)=>{
+
+setRange(range + 5)
+}
+const handleRangeFilterReset=(e)=>{
+
+  setRange(5)
+  }
 
 
 const getMoisture =(d)=>{
@@ -175,35 +196,65 @@ const getMoisture =(d)=>{
         <div>
        
       
-        <Holder>
+       <Flex>
+       <Holder>
         
 
-          <div class="ocean">
-            <div class="wave"></div>
-            <div class="wave"></div>
-          </div>
+        <div class="ocean">
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
 
-       <TextHolder>
-       <p>Pot #1</p>
-       {datas?.map((d,index)=>{
-              if (index + 1 === datas.length) {
-                return(
-                  <>
-                  {getMoisture(d)}
-              
-                  Water Level<br/>
-                  {d?.perc}
+     <TextHolder>
+     <p>Pot #1</p>
+     {datas?.map((d,index)=>{
+            if (index + 1 === datas.length) {
+              return(
+                <>
+                {getMoisture(d)}
             
-                  </>
-                )
-              } else {
-             
-              }
-         
-          })}
-       </TextHolder>
-        </Holder>
+                Water Level<br/>
+                {d?.perc}
+          
+                </>
+              )
+            } else {
+           
+            }
+       
+        })}
+     </TextHolder>
+      </Holder>
+      
+      <Holder>
+      
 
+        <div class="battery">
+        
+        </div>
+
+     <TextHolder>
+     <p> Battery Level</p>
+     {datas?.map((d,index)=>{
+            if (index + 1 === datas.length) {
+              return(
+                <>
+                80%
+          
+                </>
+              )
+            } else {
+           
+            }
+       
+        })}
+     </TextHolder>
+      </Holder>
+       </Flex>
+      <ButtonHolder>
+        <Button onClick={()=>{handleRangeFilterBack()}}>Back</Button>
+        <Button onClick={()=>{handleRangeFilterReset()}}>Reset</Button>
+      </ButtonHolder>
         <Line data={data} options={options}/>
         </div>
     </Root>

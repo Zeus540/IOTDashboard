@@ -21,7 +21,14 @@ code {
   left:0;
   background: #015871;
 }
-
+.battery { 
+  height: 80%;
+  width:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  background: #057101;
+}
 .wave {
   background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
   position: absolute;
