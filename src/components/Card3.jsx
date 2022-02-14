@@ -8,7 +8,7 @@ margin-top: 0px;
 `;
 
 const Holder = styled.div`
-background: #d1e5ff;
+background: #5c5c5c;
 padding: 20px;
 border-radius: 5px;
 margin-bottom:20px;

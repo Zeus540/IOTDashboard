@@ -75,7 +75,7 @@ const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
 border-radius:5px;
-background: linear-gradient(180deg,#7adb76,#057101);
+background: linear-gradient(180deg,#0088b0,#005a74);
 
 border:none;
 cursor:pointer;
@@ -104,17 +104,31 @@ text-align:left;
 `;
 const Pre = styled.pre`
 text-align:left;
+font-size:30px;
 
 `;
-const Span = styled.span`
+const Span = styled.sub`
 color:#7adb76;
+margin-left:5px;
+font-size:16px;
+
+`;
+const Sup = styled.sup`
+color:#7adb76;
+font-size:14px;
+margin-right:5px;
+
+`;
+const HeadingFlex = styled.div`
+display:flex;
+flex-direction: column;
 `;
 
 function App() {
 const [datas,setDatas] = useState()
 const [max,setMax] = useState(199) //Dry 120-200
 const [min,setMin] = useState(68) //Wet 64-70
-const [range,setRange] = useState(10) //Wet 64-70
+const [range,setRange] = useState(20) //Wet 64-70
 
 useEffect(() => {
 
@@ -123,7 +137,7 @@ useEffect(() => {
   .then(function (response) {
     // handle success
     setDatas(response.data)
-  console.log(response.data)
+    console.log(response.data);
    
     
   })
@@ -199,10 +213,10 @@ const handleRangeFilterReset=()=>{
 
   setRange(10)
   }
-
+  
   const theme = {
-    mh:`${datas?.pop()?.Moisture}px!important`,
-    mc:`180deg,#006b8a,#015871`,
+    mh:`${datas?.pop()?.Moisture}px`,
+    mc:`180deg,#0088b0,#005a74`,
 
     bh:`${datas?.pop()?.Batt}px!important`,
     bc:`180deg,#7adb76,#057101`,
@@ -216,7 +230,10 @@ const handleRangeFilterReset=()=>{
     <ThemeProvider theme={theme}>
     <Root className="App">
         <Heading>
-         <Pre> IoT <Span>Plant</Span> Monitor</Pre>
+        <HeadingFlex>
+        <Pre><Sup>IoT</Sup><span>Smart</span><Span>Pot</Span> </Pre>
+ 
+        </HeadingFlex>
         </Heading>
         <div>
        
