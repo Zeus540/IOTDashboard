@@ -53,8 +53,20 @@ function Card2(props) {
         <TextHolder>
     
         <Text>{props?.heading}</Text>
-     
-            {props?.data?.pop()?.Moisture? props?.data?.pop()?.Moisture : 0}%
+        {props.data?.map((d,index)=>{
+            if (index + 1 === props.data.length) {
+              return(
+                <>
+           
+
+                {d?.Moisture}%
+
+                </>
+              )
+            } 
+
+        })}
+      
         </TextHolder>
       </>
  

@@ -59,8 +59,20 @@ function Card2(props) {
         <TextHolder>
     
         <Text>{props?.heading}</Text>
-      
-        {props?.data?.pop()?.Batt ? props?.data?.pop()?.Batt : 0}%
+        {props.data?.map((d,index)=>{
+            if (index + 1 === props.data.length) {
+              return(
+                <>
+           
+
+                {d?.Batt}%
+
+                </>
+              )
+            } 
+
+        })}
+   
       
         </TextHolder>
       </>

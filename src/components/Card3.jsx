@@ -59,9 +59,22 @@ function Card3(props) {
         <TextHolder>
     
         <Text>{props?.heading}</Text>
-      
+        {props.data?.map((d,index)=>{
+            if (index + 1 === props.data.length) {
+              return(
+                <>
+           
+
+                {d?.Temp}&#8451;
+
+                </>
+              )
+            } 
+
+        })}
+   
        
-       {props?.data?.pop()?.Temp}&#8451;
+
        </TextHolder>
       </>
       
