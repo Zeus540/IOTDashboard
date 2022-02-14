@@ -128,21 +128,21 @@ function App() {
 const [datas,setDatas] = useState()
 const [max,setMax] = useState(199) //Dry 120-200
 const [min,setMin] = useState(68) //Wet 64-70
-const [range,setRange] = useState(20) //Wet 64-70
+const [range,setRange] = useState(10) //Wet 64-70
 
 useEffect(() => {
 
  setInterval(() => {
   axios.get('https://api.odinsgate.co.za/cricket/data')
   .then(function (response) {
-    // handle success
+
     setDatas(response.data)
-    console.log(response.data);
+
    
     
   })
   .catch(function (error) {
-    // handle error
+
     console.log(error);
   })
  }, 1000);
