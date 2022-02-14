@@ -59,7 +59,7 @@ function Card2(props) {
                 <>
            
 
-                {d?.Moisture}%
+                {d?.Moisture > 100? "Over-Watered": d?.Moisture +"%"}
 
                 </>
               )
