@@ -215,13 +215,13 @@ const handleRangeFilterReset=()=>{
   }
   
   const theme = {
-    mh:`${datas?.pop()?.Moisture}px`,
+    mh:`${datas?.slice(-1)[0]?.Moisture}px`,
     mc:`180deg,#0088b0,#005a74`,
 
-    bh:`${datas?.pop()?.Batt}px!important`,
+    bh:`${datas?.slice(-1)[0]?.Batt}px!important`,
     bc:`180deg,#7adb76,#057101`,
 
-    th:`${datas?.pop()?.Temp}px!important`,
+    th:`${datas?.slice(-1)[0]?.Temp}px!important`,
     tc:` 180deg,#fc6565,#e43030`,
   }
 
