@@ -64,22 +64,22 @@ code {
 }
 
 /* width */
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 12px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background: #1f1f1f;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: #62c55e;
 
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background: #38df32;
 }

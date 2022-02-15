@@ -57,12 +57,12 @@ function Card2(props) {
         {props.data?.map((d,index)=>{
             if (index + 1 === props.data.length) {
               return(
-                <>
+                <div key={index}>
            
 
                 {d?.Moisture > 100? "Over-Watered": d?.Moisture +"%"}
 
-                </>
+                </div>
               )
             } 
 

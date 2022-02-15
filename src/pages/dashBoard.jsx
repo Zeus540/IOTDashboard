@@ -209,6 +209,13 @@ const LoaderText = styled.h2`
 font-size:20px;
 color:white;
 `;
+const Spans = styled.p`
+font-size:18px;
+color:#62c55e;
+margin-right:0px;
+margin-left:0px;
+
+`;
 const MenuMobile = styled.div`
 font-size:20px;
 background: linear-gradient(180deg,#1f1f1f,#0e0e0e);
@@ -399,7 +406,7 @@ const handleRangeFilterReset=()=>{
       
       return(
 
-               <Li> <LiItem><span>Moisture</span>{d?.Moisture}%</LiItem> <LiItem><span>Temp</span>{d?.Temp}&#8451;</LiItem> <LiItem><span>Battery</span>{d?.Batt}%</LiItem>  <LiItem><span>Time</span>{d.Time}</LiItem> <LiItem><span>Date</span>{d.Date}</LiItem></Li>
+               <Li> <LiItem><Spans>Moisture</Spans>{d?.Moisture}%</LiItem> <LiItem><Spans>Temp</Spans>{d?.Temp}&#8451;</LiItem> <LiItem><Spans>Battery</Spans>{d?.Batt}%</LiItem>  <LiItem><Spans>Time</Spans>{d.Time}</LiItem> <LiItem><Spans>Date</Spans>{d.Date}</LiItem></Li>
        
       
       )

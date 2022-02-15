@@ -62,12 +62,12 @@ function Card3(props) {
         {props.data?.map((d,index)=>{
             if (index + 1 === props.data.length) {
               return(
-                <>
+                <div key={index}>
            
 
                 {d?.Temp}&#8451;
 
-                </>
+                </div>
               )
             } 
 
