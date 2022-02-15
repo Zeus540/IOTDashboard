@@ -11,11 +11,11 @@ const Holder = styled.div`
 background: #5c5c5c;
 padding: 20px;
 border-radius: 5px;
-margin-bottom:20px;
-width:calc(100%/3 - 60px);
+width:calc(100%/3 - 55px);
 overflow: hidden;
 position:relative;
-margin-right:20px;
+margin:0px 0px;
+margin-bottom:20px;
 @media(max-width:426px){
   width:100%;
   margin-right:0px;
