@@ -144,7 +144,7 @@ display:flex;
 padding:20px 0px;
 
 flex-direction:column;
-height:500px;
+max-height:500px;
 overflow:auto;
 `;
 
@@ -331,13 +331,6 @@ const handleRangeFilterReset=()=>{
   setRange(10)
 }
 
-const handleRangeFilterBackAll=()=>{
-  setRangeAll(rangeAll + 5)
-  }
-const handleRangeFilterResetAll=()=>{
-  
-    setRangeAll(10)
-}  
 
   return (
     <Root className="App">
@@ -406,7 +399,7 @@ const handleRangeFilterResetAll=()=>{
       
       return(
 
-               <Li> <LiItem><span>Moisture</span>{d?.Moisture}%</LiItem> <LiItem><span>Temp</span>{d?.Temp}&#8451;</LiItem> <LiItem><span>Battery</span>{d?.Batt}%</LiItem>  <LiItem><span>Time</span>{d.Time}</LiItem></Li>
+               <Li> <LiItem><span>Moisture</span>{d?.Moisture}%</LiItem> <LiItem><span>Temp</span>{d?.Temp}&#8451;</LiItem> <LiItem><span>Battery</span>{d?.Batt}%</LiItem>  <LiItem><span>Time</span>{d.Time}</LiItem> <LiItem><span>Date</span>{d.Date}</LiItem></Li>
        
       
       )
