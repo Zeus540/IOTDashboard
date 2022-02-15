@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Card from '../components/Card';
 import Card2 from '../components/Card2';
 import Card3 from '../components/Card3';
-
+import { Bars } from  'react-loader-spinner'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -160,9 +160,27 @@ const LiItem = styled.div`
 display: flex;
 flex-direction: column;
 `;
-
+const Loading = styled.div`
+display: flex;
+flex-direction: column;
+height:100vh;
+align-items: center;
+justify-content: center;
+`;
+const Loader = styled.div`
+display: flex;
+flex-direction: column;
+height:100vh;
+align-items: center;
+justify-content: center;
+font-size:50px;
+`;
+const LoaderText = styled.h2`
+font-size:20px;
+`;
 function DashBoard() {
 const [datas,setDatas] = useState()
+const [loading,setLoading] = useState(true)
 const [range,setRange] = useState(10) //Wet 64-70
 
 useEffect(() => {
@@ -172,7 +190,7 @@ useEffect(() => {
   .then(function (response) {
 
     setDatas(response.data)
-
+    setLoading(false)
    
     
   })
@@ -273,15 +291,18 @@ const handleRangeFilterReset=()=>{
 
   return (
     <Root className="App">
-    <Heading>
+
+    <div>
+   
+  {loading ? <Loading><Loader>	<Bars color="#00BFFF"  height={100} width={80} /> <LoaderText>Loading...</LoaderText></Loader></Loading>:
+
+ <>
+     <Heading>
     <HeadingFlex>
     <Pre><Sup>IoT</Sup><span>Smart</span><Span>Pot</Span> </Pre>
 
     </HeadingFlex>
     </Heading>
-    <div>
-   
-  
    <Flex>
   
   <Card  data={datas} heading="Moisture Level"/>
@@ -329,9 +350,11 @@ const handleRangeFilterReset=()=>{
 <Line data={tempData} options={options}/>
 </ChartInnerHolder>
 </ChartHolder>
-<ChartInnerHolder>
-<h2>Data Overview</h2>
+
+
+
 <ChartInnerHolderList>
+<h2>Data Overview</h2>
 <Ul>
     {datas?.reverse().map((d,index)=>{
       return(
@@ -343,7 +366,8 @@ const handleRangeFilterReset=()=>{
     })}
   </Ul>
     </ChartInnerHolderList>
-    </ChartInnerHolder>
+    
+    </> }
     </div>
 </Root>
   )
