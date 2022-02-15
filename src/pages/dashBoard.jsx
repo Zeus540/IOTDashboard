@@ -195,7 +195,7 @@ function DashBoard() {
 const [datas,setDatas] = useState()
 const [loading,setLoading] = useState(true)
 const [range,setRange] = useState(10) //Wet 64-70
-const [rangeAll,setRangeAll] = useState(5)
+const [rangeAll,setRangeAll] = useState(10)
 
 useEffect(() => {
 
