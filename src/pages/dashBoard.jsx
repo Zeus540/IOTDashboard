@@ -116,6 +116,17 @@ flex-direction:column;
   flex-direction:column;
 }
 `;
+const ChartInnerHolderWide = styled.div`
+text-align:left;
+display:flex;
+width:100%;
+flex-direction:column;
+@media(max-width:426px){
+  width:unset;
+  flex-direction:column;
+}
+`;
+
 const ChartInnerHolderList = styled.div`
 text-align:left;
 display:flex;
@@ -153,6 +164,8 @@ padding: 15px 0px;
 `;
 const Ul = styled.ul`
 padding: 0;
+display: flex;
+flex-direction: column-reverse;
 `;
 
 
@@ -182,6 +195,7 @@ function DashBoard() {
 const [datas,setDatas] = useState()
 const [loading,setLoading] = useState(true)
 const [range,setRange] = useState(10) //Wet 64-70
+const [rangeAll,setRangeAll] = useState(5)
 
 useEffect(() => {
 
@@ -287,7 +301,14 @@ const handleRangeFilterReset=()=>{
 
   setRange(10)
 }
+
+const handleRangeFilterBackAll=()=>{
+  setRangeAll(rangeAll + 5)
+  }
+const handleRangeFilterResetAll=()=>{
   
+    setRangeAll(10)
+}  
 
   return (
     <Root className="App">
@@ -351,12 +372,13 @@ const handleRangeFilterReset=()=>{
 </ChartInnerHolder>
 </ChartHolder>
 
-
-
-<ChartInnerHolderList>
+<ChartInnerHolderWide>
+  
 <h2>Data Overview</h2>
+<ChartInnerHolderList>
 <Ul>
-    {datas?.reverse().map((d,index)=>{
+    {datas?.slice(-rangeAll)?.map((d,index)=>{
+      
       return(
 
                <Li> <LiItem><span>Moisture</span>{d?.Moisture}%</LiItem> <LiItem><span>Temp</span>{d?.Temp}&#8451;</LiItem> <LiItem><span>Battery</span>{d?.Batt}%</LiItem>  <LiItem><span>Time</span>{d.Time}</LiItem></Li>
@@ -366,6 +388,12 @@ const handleRangeFilterReset=()=>{
     })}
   </Ul>
     </ChartInnerHolderList>
+    <ButtonHolder>
+  <ButtonReset onClick={()=>{handleRangeFilterResetAll()}}>Reset</ButtonReset>
+    <Button onClick={()=>{handleRangeFilterBackAll()}}>Load More</Button>
+  
+  </ButtonHolder>
+    </ChartInnerHolderWide>
     
     </> }
     </div>
