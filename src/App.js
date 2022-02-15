@@ -2,7 +2,7 @@ import React,{ useEffect,useState} from 'react';
 import axios from 'axios';
 import DashBoard from './pages/dashBoard';
 import Login from './pages/login';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Link } from "react-router-dom";
 

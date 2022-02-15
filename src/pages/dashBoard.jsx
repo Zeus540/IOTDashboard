@@ -33,16 +33,18 @@ ChartJS.register(
 
 const Root = styled.div`
 background: #1f1f1f;
-padding: 20px;
+display:flex;
+
 padding-top: 0px;
 color:white;
 min-height: 100vh;
+flex-direction:column;
 `;
 
 
 const Heading = styled.h1`
 margin: 0px;
-padding:10px 0px;
+padding: 10px 20px;
 color:white;
 `;
 
@@ -50,12 +52,13 @@ color:white;
 const Flex = styled.div`
 display:flex;
 flex-wrap:wrap;
+padding: 0px 20px;
 justify-content: space-between;
 `;
 const ButtonHolder = styled.div`
 display:flex;
 flex-wrap:wrap;
-margin-bottom:20px;
+margin:0px;
 @media(max-width:426px){
   justify-content: space-between;
 }
@@ -75,11 +78,14 @@ const Button = styled.button`
 margin-right:20px;
 padding:10px 40px;
 border-radius:5px;
-background: linear-gradient(180deg,#0088b0,#005a74);
-
+background:#62c55e;
+font-weight: 600;
 border:none;
 cursor:pointer;
-color:white;
+color:#1f1f1f;
+&:hover {
+  background: #38df32;
+}
 @media(max-width:426px){
   width: 46%;
   margin-right:0px;
@@ -89,11 +95,14 @@ const ButtonReset = styled.button`
 margin-right:20px;
 padding:10px 40px;
 border-radius:5px;
-background: linear-gradient(180deg,#0088b0,#005a74);
-
+background: #62c55e;
+font-weight: 600;
 border:none;
 cursor:pointer;
-color:white;
+color:#1f1f1f;
+&:hover {
+  background: #38df32;
+}
 @media(max-width:426px){
   width: 46%;
   margin-right:0px;
@@ -102,6 +111,7 @@ color:white;
 const ChartHolder = styled.div`
 text-align:left;
 display:flex;
+padding: 20px;
 @media(max-width:426px){
   flex-direction:column;
 }
@@ -119,10 +129,11 @@ flex-direction:column;
 const ChartInnerHolderWide = styled.div`
 text-align:left;
 display:flex;
-width:100%;
+width:unset;
 flex-direction:column;
+padding: 20px;
 @media(max-width:426px){
-  width:unset;
+
   flex-direction:column;
 }
 `;
@@ -130,7 +141,8 @@ flex-direction:column;
 const ChartInnerHolderList = styled.div`
 text-align:left;
 display:flex;
-width:100%;
+padding:20px 0px;
+
 flex-direction:column;
 height:500px;
 overflow:auto;
@@ -165,6 +177,7 @@ padding: 15px 0px;
 const Ul = styled.ul`
 padding: 0;
 display: flex;
+margin: 0;
 flex-direction: column-reverse;
 `;
 
@@ -174,23 +187,39 @@ display: flex;
 flex-direction: column;
 `;
 const Loading = styled.div`
+width: 100vw;
 display: flex;
 flex-direction: column;
 height:100vh;
 align-items: center;
 justify-content: center;
+
 `;
 const Loader = styled.div`
 display: flex;
+width: 100vw;
 flex-direction: column;
 height:100vh;
 align-items: center;
 justify-content: center;
 font-size:50px;
+
 `;
 const LoaderText = styled.h2`
 font-size:20px;
+color:white;
 `;
+const MenuMobile = styled.div`
+font-size:20px;
+background: linear-gradient(180deg,#1f1f1f,#0e0e0e);
+position: sticky;
+left: 0;
+right: 0;
+bottom: 0;
+padding: 15px;
+border-radius: 10px 10px 0px 0px;
+`;
+
 function DashBoard() {
 const [datas,setDatas] = useState()
 const [loading,setLoading] = useState(true)
@@ -313,9 +342,9 @@ const handleRangeFilterResetAll=()=>{
   return (
     <Root className="App">
 
-    <div>
+
    
-  {loading ? <Loading><Loader>	<Bars color="#00BFFF"  height={100} width={80} /> <LoaderText>Loading...</LoaderText></Loader></Loading>:
+  {loading ? <Loading><Loader>	<Bars color="#62c55e"  height={100} width={80} /> <LoaderText>Loading...</LoaderText></Loader></Loading>:
 
  <>
      <Heading>
@@ -333,11 +362,7 @@ const handleRangeFilterResetAll=()=>{
   
    </Flex>
 
-  <ButtonHolder>
-  <ButtonReset onClick={()=>{handleRangeFilterReset()}}>Reset</ButtonReset>
-    <Button onClick={()=>{handleRangeFilterBack()}}>Load More</Button>
-  
-  </ButtonHolder>
+
 
   <ChartHolder>
 
@@ -377,7 +402,7 @@ const handleRangeFilterResetAll=()=>{
 <h2>Data Overview</h2>
 <ChartInnerHolderList>
 <Ul>
-    {datas?.slice(-rangeAll)?.map((d,index)=>{
+    {datas?.slice(-range)?.map((d,index)=>{
       
       return(
 
@@ -388,15 +413,21 @@ const handleRangeFilterResetAll=()=>{
     })}
   </Ul>
     </ChartInnerHolderList>
-    <ButtonHolder>
-  <ButtonReset onClick={()=>{handleRangeFilterResetAll()}}>Reset</ButtonReset>
-    <Button onClick={()=>{handleRangeFilterBackAll()}}>Load More</Button>
+
+    </ChartInnerHolderWide>
+
+    <MenuMobile>  
+      <ButtonHolder>
+  <ButtonReset onClick={()=>{handleRangeFilterReset()}}>Reset</ButtonReset>
+    <Button onClick={()=>{handleRangeFilterBack()}}>Load More</Button>
   
   </ButtonHolder>
-    </ChartInnerHolderWide>
-    
-    </> }
-    </div>
+  </MenuMobile>
+    </>
+  
+    }
+   
+  
 </Root>
   )
 }
