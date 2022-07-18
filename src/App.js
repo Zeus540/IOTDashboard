@@ -1,56 +1,50 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios';
 import DashBoard from './pages/dashBoard';
+import Diaries from './pages/Diaries';
 import Login from './pages/login';
-
+import Back from './assets/back3.jpg'
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Link } from "react-router-dom";
+import styled from "styled-components";
+import NavBar from './components/NavBar';
+import { AuthProvider } from '../src/context/auth_context';
+import { DiaryProvider } from '../src/context/diary_context';
 
+const Root = styled.div`
+  background-image: url(${Back});
+  background-size: cover;
+  background-color: #f8f8ffc4;
+  background-blend-mode: overlay;
+  min-height: 100vh;
 
+`;
 
 function App() {
-  const [datas,setDatas] = useState()
 
   const theme = {
-    mh:`${datas?.slice(-1)[0]?.Moisture}px`,
-    mc:`180deg,#0088b0,#005a74`,
-
-    bh:`${datas?.slice(-1)[0]?.Batt}px!important`,
-    bc:`180deg,#7adb76,#057101`,
-
-    th:`${datas?.slice(-1)[0]?.Temp}px!important`,
-    tc:` 180deg,#fc6565,#e43030`,
+  
   }
 
 
-  useEffect(() => {
 
-    setInterval(() => {
-     axios.get('https://api.odinsgate.co.za/cricket/data')
-     .then(function (response) {
-   
-       setDatas(response.data)
-   
-    
-     })
-     .catch(function (error) {
-   
-       console.log(error);
-     })
-    }, 10000);
-   
-   }, [])
-   
   return (
- 
+ <Root>
     <ThemeProvider theme={theme}>
-    <Routes>
-        <Route path="/" element={<DashBoard />} />
-        <Route path="login" element={<Login />} />
+      <AuthProvider>
+        <DiaryProvider>
+      <NavBar/>
+      
+        <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="dashboard/:id" element={<DashBoard />} />
+        <Route path="diaries" element={<Diaries />} />
       </Routes>
-
+      </DiaryProvider>
+      </AuthProvider>
     </ThemeProvider>
-  
+    
+    </Root>
   )
 }
 

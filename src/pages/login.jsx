@@ -1,20 +1,28 @@
-import React from 'react'
+import React,{useState,useContext} from 'react'
 import styled from 'styled-components';
+import {useNavigate} from 'react-router-dom'
+import Logo from "../assets/logoLogin.png";
+import { Formik, Field, Form,ErrorMessage } from 'formik';
+import * as Yup from "yup";
+import { AuthContext } from "../context/auth_context";
 
 const Root = styled.div`
-background: #1f1f1f;
+background:#f8f8ffc4;
 
 padding-top: 0px;
 color:white;
-min-height: 100vh;
+min-height: calc(100vh - 84px);
 display: flex;
 flex-direction: column;
 justify-content: center;
 
 `;
 const RootInner = styled.div`
-width:20%;
+width:380px;
 align-self: center;
+background: #DAD7CD;
+padding: 20px;
+border-radius: 10px;
 @media(max-width:425px){
     width:90%;
   }
@@ -27,76 +35,116 @@ align-self: center;
 `;
 
 const InputGrp = styled.div`
-background: #1f1f1f;
-margin: 5px 0px;
+
+margin: 15px 0px;
 padding-top: 0px;
 color:white;
 display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#7adb76;
+color:green;
+font-weight:bold;
 `;
-const Input = styled.input`
+const Input = styled(Field)`
 margin: 10px 0px;
-padding: 10px 0px;
+padding: 15px 15px;
 border-radius:5px;
+border:none;
+background:white;
 `;
-const Pre = styled.pre`
-text-align:left;
-font-size:40px;
 
+const ErrorText = styled.p`
+color: red;
+    margin: 0px;
+    font-size: 12px;
 `;
-const Span = styled.sub`
-color:#7adb76;
-margin-left:5px;
-font-size:20px;
 
-`;
-const Sup = styled.sup`
-color:#7adb76;
-font-size:18px;
-margin-right:5px;
-
-`;
-const HeadingFlex = styled.div`
-display:flex;
-flex-direction: column;
-align-items: center;
-`;
 const Button = styled.button`
-padding: 10px 50px;
+padding: 15px 50px;
 width: fit-content;
 margin-top: 20px;
-align-self
+border:none;
+background:#588157;
+color:white;
+border-radius:5px;
 `;
 
 const Heading = styled.h1`
 margin: 0px;
 padding:10px 0px;
 color:white;
-
+text-align:center;
 `;
 
 function Login() {
+  const {auth,setAuth} = useContext(AuthContext)
+  const navigate = useNavigate ()
+ 
+  const handleLogin =(values) =>{
+    console.log("asdasd",auth)
+    if(values.name == "Admin" && values.password == "Admin"){
+      setAuth(true)
+      navigate('dashboard')
+      
+    }
+
+
+  }
+
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(70, 'Too Long!')
+      .required('Required'),
+    password: Yup.string()
+      .min(5, 'Too Short!')
+      .required('Required'),
+  });
+  
+  
   return (
     <Root>
      <RootInner>
      <Heading>
-    <HeadingFlex>
-    <Pre><Sup>IoT</Sup><span>Smart</span><Span>Pot</Span> </Pre>
-
-    </HeadingFlex>
+     <img src={Logo} width="60%" />
     </Heading>
-        <InputGrp>
-        <Label>Username</Label>
-        <Input type="text" />
+
+    <Formik
+      initialValues={{
+        name: '',
+        password: '',
+      
+      }}
+      validationSchema={SignupSchema}
+      onSubmit={async (values) => {
+        await new Promise((r) => setTimeout(r, 500));
+        handleLogin(values)
+      }}
+    >
+      {({ errors, touched }) => (
+      <Form>
+
+      <InputGrp>
+        <Label htmlFor="name">UserName</Label>
+        <Input id="name" name="name" placeholder="Type Name Here" />
+        {errors.name && touched.name ? (<ErrorText>{errors.name}</ErrorText>) : null}
+
         </InputGrp>
+
         <InputGrp>
-        <Label>Password</Label>
-        <Input type="text" />
-        </InputGrp>
-        <Button>Login</Button>
+        <Label htmlFor="password">Password</Label>
+        <Input id="password" name="password" placeholder="Type Password Here" type="password"/>
+        {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
+      </InputGrp>
+
+      <Button>Login</Button>
+      </Form>
+        )}
+    </Formik>
+
+    
+        
      </RootInner>
     </Root>
   )
