@@ -68,7 +68,7 @@ const NavBar = () => {
           <img src={Logo} width="100%" />
         </LogoHolder>
         <LinkHolder>
-         {!auth && 
+         {auth && 
          <>
           {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
           <MenuLink to="diaries">Diaries</MenuLink>
@@ -77,11 +77,7 @@ const NavBar = () => {
         </>
          }
 
-{auth && 
-         <>
-          <LogOut>Login</LogOut>
-        </>
-         }
+
         </LinkHolder>
       </Inner>
     </Root>

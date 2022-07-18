@@ -21,11 +21,11 @@ const Inner = styled.div`
   width: 100%;
   background: #dad7cd;
   padding: 20px;
-  @media(max-width:425px){
-   margin: 16px;
-   padding: 20px;
+  @media (max-width: 425px) {
+    margin: 16px;
+    padding: 20px;
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     margin: 16px;
   }
 `;
@@ -35,13 +35,12 @@ const IntroHolder = styled.div`
 `;
 const Flex = styled.div`
   display: flex;
-  @media(max-width:425px){
-    flex-direction:column;
+  @media (max-width: 425px) {
+    flex-direction: column;
   }
-  @media(min-width:426px) and (max-width:768px){
-    flex-direction:column;
+  @media (min-width: 426px) and (max-width: 768px) {
+    flex-direction: column;
   }
-
 `;
 const Flex2 = styled.div`
   display: flex;
@@ -57,7 +56,6 @@ const WeekHolder = styled.div`
   margin: 5px;
   min-width: 70px;
   background: white;
-
 `;
 const WeekHolderHeading = styled.div`
   background: green;
@@ -81,10 +79,10 @@ const ImgHolder = styled.div`
   max-width: calc(100% / 3);
   border-radius: 5px;
   width: 100%;
-  @media(max-width:425px){
+  @media (max-width: 425px) {
     max-width: unset;
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
   }
 `;
@@ -97,15 +95,15 @@ const TextHolder = styled.div`
 
   margin-left: 20px;
   border-radius: 10px;
-  @media(max-width:425px){
+  @media (max-width: 425px) {
     margin-left: 0px;
     width: unset;
-    padding: 0px ;
+    padding: 0px;
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     margin-left: 0px;
     width: unset;
-    padding: 0px ;
+    padding: 0px;
   }
 `;
 const Notes = styled.div`
@@ -129,9 +127,8 @@ const TextHeading = styled.div`
   color: green;
 `;
 
-
 const TextHolderGroup2 = styled.div`
-text-align: center;
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,10 +140,10 @@ text-align: center;
   border-radius: 10px;
   min-width: calc(100% / 5 - 60px);
   max-width: calc(100% / 5 - 60px);
-  @media(max-width:425px){
+  @media (max-width: 425px) {
     min-width: calc(100% / 2 - 60px);
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
   }
 `;
@@ -162,10 +159,10 @@ const GalleryImageHolder = styled.div`
   max-width: calc(100% / 3 - 20px);
   margin: 10px;
   border-radius: 10px;
-  @media(max-width:425px){
+  @media (max-width: 425px) {
     max-width: unset;
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     max-width: calc(100% / 2 - 20px);
     min-width: calc(100% / 2 - 20px);
   }
@@ -173,13 +170,13 @@ const GalleryImageHolder = styled.div`
 
 const GalleryHolderInner = styled.div`
   display: flex;
-  flex-wrap:wrap;
-  @media(max-width:425px){
+  flex-wrap: wrap;
+  @media (max-width: 425px) {
     flex-direction: column;
   }
-  @media(min-width:426px) and (max-width:768px){
+  @media (min-width: 426px) and (max-width: 768px) {
     flex-direction: unset;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
 `;
 
@@ -193,13 +190,18 @@ const NotesHolder = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
 
 const NotesInner = styled.div`
   max-height: 100vh;
-  width: 50%;
+  width: 20%;
   padding-top: 20px;
+  @media (max-width: 425px) {
+    width: 80%;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const NotesInnerClose = styled.div`
@@ -221,8 +223,6 @@ const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
 `;
-
-
 
 const Heading = styled.h4`
   text-transform: uppercase;
@@ -278,13 +278,15 @@ const TextBox = styled.textarea`
   min-height: 200px;
   min-width: calc(100% - 1px);
   display: block;
+  border-radius: 0px 0px 10px 10px;
+  outline: none;
+  border: none;
 `;
 
 const NoData = styled.div`
   padding: 15px 0px;
-  font-size: 20px;  
+  font-size: 20px;
 `;
-
 
 const DashBoard = () => {
   const [lightBox, setLightBox] = useState(false);
@@ -312,9 +314,8 @@ const DashBoard = () => {
     axios
       .post("https://api.sweetleaf.co.za/nodemcu/plant_Data", data)
       .then(function (response) {
-     
         setActiveDiaryData(response.data);
-        setActiveDiaryDataFull(response.data)
+        setActiveDiaryDataFull(response.data);
         setActiveDiaryNotes(response.data[response.data.length - 1]?.Notes);
       })
       .catch(function (error) {
@@ -324,7 +325,6 @@ const DashBoard = () => {
     axios
       .post("https://api.sweetleaf.co.za/nodemcu/weeks", data)
       .then(function (response) {
-      
         setActiveDiaryWeeks(response.data);
       })
       .catch(function (error) {
@@ -342,18 +342,14 @@ const DashBoard = () => {
   };
 
   const handleFilter = (w) => {
-    setActiveDiaryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId))
+    setActiveDiaryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId));
   };
-  
+
   return (
     <Root>
-      {lightBox && 
-   <LightBox
-   data={activeDiary}
-   close={setLightBox}
-   image={lightBoxImg}
-   />
-      }
+      {lightBox && (
+        <LightBox data={activeDiary} close={setLightBox} image={lightBoxImg} />
+      )}
 
       {addNotes && (
         <NotesHolder>
@@ -386,7 +382,7 @@ const DashBoard = () => {
         <IntroHolder>
           <DairyHeading>{activeDiary?.Title}</DairyHeading>
           <TextHeading>Start Date </TextHeading>
-          <div>{activeDiary?.Start_Date}</div>
+          <div>{activeDiary?.Start_Date?.split("T")[0]}</div>
         </IntroHolder>
         <Flex>
           <ImgHolder>
@@ -458,19 +454,30 @@ const DashBoard = () => {
           <Heading>WEEKS</Heading>
 
           <WeekHolderInner>
-              {activeDiaryWeeks.length > 0 ? activeDiaryWeeks.map((w,index)=>{
-                return(
-                  <WeekHolder onClick={()=>{handleFilter(w)}} key={index}>
-                  <WeekHolderHeading>{w.Stage}</WeekHolderHeading>
-                  <WeekHolderText>
-                    <div>{w.Week}</div>
-                    <WeekHolderTextSub>{w.Week > 1 ? "Weeks" : "Week"} </WeekHolderTextSub>
-                  </WeekHolderText>
-                </WeekHolder>
-                )
-              }):
+            {activeDiaryWeeks.length > 0 ? (
+              activeDiaryWeeks.map((w, index) => {
+                return (
+                  <WeekHolder
+                    onClick={() => {
+                      handleFilter(w);
+                    }}
+                    key={index}
+                  >
+                    <WeekHolderHeading>
+                      {w.Stage == "" ? "Veg" : w.Stage}
+                    </WeekHolderHeading>
+                    <WeekHolderText>
+                      <div>{w.Week}</div>
+                      <WeekHolderTextSub>
+                        {w.Week > 1 ? "Weeks" : "Week"}{" "}
+                      </WeekHolderTextSub>
+                    </WeekHolderText>
+                  </WeekHolder>
+                );
+              })
+            ) : (
               <NoData>No Data Available</NoData>
-              }
+            )}
           </WeekHolderInner>
         </Flex3>
         <Heading>PHOTOS</Heading>

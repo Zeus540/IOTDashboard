@@ -11,7 +11,7 @@ background:#f8f8ffc4;
 
 padding-top: 0px;
 color:white;
-min-height: calc(100vh - 84px);
+min-height: calc(100vh - 70px);
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -24,14 +24,15 @@ background: #DAD7CD;
 padding: 20px;
 border-radius: 10px;
 @media(max-width:425px){
-    width:90%;
-  }
-  @media(min-width:426px) and (max-width:768px){
-    width:80%;
-  }
-  @media(min-width:769px) and (max-width:1024px){
-    width:40%;
-  }
+  margin: 16px;
+padding: 20px;
+width:unset;
+}
+@media(min-width:426px) and (max-width:768px){
+  margin: 16px;
+  padding: 20px;
+  width:unset;
+}
 `;
 
 const InputGrp = styled.div`
@@ -85,7 +86,7 @@ function Login() {
     console.log("asdasd",auth)
     if(values.name == "Admin" && values.password == "Admin"){
       setAuth(true)
-      navigate('dashboard')
+      navigate('diaries')
       
     }
 

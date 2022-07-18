@@ -18,6 +18,15 @@ const Inner = styled.div`
   width: 100%;
   background: #DAD7CD;
   padding: 20px;
+  @media(max-width:425px){
+    margin: 16px;
+  padding: 20px;
+  }
+  @media(min-width:426px) and (max-width:768px){
+    margin: 16px;
+    padding: 20px;
+  }
+ 
 `;
 
 const MainHeading = styled.div`
@@ -39,7 +48,13 @@ background: ghostwhite;
 width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 10px;
-
+@media(max-width:425px){
+  width: unset;
+  margin: unset;
+}
+@media(min-width:426px) and (max-width:768px){
+  width: unset;
+}
 
 `;
 
@@ -101,7 +116,7 @@ const Diaries = () => {
                    
                     <DiaryTextHolder>
                     <TagHolder>
-                    <Tag> {d?.Strain}</Tag><Tag> {d?.Room_Type}</Tag>  <Tag> {d?.Start_Date}</Tag>
+                    <Tag> {d?.Strain}</Tag><Tag> {d?.Room_Type}</Tag>  <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
                     </TagHolder>
                     <div>{d?.Title}</div>
                  
