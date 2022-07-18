@@ -310,7 +310,7 @@ const DashBoard = () => {
     };
 
     axios
-      .post("http://api.sweetleaf.co.za/nodemcu/plant_Data", data)
+      .post("https://api.sweetleaf.co.za/nodemcu/plant_Data", data)
       .then(function (response) {
      
         setActiveDiaryData(response.data);
@@ -322,7 +322,7 @@ const DashBoard = () => {
       });
 
     axios
-      .post("http://api.sweetleaf.co.za/nodemcu/weeks", data)
+      .post("https://api.sweetleaf.co.za/nodemcu/weeks", data)
       .then(function (response) {
       
         setActiveDiaryWeeks(response.data);
