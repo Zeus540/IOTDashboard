@@ -66,7 +66,8 @@ const LightBox = (props) => {
     <LightBoxHolder>
     <LightBoxInner>
       <LightBoxInnerClose>
-        <div>{props.data?.Start_Date}</div>
+        {console.log(props.data)}
+        <div>{props.data?.Date?.split("T")[0]} </div>
         <LightBoxClose
           onClick={() => {
             props.close(false);

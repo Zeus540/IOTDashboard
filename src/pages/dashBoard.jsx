@@ -7,6 +7,7 @@ import Image3 from "../assets/seedling.jpg";
 import axios from "axios";
 import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
+import PlaceHolder from '../assets/placeholder.png'
 
 const Root = styled.div`
   margin-top: 50px;
@@ -171,6 +172,7 @@ const GalleryImageHolder = styled.div`
 const GalleryHolderInner = styled.div`
   display: flex;
   flex-wrap: wrap;
+  text-align:center;
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -287,12 +289,19 @@ const NoData = styled.div`
   padding: 15px 0px;
   font-size: 20px;
 `;
+const NoDataHolder = styled.div`
+width: 100%;
+  text-align:center
+`;
 
 const DashBoard = () => {
   const [lightBox, setLightBox] = useState(false);
   const [addNotes, setAddNotes] = useState(false);
 
   const [lightBoxImg, setLightBoxImg] = useState(Image);
+  const [lightBoxData, setLightBoxData] = useState([]);
+  const [galleryData, setGalleryData] = useState([]);
+  
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const [activeDiaryDataFull, setActiveDiaryDataFull] = useState([]);
@@ -317,6 +326,20 @@ const DashBoard = () => {
         setActiveDiaryData(response.data);
         setActiveDiaryDataFull(response.data);
         setActiveDiaryNotes(response.data[response.data.length - 1]?.Notes);
+
+        let galArr = []
+        
+        for (let index = 0; index < response.data.length; index++) {
+          const element = response.data[index];
+          console.log(element)
+          if(element.Image !== ""){
+            galArr.push(element)
+          }
+            
+        
+        }
+        setGalleryData(galArr)
+
       })
       .catch(function (error) {
         console.log(error);
@@ -332,9 +355,10 @@ const DashBoard = () => {
       });
   }, [diaries]);
 
-  const handleLightBox = (img) => {
+  const handleLightBox = (img,data) => {
     setLightBox(!lightBox);
     setLightBoxImg(img);
+    setLightBoxData(data)
   };
 
   const handleNotes = () => {
@@ -343,12 +367,14 @@ const DashBoard = () => {
 
   const handleFilter = (w) => {
     setActiveDiaryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId));
+    console.log(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId))
+    setGalleryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId));
   };
 
   return (
     <Root>
       {lightBox && (
-        <LightBox data={activeDiary} close={setLightBox} image={lightBoxImg} />
+        <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
 
       {addNotes && (
@@ -387,11 +413,11 @@ const DashBoard = () => {
         <Flex>
           <ImgHolder>
             <ImageMain
-              src={Image}
+              src={activeDiaryData[activeDiaryData.length - 1]?.Image ? activeDiaryData[activeDiaryData.length - 1]?.Image : PlaceHolder}
               width="100%"
               height="100%"
               onClick={() => {
-                handleLightBox(Image);
+                handleLightBox(activeDiaryData[activeDiaryData.length - 1]?.Image,activeDiaryData[activeDiaryData.length - 1]);
               }}
             />
           </ImgHolder>
@@ -435,19 +461,19 @@ const DashBoard = () => {
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Co2</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Co2} PPM
+            {activeDiaryData[activeDiaryData.length - 1]?.Co2 == 0 ? "N/A" :<>{activeDiaryData[activeDiaryData.length - 1]?.Co2} PPM</>} 
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Moisture</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Moisture}
+            {activeDiaryData[activeDiaryData.length - 1]?.Moisture == 0 ? "N/A" :<>{activeDiaryData[activeDiaryData.length - 1]?.Moisture} %</>}
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Temperature</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Temperature}
+            {activeDiaryData[activeDiaryData.length - 1]?.Temperature == 0 ? "N/A" : <>{activeDiaryData[activeDiaryData.length - 1]?.Temperature} &#8451;</>}
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Humidity</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Humidity}
+            {activeDiaryData[activeDiaryData.length - 1]?.Humidity == 0 ? "N/A" : <>{activeDiaryData[activeDiaryData.length - 1]?.Humidity} %</>}
           </TextHolderGroup2>
         </Flex2>
         <Flex3>
@@ -464,7 +490,7 @@ const DashBoard = () => {
                     key={index}
                   >
                     <WeekHolderHeading>
-                      {w.Stage == "" ? "Veg" : w.Stage}
+                      {w.Stage == " " ? "Veg" : w.Stage}
                     </WeekHolderHeading>
                     <WeekHolderText>
                       <div>{w.Week}</div>
@@ -483,36 +509,29 @@ const DashBoard = () => {
         <Heading>PHOTOS</Heading>
 
         <GalleryHolderInner>
-          <GalleryImageHolder>
-            <GalleryImage
-              src={Image3}
-              width="100%"
-              height="100%"
-              onClick={() => {
-                handleLightBox(Image3);
-              }}
-            />
-          </GalleryImageHolder>
-          <GalleryImageHolder>
-            <GalleryImage
-              src={Image2}
-              width="100%"
-              height="100%"
-              onClick={() => {
-                handleLightBox(Image2);
-              }}
-            />
-          </GalleryImageHolder>
-          <GalleryImageHolder>
-            <GalleryImage
-              src={Image}
-              width="100%"
-              height="100%"
-              onClick={() => {
-                handleLightBox(Image);
-              }}
-            />
-          </GalleryImageHolder>
+          {galleryData.length > 0  ? galleryData?.map((img,index)=>{
+            if (img?.Image !== ''){
+              return(
+           
+                <GalleryImageHolder key={index}>
+              <GalleryImage
+                src={img?.Image}
+                width="100%"
+                height="100%"
+                onClick={() => {
+                  handleLightBox(img?.Image,img);
+                }}
+              />
+            </GalleryImageHolder>
+              )
+            }
+          
+          }):
+          <NoDataHolder>
+          <NoData>No Data Available</NoData>
+          </NoDataHolder>
+          }
+          
         </GalleryHolderInner>
       </Inner>
     </Root>
