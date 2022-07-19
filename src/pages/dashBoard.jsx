@@ -13,6 +13,10 @@ const Root = styled.div`
   margin-top: 50px;
   display: flex;
   justify-content: center;
+  @media (max-width: 425px) {
+    margin-top: 20px;
+ 
+  }
 `;
 
 const Inner = styled.div`
@@ -20,11 +24,11 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 10px;
   width: 100%;
-  background: #dad7cd;
-  padding: 20px;
+  background: #d6d0bb;
+  padding: 20px 0px;
   @media (max-width: 425px) {
     margin: 16px;
-    padding: 20px;
+ 
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 16px;
@@ -33,9 +37,11 @@ const Inner = styled.div`
 
 const IntroHolder = styled.div`
   margin-bottom: 20px;
+  padding:0px 20px;
 `;
 const Flex = styled.div`
   display: flex;
+  padding:0px 20px;
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -50,7 +56,7 @@ const Flex2 = styled.div`
 `;
 const Flex3 = styled.div``;
 const WeekHolder = styled.div`
-  border: 1px solid green;
+  border: 1px solid #459343;
   width: fit-content;
   text-align: center;
   border-radius: 5px;
@@ -59,7 +65,7 @@ const WeekHolder = styled.div`
   background: white;
 `;
 const WeekHolderHeading = styled.div`
-  background: green;
+  background: #459343;
   padding: 5px 10px;
   color: white;
   font-size: 12px;
@@ -88,13 +94,13 @@ const ImgHolder = styled.div`
   }
 `;
 const TextHolder = styled.div`
-  padding: 0px 20px;
+
   display: flex;
   flex-direction: column;
 
   width: 100%;
 
-  margin-left: 20px;
+  margin-left: 30px;
   border-radius: 10px;
   @media (max-width: 425px) {
     margin-left: 0px;
@@ -110,12 +116,14 @@ const TextHolder = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: ghostwhite;
+  background: #eae8df;
 
   border-radius: 10px;
 `;
 
-const TextHolderHeading = styled.h3``;
+const TextHolderHeading = styled.h3`
+margin-bottom: 0px;
+`;
 const DairyHeading = styled.h3`
   margin-top: 0px;
   font-size: 30px;
@@ -125,7 +133,7 @@ const DairyHeading = styled.h3`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: green;
+  color: #459343;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -134,7 +142,7 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: ghostwhite;
+  background: #eae8df;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -142,7 +150,8 @@ const TextHolderGroup2 = styled.div`
   min-width: calc(100% / 5 - 60px);
   max-width: calc(100% / 5 - 60px);
   @media (max-width: 425px) {
-    min-width: calc(100% / 2 - 60px);
+    min-width: calc(100% / 2 - 50px);
+    padding: 10px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
@@ -157,8 +166,8 @@ const GalleryImage = styled.img`
 `;
 
 const GalleryImageHolder = styled.div`
-  max-width: calc(100% / 3 - 20px);
-  margin: 10px;
+  max-width: calc(100% / 3 - 30px);
+  margin: 15px;
   border-radius: 10px;
   @media (max-width: 425px) {
     max-width: unset;
@@ -207,7 +216,7 @@ const NotesInner = styled.div`
 `;
 
 const NotesInnerClose = styled.div`
-  background: #dad7cd;
+  background: #d6d0bb;
   padding: 10px 15px;
   display: flex;
   border-radius: 10px 10px 0px 0px;
@@ -239,7 +248,7 @@ const Heading = styled.h4`
   &::before {
     content: "";
     display: block;
-    background: green;
+    background: #00b500;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -247,7 +256,7 @@ const Heading = styled.h4`
   &::after {
     content: "";
     display: block;
-    background: green;
+    background: #00b500;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -263,14 +272,14 @@ const HeadingCta = styled.div`
 `;
 
 const HeadingCtaButton = styled.button`
-  padding: 15px 30px;
+  padding: 10px 30px;
 
   width: fit-content;
 
   border: none;
-  background: #588157;
+  background: #459343;
   color: white;
-  border-radius: 5px;
+  border-radius: 300px;
 `;
 
 const TextBox = styled.textarea`
@@ -283,6 +292,7 @@ const TextBox = styled.textarea`
   border-radius: 0px 0px 10px 10px;
   outline: none;
   border: none;
+  background: #eae8df;
 `;
 
 const NoData = styled.div`

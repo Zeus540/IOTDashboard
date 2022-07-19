@@ -75,11 +75,11 @@ body::-webkit-scrollbar-track {
 
 /* Handle */
 body::-webkit-scrollbar-thumb {
-  background: green;
+  background: #459343;
 border-radius: 50px;
 }
 
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
-  background: green;
+  background: #459343;
 }

@@ -20,7 +20,7 @@ justify-content: center;
 const RootInner = styled.div`
 width:380px;
 align-self: center;
-background: #DAD7CD;
+background: #d6d0bb;
 padding: 20px;
 border-radius: 10px;
 @media(max-width:425px){
@@ -44,7 +44,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:green;
+color:#459343;
 font-weight:bold;
 `;
 const Input = styled(Field)`
@@ -66,7 +66,7 @@ padding: 15px 50px;
 width: fit-content;
 margin-top: 20px;
 border:none;
-background:#588157;
+background:#459343;
 color:white;
 border-radius:5px;
 `;

@@ -16,7 +16,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 10px;
   width: 100%;
-  background: #DAD7CD;
+  background: #d6d0bb;
   padding: 20px;
   @media(max-width:425px){
     margin: 16px;
@@ -44,7 +44,7 @@ display: flex;
 
 const Diary = styled.div`
 
-background: ghostwhite;
+background: #eae8df;
 width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 10px;
@@ -80,7 +80,7 @@ font-size: 12px;
 display: block;
 border-radius: 50px;
 color: white;
-background:#588157;
+background:#459343;
 
 `;
 

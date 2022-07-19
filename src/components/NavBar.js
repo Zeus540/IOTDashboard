@@ -35,7 +35,7 @@ const MenuLink = styled(NavLink)`
   color:white;
   text-decoration:none;
   &:hover{
-    border-bottom:4px solid green
+    border-bottom:4px solid #459343
   }
 `;
 const LogOut = styled.p`
@@ -44,7 +44,7 @@ const LogOut = styled.p`
   border-bottom:2px solid transparent;
   color:white;
   &:hover{
-    border-bottom:2px solid green
+    border-bottom:2px solid #459343
   }
 `;
 const Button = styled.button`
@@ -52,7 +52,7 @@ padding: 15px 30px;
 width: fit-content;
 margin: 20px;
 border:none;
-background:#588157;
+background:#459343;
 color:white;
 border-radius:5px;
 `;
