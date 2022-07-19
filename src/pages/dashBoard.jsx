@@ -216,7 +216,8 @@ const NotesInner = styled.div`
 `;
 
 const NotesInnerClose = styled.div`
-  background: #d6d0bb;
+  background: #344e41;
+  color:white;
   padding: 10px 15px;
   display: flex;
   border-radius: 10px 10px 0px 0px;
@@ -227,6 +228,7 @@ const NotesInnerClose = styled.div`
 
 const NotesClose = styled.div`
   font-size: 22px;
+  color:#BC4749;
   font-weight: bold;
 `;
 

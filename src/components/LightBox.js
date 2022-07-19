@@ -2,7 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 
 const LightBoxInnerClose = styled.div`
-  background: #d6d0bb;
+  background: #344e41;
+  color:white;
   padding: 10px 15px;
   display: flex;
   border-radius: 10px 10px 0px 0px;
@@ -18,6 +19,7 @@ const LightBoxInnerClose = styled.div`
 `;
 
 const LightBoxClose = styled.div`
+color:#BC4749;
   font-size: 22px;
   font-weight: bold;
   @media(max-width:425px){
