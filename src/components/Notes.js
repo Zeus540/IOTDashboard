@@ -22,6 +22,9 @@ padding-bottom:5px;
 background: #f2f2f2;
 width: 40%;
 border-radius: 10px;
+@media(max-width:425px){
+    width: 90%;
+  }
 `;
 
 const Button = styled.button`
