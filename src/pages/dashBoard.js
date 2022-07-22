@@ -8,6 +8,7 @@ import axios from "axios";
 import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
+import NotesPopUp from "../components/Notes";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -54,14 +55,13 @@ const Flex2 = styled.div`
 `;
 const Flex3 = styled.div``;
 const WeekHolder = styled.div`
- 
   width: fit-content;
   text-align: center;
   border-radius: 5px;
   margin: 5px;
   min-width: 70px;
   background: white;
-  cursor:pointer;
+  cursor: pointer;
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
@@ -111,13 +111,6 @@ const TextHolder = styled.div`
     width: unset;
     padding: 0px;
   }
-`;
-const Notes = styled.div`
-  padding: 20px;
-  height: 100%;
-  background: #f2f2f2;
-
-  border-radius: 10px;
 `;
 
 const TextHolderHeading = styled.h3`
@@ -190,47 +183,6 @@ const GalleryHolderInner = styled.div`
   }
 `;
 
-const NotesHolder = styled.div`
-  padding: 20px;
-  background: #0000008f;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const NotesInner = styled.div`
-  max-height: 100vh;
-  width: 20%;
-  padding-top: 20px;
-  @media (max-width: 425px) {
-    width: 80%;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    width: 50%;
-  }
-`;
-
-const NotesInnerClose = styled.div`
-  background: #459343;
-  color: white;
-  padding: 10px 15px;
-  display: flex;
-  border-radius: 10px 10px 0px 0px;
-  justify-content: space-between;
-  font-size: 18px;
-  align-items: center;
-`;
-
-const NotesClose = styled.div`
-  font-size: 22px;
-  color: #bc4749;
-  font-weight: bold;
-`;
-
 const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
@@ -283,19 +235,6 @@ const HeadingCtaButton = styled.button`
   border-radius: 300px;
 `;
 
-const TextBox = styled.textarea`
-  padding: 15px 0px;
-  width: calc(100% - 1px);
-  height: 100%;
-  min-height: 200px;
-  min-width: calc(100% - 1px);
-  display: block;
-  border-radius: 0px 0px 10px 10px;
-  outline: none;
-  border: none;
-  background: #f2f2f2;
-`;
-
 const NoData = styled.div`
   padding: 15px 0px;
   font-size: 20px;
@@ -317,25 +256,28 @@ const DayDot = styled.div`
   background: #459343;
   border-radius: 50%;
   margin: 0px 5px;
-  cursor:pointer;
+  cursor: pointer;
 `;
+const Notes = styled.div`
+  padding: 20px;
+  height: 100%;
+  background: #f2f2f2;
 
+  border-radius: 10px;
+`;
 const DashBoard = () => {
   const [lightBox, setLightBox] = useState(false);
   const [addNotes, setAddNotes] = useState(false);
-
+  const [daysNotes, setDaysNotes] = useState("");
+  const [diaryData, setDiaryData] = useState("");
   const [lightBoxImg, setLightBoxImg] = useState(Image);
   const [lightBoxData, setLightBoxData] = useState([]);
   const [galleryData, setGalleryData] = useState([]);
   const [days, setDays] = useState([]);
-
   const [activeDiary, setActiveDiary] = useState([]);
-  
   const [activeDiaryData, setActiveDiaryData] = useState([]);
-  const [activeDiaryDataFull, setActiveDiaryDataFull] = useState([]);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
-  const [activeDiaryDay, setActiveDiaryDay] = useState(false);
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
 
@@ -343,7 +285,6 @@ const DashBoard = () => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
     setActiveDiary(filtered);
-   
   }, [diaries]);
 
   useEffect(() => {
@@ -359,32 +300,26 @@ const DashBoard = () => {
       .post("https://api.sweetleaf.co.za/weeks", data)
       .then(function (response) {
         setActiveDiaryWeeks(response.data);
-        let CurrentWeek = response.data[0].WeekId
+        let CurrentWeek = response.data[0].WeekId;
 
         let data = {
           WeekId: CurrentWeek,
         };
 
         axios
-        .post("https://api.sweetleaf.co.za/days", data)
-        .then(function (response) {
-          console.log("days",response.data);
-          setDays(response.data)
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        
+          .post("https://api.sweetleaf.co.za/days", data)
+          .then(function (response) {
+            console.log("days", response.data);
+            setDays(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       })
       .catch(function (error) {
         console.log(error);
       });
-
-
   }, []);
-
-
-
 
   const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
@@ -396,35 +331,44 @@ const DashBoard = () => {
     setAddNotes(!addNotes);
   };
 
-  const handleDay =(days,day)=>{
+  const handleDay = (days, day) => {
+    let preDay = day.DayId;
 
-    let preDay = day.DayId
-    
-   
-    if(day.DayId == preDay){
-      console.log(day.DayId);
+    if (day.DayId == preDay) {
       let data = {
         DiaryId: params?.id,
         DayId: day.DayId,
         WeekId: day.WeekId,
-      }
-  
-      axios
-      .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
-      .then(function (response) {
-        console.log("response",response.data);
-        setActiveDiaryData(response.data.latest)
-        setGalleryData(response.data.Day)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      preDay = ""
-      day.active = true
-    }
-   
+      };
 
-  }
+      setDiaryData(data);
+
+      axios
+        .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+        .then(function (response) {
+          console.log("response", response.data);
+          setActiveDiaryData(response.data.latest);
+          setGalleryData(response.data.Day);
+
+          axios
+            .post("https://api.sweetleaf.co.za/notes/today", data)
+            .then(function (response) {
+           
+              setDaysNotes(response.data.Notes);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      preDay = "";
+      day.active = true;
+    }
+  };
+
+
 
   return (
     <Root>
@@ -432,35 +376,7 @@ const DashBoard = () => {
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
 
-      {addNotes && (
-        <NotesHolder>
-          <NotesInner>
-            <NotesInnerClose>
-              <div>{activeDiaryNotes == "" ? "Add Notes" : "Edit Notes"}</div>
-              <NotesClose
-                onClick={() => {
-                  setAddNotes(false);
-                }}
-              >
-                {" "}
-                X
-              </NotesClose>
-            </NotesInnerClose>
-            <div>
-              <TextBox
-                value={activeDiaryNotes}
-                width="100%"
-                onChange={(e) => {
-                  setActiveDiaryNotes(e.target.value);
-                }}
-              ></TextBox>
-            </div>
-          </NotesInner>
-        </NotesHolder>
-      )}
-
       <Inner>
-
         <IntroHolder>
           <DairyHeading>{activeDiary?.Title}</DairyHeading>
           <TextHeading>Start Date </TextHeading>
@@ -471,17 +387,12 @@ const DashBoard = () => {
           <ImgHolder>
             <ImageMain
               src={
-                activeDiaryData?.Image
-                  ? activeDiaryData?.Image
-                  : PlaceHolder
+                activeDiaryData?.Image ? activeDiaryData?.Image : PlaceHolder
               }
               width="100%"
               height="100%"
               onClick={() => {
-                handleLightBox(
-                  activeDiaryData?.Image,
-                  activeDiaryData
-                );
+                handleLightBox(activeDiaryData?.Image, activeDiaryData);
               }}
             />
           </ImgHolder>
@@ -493,15 +404,24 @@ const DashBoard = () => {
                   handleNotes();
                 }}
               >
-                {activeDiaryData?.Notes == ""
-                  ? "Add Notes"
-                  : "Edit Notes"}
+                {activeDiaryData?.Notes == "" ? "Add Notes" : "Edit Notes"}
               </HeadingCtaButton>
             </HeadingCta>
-            <Notes>{activeDiaryNotes}</Notes>
+            <Notes >{daysNotes}</Notes>
+          
           </TextHolder>
         </Flex>
-
+        {addNotes && (
+              <NotesPopUp
+                setAddNotes={setAddNotes}
+                setDaysNotes={setDaysNotes}
+                daysNotes={daysNotes}
+                diaryDatas={diaryData}
+                
+              >
+                {activeDiaryNotes}
+              </NotesPopUp>
+            )}
         <Heading> Grow Conditions </Heading>
         <Flex2>
           <TextHolderGroup2>
@@ -545,10 +465,7 @@ const DashBoard = () => {
             {activeDiaryData?.Temperature == 0 ? (
               "N/A"
             ) : (
-              <>
-                {activeDiaryData?.Temperature}{" "}
-                &#8451;
-              </>
+              <>{activeDiaryData?.Temperature} &#8451;</>
             )}
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -561,7 +478,6 @@ const DashBoard = () => {
           </TextHolderGroup2>
         </Flex2>
 
-
         <Flex3>
           <Heading>WEEKS</Heading>
 
@@ -570,19 +486,10 @@ const DashBoard = () => {
               <>
                 {activeDiaryWeeks.map((w, index) => {
                   return (
-                    <WeekHolder
-                      onClick={() => {
-                    
-                      }}
-                      key={index}
-                    >
-                     
+                    <WeekHolder onClick={() => {}} key={index}>
                       <WeekHolderText>
-                      <WeekHolderTextSub>
-                          Week
-                        </WeekHolderTextSub>
+                        <WeekHolderTextSub>Week</WeekHolderTextSub>
                         <div>{w.Week}</div>
-                       
                       </WeekHolderText>
                       <WeekHolderHeading>
                         {w.Stage == " " ? "Veg" : w.Stage}
@@ -598,17 +505,22 @@ const DashBoard = () => {
 
           <DayDotHolder>
             {days.map((d, index) => {
-              return <DayDot  key={index} onClick={()=>{handleDay(days,d)}}></DayDot>;
+              return (
+                <DayDot
+                  key={index}
+                  onClick={() => {
+                    handleDay(days, d);
+                  }}
+                ></DayDot>
+              );
             })}
           </DayDotHolder>
-
         </Flex3>
-
 
         <Heading>PHOTOS</Heading>
 
         <GalleryHolderInner>
-          {galleryData.length > 0? (
+          {galleryData.length > 0 ? (
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
                 return (
