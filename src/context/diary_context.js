@@ -10,7 +10,7 @@ export const DiaryProvider = ({ children }) => {
   useEffect(() => {
 
  
-    axios.get('https://api.sweetleaf.co.za/nodemcu/diaries')
+    axios.get('https://api.sweetleaf.co.za/diaries')
     .then(function (response) {
    
       setDiaries(response.data)

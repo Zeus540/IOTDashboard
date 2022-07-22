@@ -44,7 +44,7 @@ display: flex;
 
 const Diary = styled.div`
 
-background: #eae8df;
+background: #f2f2f2;
 width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 10px;

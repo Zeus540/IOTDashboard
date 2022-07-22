@@ -19,7 +19,7 @@ const LightBoxInnerClose = styled.div`
 `;
 
 const LightBoxClose = styled.div`
-color:#BC4749;
+color:#459343;
   font-size: 22px;
   font-weight: bold;
   @media(max-width:425px){

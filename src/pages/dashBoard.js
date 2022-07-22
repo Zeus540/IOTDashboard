@@ -7,7 +7,7 @@ import Image3 from "../assets/seedling.jpg";
 import axios from "axios";
 import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
-import PlaceHolder from '../assets/placeholder.png'
+import PlaceHolder from "../assets/placeholder.png";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -15,7 +15,6 @@ const Root = styled.div`
   justify-content: center;
   @media (max-width: 425px) {
     margin-top: 20px;
- 
   }
 `;
 
@@ -28,7 +27,6 @@ const Inner = styled.div`
   padding: 20px 0px;
   @media (max-width: 425px) {
     margin: 16px;
- 
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 16px;
@@ -37,11 +35,11 @@ const Inner = styled.div`
 
 const IntroHolder = styled.div`
   margin-bottom: 20px;
-  padding:0px 20px;
+  padding: 0px 20px;
 `;
 const Flex = styled.div`
   display: flex;
-  padding:0px 20px;
+  padding: 0px 20px;
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -56,16 +54,18 @@ const Flex2 = styled.div`
 `;
 const Flex3 = styled.div``;
 const WeekHolder = styled.div`
-  border: 1px solid #459343;
+ 
   width: fit-content;
   text-align: center;
   border-radius: 5px;
   margin: 5px;
   min-width: 70px;
   background: white;
+  cursor:pointer;
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
+  border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
   font-size: 12px;
@@ -94,7 +94,6 @@ const ImgHolder = styled.div`
   }
 `;
 const TextHolder = styled.div`
-
   display: flex;
   flex-direction: column;
 
@@ -116,13 +115,13 @@ const TextHolder = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #eae8df;
+  background: #f2f2f2;
 
   border-radius: 10px;
 `;
 
 const TextHolderHeading = styled.h3`
-margin-bottom: 0px;
+  margin-bottom: 0px;
 `;
 const DairyHeading = styled.h3`
   margin-top: 0px;
@@ -142,7 +141,7 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #eae8df;
+  background: #f2f2f2;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -181,7 +180,7 @@ const GalleryImageHolder = styled.div`
 const GalleryHolderInner = styled.div`
   display: flex;
   flex-wrap: wrap;
-  text-align:center;
+  text-align: center;
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -216,8 +215,8 @@ const NotesInner = styled.div`
 `;
 
 const NotesInnerClose = styled.div`
-  background: #344e41;
-  color:white;
+  background: #459343;
+  color: white;
   padding: 10px 15px;
   display: flex;
   border-radius: 10px 10px 0px 0px;
@@ -228,7 +227,7 @@ const NotesInnerClose = styled.div`
 
 const NotesClose = styled.div`
   font-size: 22px;
-  color:#BC4749;
+  color: #bc4749;
   font-weight: bold;
 `;
 
@@ -294,7 +293,7 @@ const TextBox = styled.textarea`
   border-radius: 0px 0px 10px 10px;
   outline: none;
   border: none;
-  background: #eae8df;
+  background: #f2f2f2;
 `;
 
 const NoData = styled.div`
@@ -302,8 +301,23 @@ const NoData = styled.div`
   font-size: 20px;
 `;
 const NoDataHolder = styled.div`
-width: 100%;
-  text-align:center
+  width: 100%;
+  text-align: center;
+`;
+
+const DayDotHolder = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 15px 0px;
+`;
+
+const DayDot = styled.div`
+  width: 10px;
+  height: 10px;
+  background: #459343;
+  border-radius: 50%;
+  margin: 0px 5px;
+  cursor:pointer;
 `;
 
 const DashBoard = () => {
@@ -313,15 +327,24 @@ const DashBoard = () => {
   const [lightBoxImg, setLightBoxImg] = useState(Image);
   const [lightBoxData, setLightBoxData] = useState([]);
   const [galleryData, setGalleryData] = useState([]);
-  
+  const [days, setDays] = useState([]);
+
   const [activeDiary, setActiveDiary] = useState([]);
+  
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const [activeDiaryDataFull, setActiveDiaryDataFull] = useState([]);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
-
+  const [activeDiaryDay, setActiveDiaryDay] = useState(false);
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
+
+  useEffect(() => {
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+
+    setActiveDiary(filtered);
+   
+  }, [diaries]);
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
@@ -333,55 +356,75 @@ const DashBoard = () => {
     };
 
     axios
-      .post("https://api.sweetleaf.co.za/nodemcu/plant_Data", data)
-      .then(function (response) {
-        setActiveDiaryData(response.data);
-        setActiveDiaryDataFull(response.data);
-        setActiveDiaryNotes(response.data[response.data.length - 1]?.Notes);
-
-        let galArr = []
-        
-        for (let index = 0; index < response.data.length; index++) {
-          const element = response.data[index];
-          console.log(element)
-          if(element.Image !== ""){
-            galArr.push(element)
-          }
-            
-        
-        }
-        setGalleryData(galArr)
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    axios
-      .post("https://api.sweetleaf.co.za/nodemcu/weeks", data)
+      .post("https://api.sweetleaf.co.za/weeks", data)
       .then(function (response) {
         setActiveDiaryWeeks(response.data);
+        let CurrentWeek = response.data[0].WeekId
+
+        let data = {
+          WeekId: CurrentWeek,
+        };
+
+        axios
+        .post("https://api.sweetleaf.co.za/days", data)
+        .then(function (response) {
+          console.log("days",response.data);
+          setDays(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [diaries]);
 
-  const handleLightBox = (img,data) => {
+
+  }, []);
+
+
+
+
+  const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
     setLightBoxImg(img);
-    setLightBoxData(data)
+    setLightBoxData(data);
   };
 
   const handleNotes = () => {
     setAddNotes(!addNotes);
   };
 
-  const handleFilter = (w) => {
-    setActiveDiaryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId));
-    console.log(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId))
-    setGalleryData(activeDiaryDataFull.filter((d) => d.WeekId == w.WeekId));
-  };
+  const handleDay =(days,day)=>{
+
+    let preDay = day.DayId
+    
+   
+    if(day.DayId == preDay){
+      console.log(day.DayId);
+      let data = {
+        DiaryId: params?.id,
+        DayId: day.DayId,
+        WeekId: day.WeekId,
+      }
+  
+      axios
+      .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+      .then(function (response) {
+        console.log("response",response.data);
+        setActiveDiaryData(response.data.latest)
+        setGalleryData(response.data.Day)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      preDay = ""
+      day.active = true
+    }
+   
+
+  }
 
   return (
     <Root>
@@ -417,19 +460,28 @@ const DashBoard = () => {
       )}
 
       <Inner>
+
         <IntroHolder>
           <DairyHeading>{activeDiary?.Title}</DairyHeading>
           <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div>
         </IntroHolder>
+
         <Flex>
           <ImgHolder>
             <ImageMain
-              src={activeDiaryData[activeDiaryData.length - 1]?.Image ? activeDiaryData[activeDiaryData.length - 1]?.Image : PlaceHolder}
+              src={
+                activeDiaryData?.Image
+                  ? activeDiaryData?.Image
+                  : PlaceHolder
+              }
               width="100%"
               height="100%"
               onClick={() => {
-                handleLightBox(activeDiaryData[activeDiaryData.length - 1]?.Image,activeDiaryData[activeDiaryData.length - 1]);
+                handleLightBox(
+                  activeDiaryData?.Image,
+                  activeDiaryData
+                );
               }}
             />
           </ImgHolder>
@@ -441,7 +493,7 @@ const DashBoard = () => {
                   handleNotes();
                 }}
               >
-                {activeDiaryData[activeDiaryData.length - 1]?.Notes == ""
+                {activeDiaryData?.Notes == ""
                   ? "Add Notes"
                   : "Edit Notes"}
               </HeadingCtaButton>
@@ -449,6 +501,7 @@ const DashBoard = () => {
             <Notes>{activeDiaryNotes}</Notes>
           </TextHolder>
         </Flex>
+
         <Heading> Grow Conditions </Heading>
         <Flex2>
           <TextHolderGroup2>
@@ -473,77 +526,110 @@ const DashBoard = () => {
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Co2</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Co2 == 0 ? "N/A" :<>{activeDiaryData[activeDiaryData.length - 1]?.Co2} PPM</>} 
+            {activeDiaryData?.Co2 == 0 ? (
+              "N/A"
+            ) : (
+              <>{activeDiaryData?.Co2} PPM</>
+            )}
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Moisture</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Moisture == 0 ? "N/A" :<>{activeDiaryData[activeDiaryData.length - 1]?.Moisture} %</>}
+            {activeDiaryData?.Moisture == 0 ? (
+              "N/A"
+            ) : (
+              <>{activeDiaryData?.Moisture} %</>
+            )}
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Temperature</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Temperature == 0 ? "N/A" : <>{activeDiaryData[activeDiaryData.length - 1]?.Temperature} &#8451;</>}
+            {activeDiaryData?.Temperature == 0 ? (
+              "N/A"
+            ) : (
+              <>
+                {activeDiaryData?.Temperature}{" "}
+                &#8451;
+              </>
+            )}
           </TextHolderGroup2>
           <TextHolderGroup2>
             <TextHeading>Humidity</TextHeading>
-            {activeDiaryData[activeDiaryData.length - 1]?.Humidity == 0 ? "N/A" : <>{activeDiaryData[activeDiaryData.length - 1]?.Humidity} %</>}
+            {activeDiaryData?.Humidity == 0 ? (
+              "N/A"
+            ) : (
+              <>{activeDiaryData?.Humidity} %</>
+            )}
           </TextHolderGroup2>
         </Flex2>
+
+
         <Flex3>
           <Heading>WEEKS</Heading>
 
           <WeekHolderInner>
             {activeDiaryWeeks.length > 0 ? (
-              activeDiaryWeeks.map((w, index) => {
-                return (
-                  <WeekHolder
-                    onClick={() => {
-                      handleFilter(w);
-                    }}
-                    key={index}
-                  >
-                    <WeekHolderHeading>
-                      {w.Stage == " " ? "Veg" : w.Stage}
-                    </WeekHolderHeading>
-                    <WeekHolderText>
-                      <div>{w.Week}</div>
+              <>
+                {activeDiaryWeeks.map((w, index) => {
+                  return (
+                    <WeekHolder
+                      onClick={() => {
+                    
+                      }}
+                      key={index}
+                    >
+                     
+                      <WeekHolderText>
                       <WeekHolderTextSub>
-                        {w.Week > 1 ? "Weeks" : "Week"}{" "}
-                      </WeekHolderTextSub>
-                    </WeekHolderText>
-                  </WeekHolder>
-                );
-              })
+                          Week
+                        </WeekHolderTextSub>
+                        <div>{w.Week}</div>
+                       
+                      </WeekHolderText>
+                      <WeekHolderHeading>
+                        {w.Stage == " " ? "Veg" : w.Stage}
+                      </WeekHolderHeading>
+                    </WeekHolder>
+                  );
+                })}
+              </>
             ) : (
               <NoData>No Data Available</NoData>
             )}
           </WeekHolderInner>
+
+          <DayDotHolder>
+            {days.map((d, index) => {
+              return <DayDot  key={index} onClick={()=>{handleDay(days,d)}}></DayDot>;
+            })}
+          </DayDotHolder>
+
         </Flex3>
+
+
         <Heading>PHOTOS</Heading>
 
         <GalleryHolderInner>
-          {galleryData.length > 0  ? galleryData?.map((img,index)=>{
-            if (img?.Image !== ''){
-              return(
-           
-                <GalleryImageHolder key={index}>
-              <GalleryImage
-                src={img?.Image}
-                width="100%"
-                height="100%"
-                onClick={() => {
-                  handleLightBox(img?.Image,img);
-                }}
-              />
-            </GalleryImageHolder>
-              )
-            }
-          
-          }):
-          <NoDataHolder>
-          <NoData>No Data Available</NoData>
-          </NoDataHolder>
-          }
-          
+          {galleryData.length > 0? (
+            galleryData?.map((img, index) => {
+              if (img?.Image !== "") {
+                return (
+                  <GalleryImageHolder key={index}>
+                    <GalleryImage
+                      src={img?.Image}
+                      width="100%"
+                      height="100%"
+                      onClick={() => {
+                        handleLightBox(img?.Image, img);
+                      }}
+                    />
+                  </GalleryImageHolder>
+                );
+              }
+            })
+          ) : (
+            <NoDataHolder>
+              <NoData>No Data Available</NoData>
+            </NoDataHolder>
+          )}
         </GalleryHolderInner>
       </Inner>
     </Root>
