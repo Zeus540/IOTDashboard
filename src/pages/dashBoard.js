@@ -83,7 +83,7 @@ const WeekHolderTextSub = styled.div`
 `;
 
 const ImgHolder = styled.div`
-  max-width: calc(100% / 3);
+  max-width: calc(100% / 2);
   border-radius: 5px;
   width: 100%;
   @media (max-width: 425px) {
@@ -418,9 +418,7 @@ const DashBoard = () => {
               }
               width="100%"
               height="100%"
-              onClick={() => {
-                handleLightBox(activeDiaryData?.Image, activeDiaryData);
-              }}
+           
             />
           </ImgHolder>
 

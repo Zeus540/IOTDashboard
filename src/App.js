@@ -17,7 +17,7 @@ const Root = styled.div`
   background-color: #f8f8ffc4;
   background-blend-mode: overlay;
   min-height: 100vh;
-
+  min-height: 100vh;
 `;
 
 function App() {

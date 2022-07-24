@@ -12,6 +12,7 @@ position: fixed;
 width: 100%;
 top: 0;
 height: 100vh;
+min-height: 100vh;
 left: 0;
 z-index:50;
 `;
