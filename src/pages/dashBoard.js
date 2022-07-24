@@ -251,12 +251,17 @@ const DayDotHolder = styled.div`
 `;
 
 const DayDot = styled.div`
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: #459343;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+ 
 `;
 const Notes = styled.div`
   padding: 20px;
@@ -299,22 +304,7 @@ const DashBoard = () => {
     axios
       .post("https://api.sweetleaf.co.za/weeks", data)
       .then(function (response) {
-        setActiveDiaryWeeks(response.data);
-        let CurrentWeek = response.data[0].WeekId;
-
-        let data = {
-          WeekId: CurrentWeek,
-        };
-
-        axios
-          .post("https://api.sweetleaf.co.za/days", data)
-          .then(function (response) {
-            console.log("days", response.data);
-            setDays(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
       })
       .catch(function (error) {
         console.log(error);
@@ -329,6 +319,46 @@ const DashBoard = () => {
 
   const handleNotes = () => {
     setAddNotes(!addNotes);
+  };
+
+  const handelGetWeekData = (w) => {
+    let dataw = {
+      WeekId:  w.WeekId,
+    };
+
+    axios
+      .post("https://api.sweetleaf.co.za/days", dataw)
+      .then(function (response) {
+        console.log("days", response.data);
+        setDays(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    let data = {
+      DiaryId: w?.DiaryId,
+      WeekId: w.WeekId,
+    };
+    axios
+         .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+         .then(function (response) {
+           console.log("response", response.data);
+           setActiveDiaryData(response.data.latest);
+          
+           axios
+           .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
+           .then(function (response) {
+             setDaysNotes(response.data.Notes);
+           })
+           .catch(function (error) {
+             console.log(error);
+           });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
   };
 
   const handleDay = (days, day) => {
@@ -353,7 +383,6 @@ const DashBoard = () => {
           axios
             .post("https://api.sweetleaf.co.za/notes/today", data)
             .then(function (response) {
-           
               setDaysNotes(response.data.Notes);
             })
             .catch(function (error) {
@@ -368,8 +397,6 @@ const DashBoard = () => {
     }
   };
 
-
-
   return (
     <Root>
       {lightBox && (
@@ -379,8 +406,8 @@ const DashBoard = () => {
       <Inner>
         <IntroHolder>
           <DairyHeading>{activeDiary?.Title}</DairyHeading>
-          <TextHeading>Start Date </TextHeading>
-          <div>{activeDiary?.Start_Date?.split("T")[0]}</div>
+          {/* <TextHeading>Start Date </TextHeading>
+          <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
 
         <Flex>
@@ -396,6 +423,8 @@ const DashBoard = () => {
               }}
             />
           </ImgHolder>
+
+          {diaryData !== "" && 
           <TextHolder>
             <HeadingCta>
               <TextHolderHeading>Notes</TextHolderHeading>
@@ -407,21 +436,20 @@ const DashBoard = () => {
                 {activeDiaryData?.Notes == "" ? "Add Notes" : "Edit Notes"}
               </HeadingCtaButton>
             </HeadingCta>
-            <Notes >{daysNotes}</Notes>
-          
+            <Notes>{daysNotes}</Notes>
           </TextHolder>
+          }
         </Flex>
         {addNotes && (
-              <NotesPopUp
-                setAddNotes={setAddNotes}
-                setDaysNotes={setDaysNotes}
-                daysNotes={daysNotes}
-                diaryDatas={diaryData}
-                
-              >
-                {activeDiaryNotes}
-              </NotesPopUp>
-            )}
+          <NotesPopUp
+            setAddNotes={setAddNotes}
+            setDaysNotes={setDaysNotes}
+            daysNotes={daysNotes}
+            diaryDatas={diaryData}
+          >
+            {activeDiaryNotes}
+          </NotesPopUp>
+        )}
         <Heading> Grow Conditions </Heading>
         <Flex2>
           <TextHolderGroup2>
@@ -486,7 +514,12 @@ const DashBoard = () => {
               <>
                 {activeDiaryWeeks.map((w, index) => {
                   return (
-                    <WeekHolder onClick={() => {}} key={index}>
+                    <WeekHolder
+                      onClick={() => {
+                        handelGetWeekData(w);
+                      }}
+                      key={index}
+                    >
                       <WeekHolderText>
                         <WeekHolderTextSub>Week</WeekHolderTextSub>
                         <div>{w.Week}</div>
@@ -503,18 +536,21 @@ const DashBoard = () => {
             )}
           </WeekHolderInner>
 
+{days.length > 0  &&
           <DayDotHolder>
             {days.map((d, index) => {
               return (
                 <DayDot
                   key={index}
-                  onClick={() => {
+                  onClick={(e) => {
                     handleDay(days, d);
+                    console.log(e)
                   }}
                 ></DayDot>
               );
             })}
           </DayDotHolder>
+          }
         </Flex3>
 
         <Heading>PHOTOS</Heading>

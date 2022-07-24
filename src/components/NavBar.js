@@ -11,6 +11,7 @@ const Root = styled.div`
   box-shadow: 2px 2px 11px 2px #344e41;
   position: sticky;
     top: 0;
+    z-index:50
 `;
 
 const Inner = styled.div`

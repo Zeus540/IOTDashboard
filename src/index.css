@@ -1,8 +1,18 @@
-body {
+@font-face {
+  font-family: baloonR;
+  src: url("./assets/fonts/BalooChettan2-Regular.ttf");
+}
+@font-face {
+  font-family: baloonB;
+  src: url("./assets/fonts/BalooChettan2-SemiBold.ttf");
+}
+
+h1,p,h3,h2,h4,h6{
+  font-family: baloonB!important;
+}
+body,button {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: baloonR;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

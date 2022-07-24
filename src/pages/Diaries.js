@@ -73,14 +73,14 @@ padding: 15px 15px;
 `;
 
 const Tag = styled.sup`
-width: calc(100% / 4 - 20px);
+
 margin-right: 10px;
 padding: 3px 10px;
-font-size: 12px;
+font-size: 10px;
 display: block;
 border-radius: 50px;
 color: white;
-background:#459343;
+background:#BC4749;
 
 `;
 

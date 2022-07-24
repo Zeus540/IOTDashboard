@@ -13,13 +13,13 @@ width: 100%;
 top: 0;
 height: 100vh;
 left: 0;
-
+z-index:50;
 `;
 
 const Notes = styled.div`
-padding: 20px 0px;
-padding-bottom:5px;
-background: #f2f2f2;
+
+
+background: #d6d0bb;
 width: 40%;
 border-radius: 10px;
 @media(max-width:425px){
@@ -38,15 +38,36 @@ border-radius: 50px;
 
 const TextArea = styled.textarea`
 width: 100%;
-height: 150px;
-padding: 12px 20px;
+height: 350px;
+padding: 20px 20px;
 box-sizing: border-box;
 border: 2px solid #ccc;
 border-radius: 4px;
-background-color: #f8f8f8;
+background-color: #f2f2f2;
 font-size: 16px;
 resize: none;
 `;
+
+const NotesClose = styled.div`
+color:red;
+text-align: end;
+
+  font-size: 22px;
+  font-weight: bold;
+  @media(max-width:425px){
+    font-size: 16px;
+  }
+  @media(min-width:426px) and (max-width:768px){
+    font-size: 16px;
+  }
+`;
+const NotesHeadingHolder = styled.div`
+display: flex;
+align-items: center;
+padding: 10px 20px;
+justify-content: space-between;
+`;
+
 const NotesHolder = (props) => {
 
   const [notes, setNotes] = useState(props.daysNotes)
@@ -68,7 +89,10 @@ const NotesHolder = (props) => {
   return (
   <NotesOutter>
     <Notes>
-     
+      <NotesHeadingHolder>
+      Add Notes
+      <NotesClose onClick={()=>{props.setAddNotes(false)}}>X</NotesClose>
+      </NotesHeadingHolder>
         <TextArea value={notes} onChange={(e)=>{setNotes(e.target.value)}}>
 
         </TextArea>
