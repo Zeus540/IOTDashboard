@@ -9,6 +9,7 @@ import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
+import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 
 const Root = styled.div`
   margin-top: 50px;
@@ -129,11 +130,11 @@ const TextHeading = styled.div`
 `;
 
 const TextHolderGroup2 = styled.div`
-  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+
   background: #f2f2f2;
   padding: 15px 15px;
   line-height: 25px;
@@ -150,6 +151,11 @@ const TextHolderGroup2 = styled.div`
   }
 `;
 
+
+const TextHolderGroup2Inner = styled.div`
+width: 100%;
+  margin:0px 20px;
+`;
 const ImageMain = styled.img`
   border-radius: 10px;
 `;
@@ -249,6 +255,14 @@ const DayDotHolder = styled.div`
   justify-content: center;
   margin: 15px 0px;
 `;
+const DayDotInner = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 15px 10px;
+  flex-direction: column;
+  align-items: center;
+
+`;
 
 const DayDot = styled.div`
   width: 15px;
@@ -322,6 +336,7 @@ const DashBoard = () => {
   };
 
   const handelGetWeekData = (w) => {
+    setGalleryData([]);
     let dataw = {
       WeekId:  w.WeekId,
     };
@@ -451,56 +466,75 @@ const DashBoard = () => {
         <Heading> Grow Conditions </Heading>
         <Flex2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Strain</TextHeading>
             {activeDiary?.Strain}
+            </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Light Schedule</TextHeading>
             {activeDiary?.Light_Schedule}
+            </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Light Type</TextHeading>
             {activeDiary?.Light_Type}
+            </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <img src={IndoorIcon} width='50px'/>
+          <TextHolderGroup2Inner>
             <TextHeading>Room Type</TextHeading>
             {activeDiary?.Room_Type}
+          </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Pot Size</TextHeading>
             {activeDiary?.Pot_Size}
+            </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Co2</TextHeading>
             {activeDiaryData?.Co2 == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Co2} PPM</>
             )}
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Moisture</TextHeading>
             {activeDiaryData?.Moisture == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Moisture} %</>
             )}
+              </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Temperature</TextHeading>
             {activeDiaryData?.Temperature == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Temperature} &#8451;</>
             )}
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Humidity</TextHeading>
             {activeDiaryData?.Humidity == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Humidity} %</>
             )}
+                  </TextHolderGroup2Inner>
           </TextHolderGroup2>
         </Flex2>
 
@@ -538,6 +572,7 @@ const DashBoard = () => {
           <DayDotHolder>
             {days.map((d, index) => {
               return (
+           <DayDotInner>
                 <DayDot
                   key={index}
                   onClick={(e) => {
@@ -545,6 +580,8 @@ const DashBoard = () => {
                     console.log(e)
                   }}
                 ></DayDot>
+                {d.Day.slice(0, 3)}
+           </DayDotInner>
               );
             })}
           </DayDotHolder>
