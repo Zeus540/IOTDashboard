@@ -12,6 +12,19 @@ const SectionFlex = styled.div`
   background-color: #344e41;
   display: flex;
   width: 100%;
+
+
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+
+  }
 `;
 const SectionText = styled.div`
   background-color: #344e41;
@@ -19,14 +32,34 @@ const SectionText = styled.div`
   max-width: 50%;
   width: 100%;
   padding:60px 80px;
+  @media (max-width: 425px) {
+    max-width: unset;
+    width: unset;
+    padding:60px 20px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    max-width: unset;
+    width: unset;
+
+  }
 `;
 const SectionImage = styled.div`
   min-width: 50%;
   max-width: 50%;
   width: 100%;
   background-image: url(${Image});
-  background-size: 100%;
+  background-size: cover;
   height: 60vh;
+  @media (max-width: 425px) {
+    max-width: unset;
+    height: 30vh;
+    width: unset;
+    background-size: 100% cover;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    max-width: unset;
+    background-size: 100% cover;
+  }
 `;
 const Heading = styled.h1`
 color:#A7C957;
@@ -49,19 +82,41 @@ color:white
 const SectionCard = styled.div`
   background-color: #F5F5F5;
   width: 100%;
-  height: 60vh;
+height:400px;
   display: flex;
   justify-content: center;
+  @media (max-width: 425px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height:unset;
+}
+  
+  @media (min-width: 426px) and (max-width: 768px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height:unset;
+  }
 `;
 
 const Card = styled.div`
   background-color: white;
   max-width: calc(100% / 5 - 20px);
   width: 100%;
-  margin:10px;
+  margin:20px;
   margin-top: -20px;
   border-radius: 5px;
   padding: 20px;
+  @media (max-width: 425px) {
+    max-width: unset;
+    width: unset;
+    margin-bottom: 55px;
+}
+  
+  @media (min-width: 426px) and (max-width: 768px) {
+    max-width: unset;
+    width: unset;
+    margin-bottom: 55px;
+  }
 `;
 const MainPage = () => {
   return (
