@@ -10,6 +10,7 @@ const Root = styled.div`
   justify-content: center;
   box-shadow: 2px 2px 11px 2px #344e41;
   position: sticky;
+  padding: 0px 20px;
     top: 0;
     z-index:50;
     border-bottom: 2px solid white;
