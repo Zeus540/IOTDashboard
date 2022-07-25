@@ -275,8 +275,8 @@ const DayDotInner = styled.div`
 `;
 
 const DayDot = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background: #459343;
   border-radius: 50%;
   margin: 0px 5px;
@@ -287,6 +287,18 @@ const DayDot = styled.div`
   }
  
 `;
+const DayDotActive = styled.div`
+  width: 15px;
+  height: 15px;
+  background: #459343;
+  border-radius: 50%;
+  margin: 0px 5px;
+  cursor: pointer;
+ 
+ 
+ 
+`;
+
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
@@ -294,6 +306,16 @@ const Notes = styled.div`
 
   border-radius: 10px;
 `;
+const DayDotOutter = styled.div`
+  
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+ 
+`;
+
 const DashBoard = () => {
   const [lightBox, setLightBox] = useState(false);
   const [addNotes, setAddNotes] = useState(false);
@@ -308,6 +330,7 @@ const DashBoard = () => {
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState([]);
+  const [activeDay, setActiveDay] = useState([]);
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
 
@@ -393,6 +416,8 @@ if(activeWeek !== w){
   };
 
   const handleDay = (days, day) => {
+
+    if(activeDay !== day){
     setGalleryData([]);
     let preDay = day.DayId;
 
@@ -427,6 +452,8 @@ if(activeWeek !== w){
       preDay = "";
       day.active = true;
     }
+    setActiveDay(day)
+  }
   };
 
   return (
@@ -607,14 +634,32 @@ if(activeWeek !== w){
             {days.map((d, index) => {
               return (
            <DayDotInner>
+                 {activeDay !== d ? 
+               <DayDotOutter
+               onClick={(e) => {
+                handleDay(days, d);
+                
+              }}
+               >
                 <DayDot
                   key={index}
-                  onClick={(e) => {
-                    handleDay(days, d);
-                    console.log(e)
-                  }}
+                
                 ></DayDot>
                 {d.Day.slice(0, 3)}
+               </DayDotOutter>
+                :
+                <DayDotOutter
+                onClick={(e) => {
+                  handleDay(days, d);
+                
+                }}
+                >
+                <DayDotActive
+                  key={index}
+                 
+                ></DayDotActive>
+                {d.Day.slice(0, 3)}
+               </DayDotOutter>}
            </DayDotInner>
               );
             })}
