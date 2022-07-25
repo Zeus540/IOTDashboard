@@ -63,6 +63,16 @@ const WeekHolder = styled.div`
   min-width: 70px;
   background: white;
   cursor: pointer;
+  opacity:0.4;
+`;
+const WeekHolderActive = styled.div`
+  width: fit-content;
+  text-align: center;
+  border-radius: 5px;
+  margin: 5px;
+  min-width: 70px;
+  background: white;
+  cursor: pointer;
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
@@ -297,6 +307,7 @@ const DashBoard = () => {
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
+  const [activeWeek, setActiveWeek] = useState([]);
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
 
@@ -336,47 +347,53 @@ const DashBoard = () => {
   };
 
   const handelGetWeekData = (w) => {
-    setGalleryData([]);
-    let dataw = {
-      WeekId:  w.WeekId,
-    };
 
-    axios
-      .post("https://api.sweetleaf.co.za/days", dataw)
-      .then(function (response) {
-        console.log("days", response.data);
-        setDays(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+if(activeWeek !== w){
+  setGalleryData([]);
+  setDiaryData('');
+  let dataw = {
+    WeekId:  w.WeekId,
+  };
 
-    let data = {
-      DiaryId: w?.DiaryId,
-      WeekId: w.WeekId,
-    };
-    axios
-         .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+  axios
+    .post("https://api.sweetleaf.co.za/days", dataw)
+    .then(function (response) {
+      console.log("days", response.data);
+      setDays(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  let data = {
+    DiaryId: w?.DiaryId,
+    WeekId: w.WeekId,
+  };
+  axios
+       .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+       .then(function (response) {
+         console.log("response", response.data);
+         setActiveDiaryData(response.data.latest);
+        
+         axios
+         .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
          .then(function (response) {
-           console.log("response", response.data);
-           setActiveDiaryData(response.data.latest);
-          
-           axios
-           .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
-           .then(function (response) {
-             setDaysNotes(response.data.Notes);
-           })
-           .catch(function (error) {
-             console.log(error);
-           });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
+           setDaysNotes(response.data.Notes);
+         })
+         .catch(function (error) {
+           console.log(error);
+         });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        setActiveWeek(w)
+}
+   
   };
 
   const handleDay = (days, day) => {
+    setGalleryData([]);
     let preDay = day.DayId;
 
     if (day.DayId == preDay) {
@@ -546,6 +563,8 @@ const DashBoard = () => {
               <>
                 {activeDiaryWeeks.map((w, index) => {
                   return (
+                    <>
+                    {activeWeek !== w ? 
                     <WeekHolder
                       onClick={() => {
                         handelGetWeekData(w);
@@ -559,7 +578,22 @@ const DashBoard = () => {
                       <WeekHolderHeading>
                         {w.Stage == " " ? "Veg" : w.Stage}
                       </WeekHolderHeading>
-                    </WeekHolder>
+                    </WeekHolder>:
+                    <WeekHolderActive
+                      onClick={() => {
+                        handelGetWeekData(w);
+                      }}
+                      key={index}
+                    >
+                      <WeekHolderText>
+                        <WeekHolderTextSub>Week</WeekHolderTextSub>
+                        <div>{w.Week}</div>
+                      </WeekHolderText>
+                      <WeekHolderHeading>
+                        {w.Stage == " " ? "Veg" : w.Stage}
+                      </WeekHolderHeading>
+                    </WeekHolderActive>}
+                    </>
                   );
                 })}
               </>

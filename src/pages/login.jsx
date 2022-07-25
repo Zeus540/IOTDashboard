@@ -83,7 +83,7 @@ function Login() {
   const navigate = useNavigate ()
  
   const handleLogin =(values) =>{
-    console.log("asdasd",auth)
+  
     if(values.name == "Admin" && values.password == "Admin"){
       setAuth(true)
       navigate('diaries')

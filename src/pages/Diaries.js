@@ -97,7 +97,7 @@ const Diaries = () => {
    
 
     const handleClick =(d)=>{
-        navigate(`/dashboard/${d.DiaryId}`)
+        navigate(`/diaries/${d.DiaryId}`)
     }
 
   return (

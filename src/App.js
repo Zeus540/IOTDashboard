@@ -17,7 +17,7 @@ const Root = styled.div`
   background-color: #f8f8ffc4;
   background-blend-mode: overlay;
   min-height: 100vh;
-  min-height: 100vh;
+
 `;
 
 function App() {
@@ -37,8 +37,9 @@ function App() {
       
         <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="dashboard/:id" element={<DashBoard />} />
         <Route path="diaries" element={<Diaries />} />
+        <Route path="diaries/:id" element={<DashBoard />} />
+
       </Routes>
       </DiaryProvider>
       </AuthProvider>
