@@ -86,7 +86,7 @@ function Login() {
   
     if(values.name == "Admin" && values.password == "Admin"){
       setAuth(true)
-      navigate('diaries')
+      navigate('/diaries')
       
     }
 

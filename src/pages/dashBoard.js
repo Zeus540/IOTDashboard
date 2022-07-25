@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Image from "../assets/imagesrsadere.png";
 import Image2 from "../assets/imagesrsaderes.png";
 import Image3 from "../assets/seedling.jpg";
@@ -36,9 +36,22 @@ const Inner = styled.div`
 `;
 
 const IntroHolder = styled.div`
-  margin-bottom: 20px;
-  padding: 0px 20px;
+  margin-bottom: 0px;
+  padding: 0px 0px;
 `;
+const RightFlex = styled.div`
+  margin-bottom: 0px;
+  padding: 0px 0px;
+  margin-left: 30px;
+  width: 100%;
+  @media (max-width: 425px) {
+    margin-left: 0px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin-left: 0px
+  }
+`;
+
 const Flex = styled.div`
   display: flex;
   padding: 0px 20px;
@@ -59,20 +72,26 @@ const WeekHolder = styled.div`
   width: fit-content;
   text-align: center;
   border-radius: 5px;
-  margin: 5px;
+  margin: 5px 10px;
   min-width: 70px;
   background: white;
   cursor: pointer;
   opacity:0.4;
+  &:hover {
+    opacity: 1;
+ 
+  }
 `;
 const WeekHolderActive = styled.div`
   width: fit-content;
   text-align: center;
   border-radius: 5px;
-  margin: 5px;
+  margin: 5px 10px;
   min-width: 70px;
   background: white;
   cursor: pointer;
+  transform: scale(1.1);
+  
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
@@ -94,7 +113,7 @@ const WeekHolderTextSub = styled.div`
 `;
 
 const ImgHolder = styled.div`
-  max-width: calc(100% / 2);
+  max-width: calc(100% / 2.5);
   border-radius: 5px;
   width: 100%;
   @media (max-width: 425px) {
@@ -107,20 +126,23 @@ const ImgHolder = styled.div`
 const TextHolder = styled.div`
   display: flex;
   flex-direction: column;
+   min-height: 195px; 
 
   width: 100%;
 
-  margin-left: 30px;
-  border-radius: 10px;
+  
+  border-radius: 5px;
   @media (max-width: 425px) {
     margin-left: 0px;
     width: unset;
     padding: 0px;
+    min-height: unset; 
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin-left: 0px;
     width: unset;
     padding: 0px;
+    min-height: unset; 
   }
 `;
 
@@ -130,7 +152,7 @@ const TextHolderHeading = styled.h3`
 const DairyHeading = styled.h3`
   margin-top: 0px;
   font-size: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 `;
 
 const TextHeading = styled.div`
@@ -149,7 +171,7 @@ const TextHolderGroup2 = styled.div`
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
-  border-radius: 10px;
+  border-radius: 5px;
   min-width: calc(100% / 5 - 60px);
   max-width: calc(100% / 5 - 60px);
   @media (max-width: 425px) {
@@ -167,16 +189,18 @@ width: 100%;
   margin:0px 20px;
 `;
 const ImageMain = styled.img`
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 const GalleryImage = styled.img`
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 
 const GalleryImageHolder = styled.div`
   max-width: calc(100% / 3 - 30px);
   margin: 15px;
-  border-radius: 10px;
+  border-radius: 5px;
+  position: relative;
+  cursor:zoom-in;
   @media (max-width: 425px) {
     max-width: unset;
   }
@@ -211,8 +235,8 @@ const Heading = styled.h4`
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-bottom: 20px;
-  margin-top: 40px;
+  margin-bottom: 10px;
+  margin-top: 30px;
   align-items: center;
   &::before {
     content: "";
@@ -238,6 +262,7 @@ const HeadingCta = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 0px;
+  margin-top:0px;
 `;
 
 const HeadingCtaButton = styled.button`
@@ -284,19 +309,29 @@ const DayDot = styled.div`
   opacity: 0.5;
   &:hover {
     opacity: 1;
+ 
   }
  
 `;
+
+const fadeIn = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.4);
+  }
+`
 const DayDotActive = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background: #459343;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
+  transform: scale(1.4);
  
- 
- 
+  animation: 0.5s ${fadeIn} ease-out;
 `;
 
 const Notes = styled.div`
@@ -304,7 +339,7 @@ const Notes = styled.div`
   height: 100%;
   background: #f2f2f2;
 
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 const DayDotOutter = styled.div`
   
@@ -314,6 +349,20 @@ const DayDotOutter = styled.div`
   align-items: center;
  
  
+`;
+const GalleryImageOverlay = styled.div`
+  
+  cursor: pointer;
+
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  z-index: 40;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px 0px 5px;
+  background: #459343;
 `;
 
 const DashBoard = () => {
@@ -456,6 +505,11 @@ if(activeWeek !== w){
   }
   };
 
+  const LookUpDay =(img)=>{
+let DayFound = days.filter((d)=> d.DayId == img.DayId)[0]
+img.Day = DayFound.Day
+    console.log("DayFound",DayFound.Day);
+  }
   return (
     <Root>
       {lightBox && (
@@ -463,11 +517,7 @@ if(activeWeek !== w){
       )}
 
       <Inner>
-        <IntroHolder>
-          <DairyHeading>{activeDiary?.Title}</DairyHeading>
-          {/* <TextHeading>Start Date </TextHeading>
-          <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
-        </IntroHolder>
+      
 
         <Flex>
           <ImgHolder>
@@ -480,9 +530,18 @@ if(activeWeek !== w){
            
             />
           </ImgHolder>
-
+        
+        <RightFlex>
+          <IntroHolder>
+                <sub>Title</sub>
+          <DairyHeading>{activeDiary?.Title}</DairyHeading>
+          
+          {/* <TextHeading>Start Date </TextHeading>
+          <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
+        </IntroHolder>
           {diaryData !== "" && 
           <TextHolder>
+           
             <HeadingCta>
               <TextHolderHeading>Notes</TextHolderHeading>
               <HeadingCtaButton
@@ -496,6 +555,7 @@ if(activeWeek !== w){
             <Notes>{daysNotes}</Notes>
           </TextHolder>
           }
+          </RightFlex>
         </Flex>
         {addNotes && (
           <NotesPopUp
@@ -610,7 +670,7 @@ if(activeWeek !== w){
                       onClick={() => {
                         handelGetWeekData(w);
                       }}
-                      key={index}
+                      key={w.Week + 1}
                     >
                       <WeekHolderText>
                         <WeekHolderTextSub>Week</WeekHolderTextSub>
@@ -633,7 +693,7 @@ if(activeWeek !== w){
           <DayDotHolder>
             {days.map((d, index) => {
               return (
-           <DayDotInner>
+           <DayDotInner   key={index}>
                  {activeDay !== d ? 
                <DayDotOutter
                onClick={(e) => {
@@ -642,7 +702,7 @@ if(activeWeek !== w){
               }}
                >
                 <DayDot
-                  key={index}
+                
                 
                 ></DayDot>
                 {d.Day.slice(0, 3)}
@@ -683,6 +743,11 @@ if(activeWeek !== w){
                         handleLightBox(img?.Image, img);
                       }}
                     />
+                    <GalleryImageOverlay>
+                      {/* {LookUpDay(img)} */}
+                      {img?.Time}
+                      {/* {img?.Day} */}
+                    </GalleryImageOverlay>
                   </GalleryImageHolder>
                 );
               }

@@ -11,7 +11,8 @@ const Root = styled.div`
   box-shadow: 2px 2px 11px 2px #344e41;
   position: sticky;
     top: 0;
-    z-index:50
+    z-index:50;
+    border-bottom: 2px solid white;
 `;
 
 const Inner = styled.div`
@@ -39,6 +40,11 @@ const MenuLink = styled(NavLink)`
     border-bottom:4px solid #459343
   }
 `;
+const MenuLinklogo = styled(NavLink)`
+  margin: 0px 0px;
+ 
+`;
+
 const LogOut = styled.p`
   margin: 0px 0px;
   padding:30px 30px;
@@ -65,9 +71,11 @@ const NavBar = () => {
   return (
     <Root>
       <Inner>
+      <MenuLinklogo to="/">
         <LogoHolder>
           <img src={Logo} width="100%" />
         </LogoHolder>
+        </MenuLinklogo>
         <LinkHolder>
          {auth && 
          <>

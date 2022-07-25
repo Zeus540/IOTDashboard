@@ -2,15 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const LightBoxInnerClose = styled.div`
-  background: #344e41;
+  background: #459343;
   color: white;
   padding: 10px 15px;
   display: flex;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 0px 5px 0px 5px;
   justify-content: space-between;
   font-size: 18px;
   justify-content: end;
   align-items: center;
+  position: absolute;
+  right:0px;
   @media (max-width: 425px) {
     font-size: 16px;
   }
@@ -21,7 +23,7 @@ const LightBoxInnerClose = styled.div`
 
 const LightBoxClose = styled.div`
   color: red;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   @media (max-width: 425px) {
     font-size: 16px;
@@ -32,11 +34,11 @@ const LightBoxClose = styled.div`
 `;
 
 const LightBoxImage = styled.img`
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 5px;
 `;
 
 const LightBoxHolder = styled.div`
-background: #000000ab;
+background: #000000bf;
 max-height:100vh;
 min-width:100vw;
 position: fixed;
@@ -44,16 +46,18 @@ z-index: 50;
     top: 0;
     bottom:0;
     display: flex;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
+
+   
 }
 `;
 
 const LightBoxInner = styled.div`
   max-height: 100vh;
   width: 50%;
-  padding-top: 20px;
+  position: relative;
 
   max-width: unset;
   @media (max-width: 425px) {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import DashBoard from './pages/dashBoard';
 import Diaries from './pages/Diaries';
 import Login from './pages/login';
+import MainPage from './pages/MainPage';
 import Back from './assets/back3.jpg'
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Link } from "react-router-dom";
@@ -36,7 +37,9 @@ function App() {
       <NavBar/>
       
         <Routes>
-        <Route path="/" element={<Login />} />
+        
+        <Route path="/" element={<MainPage />} />
+        <Route path="/admin" element={<Login />} />
         <Route path="diaries" element={<Diaries />} />
         <Route path="diaries/:id" element={<DashBoard />} />
 
