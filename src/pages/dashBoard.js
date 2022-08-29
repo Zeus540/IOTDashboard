@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Image from "../assets/imagesrsadere.png";
 import Image2 from "../assets/imagesrsaderes.png";
@@ -10,28 +10,36 @@ import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
+import {useNavigate} from 'react-router-dom'
+import Tabs from "../components/Tabs";
+
+
+
 
 const Root = styled.div`
   margin-top: 50px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   @media (max-width: 425px) {
-    margin-top: 20px;
+    margin: 0px 10px;
+    margin-top: 50px;
+    padding-bottom: 20px;
   }
 `;
 
 const Inner = styled.div`
-  box-shadow: 2px 2px 20px 4px #a9a9a966;
+  box-shadow: 2px 16px 20px 4px #a9a9a966;
   max-width: 1770px;
-  border-radius: 10px;
+  border-radius: 0px 10px 10px 10px;
   width: 100%;
   background: #d6d0bb;
   padding: 20px 0px;
   @media (max-width: 425px) {
-    margin: 16px;
+    margin: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 16px;
+    margin: 0px;
   }
 `;
 
@@ -67,12 +75,13 @@ const Flex2 = styled.div`
 
   flex-wrap: wrap;
 `;
-const Flex3 = styled.div``;
+const Flex3 = styled.div`
+`;
 const WeekHolder = styled.div`
   width: fit-content;
   text-align: center;
   border-radius: 5px;
-  margin: 5px 10px;
+  margin: 10px 10px;
   min-width: 70px;
   background: white;
   cursor: pointer;
@@ -95,6 +104,14 @@ const WeekHolderActive = styled.div`
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
+  border-radius: 0px 0px 5px 5px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+`;
+
+const WeekHolderHeadingBlue = styled.div`
+  background: #5db7ff;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -226,6 +243,7 @@ const GalleryHolderInner = styled.div`
 const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap:wrap;
 `;
 
 const Heading = styled.h4`
@@ -365,7 +383,45 @@ const GalleryImageOverlay = styled.div`
   background: #459343;
 `;
 
+const TabsHolder = styled.div`
+  
+align-items: end;
+  display: flex;
+  max-width: 1770px;
+  width: 100%;
+
+`;
+const TabActive = styled.div`
+
+  cursor: pointer;
+  padding: 10px 20px;
+  background: #d6d0bb;
+  border-radius: 5px 5px 0px 0px;
+
+`;
+const TabInActive = styled.div`
+
+  cursor: pointer;
+  background: #344e41;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+  padding: 5px 20px;
+  height: fit-content;
+
+`;
 const DashBoard = () => {
+
+  let tabs = [
+    {
+      tabName:'Overview',
+      active:false
+    },
+    {
+      tabName:'Stats',
+      active:false
+    }
+  ]
+
   const [lightBox, setLightBox] = useState(false);
   const [addNotes, setAddNotes] = useState(false);
   const [daysNotes, setDaysNotes] = useState("");
@@ -382,6 +438,10 @@ const DashBoard = () => {
   const [activeDay, setActiveDay] = useState([]);
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
+  const [tabList, setTabList] = useState(tabs)
+  const location =useLocation()
+    
+  const navigate = useNavigate ()
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
@@ -505,17 +565,17 @@ if(activeWeek !== w){
   }
   };
 
-  const LookUpDay =(img)=>{
-let DayFound = days.filter((d)=> d.DayId == img.DayId)[0]
-img.Day = DayFound.Day
-    console.log("DayFound",DayFound.Day);
-  }
+  
   return (
+
+  
     <Root>
-      {lightBox && (
+    
+    {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
-
+      
+    <Tabs/>
       <Inner>
       
 
@@ -659,12 +719,21 @@ img.Day = DayFound.Day
                       key={index}
                     >
                       <WeekHolderText>
+                        
                         <WeekHolderTextSub>Week</WeekHolderTextSub>
-                        <div>{w.Week}</div>
+                        <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
                       </WeekHolderText>
-                      <WeekHolderHeading>
-                        {w.Stage == " " ? "Veg" : w.Stage}
+
+                    {w.Stage.toUpperCase() == "GER" ? 
+                    <WeekHolderHeadingBlue>
+                   {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingBlue>
+                    :  
+                    <WeekHolderHeading>
+                        {w.Stage == " " ? "VEG" : w.Stage.toUpperCase()}
                       </WeekHolderHeading>
+                      }
+
                     </WeekHolder>:
                     <WeekHolderActive
                       onClick={() => {
@@ -672,13 +741,20 @@ img.Day = DayFound.Day
                       }}
                       key={w.Week + 1}
                     >
-                      <WeekHolderText>
+                   <WeekHolderText>
+                        
                         <WeekHolderTextSub>Week</WeekHolderTextSub>
-                        <div>{w.Week}</div>
+                        <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
                       </WeekHolderText>
-                      <WeekHolderHeading>
-                        {w.Stage == " " ? "Veg" : w.Stage}
+                      {w.Stage.toUpperCase() == "GER" ? 
+                    <WeekHolderHeadingBlue>
+                   {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingBlue>
+                    :  
+                    <WeekHolderHeading>
+                        {w.Stage == " " ? "VEG" : w.Stage.toUpperCase()}
                       </WeekHolderHeading>
+                      }
                     </WeekHolderActive>}
                     </>
                   );
@@ -760,6 +836,7 @@ img.Day = DayFound.Day
         </GalleryHolderInner>
       </Inner>
     </Root>
+   
   );
 };
 

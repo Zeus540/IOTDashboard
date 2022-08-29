@@ -11,6 +11,7 @@ import styled from "styled-components";
 import NavBar from './components/NavBar';
 import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
+import Stats from './pages/stats';
 
 const Root = styled.div`
   background-image: url(${Back});
@@ -40,9 +41,10 @@ function App() {
         
         <Route path="/" element={<MainPage />} />
         <Route path="/admin" element={<Login />} />
+       
         <Route path="diaries" element={<Diaries />} />
-        <Route path="diaries/:id" element={<DashBoard />} />
-
+        <Route path="overview/:id" element={<DashBoard />} />
+        <Route path="stats/:id" element={<Stats />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>
