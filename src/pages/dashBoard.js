@@ -86,6 +86,9 @@ const WeekHolder = styled.div`
   background: white;
   cursor: pointer;
   opacity:0.4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &:hover {
     opacity: 1;
  
@@ -100,7 +103,9 @@ const WeekHolderActive = styled.div`
   background: white;
   cursor: pointer;
   transform: scale(1.1);
-  
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 const WeekHolderHeading = styled.div`
   background: #459343;
