@@ -23,8 +23,8 @@ const UploadImage = () => {
     const videoConstraints = {
         width: 1280,
         height: 720,
-        // facingMode: { exact: "environment" },
-        facingMode: "user",
+       facingMode: { exact: "environment" },
+         // facingMode: "user",
       };
 
   const webcamRef = React.useRef(null);
