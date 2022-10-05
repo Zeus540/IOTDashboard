@@ -22,7 +22,7 @@ const Notes = styled.div`
 
 background: #d6d0bb;
 width: 40%;
-border-radius: 10px;
+border-radius: 5px;
 @media(max-width:425px){
     width: 90%;
   }

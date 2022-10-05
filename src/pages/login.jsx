@@ -22,7 +22,7 @@ width:380px;
 align-self: center;
 background: #d6d0bb;
 padding: 20px;
-border-radius: 10px;
+border-radius: 5px;
 @media(max-width:425px){
   margin: 16px;
 padding: 20px;

@@ -14,7 +14,7 @@ const Root = styled.div`
 const Inner = styled.div`
   box-shadow: 2px 2px 20px 4px #a9a9a966;
   max-width: 1770px;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100%;
   background: #d6d0bb;
   padding: 20px;
@@ -39,7 +39,7 @@ const MainHeading = styled.div`
 
 const DiaryHolder = styled.div`
 display: flex;
-
+flex-wrap: wrap;
 `;
 
 const Diary = styled.div`
@@ -47,25 +47,29 @@ const Diary = styled.div`
 background: #f2f2f2;
 width: calc(100% / 4 - 20px);
 margin: 10px;
-border-radius: 10px;
-@media(max-width:425px){
-  width: unset;
-  margin: unset;
+border-radius: 5px;
+@media(max-width:619px){
+  width: calc(100% / 1 );
+  margin: 10px 0px;
 }
-@media(min-width:426px) and (max-width:768px){
-  width: unset;
+@media(min-width:620px) and (max-width:699px){
+  width: calc(100% / 2 - 20px);
+  margin: 10px ;
+}
+@media(min-width:700px) and (max-width:940px){
+  width: calc(100% / 2 - 20px);
 }
 
 `;
 
 const DiaryImageHolder = styled.div`
 
-border-radius: 10px 10px 0px 0px;
+border-radius: 5px 5px 0px 0px;
 `;
 
 const DiaryImage = styled.img`
 
-border-radius: 10px 10px 0px 0px;
+border-radius: 5px 5px 0px 0px;
 `;
 const DiaryTextHolder = styled.div`
 padding: 15px 15px;
