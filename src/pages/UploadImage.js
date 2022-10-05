@@ -39,6 +39,7 @@ const UploadImage = () => {
 
   return (
     <Root>
+        Use Our Ai to Analyze Your Plants Healty
       <>
         <Webcam
           audio={false}

@@ -139,7 +139,7 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
               <MenuLink to="/diaries">Diaries</MenuLink>
-              <MenuLink to="/upload">Analyzer</MenuLink>
+              <MenuLink to="/analyzer">Analyzer</MenuLink>
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
               {/* <Button>Log Out</Button> */}
             </>
@@ -170,7 +170,7 @@ const NavBar = () => {
                     </FlexLink>
                     </MenuLinkMobile>
 
-                  <MenuLinkMobile to="/upload"  onClick={() => {setMobileMenu(false);}}>
+                  <MenuLinkMobile to="/analyzer"  onClick={() => {setMobileMenu(false);}}>
                     <FlexLink>
                       <Icon>
                         <img src={Chip} width="100%" />

@@ -46,7 +46,7 @@ function App() {
         <Route path="diaries" element={<Diaries />} />
         <Route path="overview/:id" element={<DashBoard />} />
         <Route path="stats/:id" element={<Stats />} />
-        <Route path="upload" element={<UploadImage />} />
+        <Route path="analyzer" element={<UploadImage />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>
