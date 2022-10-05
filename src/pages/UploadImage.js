@@ -21,8 +21,8 @@ const GalleryHolder = styled.div`
 const UploadImage = () => {
 
     const videoConstraints = {
-        width: 1280,
-        height: 720,
+        width: 1920,
+        height: 1080,
        facingMode: { exact: "environment" },
          // facingMode: "user",
       };
@@ -43,7 +43,7 @@ const UploadImage = () => {
       <>
         <Webcam
           audio={false}
-          height="50vh"
+       
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           width="100%"
