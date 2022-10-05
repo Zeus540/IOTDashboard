@@ -43,7 +43,7 @@ const UploadImage = () => {
       <>
         <Webcam
           audio={false}
-          height="100%"
+          height="50vh"
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           width="100%"
