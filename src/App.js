@@ -12,6 +12,7 @@ import NavBar from './components/NavBar';
 import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
 import Stats from './pages/stats';
+import UploadImage from './pages/UploadImage';
 
 const Root = styled.div`
   background-image: url(${Back});
@@ -45,6 +46,7 @@ function App() {
         <Route path="diaries" element={<Diaries />} />
         <Route path="overview/:id" element={<DashBoard />} />
         <Route path="stats/:id" element={<Stats />} />
+        <Route path="upload" element={<UploadImage />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>
