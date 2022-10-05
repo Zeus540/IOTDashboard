@@ -31,7 +31,7 @@ const Root = styled.div`
 const Inner = styled.div`
   box-shadow: 2px 16px 20px 4px #a9a9a966;
   max-width: 1770px;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px 5px 5px 5px;
   width: 100%;
   background: #d6d0bb;
   padding: 20px 0px;
