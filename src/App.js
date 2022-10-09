@@ -17,7 +17,7 @@ import UploadImage from './pages/UploadImage';
 const Root = styled.div`
   background-image: url(${Back});
   background-size: cover;
-  background-color: #f8f8ffc4;
+  background-color: #272727e0;
   background-blend-mode: overlay;
   min-height: 100vh;
 

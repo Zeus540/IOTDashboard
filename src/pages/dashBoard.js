@@ -19,6 +19,7 @@ import Tabs from "../components/Tabs";
 const Root = styled.div`
   margin-top: 50px;
   display: flex;
+  padding-bottom: 50px;
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
@@ -29,7 +30,6 @@ const Root = styled.div`
 `;
 
 const Inner = styled.div`
-  box-shadow: 2px 16px 20px 4px #a9a9a966;
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
@@ -76,6 +76,7 @@ const Flex2 = styled.div`
   flex-wrap: wrap;
 `;
 const Flex3 = styled.div`
+
 `;
 const WeekHolder = styled.div`
   width: fit-content;
@@ -108,7 +109,7 @@ const WeekHolderActive = styled.div`
     justify-content: space-between;
 `;
 const WeekHolderHeading = styled.div`
-  background: #459343;
+  background: #344e41;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -180,7 +181,7 @@ const DairyHeading = styled.h3`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: #459343;
+  color: #344e41;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -249,6 +250,11 @@ const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap:wrap;
+  width: 40%;
+  margin: 0 auto;
+  @media (min-width: 0px) and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Heading = styled.h4`
@@ -294,7 +300,7 @@ const HeadingCtaButton = styled.button`
   width: fit-content;
 
   border: none;
-  background: #459343;
+  background: #344e41;
   color: white;
   border-radius: 300px;
 `;
@@ -325,7 +331,7 @@ const DayDotInner = styled.div`
 const DayDot = styled.div`
   width: 10px;
   height: 10px;
-  background: #459343;
+  background: #344e41;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -348,7 +354,7 @@ const fadeIn = keyframes`
 const DayDotActive = styled.div`
   width: 10px;
   height: 10px;
-  background: #459343;
+  background: #344e41;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -385,7 +391,7 @@ const GalleryImageOverlay = styled.div`
   color: white;
   padding: 5px 10px;
   border-radius: 5px 0px 5px;
-  background: #459343;
+  background: #344e41;
 `;
 
 const TabsHolder = styled.div`
@@ -414,6 +420,10 @@ const TabInActive = styled.div`
   height: fit-content;
 
 `;
+const Helper = styled.p`
+text-align:center
+`;
+
 const DashBoard = () => {
 
   let tabs = [
@@ -710,6 +720,7 @@ if(activeWeek !== w){
         <Flex3>
           <Heading>WEEKS</Heading>
 
+{days.length == 0 && <Helper>Select a Week</Helper>}
           <WeekHolderInner>
             {activeDiaryWeeks.length > 0 ? (
               <>
@@ -770,6 +781,7 @@ if(activeWeek !== w){
             )}
           </WeekHolderInner>
 
+          {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}
 {days.length > 0  &&
           <DayDotHolder>
             {days.map((d, index) => {

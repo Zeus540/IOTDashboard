@@ -10,7 +10,6 @@ const Root = styled.div`
   background-color: #344e41;
   display: flex;
   justify-content: center;
-  box-shadow: 2px 2px 11px 2px #344e41;
   position: sticky;
   padding: 0px 20px;
   top: 0;
@@ -53,7 +52,7 @@ const MenuLink = styled(NavLink)`
   color: white;
   text-decoration: none;
   &:hover {
-    border-bottom: 4px solid #459343;
+    border-bottom: 4px solid #344e41;
   }
 
 `;
@@ -67,7 +66,7 @@ const MenuLinkMobile = styled(NavLink)`
 
 
   &:hover {
-    border-bottom: 4px solid #459343;
+    border-bottom: 4px solid #344e41;
   }
   &:nth-child(even) {
     background: white;
@@ -84,7 +83,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #459343;
+    border-bottom: 2px solid #344e41;
   }
 `;
 const Button = styled.button`
@@ -92,7 +91,7 @@ const Button = styled.button`
   width: fit-content;
   margin: 20px;
   border: none;
-  background: #459343;
+  background: #344e41;
   color: white;
   border-radius: 5px;
 `;

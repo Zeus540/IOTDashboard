@@ -143,7 +143,7 @@ const MainPage = () => {
       </Card>
       <Card>
         <CardHeading>
-        Pest Control
+        Hourly Updates
         </CardHeading>
         <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae elementum libero. Donec congue, ipsum nec tempus semper, orci tortor porttitor urna, at scelerisque odio dui dictum tortor. Nunc tristique luctus mauris vel imperdiet. 
@@ -151,7 +151,7 @@ const MainPage = () => {
       </Card>
       <Card>
         <CardHeading>
-        Nutrient Tracker
+        Enviroment Tracker
         </CardHeading>
         <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae elementum libero. Donec congue, ipsum nec tempus semper, orci tortor porttitor urna, at scelerisque odio dui dictum tortor. Nunc tristique luctus mauris vel imperdiet. 

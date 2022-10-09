@@ -15,22 +15,23 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin-top: 20px;
+    margin: 0px 10px;
+    margin-top: 50px;
   }
 `;
 
 const Inner = styled.div`
-  box-shadow: 2px 16px 20px 4px #a9a9a966;
+
   max-width: 1770px;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px 5px 5px 5px;
   width: 100%;
   background: #d6d0bb;
   padding: 20px 0px;
   @media (max-width: 425px) {
-    margin: 16px;
+
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 16px;
+
   }
 `;
 

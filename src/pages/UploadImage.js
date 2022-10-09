@@ -6,15 +6,16 @@ import styled from "styled-components";
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-  margin:20px
-  
+  margin-top: 50px;
+  align-items: center;
+  padding-bottom: 50px;
 `;
 
 const Inner = styled.div`
-  box-shadow: 2px 16px 20px 4px #a9a9a966;
+
   max-width: 1770px;
   border-radius: 5px;
-
+width:100%;
   background: #d6d0bb;
   padding: 20px 20px;
   @media (max-width: 425px) {
