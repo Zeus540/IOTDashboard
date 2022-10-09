@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { Formik } from "formik";
+import { TextField } from "@mui/material";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -101,28 +106,25 @@ const Button = styled.button`
 
 const PopUpHolder = styled.div`
   background: #000000ad;
-
+  top: 0;
   position: fixed;
-  bottom: 0px;
+  z-index: 999;
+  min-height: 100vh;
   right: 0px;
-  height: calc(100% - 74px);
+  height: calc(100vh - 74px);
   left: 0px;
   transform: translateY(${(props) => props.popUpOffset}%);
-  transition:all 0.5s ease
+  transition: all 0.5s ease;
 `;
 const PopUpHolderInner = styled.div`
-display: flex;
-height: 100%;
-justify-content: center;
-align-items: center;
-
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 
 `;
-const PopUpHolderInnerForm = styled.div`
- 
-  padding: 10px 20px;
-  background:white;
-`;
+
 const ClosePopUpHolder = styled.div`
   text-align: center;
   padding: 10px;
@@ -130,21 +132,68 @@ const ClosePopUpHolder = styled.div`
   color: #b62a2a;
   cursor: pointer;
 `;
-const ClosePopUpHolderText = styled.p`
-text-align: center;
-padding: 5px;
-font-size: 30px;
-margin: 0 auto;
-color: #b62a2a;
-width: fit-content;
-background: white;
-width: 40px;
+const Input = styled(TextField)`
+margin-bottom: 20px;
+width: 100%;
 `;
+const FormHeading = styled.h1`
+margin: 0px;
+
+color:white
+`;
+const FormHeadingGroup = styled.div`
+margin: 0px;
+background:#344e41;
+color:white;
+padding: 20px;
+`;
+
+const FormSub = styled.p`
+margin: 0px;
+
+color:white
+`;
+
+const ClosePopUpHolderText = styled.p`
+  text-align: center;
+
+  font-size: 30px;
+  margin: 0 auto;
+  cursor: pointer;
+
+  left: 0;
+  color: #a5a5a5;
+  width: 100%;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.2);
+    color: #b62a2a;
+  }
+`;
+const Form = styled.form`
+overflow: auto;
+max-height: 47vh;
+
+background: white;
+border-radius: 5px;
+width:20%;
+overflow:auto;
+
+@media (max-width: 768px) {
+  width: 80%;
+}
+`;
+const InputHolder = styled.div`
+padding: 20px;
+
+`;
+
+
 
 const Diaries = () => {
   const { diaries } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState(diaries);
-  const [popUpOffset, setPopUpOffset] = useState(100);
+  const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
 
   const handleClick = (d) => {
@@ -152,33 +201,156 @@ const Diaries = () => {
   };
 
   const handleAddPopUp = (d) => {
-    if (popUpOffset == 100) {
+    if (popUpOffset == -100) {
       setPopUpOffset(0);
     } else {
-      setPopUpOffset(100);
+      setPopUpOffset(-100);
     }
   };
 
   return (
-    <Root>
 
+    <>
       <PopUpHolder popUpOffset={popUpOffset}>
-        <ClosePopUpHolder  onClick={() => {
-              handleAddPopUp();
-            }}>
-          <ClosePopUpHolderText> X</ClosePopUpHolderText>
-        </ClosePopUpHolder>
-        <PopUpHolderInner>
+    
 
-          <PopUpHolderInnerForm>
-<div>Lets Get Setup</div>
-<div>
-<input type="text"></input>
-</div>
-          </PopUpHolderInnerForm>
-        </PopUpHolderInner>
-      </PopUpHolder>
+    <PopUpHolderInner>
 
+    <ClosePopUpHolder
+      onClick={() => {
+        handleAddPopUp();
+      }}
+    >
+      <ClosePopUpHolderText>
+      
+        <FontAwesomeIcon icon={faTimesCircle} />
+      </ClosePopUpHolderText>
+    </ClosePopUpHolder>
+      
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validate={(values) => {
+              const errors = {};
+              if (!values.email) {
+                errors.email = "Required";
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                  values.email
+                )
+              ) {
+                errors.email = "Invalid email address";
+              }
+              return errors;
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                setSubmitting(false);
+              }, 400);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+              /* and other goodies */
+            }) => (
+
+              <Form onSubmit={handleSubmit}>
+                 
+   
+              <FormHeadingGroup>
+              <FormHeading>Lets Get Setup</FormHeading>
+              <FormSub>Fill out the form below</FormSub>
+                </FormHeadingGroup>
+                <InputHolder>
+             
+                <div>
+                  <Input
+                    id="title"
+                    label="Title"
+                    type="title"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                
+                <div>
+                  <Input
+                    id="roomType"
+                    label="Room Type"
+                    type="roomType"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    id="potSize"
+                    label="Pot Size"
+                    type="potSize"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    id="strain"
+                    label="Strain"
+                    type="strain"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    id="lightSchedule"
+                    label="Light Schedule"
+                    type="lightSchedule"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div>
+                  <Input
+                    id="lightWattage"
+                    label="Light Wattage"
+                    type="lightWattage"
+                    variant="filled"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+             
+
+              
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
+                </Button>
+                </InputHolder>
+              </Form>
+            )}
+          </Formik>
+    
+    </PopUpHolderInner>
+  </PopUpHolder>
+    
+ 
+    <Root>
+    
 
       <Inner>
         <Add>
@@ -222,6 +394,7 @@ const Diaries = () => {
         </DiaryHolder>
       </Inner>
     </Root>
+    </>
   );
 };
 

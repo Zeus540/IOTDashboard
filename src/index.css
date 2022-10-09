@@ -74,22 +74,22 @@ code {
 }
 
 /* width */
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 12px;
 }
 
 /* Track */
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: #ffffff;
 }
 
 /* Handle */
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #344e41;
 border-radius: 50px;
 }
 
 /* Handle on hover */
-body::-webkit-scrollbar-thumb:hover {
+*::-webkit-scrollbar-thumb:hover {
   background: #344e41;
 }
