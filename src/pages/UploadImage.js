@@ -63,7 +63,7 @@ const UploadImage = () => {
     <Root>
         <Inner>
             <MainHeading>
-        Use Our Ai to Analyze Your Plants Healty
+        Use Our Ai to Analyze Your Plants Health
         </MainHeading>
       <>
         <Webcam

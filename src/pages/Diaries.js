@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import styled from "styled-components";
 import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import  faTrash  from "../assets/trash-can-regular.svg";
+
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
+import axios from "axios";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -44,7 +47,7 @@ const DiaryHolder = styled.div`
 `;
 
 const Diary = styled.div`
-  cursor: pointer;
+  
   background: #f2f2f2;
   width: calc(100% / 4 - 20px);
   margin: 10px;
@@ -64,6 +67,7 @@ const Diary = styled.div`
 
 const DiaryImageHolder = styled.div`
   border-radius: 5px 5px 0px 0px;
+  cursor: pointer;
 `;
 
 const DiaryImage = styled.img`
@@ -72,7 +76,12 @@ const DiaryImage = styled.img`
 const DiaryTextHolder = styled.div`
   padding: 15px 15px;
 `;
-
+const DeleteDiary = styled.div`
+cursor:pointer;
+`;
+const DeleteDiarySvg = styled.img`
+color:red;
+`;
 const Tag = styled.sup`
   margin-right: 10px;
   padding: 3px 10px;
@@ -172,7 +181,7 @@ const ClosePopUpHolderText = styled.p`
 `;
 const Form = styled.form`
 overflow: auto;
-max-height: 47vh;
+max-height: 80vh;
 
 background: white;
 border-radius: 5px;
@@ -180,22 +189,31 @@ width:20%;
 overflow:auto;
 
 @media (max-width: 768px) {
-  width: 80%;
+  width: 90%;
 }
 `;
 const InputHolder = styled.div`
 padding: 20px;
 
 `;
-
+const DeleteDiaryHolder = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;  
+`;
 
 
 const Diaries = () => {
-  const { diaries } = useContext(DiaryContext);
+  const { diaries,Update } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState(diaries);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+    Update()
+  }, [])
+  
   const handleClick = (d) => {
     navigate(`/overview/${d.DiaryId}`);
   };
@@ -208,6 +226,47 @@ const Diaries = () => {
     }
   };
 
+
+  const addDiary = (values)=>{
+    console.log("values",values);
+    axios.post('https://api.sweetleaf.co.za/diaries/add',values)
+    .then(function (response) {
+      if(response.data.insertId !== undefined){
+        Update()
+        setPopUpOffset(-100);
+      }
+     
+      console.log("response",response.data.insertId);
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
+ 
+  }
+
+  const deleteDiary = (DiaryId)=>{
+    console.log("DiaryId",DiaryId);
+    let data ={
+      DiaryId:DiaryId
+    }
+    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
+    .then(function (response) {
+      if(response.data.affectedRows > 0){
+        Update()
+        setPopUpOffset(-100);
+      }
+
+     
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
+ 
+  }
+
+  
   return (
 
     <>
@@ -224,27 +283,28 @@ const Diaries = () => {
       <ClosePopUpHolderText>
       
         <FontAwesomeIcon icon={faTimesCircle} />
+
       </ClosePopUpHolderText>
     </ClosePopUpHolder>
       
           <Formik
-            initialValues={{ email: "", password: "" }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.email) {
-                errors.email = "Required";
-              } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                  values.email
-                )
-              ) {
-                errors.email = "Invalid email address";
-              }
-              return errors;
-            }}
+            initialValues={{ title: "", roomType: "" }}
+            // validate={(values) => {
+            //   const errors = {};
+            //   if (!values.email) {
+            //     errors.email = "Required";
+            //   } else if (
+            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+            //       values.email
+            //     )
+            //   ) {
+            //     errors.email = "Invalid email address";
+            //   }
+            //   return errors;
+            // }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
+                addDiary(values)
                 setSubmitting(false);
               }, 400);
             }}
@@ -368,12 +428,12 @@ const Diaries = () => {
           {diaries?.map((d) => {
             return (
               <Diary
-                onClick={() => {
-                  handleClick(d);
-                }}
+                
               >
-                <DiaryImageHolder>
-                  {" "}
+                <DiaryImageHolder onClick={() => {
+                  handleClick(d);
+                }}>
+                 
                   <DiaryImage
                     src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
                     width="100%"
@@ -383,11 +443,17 @@ const Diaries = () => {
                 <DiaryTextHolder>
                   <TagHolder>
                     <Tag> {d?.Strain}</Tag>
-                    <Tag> {d?.Room_Type}</Tag>{" "}
+                    <Tag> {d?.Room_Type}</Tag>
                     <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
                   </TagHolder>
-                  <div>{d?.Title}</div>
+             <DeleteDiaryHolder>
+             <div>{d?.Title}</div>
+                {d?.DiaryId !== 2 &&
+                    <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
+                }
+             </DeleteDiaryHolder>
                 </DiaryTextHolder>
+              
               </Diary>
             );
           })}
