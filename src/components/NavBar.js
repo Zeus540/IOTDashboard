@@ -7,7 +7,7 @@ import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
 
 const Root = styled.div`
-  background-color: #344e41;
+  background-color: #1a603d;
   display: flex;
   justify-content: center;
   position: sticky;
@@ -38,11 +38,11 @@ const LinkHolder = styled.div`
 const LinkHolderMobile = styled.div`
   display: flex;
   position: fixed;
-  background: #344e41;
+  background: #1a603d;
   right: 0;
   flex-direction: column;
   top: 74px;
-  background: linear-gradient(360deg,#778062,#344e41);
+  background: linear-gradient(360deg,#778062,#1a603d);
   min-height: 100vh;
 `;
 const MenuLink = styled(NavLink)`
@@ -52,7 +52,7 @@ const MenuLink = styled(NavLink)`
   color: white;
   text-decoration: none;
   &:hover {
-    border-bottom: 4px solid #344e41;
+    border-bottom: 4px solid #1a603d;
   }
 
 `;
@@ -66,7 +66,7 @@ const MenuLinkMobile = styled(NavLink)`
 
 
   &:hover {
-    border-bottom: 4px solid #344e41;
+    border-bottom: 4px solid #1a603d;
   }
   &:nth-child(even) {
     background: white;
@@ -83,7 +83,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #344e41;
+    border-bottom: 2px solid #1a603d;
   }
 `;
 const Button = styled.button`
@@ -91,7 +91,7 @@ const Button = styled.button`
   width: fit-content;
   margin: 20px;
   border: none;
-  background: #344e41;
+  background: #1a603d;
   color: white;
   border-radius: 5px;
 `;

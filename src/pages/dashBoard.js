@@ -33,7 +33,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #d6d0bb;
+  background: #ffffff;
   padding: 20px 0px;
   @media (max-width: 425px) {
     margin: 0px;
@@ -109,7 +109,7 @@ const WeekHolderActive = styled.div`
     justify-content: space-between;
 `;
 const WeekHolderHeading = styled.div`
-  background: #344e41;
+  background: #1a603d;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -181,7 +181,7 @@ const DairyHeading = styled.h3`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: #344e41;
+  color: #1a603d;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -300,7 +300,7 @@ const HeadingCtaButton = styled.button`
   width: fit-content;
 
   border: none;
-  background: #344e41;
+  background: #1a603d;
   color: white;
   border-radius: 300px;
 `;
@@ -331,7 +331,7 @@ const DayDotInner = styled.div`
 const DayDot = styled.div`
   width: 10px;
   height: 10px;
-  background: #344e41;
+  background: #1a603d;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -354,7 +354,7 @@ const fadeIn = keyframes`
 const DayDotActive = styled.div`
   width: 10px;
   height: 10px;
-  background: #344e41;
+  background: #1a603d;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -391,7 +391,7 @@ const GalleryImageOverlay = styled.div`
   color: white;
   padding: 5px 10px;
   border-radius: 5px 0px 5px;
-  background: #344e41;
+  background: #1a603d;
 `;
 
 const TabsHolder = styled.div`
@@ -406,14 +406,14 @@ const TabActive = styled.div`
 
   cursor: pointer;
   padding: 10px 20px;
-  background: #d6d0bb;
+  background: #ffffff;
   border-radius: 5px 5px 0px 0px;
 
 `;
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #344e41;
+  background: #1a603d;
   color: white;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;

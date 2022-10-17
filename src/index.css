@@ -85,11 +85,11 @@ code {
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: #344e41;
+  background: #1a603d;
 border-radius: 50px;
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: #344e41;
+  background: #1a603d;
 }

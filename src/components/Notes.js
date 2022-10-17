@@ -20,7 +20,7 @@ z-index:50;
 const Notes = styled.div`
 
 
-background: #d6d0bb;
+background: #ffffff;
 width: 40%;
 border-radius: 5px;
 @media(max-width:425px){

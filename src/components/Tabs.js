@@ -15,14 +15,14 @@ const TabActive = styled.div`
 
   cursor: pointer;
   padding: 10px 20px;
-  background: #d6d0bb;
+  background: #ffffff;
   border-radius: 5px 5px 0px 0px;
 
 `;
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #344e41;
+  background: #1a603d;
   color: white;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;

@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 
 const Root = styled.div`
-background:#272727e0;
+background:#676767fc;
 
 padding-top: 0px;
 color:white;
@@ -20,7 +20,7 @@ justify-content: center;
 const RootInner = styled.div`
 width:380px;
 align-self: center;
-background: #d6d0bb;
+background: #ffffff;
 padding: 20px;
 border-radius: 5px;
 @media(max-width:425px){
@@ -44,7 +44,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#344e41;
+color:#1a603d;
 font-weight:bold;
 `;
 const Input = styled(Field)`
@@ -66,7 +66,7 @@ padding: 15px 50px;
 width: fit-content;
 margin-top: 20px;
 border:none;
-background:#344e41;
+background:#1a603d;
 color:white;
 border-radius:5px;
 `;

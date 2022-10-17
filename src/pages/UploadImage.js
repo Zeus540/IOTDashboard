@@ -16,7 +16,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
 width:100%;
-  background: #d6d0bb;
+  background: #ffffff;
   padding: 20px 20px;
   @media (max-width: 425px) {
     margin: 0px;

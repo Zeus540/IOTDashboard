@@ -23,7 +23,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
   width: 100%;
-  background: #d6d0bb;
+  background: #ffffff;
   padding: 20px;
   @media (max-width: 425px) {
     margin: 16px;
@@ -89,7 +89,7 @@ const Tag = styled.sup`
   display: block;
   border-radius: 50px;
   color: white;
-  background: #344e41;
+  background: #1a603d;
 `;
 
 const TagHolder = styled.div`
@@ -106,7 +106,7 @@ const Add = styled.div`
 
 const Button = styled.button`
   padding: 10px 20px;
-  background: #344e41;
+  background: #1a603d;
   color: white;
   border: none;
   border-radius: 50px;
@@ -152,7 +152,7 @@ color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#344e41;
+background:#1a603d;
 color:white;
 padding: 20px;
 `;
