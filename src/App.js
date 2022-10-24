@@ -13,7 +13,7 @@ import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
 import Stats from './pages/stats';
 import Harvest from './pages/harvest';
-
+import Register from './pages/register';
 import UploadImage from './pages/UploadImage';
 
 const Root = styled.div`
@@ -61,14 +61,16 @@ function App() {
       
         <Routes>
         
-        <Route path="/" element={<MainPage />} />
-        <Route path="/admin" element={<Login />} />
-       
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        
         <Route path="/diaries" element={<Diaries />} />
         <Route path="/overview/:id" element={<DashBoard />} />
         <Route path="/environment/:id" element={<Stats />} />
         <Route path="/harvest/:id" element={<Harvest />} />
-        <Route path="/analyzer" element={<UploadImage />} />
+        {/* <Route path="/analyzer" element={<UploadImage />} /> */}
+        <Route path="/buy-now" element={<MainPage />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>

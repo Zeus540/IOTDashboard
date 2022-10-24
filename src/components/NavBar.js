@@ -7,7 +7,7 @@ import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
 
 const Root = styled.div`
-  background-color: #39595b;
+  background-color: #345153;
   display: flex;
   justify-content: center;
   position: sticky;
@@ -140,7 +140,19 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
               <MenuLink to="/diaries">Diaries</MenuLink>
-              <MenuLink to="/analyzer">Analyzer</MenuLink>
+              <MenuLink to="/buy-now">Buy Now</MenuLink>
+              <MenuLink to="/login">Login</MenuLink>
+              <MenuLink to="/register">Register</MenuLink>
+              {/* <MenuLink to="gallery">Gallery</MenuLink> */}
+              {/* <Button>Log Out</Button> */}
+            </>
+          )}
+                  {auth && (
+            <>
+              {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
+              <MenuLink to="/diaries">Diaries</MenuLink>
+              <MenuLink to="/buy-now">Buy Now</MenuLink>
+        
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
               {/* <Button>Log Out</Button> */}
             </>
@@ -159,7 +171,7 @@ const NavBar = () => {
           </BurgerMenu>
           {mobileMenu && (
             <LinkHolderMobile>
-              {!auth && (
+       
                 <>
                   {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
                   <MenuLinkMobile to="/diaries"  onClick={() => {setMobileMenu(false);}}>
@@ -170,7 +182,7 @@ const NavBar = () => {
                       <div>Diaries</div>
                     </FlexLink>
                     </MenuLinkMobile>
-
+                    {!auth && (
                   <MenuLinkMobile to="/analyzer"  onClick={() => {setMobileMenu(false);}}>
                     <FlexLink>
                       <Icon>
@@ -179,11 +191,20 @@ const NavBar = () => {
                       <div>Analyzer</div>
                     </FlexLink>
                   </MenuLinkMobile>
+)}
+                  <MenuLinkMobile to="/buy-now"  onClick={() => {setMobileMenu(false);}}>
+                    <FlexLink>
+                      {/* <Icon>
+                        <img src={Chip} width="100%" />
+                      </Icon> */}
+                      <div>Buy Now</div>
+                    </FlexLink>
+                  </MenuLinkMobile>
 
-                  {/* <MenuLink to="gallery">Gallery</MenuLink> */}
-                  {/* <Button>Log Out</Button> */}
+
+                
                 </>
-              )}
+              
             </LinkHolderMobile>
           )}
         </BurgerMenuHolder>

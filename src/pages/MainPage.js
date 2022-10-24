@@ -1,22 +1,46 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "../assets/mainback.jpg";
+import Image from "../assets/Planter.png";
+import Imageio from "../assets/PlanterIo.png";
+
 const Root = styled.div`
-  background-color: white;
+  
  
   width: 100%;
-  height: 60vh;
+  max-width:1770px;
+
+  margin:50px auto;
+  @media (max-width: 425px) {
+    margin:0px auto;
+}
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin:0px auto;
+
+  }
+`;
+
+
+const ImgHolder = styled.div`
+  background-color: #acacac;
+  border-radius: 10px;
+
+`;
+const ImgMain = styled.img`
+width: 70%;
+margin:0 auto;
+display:block
 `;
 
 const SectionFlex = styled.div`
   background-color: #39595b;
   display: flex;
   width: 100%;
-
-
-
+  flex-wrap: wrap;
+  border-radius: 10px;
+  flex-direction: column-reverse;
   @media (max-width: 425px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     flex-wrap: wrap;
 }
   }
@@ -28,14 +52,16 @@ const SectionFlex = styled.div`
 `;
 const SectionText = styled.div`
   background-color: #39595b;
-  
-  max-width: 50%;
+  border-radius: 10px;
+  margin: 40px auto;
+  max-width: 70%;
+
   width: 100%;
-  padding:60px 80px;
+
   @media (max-width: 425px) {
     max-width: unset;
     width: unset;
-    padding:60px 20px;
+    padding:40px 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
@@ -47,12 +73,16 @@ const SectionImage = styled.div`
   min-width: 50%;
   max-width: 50%;
   width: 100%;
-  background-image: url(${Image});
+  background: #39595b;
   background-size: cover;
-  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 10px;
   @media (max-width: 425px) {
     max-width: unset;
-    height: 30vh;
+
     width: unset;
     background-size: 100% cover;
   }
@@ -64,6 +94,7 @@ const SectionImage = styled.div`
 const Heading = styled.h1`
 color:#A7C957;
 margin: 0px;
+
 `;
 const CardHeading = styled.h1`
 
@@ -72,18 +103,23 @@ margin: 0px;
 
 const HeadingSub = styled.h1`
 margin: 0px;
-color:white
+color:white;
+
 `;
 const Text = styled.p`
 margin: 0px;
-color:white
+color:white;
+
 `;
 
 const SectionCard = styled.div`
-  background-color: #F5F5F5;
+
   width: 100%;
-height:400px;
+
+  flex-wrap: wrap;
+
   display: flex;
+  padding-top: 40px;
   justify-content: center;
   @media (max-width: 425px) {
     flex-direction: column;
@@ -100,22 +136,24 @@ height:400px;
 
 const Card = styled.div`
   background-color: white;
-  max-width: calc(100% / 5 - 20px);
+  max-width:calc(100% / 3 - 80px);
   width: 100%;
   margin:20px;
-  margin-top: -20px;
+
   border-radius: 5px;
   padding: 20px;
+
+  height: fit-content;
   @media (max-width: 425px) {
     max-width: unset;
     width: unset;
-    margin-bottom: 55px;
+    margin-bottom: 45px;
 }
   
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
     width: unset;
-    margin-bottom: 55px;
+    margin-bottom: 45px;
   }
 `;
 const MainPage = () => {
@@ -129,10 +167,12 @@ const MainPage = () => {
           <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae elementum libero. Donec congue, ipsum nec tempus semper, orci tortor porttitor urna, at scelerisque odio dui dictum tortor. Nunc tristique luctus mauris vel imperdiet. 
           </Text>
+
         </SectionText>
-        <SectionImage></SectionImage>
-      </SectionFlex>
-      <SectionCard>
+        <SectionImage>
+          <img src={Image} width="100%"/>
+        </SectionImage>
+        <SectionCard>
       <Card>
         <CardHeading>
         24 / 7 Monitoring
@@ -158,6 +198,11 @@ const MainPage = () => {
         </div>
       </Card>
       </SectionCard>
+<ImgHolder>
+        <ImgMain src={Imageio} width="100%"/>
+        </ImgHolder>
+      </SectionFlex>
+     
     </Root>
   );
 };

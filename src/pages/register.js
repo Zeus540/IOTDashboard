@@ -5,6 +5,9 @@ import Logo from "../assets/logoLogin.png";
 import { Formik, Field, Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const Root = styled.div`
 background:#39595b26;
@@ -43,6 +46,15 @@ color:white;
 display: flex;
 flex-direction: column;
 `;
+const InputGrpCheck = styled.div`
+
+
+padding-top: 0px;
+color:white;
+display: flex;
+align-items: center;
+`;
+
 const Label = styled.label`
 color:#39595b;
 font-weight:bold;
@@ -52,7 +64,7 @@ margin: 10px 0px;
 padding: 15px 15px;
 border-radius:5px;
 border:none;
-background: #4e5f612e;
+background:#4e5f612e;
 `;
 
 const ErrorText = styled.p`
@@ -69,6 +81,7 @@ border:none;
 background:#39595b;
 color:white;
 border-radius:5px;
+cursor: pointer;
 `;
 
 const Heading = styled.h1`
@@ -78,12 +91,12 @@ color:white;
 text-align:center;
 `;
 
-function Login() {
+function Register() {
   const {auth,setAuth} = useContext(AuthContext)
   const navigate = useNavigate ()
  
   const handleLogin =(values) =>{
-  
+    console.log(values)
     if(values.name == "Admin" && values.password == "Admin"){
       setAuth(true)
       navigate('/diaries')
@@ -101,6 +114,10 @@ function Login() {
     password: Yup.string()
       .min(5, 'Too Short!')
       .required('Required'),
+      age: Yup.string()
+     
+      .required('Required'),
+      
   });
   
   
@@ -115,7 +132,7 @@ function Login() {
       initialValues={{
         name: '',
         password: '',
-      
+        age: '',
       }}
       validationSchema={SignupSchema}
       onSubmit={async (values) => {
@@ -123,23 +140,38 @@ function Login() {
         handleLogin(values)
       }}
     >
-      {({ errors, touched }) => (
-      <Form>
+      {({ errors, touched,handleSubmit }) => (
+      <Form  onSubmit={handleSubmit}>
 
       <InputGrp>
         <Label htmlFor="name">UserName</Label>
-        <Input id="name" name="name" placeholder="Type Name Here" />
+        <Input id="name" name="name" placeholder="Type Here" />
         {errors.name && touched.name ? (<ErrorText>{errors.name}</ErrorText>) : null}
 
         </InputGrp>
 
         <InputGrp>
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" name="email" placeholder="Type Here" type="email"/>
+        {errors.email && touched.email ? (<ErrorText>{errors.email}</ErrorText>) : null}
+      </InputGrp>
+
+        <InputGrp>
         <Label htmlFor="password">Password</Label>
-        <Input id="password" name="password" placeholder="Type Password Here" type="password"/>
+        <Input id="password" name="password" placeholder="Type Here" type="password"/>
         {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
       </InputGrp>
 
-      <Button>Login</Button>
+      <InputGrp>
+      <InputGrpCheck>
+      <Checkbox  id="age" name="age"/>
+      <Label htmlFor="age">I am 18 years old</Label>
+      </InputGrpCheck>
+      {errors.age && touched.age ? (<ErrorText>{errors.age}</ErrorText>) : null}
+      </InputGrp>
+  
+
+      <Button>Create Account</Button>
       </Form>
         )}
     </Formik>
@@ -151,4 +183,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Register

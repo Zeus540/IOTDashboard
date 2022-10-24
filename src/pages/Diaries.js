@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import  faTrash  from "../assets/trash-can-regular.svg";
-
+import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
@@ -26,11 +26,11 @@ const Inner = styled.div`
   background: #ffffff;
   padding: 20px;
   @media (max-width: 425px) {
-    margin: 16px;
+    margin: 0px;
     padding: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 16px;
+    margin: 0px;
     padding: 20px;
   }
 `;
@@ -208,7 +208,7 @@ const Diaries = () => {
   const [diaryList, setDiaryList] = useState(diaries);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
-
+  const { auth } = useContext(AuthContext);
 
   useEffect(() => {
     Update()
@@ -415,13 +415,15 @@ const Diaries = () => {
       <Inner>
         <Add>
           <MainHeading>Diaries</MainHeading>
+          {auth &&   
           <Button
             onClick={() => {
               handleAddPopUp();
             }}
           >
             Add New Diary
-          </Button>
+          </Button>}
+        
         </Add>
 
         <DiaryHolder>
