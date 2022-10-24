@@ -15,14 +15,14 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 10px;
+    margin: 0px 0px;
     margin-top: 50px;
   }
 `;
 
 const Flex2 = styled.div`
   display: flex;
-
+  justify-content: center;
   flex-wrap: wrap;
 `;
 
@@ -146,14 +146,38 @@ const Harvest = () => {
             
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
             <TextHeading>Total Days</TextHeading>
        
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
-      
+
+        <TextHolderGroup2>
+          <TextHolderGroup2Inner>
+            <TextHeading>Plants Harvested</TextHeading>
+       
+            </TextHolderGroup2Inner>
+          </TextHolderGroup2>
+
+          
         </Flex2>
+
+
+        
+        <Heading>Smells Like </Heading>
+        <Flex2>
+      
+          
+        </Flex2>
+
+        <Heading>Nutrients</Heading>
+        <Flex2>
+      
+          
+        </Flex2>
+
 
       </Inner>
     </Root>

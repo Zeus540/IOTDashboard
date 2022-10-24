@@ -131,7 +131,7 @@ const WeekHolderActive = styled.div`
     justify-content: space-between;
 `;
 const WeekHolderHeading = styled.div`
-  background: #1a603d;
+  background: #39595b;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -368,7 +368,7 @@ const DayDotInner = styled.div`
 const DayDot = styled.div`
   width: 10px;
   height: 10px;
-  background: #1a603d;
+  background: #39595b;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -391,7 +391,7 @@ const fadeIn = keyframes`
 const DayDotActive = styled.div`
   width: 10px;
   height: 10px;
-  background: #1a603d;
+  background: #39595b;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -450,7 +450,7 @@ const TabActive = styled.div`
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #1a603d;
+  background: #39595b;
   color: white;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;
@@ -659,7 +659,7 @@ if(activeWeek !== w){
                 }}
               >
                 {console.log(daysNotes)}
-                {daysNotes == '' ? "Add Notes" : "Edit Notes"}
+                {daysNotes == '' || undefined ? "Add Notes" : "Edit Notes"}
               </HeadingCtaButton>
             </HeadingCta>
             <Notes>{daysNotes}</Notes>

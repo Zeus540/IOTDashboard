@@ -9,7 +9,7 @@ const Root = styled.div`
 `;
 
 const SectionFlex = styled.div`
-  background-color: #1a603d;
+  background-color: #39595b;
   display: flex;
   width: 100%;
 
@@ -27,7 +27,7 @@ const SectionFlex = styled.div`
   }
 `;
 const SectionText = styled.div`
-  background-color: #1a603d;
+  background-color: #39595b;
   
   max-width: 50%;
   width: 100%;

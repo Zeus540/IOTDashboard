@@ -114,7 +114,7 @@ const Button = styled.button`
 `;
 
 const PopUpHolder = styled.div`
-  background: #000000ad;
+  background: #121b1cc4 ;
   top: 0;
   position: fixed;
   z-index: 999;
@@ -425,7 +425,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.map((d) => {
+          {diaries.filter((d)=> d.Public == 1)?.map((d) => {
             return (
               <Diary
                 

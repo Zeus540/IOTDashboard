@@ -17,11 +17,28 @@ import Harvest from './pages/harvest';
 import UploadImage from './pages/UploadImage';
 
 const Root = styled.div`
+
+
+  min-height: 100vh;
+
+`;
+
+const Image = styled.div`
   background-image: url(${Back});
   background-size: cover;
-  background-color: #39595b26;
+  background-color: #121b1cc4;
   background-blend-mode: overlay;
   min-height: 100vh;
+  position: fixed;
+  z-index: 2;
+  width:100vw;
+`;
+
+
+const Inner = styled.div`
+
+position: relative;
+z-index: 5;
 
 `;
 
@@ -35,6 +52,8 @@ function App() {
 
   return (
  <Root>
+  <Image></Image>
+  <Inner>
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <DiaryProvider>
@@ -54,7 +73,7 @@ function App() {
       </DiaryProvider>
       </AuthProvider>
     </ThemeProvider>
-    
+    </Inner>
     </Root>
   )
 }

@@ -44,7 +44,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#1a603d;
+color:#39595b;
 font-weight:bold;
 `;
 const Input = styled(Field)`
