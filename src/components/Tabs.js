@@ -22,7 +22,7 @@ const TabActive = styled.div`
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #1a603d;
+  background: #39595b;
   color: white;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;
@@ -41,7 +41,7 @@ const Tabs = () => {
           active:false
         },
         {
-          tabName:'Stats',
+          tabName:'Environment',
           active:false
         }
       ]
@@ -84,8 +84,8 @@ useEffect(() => {
 
     switch (tab.tabName) {
         
-      case "Stats":
-        navigate(`/stats/${params.id}`)
+      case "Environment":
+        navigate(`/environment/${params.id}`)
        
         break;
 

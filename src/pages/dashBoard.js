@@ -23,7 +23,7 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 10px;
+    margin: 0px 0px;
     margin-top: 50px;
     padding-bottom: 20px;
   }
@@ -35,11 +35,14 @@ const Inner = styled.div`
   width: 100%;
   background: #ffffff;
   padding: 20px 0px;
+  padding-top:0px;
   @media (max-width: 425px) {
     margin: 0px;
+    padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;
+    padding-top: 0px;
   }
 `;
 
@@ -49,14 +52,18 @@ const IntroHolder = styled.div`
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
-  padding: 0px 0px;
-  margin-left: 30px;
+  padding:  20px;
+
   width: 100%;
   @media (max-width: 425px) {
     margin-left: 0px;
+    padding: 20px 20px;
+    width: unset;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin-left: 0px
+    margin-left: 0px;
+    padding: 0px 20px;
+    width: unset;
   }
 `;
 
@@ -70,6 +77,21 @@ const Flex = styled.div`
     flex-direction: column;
   }
 `;
+const FlexTop = styled.div`
+  display: flex;
+  padding: 0px 0px;
+  background: #39595b;
+  @media (max-width: 425px) {
+    flex-direction: column;
+    padding: 0px 0px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0px 0px;
+  }
+`;
+
+
 const Flex2 = styled.div`
   display: flex;
 
@@ -84,7 +106,7 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: white;
+  background: #f2f2f2;
   cursor: pointer;
   opacity:0.4;
   display: flex;
@@ -101,7 +123,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 5px 10px;
   min-width: 70px;
-  background: white;
+  background: #f2f2f2;
   cursor: pointer;
   transform: scale(1.1);
   display: flex;
@@ -115,6 +137,14 @@ const WeekHolderHeading = styled.div`
   color: white;
   font-size: 12px;
 `;
+const WeekHolderHeadingRed = styled.div`
+  background: #de8605;
+  border-radius: 0px 0px 5px 5px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+`;
+
 
 const WeekHolderHeadingBlue = styled.div`
   background: #5db7ff;
@@ -171,8 +201,10 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin-bottom: 0px;
+  color:white;
 `;
 const DairyHeading = styled.h3`
+color:white;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -181,7 +213,7 @@ const DairyHeading = styled.h3`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: #1a603d;
+  color: white;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -189,8 +221,8 @@ const TextHolderGroup2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: #f2f2f2;
+  color: white;
+  background: #39595b;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -209,13 +241,19 @@ const TextHolderGroup2 = styled.div`
 
 const TextHolderGroup2Inner = styled.div`
 width: 100%;
-  margin:0px 20px;
+
 `;
 const ImageMain = styled.img`
   border-radius: 5px;
+  @media (max-width: 425px) {
+    border-radius: 0px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    border-radius: 0px;
+  }
 `;
 const GalleryImage = styled.img`
-  border-radius: 5px;
+border-radius:  0px 0px  5px 5px;
 `;
 
 const GalleryImageHolder = styled.div`
@@ -236,7 +274,7 @@ const GalleryImageHolder = styled.div`
 const GalleryHolderInner = styled.div`
   display: flex;
   flex-wrap: wrap;
-  text-align: center;
+
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -270,7 +308,7 @@ const Heading = styled.h4`
   &::before {
     content: "";
     display: block;
-    background: #00b500;
+    background: #39595b;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -278,7 +316,7 @@ const Heading = styled.h4`
   &::after {
     content: "";
     display: block;
-    background: #00b500;
+    background: #39595b;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -385,13 +423,13 @@ const GalleryImageOverlay = styled.div`
 
   flex-direction: column;
   align-items: center;
-  position: absolute;
+
   top: 0;
   z-index: 40;
   color: white;
-  padding: 5px 10px;
-  border-radius: 5px 0px 5px;
-  background: #1a603d;
+  padding: 10px;
+  border-radius: 5px 5px  0px 0px;
+  background: #39595b;
 `;
 
 const TabsHolder = styled.div`
@@ -432,7 +470,7 @@ const DashBoard = () => {
       active:false
     },
     {
-      tabName:'Stats',
+      tabName:'Statistics',
       active:false
     }
   ]
@@ -458,15 +496,11 @@ const DashBoard = () => {
     
   const navigate = useNavigate ()
 
-  useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
-    setActiveDiary(filtered);
-  }, [diaries]);
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-
+    console.log("filtered",filtered);
     setActiveDiary(filtered);
 
     let data = {
@@ -481,7 +515,7 @@ const DashBoard = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [diaries]);
 
   const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
@@ -594,21 +628,22 @@ if(activeWeek !== w){
       <Inner>
       
 
-        <Flex>
+        <FlexTop>
           <ImgHolder>
             <ImageMain
               src={
-                activeDiaryData?.Image ? activeDiaryData?.Image : PlaceHolder
+                activeDiaryData?.Image ? activeDiaryData?.Image : activeDiary?.ThumbNail
               }
               width="100%"
               height="100%"
-           
+              onClick={() => {
+                handleLightBox(activeDiary?.ThumbNail, activeDiary);
+              }}
             />
           </ImgHolder>
         
         <RightFlex>
           <IntroHolder>
-                <sub>Title</sub>
           <DairyHeading>{activeDiary?.Title}</DairyHeading>
           
           {/* <TextHeading>Start Date </TextHeading>
@@ -631,7 +666,7 @@ if(activeWeek !== w){
           </TextHolder>
           }
           </RightFlex>
-        </Flex>
+        </FlexTop>
         {addNotes && (
           <NotesPopUp
             setAddNotes={setAddNotes}
@@ -642,85 +677,13 @@ if(activeWeek !== w){
             {activeDiaryNotes}
           </NotesPopUp>
         )}
-        <Heading> Grow Conditions </Heading>
-        <Flex2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Strain</TextHeading>
-            {activeDiary?.Strain}
-            </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Light Schedule</TextHeading>
-            {activeDiary?.Light_Schedule}
-            </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Light Type</TextHeading>
-            {activeDiary?.Light_Type}
-            </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <img src={IndoorIcon} width='50px'/>
-          <TextHolderGroup2Inner>
-            <TextHeading>Room Type</TextHeading>
-            {activeDiary?.Room_Type}
-          </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Pot Size</TextHeading>
-            {activeDiary?.Pot_Size}
-            </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Co2</TextHeading>
-            {activeDiaryData?.Co2 == 0 ? (
-              "N/A"
-            ) : (
-              <>{activeDiaryData?.Co2} PPM</>
-            )}
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Moisture</TextHeading>
-            {activeDiaryData?.Moisture == 0 ? (
-              "N/A"
-            ) : (
-              <>{activeDiaryData?.Moisture} %</>
-            )}
-              </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Temperature</TextHeading>
-            {activeDiaryData?.Temperature == 0 ? (
-              "N/A"
-            ) : (
-              <>{activeDiaryData?.Temperature} &#8451;</>
-            )}
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-            <TextHeading>Humidity</TextHeading>
-            {activeDiaryData?.Humidity == 0 ? (
-              "N/A"
-            ) : (
-              <>{activeDiaryData?.Humidity} %</>
-            )}
-                  </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-        </Flex2>
 
-        <Flex3>
+
+<Flex3>
+{days.length == 0 && <Helper>Select a Week</Helper>}
           <Heading>WEEKS</Heading>
 
-{days.length == 0 && <Helper>Select a Week</Helper>}
+
           <WeekHolderInner>
             {activeDiaryWeeks.length > 0 ? (
               <>
@@ -740,14 +703,22 @@ if(activeWeek !== w){
                         <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
                       </WeekHolderText>
 
-                    {w.Stage.toUpperCase() == "GER" ? 
+                    {w.Stage.toUpperCase() == "GER" &&
                     <WeekHolderHeadingBlue>
                    {w.Stage.toUpperCase()}
                   </WeekHolderHeadingBlue>
-                    :  
+                      }
+
+                    {w.Stage.toUpperCase() ==  "VEG"  &&
                     <WeekHolderHeading>
-                        {w.Stage == " " ? "VEG" : w.Stage.toUpperCase()}
-                      </WeekHolderHeading>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeading>
+                      }
+
+                    {w.Stage.toUpperCase() ==  "FLO"  &&
+                    <WeekHolderHeadingRed>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingRed>
                       }
 
                     </WeekHolder>:
@@ -757,20 +728,31 @@ if(activeWeek !== w){
                       }}
                       key={w.Week + 1}
                     >
-                   <WeekHolderText>
+                          <WeekHolderText>
                         
                         <WeekHolderTextSub>Week</WeekHolderTextSub>
                         <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
                       </WeekHolderText>
-                      {w.Stage.toUpperCase() == "GER" ? 
+
+                {w.Stage.toUpperCase() == "GER" &&
                     <WeekHolderHeadingBlue>
                    {w.Stage.toUpperCase()}
                   </WeekHolderHeadingBlue>
-                    :  
-                    <WeekHolderHeading>
-                        {w.Stage == " " ? "VEG" : w.Stage.toUpperCase()}
-                      </WeekHolderHeading>
                       }
+
+                    {w.Stage.toUpperCase() ==  "VEG"  &&
+                    <WeekHolderHeading>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeading>
+                      }
+
+                    {w.Stage.toUpperCase() ==  "FLO"  &&
+                    <WeekHolderHeadingRed>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingRed>
+                      }
+                        
+                     
                     </WeekHolderActive>}
                     </>
                   );
@@ -819,8 +801,10 @@ if(activeWeek !== w){
           </DayDotHolder>
           }
         </Flex3>
+     
+      
 
-        <Heading>PHOTOS</Heading>
+        <Heading>GALLERY</Heading>
 
         <GalleryHolderInner>
           {galleryData.length > 0 ? (
@@ -828,19 +812,20 @@ if(activeWeek !== w){
               if (img?.Image !== "") {
                 return (
                   <GalleryImageHolder key={index}>
+                                 <GalleryImageOverlay>
+                      
+                     <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
+                     <div> Date : {img?.Date} </div>
+                    </GalleryImageOverlay>
                     <GalleryImage
                       src={img?.Image}
                       width="100%"
-                      height="100%"
+               
                       onClick={() => {
                         handleLightBox(img?.Image, img);
                       }}
                     />
-                    <GalleryImageOverlay>
-                      {/* {LookUpDay(img)} */}
-                      {img?.Time}
-                      {/* {img?.Day} */}
-                    </GalleryImageOverlay>
+       
                   </GalleryImageHolder>
                 );
               }

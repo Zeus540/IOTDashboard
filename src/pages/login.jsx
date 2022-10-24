@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 
 const Root = styled.div`
-background:#676767fc;
+background:#39595b26;
 
 padding-top: 0px;
 color:white;
@@ -66,7 +66,7 @@ padding: 15px 50px;
 width: fit-content;
 margin-top: 20px;
 border:none;
-background:#1a603d;
+background:#39595b;
 color:white;
 border-radius:5px;
 `;

@@ -7,14 +7,14 @@ import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
 
 const Root = styled.div`
-  background-color: #1a603d;
+  background-color: #39595b;
   display: flex;
   justify-content: center;
   position: sticky;
   padding: 0px 20px;
   top: 0;
   z-index: 50;
-  border-bottom: 2px solid white;
+
 `;
 
 const Inner = styled.div`
@@ -38,21 +38,23 @@ const LinkHolder = styled.div`
 const LinkHolderMobile = styled.div`
   display: flex;
   position: fixed;
-  background: #1a603d;
+  background: #39595b;
   right: 0;
   flex-direction: column;
-  top: 74px;
-  background: linear-gradient(360deg,#778062,#1a603d);
+  top: 70px;
+
   min-height: 100vh;
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
   padding: 20px 30px;
-  border-bottom: 2px solid transparent;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
   color: white;
   text-decoration: none;
   &:hover {
-    border-bottom: 4px solid #1a603d;
+    border-bottom: 4px solid white;
+  
   }
 
 `;
@@ -66,7 +68,7 @@ const MenuLinkMobile = styled(NavLink)`
 
 
   &:hover {
-    border-bottom: 4px solid #1a603d;
+    border-bottom: 4px solid white;
   }
   &:nth-child(even) {
     background: white;
@@ -83,7 +85,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #1a603d;
+    border-bottom: 2px solid #39595b;
   }
 `;
 const Button = styled.button`
@@ -91,7 +93,7 @@ const Button = styled.button`
   width: fit-content;
   margin: 20px;
   border: none;
-  background: #1a603d;
+  background: #39595b;
   color: white;
   border-radius: 5px;
 `;

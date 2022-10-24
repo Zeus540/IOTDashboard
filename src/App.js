@@ -17,7 +17,7 @@ import UploadImage from './pages/UploadImage';
 const Root = styled.div`
   background-image: url(${Back});
   background-size: cover;
-  background-color: #676767fc;
+  background-color: #39595b26;
   background-blend-mode: overlay;
   min-height: 100vh;
 
@@ -43,10 +43,10 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/admin" element={<Login />} />
        
-        <Route path="diaries" element={<Diaries />} />
-        <Route path="overview/:id" element={<DashBoard />} />
-        <Route path="stats/:id" element={<Stats />} />
-        <Route path="analyzer" element={<UploadImage />} />
+        <Route path="/diaries" element={<Diaries />} />
+        <Route path="/overview/:id" element={<DashBoard />} />
+        <Route path="/environment/:id" element={<Stats />} />
+        <Route path="/analyzer" element={<UploadImage />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>

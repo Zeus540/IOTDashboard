@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const LightBoxInnerClose = styled.div`
-  background: #1a603d;
+  background: #39595b;
   color: white;
   padding: 10px 15px;
   display: flex;
@@ -55,8 +55,8 @@ z-index: 50;
 `;
 
 const LightBoxInner = styled.div`
-  max-height: 100vh;
-  width: 50%;
+padding:40px 0px;
+  width: 40%;
   position: relative;
 
   max-width: unset;
@@ -84,7 +84,7 @@ const LightBox = (props) => {
             X
           </LightBoxClose>
         </LightBoxInnerClose>
-        <LightBoxImage src={props.image} width="100%" height="100%" />
+        <LightBoxImage src={props.image} width="100%"  />
       </LightBoxInner>
     </LightBoxHolder>
   );
