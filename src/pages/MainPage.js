@@ -29,7 +29,15 @@ const ImgHolder = styled.div`
 const ImgMain = styled.img`
 width: 70%;
 margin:0 auto;
-display:block
+display:block;
+@media (max-width: 425px) {
+  width: 100%;
+}
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  width: 100%;
+
+}
 `;
 
 const SectionFlex = styled.div`
