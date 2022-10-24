@@ -12,6 +12,8 @@ import NavBar from './components/NavBar';
 import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
 import Stats from './pages/stats';
+import Harvest from './pages/harvest';
+
 import UploadImage from './pages/UploadImage';
 
 const Root = styled.div`
@@ -46,6 +48,7 @@ function App() {
         <Route path="/diaries" element={<Diaries />} />
         <Route path="/overview/:id" element={<DashBoard />} />
         <Route path="/environment/:id" element={<Stats />} />
+        <Route path="/harvest/:id" element={<Harvest />} />
         <Route path="/analyzer" element={<UploadImage />} />
       </Routes>
       </DiaryProvider>

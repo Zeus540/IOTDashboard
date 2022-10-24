@@ -44,6 +44,11 @@ const Tabs = () => {
           tabName:'Environment',
           active:false
         }
+        ,
+        {
+          tabName:'Harvest',
+          active:false
+        }
       ]
 
     const params = useParams();
@@ -93,6 +98,10 @@ useEffect(() => {
           navigate(`/overview/${params.id}`)
           break;
         
+          case "Harvest":
+            navigate(`/harvest/${params.id}`)
+            break;
+          
     }
     
 }

@@ -333,14 +333,13 @@ const HeadingCta = styled.div`
 `;
 
 const HeadingCtaButton = styled.button`
-  padding: 10px 30px;
+padding: 10px 40px;
 
-  width: fit-content;
-
-  border: none;
-  background: #1a603d;
-  color: white;
-  border-radius: 300px;
+background: #f2f2f2;
+border: none;
+color: #39595b;
+border-radius: 50px;
+cursor: pointer;
 `;
 
 const NoData = styled.div`
@@ -659,7 +658,8 @@ if(activeWeek !== w){
                   handleNotes();
                 }}
               >
-                {activeDiaryData?.Notes == "" ? "Add Notes" : "Edit Notes"}
+                {console.log(daysNotes)}
+                {daysNotes == '' ? "Add Notes" : "Edit Notes"}
               </HeadingCtaButton>
             </HeadingCta>
             <Notes>{daysNotes}</Notes>

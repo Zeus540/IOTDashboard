@@ -15,12 +15,13 @@ height: 100vh;
 min-height: 100vh;
 left: 0;
 z-index:50;
+
 `;
 
 const Notes = styled.div`
 
 
-background: #ffffff;
+background: #39595b;
 width: 40%;
 border-radius: 5px;
 @media(max-width:425px){
@@ -30,11 +31,12 @@ border-radius: 5px;
 
 const Button = styled.button`
 padding: 10px 40px;
-margin:10px 20px;
-background: green;
-border:none;
-color:white;
+margin: 10px 20px;
+background: #f2f2f2;
+border: none;
+color: #39595b;
 border-radius: 50px;
+cursor: pointer;
 `;
 
 const TextArea = styled.textarea`
@@ -67,6 +69,8 @@ display: flex;
 align-items: center;
 padding: 10px 20px;
 justify-content: space-between;
+background: #39595b;
+    color: white;
 `;
 
 const NotesHolder = (props) => {
