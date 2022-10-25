@@ -15,7 +15,7 @@ import Stats from './pages/stats';
 import Harvest from './pages/harvest';
 import Register from './pages/register';
 import UploadImage from './pages/UploadImage';
-
+import RegistrationComplete from './pages/registrationComplete';
 const Root = styled.div`
 
 
@@ -71,6 +71,7 @@ function App() {
         <Route path="/harvest/:id" element={<Harvest />} />
         {/* <Route path="/analyzer" element={<UploadImage />} /> */}
         <Route path="/buy-now" element={<MainPage />} />
+        <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
       </Routes>
       </DiaryProvider>
       </AuthProvider>

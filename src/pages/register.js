@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext, useRef} from 'react'
 import styled from 'styled-components';
 import {useNavigate} from 'react-router-dom'
 import Logo from "../assets/logoLogin.png";
@@ -8,6 +8,7 @@ import { AuthContext } from "../context/auth_context";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import axios from "axios"
 
 const Root = styled.div`
 background:#39595b26;
@@ -21,44 +22,46 @@ justify-content: center;
 
 `;
 const RootInner = styled.div`
-width:380px;
+width:480px;
 align-self: center;
 background: #ffffff;
-padding: 20px;
+padding: 15px 5px;
 border-radius: 5px;
 @media(max-width:425px){
   margin: 16px;
-padding: 20px;
-width:unset;
+padding: 15px 5px;
+width: 90%;
 }
 @media(min-width:426px) and (max-width:768px){
   margin: 16px;
-  padding: 20px;
+  padding: 15px 5px;
   width:unset;
 }
 `;
 
 const InputGrp = styled.div`
+min-width: calc(100% /2 - 20px);
+margin: 0px 10px;
 
-margin: 15px 0px;
 padding-top: 0px;
 color:white;
 display: flex;
 flex-direction: column;
 `;
-const InputGrpCheck = styled.div`
-
-
-padding-top: 0px;
-color:white;
+const InputGrpFlex = styled.div`
 display: flex;
-align-items: center;
 `;
 
 const Label = styled.label`
 color:#39595b;
 font-weight:bold;
 `;
+const LabelT = styled.label`
+color:#39595b;
+
+margin-left: 10px;
+`;
+
 const Input = styled(Field)`
 margin: 10px 0px;
 padding: 15px 15px;
@@ -66,6 +69,9 @@ border-radius:5px;
 border:none;
 background:#4e5f612e;
 `;
+
+
+
 
 const ErrorText = styled.p`
 color: red;
@@ -76,6 +82,7 @@ color: red;
 const Button = styled.button`
 padding: 15px 50px;
 width: fit-content;
+margin: 0px 10px;
 margin-top: 20px;
 border:none;
 background:#39595b;
@@ -84,42 +91,70 @@ border-radius:5px;
 cursor: pointer;
 `;
 
-const Heading = styled.h1`
+const Heading = styled.div`
 margin: 0px;
-padding:10px 0px;
+padding:0px;
 color:white;
 text-align:center;
 `;
 
+const ErrM = styled.h1`
+margin: 0px;
+padding-bottom: 10px;
+color:red;
+text-align:center;
+font-size: 14px;
+`;
+
+
 function Register() {
   const {auth,setAuth} = useContext(AuthContext)
   const navigate = useNavigate ()
- 
-  const handleLogin =(values) =>{
-    console.log(values)
-    if(values.name == "Admin" && values.password == "Admin"){
-      setAuth(true)
-      navigate('/diaries')
-      
-    }
+ const [age, setAge] = useState("")
+ const [errorM, setError] = useState("")
 
+  const handleLogin =(values) =>{
+    
+    
+    axios.post('https://api.sweetleaf.co.za/register',values)
+    .then(function (response) {
+      console.log("response.data",response.data)
+      setError(response.data.userRegisterMsg)
+      // navigate(`/register/${values.name.toLowerCase()} ${values.surname.toLowerCase()}/${values.email.toLowerCase()}`)
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
+   
 
   }
 
   const SignupSchema = Yup.object().shape({
-    name: Yup.string()
+    userName: Yup.string()
       .min(2, 'Too Short!')
       .max(70, 'Too Long!')
       .required('Required'),
+      surname: Yup.string()
+      .min(2, 'Too Short!')
+      .max(70, 'Too Long!')
+      .required('Required'),
+      name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(70, 'Too Long!')
+      .required('Required'),
+      email: Yup.string()
+      .required('Required'),
     password: Yup.string()
-      .min(5, 'Too Short!')
+      .min(6, 'Too Short!')
       .required('Required'),
-      age: Yup.string()
-     
+      age: Yup.bool()
+      .isTrue('Required')
       .required('Required'),
-      
   });
+
   
+ 
   
   return (
     <Root>
@@ -127,29 +162,48 @@ function Register() {
      <Heading>
      <img src={Logo} width="60%" />
     </Heading>
-
+{errorM !== "" && <ErrM>{errorM}</ErrM>}
     <Formik
       initialValues={{
+        userName: '',
         name: '',
+        surname: '',
+        email: '',
         password: '',
-        age: '',
+        age: age,
       }}
       validationSchema={SignupSchema}
       onSubmit={async (values) => {
-        await new Promise((r) => setTimeout(r, 500));
         handleLogin(values)
       }}
     >
-      {({ errors, touched,handleSubmit }) => (
-      <Form  onSubmit={handleSubmit}>
+      {({ errors, touched,handleSubmit,values }) => (
+      <Form  >
 
       <InputGrp>
-        <Label htmlFor="name">UserName</Label>
-        <Input id="name" name="name" placeholder="Type Here" />
+        <Label htmlFor="userName">UserName</Label>
+        <Input id="userName" name="userName"  placeholder="Type Here" />
+        {errors.userName && touched.userName ? (<ErrorText>{errors.userName}</ErrorText>) : null}
+
+        </InputGrp>
+
+       <InputGrpFlex>
+       <InputGrp>
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" name="name"  placeholder="Type Here" />
         {errors.name && touched.name ? (<ErrorText>{errors.name}</ErrorText>) : null}
 
         </InputGrp>
 
+        <InputGrp>
+        <Label htmlFor="surname">Surname</Label>
+        <Input id="surname" name="surname"  placeholder="Type Here" />
+        {errors.surname && touched.surname ? (<ErrorText>{errors.surname}</ErrorText>) : null}
+
+        </InputGrp>
+       </InputGrpFlex>
+
+       <InputGrpFlex>
         <InputGrp>
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" placeholder="Type Here" type="email"/>
@@ -161,17 +215,22 @@ function Register() {
         <Input id="password" name="password" placeholder="Type Here" type="password"/>
         {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
       </InputGrp>
+      </InputGrpFlex>
 
       <InputGrp>
-      <InputGrpCheck>
-      <Checkbox  id="age" name="age"/>
-      <Label htmlFor="age">I am 18 years old</Label>
-      </InputGrpCheck>
+      <label >
+                  <Field
+                    name="age"
+                    id="age"
+                    type="checkbox"
+                  />
+                  <LabelT>I am 18 years old</LabelT>
+                </label>
       {errors.age && touched.age ? (<ErrorText>{errors.age}</ErrorText>) : null}
       </InputGrp>
   
 
-      <Button>Create Account</Button>
+      <Button type="submit">Create Account</Button>
       </Form>
         )}
     </Formik>

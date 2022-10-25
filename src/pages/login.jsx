@@ -18,7 +18,7 @@ justify-content: center;
 
 `;
 const RootInner = styled.div`
-width:380px;
+width:480px;
 align-self: center;
 background: #ffffff;
 padding: 20px;
