@@ -43,8 +43,8 @@ const LinkHolderMobile = styled.div`
   right: 0;
   flex-direction: column;
   top: 70px;
-
-  min-height: 100vh;
+  justify-content: space-between;
+  min-height: calc(100vh - 70px);
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
@@ -98,6 +98,10 @@ color: #345153;
 border-radius: 5px;
 cursor: pointer;
 font-weight: 700;
+
+@media (min-width: 0px) and (max-width: 768px) {
+  margin: 10px;
+}
 `;
 
 const BurgerMenuHolder = styled.div`
@@ -123,6 +127,11 @@ const Pattie = styled.div`
 const Icon = styled.div`
   width: 45px;
   margin: 0px auto;
+`;
+
+const LinkHolderM = styled.div`
+display: flex;
+flex-direction: column;
 `;
 
 const NavBar = () => {
@@ -174,26 +183,22 @@ const NavBar = () => {
           </BurgerMenu>
           {mobileMenu && (
             <LinkHolderMobile>
-              <>
-                {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
+             
+      <LinkHolderM >
+
+         
+      {auth && 
                 <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
-                  <FlexLink>
-                    <Icon>
-                      <img src={Journal} width="100%" />
-                    </Icon>
-                    <div>Diaries</div>
-                  </FlexLink>
-                </MenuLinkMobile>
-                {!auth && (
-                  <MenuLinkMobile to="/analyzer" onClick={() => { setMobileMenu(false); }}>
-                    <FlexLink>
-                      <Icon>
-                        <img src={Chip} width="100%" />
-                      </Icon>
-                      <div>Analyzer</div>
-                    </FlexLink>
-                  </MenuLinkMobile>
-                )}
+                <FlexLink>
+                  <Icon>
+                    <img src={Journal} width="100%" />
+                  </Icon>
+                  <div>Diaries</div>
+                </FlexLink>
+              </MenuLinkMobile>
+
+         }
+
                 <MenuLinkMobile to="/buy-now" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
                     {/* <Icon>
@@ -202,7 +207,38 @@ const NavBar = () => {
                     <div>Buy Now</div>
                   </FlexLink>
                 </MenuLinkMobile>
-              </>
+      </LinkHolderM>
+
+                {!auth && 
+            <LinkHolderM>
+                <MenuLinkMobile to="/login" onClick={() => { setMobileMenu(false); }}>
+                  <FlexLink>
+                    {/* <Icon>
+                        <img src={Chip} width="100%" />
+                      </Icon> */}
+                    <div>Login</div>
+                  </FlexLink>
+                </MenuLinkMobile>
+
+                <MenuLinkMobile to="/register" onClick={() => { setMobileMenu(false); }}>
+                  <FlexLink>
+                    {/* <Icon>
+                        <img src={Chip} width="100%" />
+                      </Icon> */}
+                    <div>Register</div>
+                  </FlexLink>
+                </MenuLinkMobile>
+            </LinkHolderM>
+         }
+          
+             {auth && 
+                <div>
+                <Button onClick={()=>{logOut()}}>Log Out</Button>
+                </div>
+              }
+         
+             
+        
 
             </LinkHolderMobile>
           )}
