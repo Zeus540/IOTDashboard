@@ -16,7 +16,8 @@ const Root = styled.div`
   flex-direction: column;
   @media (max-width: 425px) {
     margin: 0px 0px;
-    margin-top: 50px;
+    margin-top: 0px;
+    padding-bottom: 0px;
   }
 `;
 
@@ -132,7 +133,7 @@ const Harvest = () => {
       <Inner>
    
            
-      <Heading>Harvest </Heading>
+      <Heading>OUTCOME </Heading>
         <Flex2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>

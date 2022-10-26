@@ -48,7 +48,7 @@ const DiaryHolder = styled.div`
 
 const Diary = styled.div`
   
-  background: #f2f2f2;
+  background: #c5c5c5;
   width: calc(100% / 4 - 20px);
   margin: 10px;
   border-radius: 5px;
@@ -427,7 +427,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries.filter((d)=> d.Public == 1)?.map((d) => {
+          {diaries?.filter((d)=> d?.Public == 1)?.map((d) => {
             return (
               <Diary
                 

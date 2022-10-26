@@ -4,19 +4,24 @@ import styled, { keyframes } from "styled-components";
 import {useNavigate} from 'react-router-dom'
 
 const TabsHolder = styled.div`
-  
+position: sticky;
+top: 70px;
 align-items: end;
   display: flex;
   max-width: 1770px;
   width: 100%;
+  z-index: 5;
 
 `;
 const TabActive = styled.div`
 
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 5px 20px;
   background: #ffffff;
-  border-radius: 5px 5px 0px 0px;
+  @media (max-width: 425px) {
+    border-bottom: 4px solid #8bab50;
+ 
+  }
 
 `;
 const TabInActive = styled.div`
@@ -24,10 +29,13 @@ const TabInActive = styled.div`
   cursor: pointer;
   background: #39595b;
   color: white;
-  border-radius: 5px 5px 0px 0px;
+
   padding: 5px 20px;
   height: fit-content;
-
+  @media (max-width: 425px) {
+    border-bottom: 4px solid #39595b;
+ 
+  }
 `;
 
 

@@ -24,8 +24,8 @@ const Root = styled.div`
   flex-direction: column;
   @media (max-width: 425px) {
     margin: 0px 0px;
-    margin-top: 50px;
-    padding-bottom: 20px;
+    margin-top: 0px;
+    padding-bottom: 0px;
   }
 `;
 
@@ -106,7 +106,7 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #f2f2f2;
+  background: #c5c5c5;
   cursor: pointer;
   opacity:0.4;
   display: flex;
@@ -123,7 +123,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 5px 10px;
   min-width: 70px;
-  background: #f2f2f2;
+  background: #c5c5c5;
   cursor: pointer;
   transform: scale(1.1);
   display: flex;
@@ -131,7 +131,7 @@ const WeekHolderActive = styled.div`
     justify-content: space-between;
 `;
 const WeekHolderHeading = styled.div`
-  background: #39595b;
+  background: #8bab50;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -500,6 +500,8 @@ const DashBoard = () => {
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     console.log("filtered",filtered);
+    console.log("filtered",diaries);
+    
     setActiveDiary(filtered);
 
     let data = {
@@ -766,7 +768,7 @@ if(activeWeek !== w){
           {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}
 {days.length > 0  &&
           <DayDotHolder>
-            {days.map((d, index) => {
+            {days?.map((d, index) => {
               return (
            <DayDotInner   key={index}>
                  {activeDay !== d ? 

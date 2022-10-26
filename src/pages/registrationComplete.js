@@ -53,11 +53,9 @@ const RegistrationComplete = () => {
                 </Text>
                
                 <div>
-                    A verification email has been sent to
+                    A verification email has been sent to your email address
                 </div>
-                <Email>
-                    {params.email}
-                </Email>
+             
             </Inner>
         </Root>
     )

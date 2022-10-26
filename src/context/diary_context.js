@@ -1,14 +1,22 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from './auth_context';
 
 export const DiaryContext = createContext();
 
 export const DiaryProvider = ({ children }) => {
 
   const [diaries, setDiaries] = useState([]);
+const {authToken} = useContext(AuthContext)
 
   const Update = ()=>{
-    axios.get('https://api.sweetleaf.co.za/diaries')
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    
+    axios.get('https://api.sweetleaf.co.za/diaries',config)
     .then(function (response) {
    
       setDiaries(response.data)
@@ -22,7 +30,13 @@ export const DiaryProvider = ({ children }) => {
   useEffect(() => {
 
  
-    axios.get('https://api.sweetleaf.co.za/diaries')
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    
+    axios.get('https://api.sweetleaf.co.za/diaries',config)
     .then(function (response) {
    
       setDiaries(response.data)
