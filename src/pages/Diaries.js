@@ -34,10 +34,12 @@ const Inner = styled.div`
   @media (max-width: 425px) {
     margin: 0px;
     padding: 0px;
+    border-radius: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;
     padding: 0px;
+    border-radius: 0px;
   }
 `;
 
@@ -58,9 +60,11 @@ const Diary = styled.div`
   width: calc(100% / 4 - 20px);
   margin: 10px;
   border-radius: 5px;
+  
   @media (max-width: 619px) {
     width: calc(100% / 1);
     margin: 15px 0px;
+    border-radius: 0px;
   }
   @media (min-width: 620px) and (max-width: 699px) {
     width: calc(100% / 2 - 20px);
@@ -74,10 +78,18 @@ const Diary = styled.div`
 const DiaryImageHolder = styled.div`
   border-radius: 5px 5px 0px 0px;
   cursor: pointer;
+  @media (max-width: 425px) {
+
+    border-radius: 0px;
+  }
 `;
 
 const DiaryImage = styled.img`
   border-radius: 5px 5px 0px 0px;
+  @media (max-width: 425px) {
+
+    border-radius: 0px;
+  }
 `;
 const DiaryTextHolder = styled.div`
   padding: 15px 15px;
@@ -250,7 +262,7 @@ const Diaries = () => {
       }
     }
     
-    axios.post('https://api.sweetleaf.co.za/diaries/add',config,values)
+    axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
     .then(function (response) {
       if(response.data.insertId !== undefined){
         Update()
@@ -268,17 +280,10 @@ const Diaries = () => {
 
   const deleteDiary = (DiaryId)=>{
     console.log("DiaryId",DiaryId);
-    
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
-
     let data ={
       DiaryId:DiaryId
     }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete',config,data)
+    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
     .then(function (response) {
       if(response.data.affectedRows > 0){
         Update()

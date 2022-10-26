@@ -54,7 +54,7 @@ const RightFlex = styled.div`
   margin-bottom: 0px;
   padding:  20px;
 
-  width: 100%;
+  width: 50%;
   @media (max-width: 425px) {
     margin-left: 0px;
     padding: 20px 20px;
@@ -166,7 +166,7 @@ const WeekHolderTextSub = styled.div`
 `;
 
 const ImgHolder = styled.div`
-  max-width: calc(100% / 2.5);
+  max-width: 50%;
   border-radius: 5px;
   width: 100%;
   @media (max-width: 425px) {
@@ -257,7 +257,7 @@ border-radius:  0px 0px  5px 5px;
 `;
 
 const GalleryImageHolder = styled.div`
-  max-width: calc(100% / 3 - 30px);
+  max-width: calc(100% / 4 - 30px);
   margin: 15px;
   border-radius: 5px;
   position: relative;
@@ -488,6 +488,7 @@ const DashBoard = () => {
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState([]);
   const [activeDay, setActiveDay] = useState([]);
+  const [mainImage, setMainImage] = useState("");
   const { diaries } = useContext(DiaryContext);
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
@@ -615,7 +616,24 @@ if(activeWeek !== w){
   }
   };
 
-  
+  const imageCheck = ()=>{
+if(activeDiary?.ThumbNail !== undefined){
+  setMainImage(activeDiary?.ThumbNail)
+}
+if(activeDiaryData?.Image !== undefined){
+  setMainImage(activeDiaryData?.Image)
+ }
+ if(activeDiaryData?.Image == undefined && activeDiary?.ThumbNail == (undefined || "")){
+  setMainImage(PlaceHolder)
+ }
+  }
+
+ useEffect(() => {
+  imageCheck()
+  console.log(activeDiary?.ThumbNail)
+  console.log(activeDiaryData?.Image)
+ }, [activeDiary,activeDiaryData])
+ 
   return (
 
   
@@ -633,7 +651,7 @@ if(activeWeek !== w){
           <ImgHolder>
             <ImageMain
               src={
-                activeDiaryData?.Image ? activeDiaryData?.Image : activeDiary?.ThumbNail
+                mainImage
               }
               width="100%"
               height="100%"
