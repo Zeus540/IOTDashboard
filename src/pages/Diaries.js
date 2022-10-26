@@ -14,24 +14,30 @@ import axios from "axios";
 
 const Root = styled.div`
   margin-top: 50px;
-  padding-bottom: 50px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  @media (max-width: 425px) {
+    margin: 0px 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+  }
 `;
+
 
 const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
-  width: 100%;
+
   background: #ffffff;
   padding: 20px;
   @media (max-width: 425px) {
     margin: 0px;
-    padding: 20px;
+    padding: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;
-    padding: 20px;
+    padding: 0px;
   }
 `;
 
@@ -54,7 +60,7 @@ const Diary = styled.div`
   border-radius: 5px;
   @media (max-width: 619px) {
     width: calc(100% / 1);
-    margin: 10px 0px;
+    margin: 15px 0px;
   }
   @media (min-width: 620px) and (max-width: 699px) {
     width: calc(100% / 2 - 20px);
@@ -102,6 +108,15 @@ const Add = styled.div`
 
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 425px) {
+    padding: 10px 20px;
+    padding-top: 20px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: 10px 20px;
+    padding-top: 20px;
+  }
 `;
 
 const Button = styled.button`

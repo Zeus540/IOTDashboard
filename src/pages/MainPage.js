@@ -46,9 +46,9 @@ const SectionFlex = styled.div`
   width: 100%;
   flex-wrap: wrap;
   border-radius: 10px;
-  flex-direction: column-reverse;
+  flex-direction: column;
   @media (max-width: 425px) {
-    flex-direction: column-reverse;
+    flex-direction: column;
     flex-wrap: wrap;
 }
   }
@@ -69,12 +69,15 @@ const SectionText = styled.div`
   @media (max-width: 425px) {
     max-width: unset;
     width: unset;
+    border-radius: 0px;
+    margin: 0px auto;
     padding:40px 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
     width: unset;
-
+    border-radius: 0px;
+    margin: 0px auto;
   }
 `;
 const SectionImage = styled.div`
