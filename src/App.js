@@ -23,6 +23,9 @@ const Image = styled.div`
   position: fixed;
   z-index: 2;
   width:100vw;
+  @media (max-width: 425px) {
+    background-image:unset;
+  }
 `;
 
 

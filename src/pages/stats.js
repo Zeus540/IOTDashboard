@@ -7,23 +7,20 @@ import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
 
 
-
-
 const Root = styled.div`
   margin-top: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 0px;
-    margin-top: 0px;
-    padding-bottom: 0px;
+  margin: 0px 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
   }
 `;
 
 const Flex2 = styled.div`
   display: flex;
-
   flex-wrap: wrap;
 `;
 
@@ -38,7 +35,7 @@ const Heading = styled.h4`
   margin-top: 30px;
   align-items: center;
   &::before {
-    content: "";
+  content: "";
     display: block;
     background: #39595b;
     height: 2px;
@@ -101,33 +98,33 @@ const TextHolderGroup2 = styled.div`
 
 
 const TextHolderGroup2Inner = styled.div`
-width: 100%;
+  width: 100%;
 
 `;
 
 const PlantContainer = styled.div`
-width: calc(100% / 1 - 20px);
-margin: 10px;
-background: #a7a7a7;
-height: 150px;
-border-radius: 62%;
-min-width: 150px;
+  width: calc(100% / 1 - 20px);
+  margin: 10px;
+  background: #a7a7a7;
+  height: 150px;
+  border-radius: 62%;
+  min-width: 150px;
 `;
 
 const PlantContainerHolder = styled.div`
 
-padding:10px;
-display: grid;
-grid-template-columns: repeat(${props => props.columns}, 1fr) ;
-grid-template-rows:repeat(${props => props.rows}, 1fr);
-border: 5px solid #536262;
-margin: 0px 20px;
-background: #536262;
-border-radius: 5px;
-width: fit-content;
-@media (max-width: 425px) {
-  width: unset;
-}
+  padding:10px;
+  display: grid;
+  grid-template-columns: repeat(${props => props.columns}, 1fr) ;
+  grid-template-rows:repeat(${props => props.rows}, 1fr);
+  border: 5px solid #536262;
+  margin: 0px 20px;
+  background: #536262;
+  border-radius: 5px;
+  width: fit-content;
+  @media (max-width: 425px) {
+    width: unset;
+  }
 
 `;
 
