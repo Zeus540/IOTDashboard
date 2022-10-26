@@ -105,6 +105,47 @@ width: 100%;
 
 `;
 
+const PlantContainer = styled.div`
+width: calc(100% / 1 - 20px);
+margin: 10px;
+background: #a7a7a7;
+height: 150px;
+border-radius: 62%;
+min-width: 150px;
+`;
+
+const PlantContainerHolder = styled.div`
+
+padding:10px;
+display: grid;
+grid-template-columns: repeat(${props => props.columns}, 1fr) ;
+grid-template-rows:repeat(${props => props.rows}, 1fr);
+border: 5px solid #536262;
+margin: 0px 20px;
+background: #536262;
+border-radius: 5px;
+width: fit-content;
+@media (max-width: 425px) {
+  width: unset;
+}
+
+`;
+
+
+const PlantContainerNumber = styled.div`
+background: white;
+padding: 10px;
+width: 20px;
+height: 20px;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+
+`;
+
+
+
 const Stats = () => {
  
 
@@ -112,6 +153,9 @@ const Stats = () => {
   const { diaries } = useContext(DiaryContext);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
+  const [layout, setLayout] = useState({});
+  const [amountOfPlants, setAmountOfPlants] = useState([1,2,1,2]);
+
   const params = useParams();
 
   useEffect(() => {
@@ -119,6 +163,12 @@ const Stats = () => {
     console.log("filtered",filtered);
     setActiveDiary(filtered);
 
+    let layoutData = {
+      columns: 4  ,
+      rows: 1,
+    }
+
+    setLayout(layoutData)
 
   }, [diaries]);
 
@@ -133,6 +183,21 @@ const Stats = () => {
       <Inner>
    
            
+           {/* <PlantContainerHolder layout={layout} columns={layout.columns} rows={layout.rows}>
+
+            {amountOfPlants.map((v,index)=>{
+              return(
+                <PlantContainer key={index}>
+           <PlantContainerNumber>
+           {v}
+           </PlantContainerNumber>
+                </PlantContainer>
+              )
+            })}
+      
+          
+           </PlantContainerHolder> */}
+
       <Heading> Grow environment </Heading>
         <Flex2>
           <TextHolderGroup2>

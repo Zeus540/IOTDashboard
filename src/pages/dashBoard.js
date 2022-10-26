@@ -22,6 +22,7 @@ const Root = styled.div`
   padding-bottom: 50px;
   align-items: center;
   flex-direction: column;
+
   @media (max-width: 425px) {
     margin: 0px 0px;
     margin-top: 0px;
@@ -54,7 +55,7 @@ const RightFlex = styled.div`
   margin-bottom: 0px;
   padding:  20px;
 
-  width: 50%;
+  width: 60%;
   @media (max-width: 425px) {
     margin-left: 0px;
     padding: 20px 20px;
@@ -166,7 +167,7 @@ const WeekHolderTextSub = styled.div`
 `;
 
 const ImgHolder = styled.div`
-  max-width: 50%;
+  max-width: 40%;
   border-radius: 5px;
   width: 100%;
   @media (max-width: 425px) {
@@ -257,13 +258,13 @@ border-radius:  0px 0px  5px 5px;
 `;
 
 const GalleryImageHolder = styled.div`
-  max-width: calc(100% / 4 - 30px);
-  margin: 15px;
+  min-width: calc(100% / 4 - 30px);
+  margin: 0px 15px;
   border-radius: 5px;
   position: relative;
-  cursor:zoom-in;
+  cursor:pointer;
   @media (max-width: 425px) {
-    max-width: unset;
+    min-width: calc(100% / 1 - 30px);
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: calc(100% / 2 - 20px);
@@ -271,17 +272,45 @@ const GalleryImageHolder = styled.div`
   }
 `;
 
+
+
+
+const GalleryHolderInnerMain = styled.div`
+overflow:hidden;
+position: relative;
+`;
+const GalleryNext = styled.div`
+background: #39595b;
+padding: 10px;
+color: white;
+right: 10px;
+position: absolute;
+z-index: 2;
+    transform: translate(0%, -50%);
+    top: 50%;
+`;
+
+const GalleryBack = styled.div`
+left: 10px;
+position: absolute;
+background: #39595b;
+padding: 10px;
+color: white;
+z-index: 2;
+transform: translate(0%, -50%);
+    top: 50%;
+`;
+
+
 const GalleryHolderInner = styled.div`
   display: flex;
-  flex-wrap: wrap;
-
+  transform: translateX(${props => props.position}%);
+  transition: 0.5s all ease;
   @media (max-width: 425px) {
-    flex-direction: column;
+    transform: translateX(${props => props.position * 4}%);
   }
-  @media (min-width: 426px) and (max-width: 768px) {
-    flex-direction: unset;
-    flex-wrap: wrap;
-  }
+
+ 
 `;
 
 const WeekHolderInner = styled.div`
@@ -493,7 +522,8 @@ const DashBoard = () => {
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
   const location =useLocation()
-    
+  const [position, setPosition] = useState(0);
+  
   const navigate = useNavigate ()
 
 
@@ -826,7 +856,14 @@ if(activeDiaryData?.Image !== undefined){
 
         <Heading>GALLERY</Heading>
 
-        <GalleryHolderInner>
+       <GalleryHolderInnerMain>
+          {galleryData.length > 0 &&
+            <>
+            <GalleryNext onClick={()=>{setPosition(position - 25)}}>Next</GalleryNext>
+      <GalleryBack onClick={()=>{setPosition(position + 25)}}>Back</GalleryBack>
+      </>
+      }
+        <GalleryHolderInner position={position}>
           {galleryData.length > 0 ? (
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
@@ -856,6 +893,7 @@ if(activeDiaryData?.Image !== undefined){
             </NoDataHolder>
           )}
         </GalleryHolderInner>
+        </GalleryHolderInnerMain>
       </Inner>
     </Root>
    

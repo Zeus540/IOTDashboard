@@ -79,16 +79,30 @@ color:white;
 text-align:center;
 `;
 
+const ErrMsg = styled.p`
+color: red;
+    margin: 0px;
+    font-size: 16px;
+    text-align: center;
+`;
+
+
 function Login() {
   const {auth,setToken} = useContext(AuthContext)
   const navigate = useNavigate ()
- 
+ const [errMsg, setErrMsg] = useState("")
   const handleLogin =(values) =>{
     console.log("values",values);
     
     axios.post('https://api.sweetleaf.co.za/login',values)
     .then(function (response) {
-         setToken(response.data.token)
+      if(response.data == "Please Verify Your Account"){
+        setErrMsg(response.data )
+      }
+      if(response.data.token){
+        setToken(response.data.token)
+      }
+    
   
       console.log("response",response.data.token);
     })
@@ -132,7 +146,7 @@ function Login() {
     >
       {({ errors, touched }) => (
       <Form>
-
+     <ErrMsg >{errMsg}</ErrMsg>
       <InputGrp>
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" placeholder="Type Here" />
@@ -147,6 +161,8 @@ function Login() {
       </InputGrp>
 
       <Button>Login</Button>
+
+      <>Dont have an account?  <>Sign Up Here</> </>
       </Form>
         )}
     </Formik>
