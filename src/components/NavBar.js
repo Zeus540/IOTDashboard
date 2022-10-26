@@ -31,6 +31,7 @@ const LogoHolder = styled.div`
 const LinkHolder = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   @media (min-width: 0px) and (max-width: 768px) {
     display: none;
   }
@@ -89,13 +90,14 @@ const LogOut = styled.p`
   }
 `;
 const Button = styled.button`
-  padding: 15px 30px;
-  width: fit-content;
-  margin: 20px;
-  border: none;
-  background: #39595b;
-  color: white;
-  border-radius: 5px;
+padding: 10px 20px;
+width: fit-content;
+border: none;
+background: #8bab50;
+color: #345153;
+border-radius: 5px;
+cursor: pointer;
+font-weight: 700;
 `;
 
 const BurgerMenuHolder = styled.div`
@@ -124,7 +126,7 @@ const Icon = styled.div`
 `;
 
 const NavBar = () => {
-  const { auth } = useContext(AuthContext);
+  const { auth,logOut } = useContext(AuthContext);
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
@@ -139,7 +141,7 @@ const NavBar = () => {
           {!auth && (
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
-              <MenuLink to="/diaries">Diaries</MenuLink>
+
               <MenuLink to="/buy-now">Buy Now</MenuLink>
               <MenuLink to="/login">Login</MenuLink>
               <MenuLink to="/register">Register</MenuLink>
@@ -147,12 +149,13 @@ const NavBar = () => {
               {/* <Button>Log Out</Button> */}
             </>
           )}
-                  {auth && (
+          {auth && (
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
               <MenuLink to="/diaries">Diaries</MenuLink>
               <MenuLink to="/buy-now">Buy Now</MenuLink>
-        
+              <Button onClick={()=>{logOut()}}>Log Out</Button>
+              
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
               {/* <Button>Log Out</Button> */}
             </>
@@ -171,19 +174,18 @@ const NavBar = () => {
           </BurgerMenu>
           {mobileMenu && (
             <LinkHolderMobile>
-       
-                <>
-                  {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
-                  <MenuLinkMobile to="/diaries"  onClick={() => {setMobileMenu(false);}}>
-                    <FlexLink>
-                      <Icon>
-                        <img src={Journal} width="100%" />
-                      </Icon>
-                      <div>Diaries</div>
-                    </FlexLink>
-                    </MenuLinkMobile>
-                    {!auth && (
-                  <MenuLinkMobile to="/analyzer"  onClick={() => {setMobileMenu(false);}}>
+              <>
+                {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
+                <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
+                  <FlexLink>
+                    <Icon>
+                      <img src={Journal} width="100%" />
+                    </Icon>
+                    <div>Diaries</div>
+                  </FlexLink>
+                </MenuLinkMobile>
+                {!auth && (
+                  <MenuLinkMobile to="/analyzer" onClick={() => { setMobileMenu(false); }}>
                     <FlexLink>
                       <Icon>
                         <img src={Chip} width="100%" />
@@ -191,20 +193,17 @@ const NavBar = () => {
                       <div>Analyzer</div>
                     </FlexLink>
                   </MenuLinkMobile>
-)}
-                  <MenuLinkMobile to="/buy-now"  onClick={() => {setMobileMenu(false);}}>
-                    <FlexLink>
-                      {/* <Icon>
+                )}
+                <MenuLinkMobile to="/buy-now" onClick={() => { setMobileMenu(false); }}>
+                  <FlexLink>
+                    {/* <Icon>
                         <img src={Chip} width="100%" />
                       </Icon> */}
-                      <div>Buy Now</div>
-                    </FlexLink>
-                  </MenuLinkMobile>
+                    <div>Buy Now</div>
+                  </FlexLink>
+                </MenuLinkMobile>
+              </>
 
-
-                
-                </>
-              
             </LinkHolderMobile>
           )}
         </BurgerMenuHolder>

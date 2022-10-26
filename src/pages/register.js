@@ -5,9 +5,6 @@ import Logo from "../assets/logoLogin.png";
 import { Formik, Field, Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import axios from "axios"
 
 const Root = styled.div`
@@ -119,8 +116,13 @@ function Register() {
     axios.post('https://api.sweetleaf.co.za/register',values)
     .then(function (response) {
       console.log("response.data",response.data)
-      setError(response.data.userRegisterMsg)
-      // navigate(`/register/${values.name.toLowerCase()} ${values.surname.toLowerCase()}/${values.email.toLowerCase()}`)
+      if(response.data.userRegisterSucces == false){
+        setError(response.data.userRegisterMsg)
+      }else{
+        navigate(`${response.data.userRegisterMsg}`)
+      }
+      
+      
     })
     .catch(function (error) {
   

@@ -5,6 +5,7 @@ import Logo from "../assets/logoLogin.png";
 import { Formik, Field, Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
+import axios from "axios"
 
 const Root = styled.div`
 background:#39595b26;
@@ -79,22 +80,28 @@ text-align:center;
 `;
 
 function Login() {
-  const {auth,setAuth} = useContext(AuthContext)
+  const {auth,setToken} = useContext(AuthContext)
   const navigate = useNavigate ()
  
   const handleLogin =(values) =>{
+    console.log("values",values);
+    
+    axios.post('https://api.sweetleaf.co.za/login',values)
+    .then(function (response) {
+         setToken(response.data.token)
   
-    if(values.name == "Admin" && values.password == "Admin"){
-      setAuth(true)
-      navigate('/diaries')
-      
-    }
+      console.log("response",response.data.token);
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
 
 
   }
 
   const SignupSchema = Yup.object().shape({
-    name: Yup.string()
+    email: Yup.string()
       .min(2, 'Too Short!')
       .max(70, 'Too Long!')
       .required('Required'),
@@ -113,7 +120,7 @@ function Login() {
 
     <Formik
       initialValues={{
-        name: '',
+        email: '',
         password: '',
       
       }}
@@ -127,15 +134,15 @@ function Login() {
       <Form>
 
       <InputGrp>
-        <Label htmlFor="name">UserName</Label>
-        <Input id="name" name="name" placeholder="Type Name Here" />
-        {errors.name && touched.name ? (<ErrorText>{errors.name}</ErrorText>) : null}
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" name="email" placeholder="Type Here" />
+        {errors.email && touched.email ? (<ErrorText>{errors.email}</ErrorText>) : null}
 
         </InputGrp>
 
         <InputGrp>
         <Label htmlFor="password">Password</Label>
-        <Input id="password" name="password" placeholder="Type Password Here" type="password"/>
+        <Input id="password" name="password" placeholder="Type Here" type="password"/>
         {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
       </InputGrp>
 

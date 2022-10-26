@@ -1,7 +1,8 @@
-import React from 'react'
-import { useParams } from 'react-router-dom';
+import React,{ useEffect } from 'react'
+import { useParams,useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import Logo from "../assets/logoLogin.png";
+import axios from "axios"
 
 const Root = styled.div`
 
@@ -36,31 +37,42 @@ const Text = styled.p`
     margin: 0;
 
 `;
-const Email = styled.p`
-    color: #2196f3;
-    margin: 0;
-`;
 
-const RegistrationComplete = () => {
+
+const VerifyComplete = () => {
+const navigate = useNavigate()
+
+    useEffect(() => {
+        {console.log("params", params.token) }
+
+        
+        axios.post('https://api.sweetleaf.co.za/verify',params)
+        .then(function (response) {
+             navigate(response.data.url)
+          console.log("response",response.data.url);
+        })
+        .catch(function (error) {
+      
+          console.log(error);
+        })
+
+    }, [])
+    
     const params = useParams()
-    { console.log("params", params) }
+
     return (
         <Root>
             <Inner>
                 <LogoImg src={Logo} width="100%" />
+               
+               
                 <Text>
-                    Welcome to Sweetleaf
+                    Verification Successful
                 </Text>
                
-                <div>
-                    A verification email has been sent to
-                </div>
-                <Email>
-                    {params.email}
-                </Email>
             </Inner>
         </Root>
     )
 }
 
-export default RegistrationComplete
+export default VerifyComplete

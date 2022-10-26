@@ -308,7 +308,7 @@ const Heading = styled.h4`
   &::before {
     content: "";
     display: block;
-    background: #39595b;
+    background: #8bab50;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -316,7 +316,7 @@ const Heading = styled.h4`
   &::after {
     content: "";
     display: block;
-    background: #39595b;
+    background: #8bab50;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
