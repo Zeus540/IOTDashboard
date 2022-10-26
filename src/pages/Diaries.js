@@ -223,7 +223,7 @@ const Diaries = () => {
   const [diaryList, setDiaryList] = useState(diaries);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
+  const { auth,authToken } = useContext(AuthContext);
 
   useEffect(() => {
     Update()
@@ -244,7 +244,13 @@ const Diaries = () => {
 
   const addDiary = (values)=>{
     console.log("values",values);
-    axios.post('https://api.sweetleaf.co.za/diaries/add',values)
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    
+    axios.post('https://api.sweetleaf.co.za/diaries/add',config,values)
     .then(function (response) {
       if(response.data.insertId !== undefined){
         Update()
@@ -262,10 +268,17 @@ const Diaries = () => {
 
   const deleteDiary = (DiaryId)=>{
     console.log("DiaryId",DiaryId);
+    
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+
     let data ={
       DiaryId:DiaryId
     }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
+    axios.post('https://api.sweetleaf.co.za/diaries/delete',config,data)
     .then(function (response) {
       if(response.data.affectedRows > 0){
         Update()
