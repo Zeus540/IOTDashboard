@@ -7,7 +7,7 @@ export const DiaryContext = createContext();
 export const DiaryProvider = ({ children }) => {
 
   const [diaries, setDiaries] = useState([]);
-const {authToken} = useContext(AuthContext)
+const {authToken,auth} = useContext(AuthContext)
 
   const Update = ()=>{
     let config = {
@@ -46,7 +46,7 @@ const {authToken} = useContext(AuthContext)
       console.log(error);
     })
  
-  }, [authToken])
+  }, [authToken,auth])
   
 
     return (

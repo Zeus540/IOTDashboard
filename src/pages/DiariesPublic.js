@@ -64,8 +64,9 @@ border-radius: 5px;
 width: 100%;
   
   @media (max-width: 619px) {
-    width: calc(100% / 1);
-    margin: 15px 0px;
+    max-width: calc(100% / 1 - 30px);
+    width: 100%;
+    margin: 15px auto;
     border-radius: 0px;
   }
   @media (min-width: 620px) and (max-width: 699px) {
