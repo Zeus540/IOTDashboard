@@ -38,6 +38,13 @@ const Text = styled.p`
 
 `;
 
+const TextSmall = styled.p`
+padding: 0px;
+font-size: 15px;
+font-weight: unset;
+
+`;
+
 
 const VerifyComplete = () => {
 const navigate = useNavigate()
@@ -47,11 +54,17 @@ const navigate = useNavigate()
 
         
         axios.post('https://api.sweetleaf.co.za/verify',params)
-        .then(function (response) {
-             navigate(response.data.url)
-          console.log("response",response.data.url);
+        .then((response) => {
+        if(response.data.url){
+            setTimeout(() => {
+                navigate(response.data.url)
+              }, 2500);
+        }else{
+            navigate('/')
+        }
+        console.log(response.data.url);
         })
-        .catch(function (error) {
+        .catch((error)=> {
       
           console.log(error);
         })
@@ -69,7 +82,9 @@ const navigate = useNavigate()
                 <Text>
                     Verification Successful
                 </Text>
-               
+                <TextSmall>
+                    You will be redirected shortly
+                </TextSmall>
             </Inner>
         </Root>
     )

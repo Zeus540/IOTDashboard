@@ -122,11 +122,12 @@ const WeekHolderActive = styled.div`
   width: fit-content;
   text-align: center;
   border-radius: 5px;
-  margin: 5px 10px;
+  margin: 10px 10px;
   min-width: 70px;
   background: #c5c5c5;
   cursor: pointer;
-  transform: scale(1.1);
+  
+  transition: all 0.2s ease;
   display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -280,25 +281,39 @@ overflow:hidden;
 position: relative;
 `;
 const GalleryNext = styled.div`
-background: #39595b;
+right: 10px;
+cursor: pointer;
+position: absolute;
+background: #8bab50;
 padding: 10px;
 color: white;
-right: 10px;
-position: absolute;
 z-index: 2;
-    transform: translate(0%, -50%);
+opacity: 0.5;
+transform: translate(0%, -50%);
+transition: all 0.2s ease;
     top: 50%;
+    &:hover {
+      opacity: 1;
+    
+    }
 `;
 
 const GalleryBack = styled.div`
 left: 10px;
+cursor: pointer;
 position: absolute;
-background: #39595b;
+background: #8bab50;
 padding: 10px;
 color: white;
 z-index: 2;
+opacity: 0.5;
 transform: translate(0%, -50%);
+transition: all 0.2s ease;
     top: 50%;
+    &:hover {
+      opacity: 1;
+    
+    }
 `;
 
 
@@ -490,6 +505,23 @@ const Helper = styled.p`
 text-align:center
 `;
 
+const Dot = styled.div`
+  background: ${props => props.index == props.positionIndex ? "#8bab50": "#39595b"};
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin:0px 5px;
+  margin-top:10px;
+  opacity:${props => props.index == props.positionIndex ? "1": "0.5"}
+`;
+const DotHolder= styled.div`
+
+justify-content: center;
+display: none;
+@media (min-width: 0px) and (max-width: 768px) {
+  display: flex;
+}
+`;
 const DashBoard = () => {
 
   let tabs = [
@@ -523,6 +555,7 @@ const DashBoard = () => {
   const [tabList, setTabList] = useState(tabs)
   const location =useLocation()
   const [position, setPosition] = useState(0);
+  const [positionIndex, setPositionIndex] = useState(0);
   
   const navigate = useNavigate ()
 
@@ -664,6 +697,16 @@ if(activeDiaryData?.Image !== undefined){
   console.log(activeDiaryData?.Image)
  }, [activeDiary,activeDiaryData])
  
+
+ const HandleNext = ()=>{
+  setPosition(position - 25)
+  setPositionIndex(positionIndex + 1)
+ }
+
+ const HandleBack = ()=>{
+  setPosition(position + 25)
+  setPositionIndex(positionIndex - 1)
+}
   return (
 
   
@@ -859,8 +902,8 @@ if(activeDiaryData?.Image !== undefined){
        <GalleryHolderInnerMain>
           {galleryData.length > 0 &&
             <>
-            <GalleryNext onClick={()=>{setPosition(position - 25)}}>Next</GalleryNext>
-      <GalleryBack onClick={()=>{setPosition(position + 25)}}>Back</GalleryBack>
+            <GalleryNext onClick={()=>{HandleNext()}}>Next</GalleryNext>
+      <GalleryBack onClick={()=>{HandleBack()}}>Back</GalleryBack>
       </>
       }
         <GalleryHolderInner position={position}>
@@ -893,6 +936,20 @@ if(activeDiaryData?.Image !== undefined){
             </NoDataHolder>
           )}
         </GalleryHolderInner>
+        <DotHolder>
+        {galleryData?.map((v,index)=>{
+          if(index == positionIndex){
+
+          }
+          return(
+           
+            <Dot positionIndex={positionIndex} index={index}>
+           
+            </Dot>
+          
+          )
+        })}
+        </DotHolder>
         </GalleryHolderInnerMain>
       </Inner>
     </Root>

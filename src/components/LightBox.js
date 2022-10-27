@@ -38,7 +38,7 @@ const LightBoxImage = styled.img`
 `;
 
 const LightBoxHolder = styled.div`
-background: #000000bf;
+background: #121b1cc4;
 max-height:100vh;
 min-width:100vw;
 position: fixed;
@@ -46,7 +46,7 @@ z-index: 50;
     top: 0;
     bottom:0;
     display: flex;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
 

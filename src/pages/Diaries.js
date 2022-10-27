@@ -150,7 +150,7 @@ const PopUpHolder = styled.div`
   height: calc(100vh - 74px);
   left: 0px;
   transform: translateY(${(props) => props.popUpOffset}%);
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 `;
 const PopUpHolderInner = styled.div`
   display: flex;
@@ -200,7 +200,7 @@ const ClosePopUpHolderText = styled.p`
   left: 0;
   color: #a5a5a5;
   width: 100%;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
   &:hover {
     transform: scale(1.2);
     color: #b62a2a;
