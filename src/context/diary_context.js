@@ -46,7 +46,7 @@ const {authToken} = useContext(AuthContext)
       console.log(error);
     })
  
-  }, [])
+  }, [authToken])
   
 
     return (
