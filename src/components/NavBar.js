@@ -191,7 +191,7 @@ const NavBar = () => {
          
       {auth && 
   <>
-        <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
+        <MenuLinkMobile to="/" onClick={() => { setMobileMenu(false); }}>
                 <FlexLink>
                   <Icon>
                     <img src={Journal} width="100%" />
