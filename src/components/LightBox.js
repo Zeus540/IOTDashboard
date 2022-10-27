@@ -69,6 +69,22 @@ padding:40px 0px;
   }
 `;
 
+const GalleryImageOverlay = styled.div`
+  
+  cursor: pointer;
+
+  flex-direction: column;
+  align-items: center;
+
+  top: 0;
+  z-index: 40;
+  color: white;
+  padding: 10px;
+  border-radius: 5px 5px  0px 0px;
+  background: #39595b;
+`;
+
+
 const LightBox = (props) => {
   return (
     <LightBoxHolder>
@@ -85,6 +101,11 @@ const LightBox = (props) => {
           </LightBoxClose>
         </LightBoxInnerClose>
         <LightBoxImage src={props.image} width="100%"  />
+        <GalleryImageOverlay>
+                      
+                      <div> Time : {props.data?.Time.split(":")[0]}:{props.data?.Time.split(":")[2]} </div>
+                      <div> Date : {props.data?.Date} </div>
+                     </GalleryImageOverlay>
       </LightBoxInner>
     </LightBoxHolder>
   );

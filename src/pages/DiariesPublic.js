@@ -56,11 +56,13 @@ const DiaryHolder = styled.div`
 `;
 
 const Diary = styled.div`
+  
 background: #c5c5c5;
 max-width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
+  
   @media (max-width: 619px) {
     width: calc(100% / 1);
     margin: 15px 0px;
@@ -230,7 +232,7 @@ align-items: center;
 `;
 
 
-const Diaries = () => {
+const DiariesPublic = () => {
   const { diaries,Update } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState(diaries);
   const [popUpOffset, setPopUpOffset] = useState(-100);
@@ -447,20 +449,13 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>My Diaries</MainHeading>
-          {auth &&   
-          <Button
-            onClick={() => {
-              handleAddPopUp();
-            }}
-          >
-            Add New Diary
-          </Button>}
+          <MainHeading>Public Diaries</MainHeading>
+        
         
         </Add>
 
         <DiaryHolder>
-          {diaries?.filter((d)=> d?.UserId == 1)?.map((d) => {
+          {diaries?.filter((d)=> d?.Public == 1)?.map((d) => {
             return (
               <Diary
                 
@@ -499,4 +494,4 @@ const Diaries = () => {
   );
 };
 
-export default Diaries;
+export default DiariesPublic;

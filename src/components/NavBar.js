@@ -54,7 +54,7 @@ const MenuLink = styled(NavLink)`
   color: white;
   text-decoration: none;
   &:hover {
-    border-bottom: 4px solid white;
+    border-bottom: 4px solid #8bab50;
   
   }
 
@@ -69,7 +69,7 @@ const MenuLinkMobile = styled(NavLink)`
 
 
   &:hover {
-    border-bottom: 4px solid white;
+    border-bottom: 4px solid #8bab50;
   }
   &:nth-child(even) {
     background: white;
@@ -161,8 +161,10 @@ const NavBar = () => {
           {auth && (
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
-              <MenuLink to="/diaries">Diaries</MenuLink>
-              <MenuLink to="/buy-now">Buy Now</MenuLink>
+             
+              <MenuLink to="/">Public Diaries</MenuLink>
+              <MenuLink to="/diaries">My Diaries</MenuLink>
+              <MenuLink to="/shop">Shop</MenuLink>
               <Button onClick={()=>{logOut()}}>Log Out</Button>
               
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
@@ -188,23 +190,35 @@ const NavBar = () => {
 
          
       {auth && 
+  <>
+        <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
+                <FlexLink>
+                  <Icon>
+                    <img src={Journal} width="100%" />
+                  </Icon>
+                  <div>Public Diaries</div>
+                </FlexLink>
+              </MenuLinkMobile>
+
                 <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
                 <FlexLink>
                   <Icon>
                     <img src={Journal} width="100%" />
                   </Icon>
-                  <div>Diaries</div>
+                  <div>My Diaries</div>
                 </FlexLink>
               </MenuLinkMobile>
+  </>
+              
 
          }
 
-                <MenuLinkMobile to="/buy-now" onClick={() => { setMobileMenu(false); }}>
+                <MenuLinkMobile to="/shop" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
                     {/* <Icon>
                         <img src={Chip} width="100%" />
                       </Icon> */}
-                    <div>Buy Now</div>
+                    <div>Shop</div>
                   </FlexLink>
                 </MenuLinkMobile>
       </LinkHolderM>

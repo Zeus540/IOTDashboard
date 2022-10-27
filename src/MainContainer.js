@@ -11,6 +11,8 @@ import VerifyComplete from './pages/verifyComplete';
 import axios from 'axios';
 import DashBoard from './pages/dashBoard';
 import Diaries from './pages/Diaries';
+import DiariesPublic from './pages/DiariesPublic';
+
 import Login from './pages/login';
 import MainPage from './pages/MainPage';
 
@@ -25,7 +27,7 @@ const MainContainer = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     {/* <Route path="/analyzer" element={<UploadImage />} /> */}
-                    <Route path="/buy-now" element={<MainPage />} />
+                    <Route path="/shop" element={<MainPage />} />
                     <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                 </Routes>
@@ -34,11 +36,13 @@ const MainContainer = () => {
             {auth &&
 
                 <Routes>
+                      <Route path="/" element={<DiariesPublic />} />
+                    
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/buy-now" element={<MainPage />} />
+                    <Route path="/shop" element={<MainPage />} />
                 </Routes>
             }
         </div>

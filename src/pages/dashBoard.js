@@ -460,20 +460,6 @@ const DayDotOutter = styled.div`
  
  
 `;
-const GalleryImageOverlay = styled.div`
-  
-  cursor: pointer;
-
-  flex-direction: column;
-  align-items: center;
-
-  top: 0;
-  z-index: 40;
-  color: white;
-  padding: 10px;
-  border-radius: 5px 5px  0px 0px;
-  background: #39595b;
-`;
 
 const TabsHolder = styled.div`
   
@@ -912,11 +898,7 @@ if(activeDiaryData?.Image !== undefined){
               if (img?.Image !== "") {
                 return (
                   <GalleryImageHolder key={index}>
-                                 <GalleryImageOverlay>
-                      
-                     <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
-                     <div> Date : {img?.Date} </div>
-                    </GalleryImageOverlay>
+                       
                     <GalleryImage
                       src={img?.Image}
                       width="100%"
