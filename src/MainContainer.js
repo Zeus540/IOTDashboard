@@ -25,7 +25,7 @@ const MainContainer = () => {
             {!auth &&
 
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/" element={<Store />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
@@ -39,8 +39,9 @@ const MainContainer = () => {
             {auth &&
 
                 <Routes>
-                      <Route path="/" element={<DiariesPublic />} />
+                      <Route path="/" element={<Store />} />
                       <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
+                      <Route path="/public-diaries" element={<DiariesPublic />} />
                       
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/overview/:id" element={<DashBoard />} />

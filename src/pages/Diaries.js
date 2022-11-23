@@ -246,8 +246,7 @@ const Diaries = () => {
   
   useEffect(() => {
     if(userId?.UserId !== null){
-      console.log("diaries",diaries);
-      console.log("userId",userId.UserId);
+
       setDiaryList(diaries?.filter((d)=> d?.UserId == userId?.UserId))
     }
     

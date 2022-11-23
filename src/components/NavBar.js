@@ -162,7 +162,7 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
              
-              <MenuLink to="/">Public Diaries</MenuLink>
+              <MenuLink to="/public-diaries">Public Diaries</MenuLink>
               <MenuLink to="/diaries">My Diaries</MenuLink>
               <MenuLink to="/store">Store</MenuLink>
               <Button onClick={()=>{logOut()}}>Log Out</Button>
@@ -191,7 +191,7 @@ const NavBar = () => {
          
       {auth && 
   <>
-        <MenuLinkMobile to="/" onClick={() => { setMobileMenu(false); }}>
+        <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
                 <FlexLink>
                   <Icon>
                     <img src={Journal} width="100%" />

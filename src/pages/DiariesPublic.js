@@ -241,6 +241,7 @@ const DiariesPublic = () => {
   const { auth,authToken,userId } = useContext(AuthContext);
 
   useEffect(() => {
+    setDiaryList(diaries.filter((d)=> d?.Public == 1))
     Update()
   }, [])
   
@@ -456,7 +457,7 @@ const DiariesPublic = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.filter((d)=> d?.Public == 1)?.map((d) => {
+          {diaryList?.map((d) => {
             return (
               <Diary
                 
