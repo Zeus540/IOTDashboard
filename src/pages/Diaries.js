@@ -234,14 +234,24 @@ align-items: center;
 
 const Diaries = () => {
   const { diaries,Update } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState(diaries);
+  const [diaryList, setDiaryList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
-  const { auth,authToken } = useContext(AuthContext);
+  const { auth,authToken,userId } = useContext(AuthContext);
+
 
   useEffect(() => {
-    Update()
-  }, [])
+    
+  }, [authToken])
+  
+  useEffect(() => {
+    if(userId?.UserId !== null){
+      console.log("diaries",diaries);
+      console.log("userId",userId.UserId);
+      setDiaryList(diaries?.filter((d)=> d?.UserId == userId?.UserId))
+    }
+    
+  }, [diaries,userId])
   
   const handleClick = (d) => {
     navigate(`/overview/${d.DiaryId}`);
@@ -257,6 +267,9 @@ const Diaries = () => {
 
 
   const addDiary = (values)=>{
+   
+
+    values.userId = userId?.UserId
     console.log("values",values);
     let config = {
       headers: {
@@ -323,7 +336,7 @@ const Diaries = () => {
     </ClosePopUpHolder>
       
           <Formik
-            initialValues={{ title: "", roomType: "" }}
+            initialValues={{ title: "", roomType: "", userId:userId?.UserId }}
             // validate={(values) => {
             //   const errors = {};
             //   if (!values.email) {
@@ -462,7 +475,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.filter((d)=> d?.UserId == 1)?.map((d) => {
+          {diaryList?.map((d) => {
             return (
               <Diary
                 
@@ -485,7 +498,7 @@ const Diaries = () => {
                   </TagHolder>
              <DeleteDiaryHolder>
              <div>{d?.Title}</div>
-                {d?.DiaryId !== 2 &&
+                {d?.UserId == userId?.UserId &&
                     <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
                 }
              </DeleteDiaryHolder>

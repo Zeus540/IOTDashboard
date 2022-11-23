@@ -47,6 +47,7 @@ const Inner = styled.div`
   }
 `;
 
+
 const IntroHolder = styled.div`
   margin-bottom: 0px;
   padding: 0px 0px;
@@ -508,6 +509,35 @@ display: none;
   display: flex;
 }
 `;
+
+const Button = styled.button`
+padding: 10px 40px;
+background: #39595b;
+color: white;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+align-self: self-start;
+margin-bottom: 17px;
+`;
+
+
+const InnerButtonHolder = styled.div`
+max-width: 1770px;
+border-radius: 0px 5px 5px 5px;
+width: 100%;
+
+padding: 20px 0px;
+padding-top:0px;
+@media (max-width: 425px) {
+  margin: 0px;
+  padding-top: 0px;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  margin: 0px;
+  padding-top: 0px;
+}
+`;
 const DashBoard = () => {
 
   let tabs = [
@@ -548,6 +578,7 @@ const DashBoard = () => {
 
 
   useEffect(() => {
+    setPositionIndex(0)
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     console.log("filtered",filtered);
     console.log("filtered",diaries);
@@ -579,7 +610,7 @@ const DashBoard = () => {
   };
 
   const handelGetWeekData = (w) => {
-
+    setPositionIndex(0)
 if(activeWeek !== w){
   setGalleryData([]);
   setDiaryData('');
@@ -625,7 +656,7 @@ if(activeWeek !== w){
   };
 
   const handleDay = (days, day) => {
-
+    setPositionIndex(0)
     if(activeDay !== day){
     setGalleryData([]);
     let preDay = day.DayId;
@@ -690,18 +721,28 @@ if(activeDiaryData?.Image !== undefined){
  }
 
  const HandleBack = ()=>{
+if(positionIndex > 0){
   setPosition(position + 25)
   setPositionIndex(positionIndex - 1)
 }
+}
+
+const HandleBackToPreviousPage = ()=>{
+  navigate(-1)
+  }
+
   return (
 
   
     <Root>
     
+  
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
-      
+      <InnerButtonHolder>
+      <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
+      </InnerButtonHolder>
     <Tabs/>
       <Inner>
       

@@ -10,6 +10,8 @@ export const DiaryProvider = ({ children }) => {
 const {authToken,auth} = useContext(AuthContext)
 
   const Update = ()=>{
+
+    if(authToken !== ""){
     let config = {
       headers: {
         authorization: 'Bearer ' + authToken,
@@ -26,26 +28,30 @@ const {authToken,auth} = useContext(AuthContext)
       console.log(error);
     })
   }
+  }
 
   useEffect(() => {
-
- 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
+    console.log(authToken);
+    if(authToken !== null){
+      let config = {
+        headers: {
+          authorization: 'Bearer ' + authToken,
+        }
       }
-    }
+      
+      axios.get('https://api.sweetleaf.co.za/diaries',config)
+      .then(function (response) {
+     
+        setDiaries(response.data)
+      })
+      .catch(function (error) {
     
-    axios.get('https://api.sweetleaf.co.za/diaries',config)
-    .then(function (response) {
+        console.log(error);
+      })
    
-      setDiaries(response.data)
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
+    }
  
+   
   }, [authToken,auth])
   
 

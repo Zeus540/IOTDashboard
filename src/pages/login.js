@@ -100,11 +100,11 @@ function Login() {
         setErrMsg(response.data )
       }
       if(response.data.token){
-        setToken(response.data.token)
+        setToken(response.data)
       }
     
   
-      console.log("response",response.data.token);
+      console.log("response",response.data);
     })
     .catch(function (error) {
   

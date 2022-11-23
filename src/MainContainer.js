@@ -15,6 +15,8 @@ import DiariesPublic from './pages/DiariesPublic';
 
 import Login from './pages/login';
 import MainPage from './pages/MainPage';
+import Store from './pages/Store';
+import DetailedProduct from './pages/DetailedProduct';
 
 const MainContainer = () => {
     const { auth, setAuth } = useContext(AuthContext)
@@ -26,8 +28,9 @@ const MainContainer = () => {
                     <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
                     {/* <Route path="/analyzer" element={<UploadImage />} /> */}
-                    <Route path="/shop" element={<MainPage />} />
+                    <Route path="/store" element={<Store />} />
                     <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                 </Routes>
@@ -37,12 +40,13 @@ const MainContainer = () => {
 
                 <Routes>
                       <Route path="/" element={<DiariesPublic />} />
-                    
+                      <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
+                      
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/shop" element={<MainPage />} />
+                    <Route path="/store" element={<Store />} />
                 </Routes>
             }
         </div>

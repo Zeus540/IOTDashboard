@@ -7,14 +7,21 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate ()
     const [auth, setAuth] = useState(false);
     const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
+    const [userId, setUserId] = useState(JSON.parse(localStorage.getItem('auth')));
+
     const setToken = (token)=>{
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', token.token);
+        localStorage.setItem('RefreshToken', token.refreshtoken);
+     
+        localStorage.setItem('auth', JSON.stringify({UserId:token.UserId}));
         setAuth(true)
         navigate('/diaries')
     }
 
     const logOut = ()=>{
         localStorage.removeItem('token');
+        localStorage.removeItem('RefreshToken');
+        localStorage.removeItem('auth');
         setAuth(false)
         navigate('/login')
     }
@@ -28,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
     
     return (
-        <AuthContext.Provider value={{ auth, setToken,logOut,authToken }}>
+        <AuthContext.Provider value={{ auth, setToken,logOut,authToken,userId }}>
             {children}
         </AuthContext.Provider>
     )

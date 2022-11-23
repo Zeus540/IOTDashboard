@@ -151,7 +151,7 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
 
-              <MenuLink to="/buy-now">Buy Now</MenuLink>
+              <MenuLink to="/store">Store</MenuLink>
               <MenuLink to="/login">Login</MenuLink>
               <MenuLink to="/register">Register</MenuLink>
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
@@ -164,7 +164,7 @@ const NavBar = () => {
              
               <MenuLink to="/">Public Diaries</MenuLink>
               <MenuLink to="/diaries">My Diaries</MenuLink>
-              <MenuLink to="/shop">Shop</MenuLink>
+              <MenuLink to="/store">Store</MenuLink>
               <Button onClick={()=>{logOut()}}>Log Out</Button>
               
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
@@ -213,12 +213,12 @@ const NavBar = () => {
 
          }
 
-                <MenuLinkMobile to="/shop" onClick={() => { setMobileMenu(false); }}>
+                <MenuLinkMobile to="/store" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
                     {/* <Icon>
                         <img src={Chip} width="100%" />
                       </Icon> */}
-                    <div>Shop</div>
+                    <div>Store</div>
                   </FlexLink>
                 </MenuLinkMobile>
       </LinkHolderM>

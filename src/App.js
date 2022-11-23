@@ -17,7 +17,8 @@ const Root = styled.div`
 const Image = styled.div`
   background-image: url(${Back});
   background-size: cover;
-  background-color: #121b1cc4;
+
+  background-color: #1b2b2c7d;
   background-blend-mode: overlay;
   min-height: 100vh;
   position: fixed;

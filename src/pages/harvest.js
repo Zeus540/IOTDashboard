@@ -6,7 +6,7 @@ import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
 
-
+import {useNavigate} from 'react-router-dom'
 
 
 const Root = styled.div`
@@ -105,6 +105,34 @@ width: 100%;
 
 `;
 
+const Button = styled.button`
+padding: 10px 40px;
+background: #39595b;
+color: white;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+align-self: self-start;
+margin-bottom: 17px;
+`;
+
+
+const InnerButtonHolder = styled.div`
+max-width: 1770px;
+border-radius: 0px 5px 5px 5px;
+width: 100%;
+
+padding: 20px 0px;
+padding-top:0px;
+@media (max-width: 425px) {
+  margin: 0px;
+  padding-top: 0px;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  margin: 0px;
+  padding-top: 0px;
+}
+`;
 const Harvest = () => {
  
 
@@ -113,6 +141,7 @@ const Harvest = () => {
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const params = useParams();
+  const navigate = useNavigate ()
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
@@ -122,13 +151,19 @@ const Harvest = () => {
 
   }, [diaries]);
 
+  const HandleBackToPreviousPage = ()=>{
+    navigate(-1)
+    }
+  
 
 
   return (
 
   
     <Root>
-   
+      <InnerButtonHolder>
+      <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
+      </InnerButtonHolder>
    <Tabs/>
       <Inner>
    

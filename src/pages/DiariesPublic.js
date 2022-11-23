@@ -238,7 +238,7 @@ const DiariesPublic = () => {
   const [diaryList, setDiaryList] = useState(diaries);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
-  const { auth,authToken } = useContext(AuthContext);
+  const { auth,authToken,userId } = useContext(AuthContext);
 
   useEffect(() => {
     Update()
@@ -479,8 +479,9 @@ const DiariesPublic = () => {
                   </TagHolder>
              <DeleteDiaryHolder>
              <div>{d?.Title}</div>
-                {d?.DiaryId !== 2 &&
-                    <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
+             {d?.UserId == userId?.UserId &&
+             <></>
+                    // <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
                 }
              </DeleteDiaryHolder>
                 </DiaryTextHolder>
