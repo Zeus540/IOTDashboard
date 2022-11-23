@@ -16,9 +16,9 @@ const Root = styled.div`
   
  
   width: 100%;
-  max-width:1770px;
+ 
 
-  margin:50px auto;
+  margin:0px auto;
   @media (max-width: 425px) {
     margin:0px auto;
 }
@@ -67,13 +67,14 @@ const BannerImageSection = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius:  0px 0px 10px 10px;
   padding: 180px 0px;
   @media (max-width: 425px) {
     max-width: unset;
-
+    font-size: 60px;
     width: unset;
     background-size: 100% cover;
+    border-radius: 0px 0px 10px  10px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
@@ -84,11 +85,14 @@ const BannerImageSection = styled.div`
 
 const  ProductCardSection = styled.div`
 display:flex;
+flex-wrap: wrap;
+justify-content: center;
+
 `
 
 const ProductCard = styled.div`
   background-color: white;
-  max-width:calc(100% / 4 - 80px);
+  max-width:calc(100% / 5 - 80px);
   width: 100%;
   margin:20px;
   cursor: pointer;
@@ -98,6 +102,25 @@ const ProductCard = styled.div`
   &:hover {
     transform: scale(1.02);
   
+  }
+  @media (min-width: 0px) and (max-width: 546px) {
+    min-width: calc(100% / 1 - 40px);
+    width: unset;
+    max-width:unset;
+    margin: 20px;
+  }
+
+  @media (min-width: 547px) and (max-width: 800px) {
+    min-width: calc(100% / 2 - 40px);
+    width: unset;
+    max-width:unset;
+    margin: 20px;
+  }
+  @media (min-width: 801px) and (max-width: 1200px) {
+    min-width: calc(100% / 3 - 40px);
+    width: unset;
+    max-width:unset;
+    margin: 20px;
   }
 `;
 
