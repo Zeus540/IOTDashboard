@@ -89,7 +89,11 @@ const LightBox = (props) => {
   return (
     <LightBoxHolder>
       <LightBoxInner>
-        <LightBoxInnerClose>
+             <GalleryImageOverlay>
+                      
+                      <div> Time : {props.data?.Time.split(":")[0]}:{props.data?.Time.split(":")[2]} </div>
+                      <div> Date : {props.data?.Date} </div>
+                      <LightBoxInnerClose>
           {/* <div>{props.data?.Date?.split("T")[0]} </div> */}
           <LightBoxClose
             onClick={() => {
@@ -99,13 +103,12 @@ const LightBox = (props) => {
             {" "}
             X
           </LightBoxClose>
+          
         </LightBoxInnerClose>
-        <LightBoxImage src={props.image} width="100%"  />
-        <GalleryImageOverlay>
-                      
-                      <div> Time : {props.data?.Time.split(":")[0]}:{props.data?.Time.split(":")[2]} </div>
-                      <div> Date : {props.data?.Date} </div>
                      </GalleryImageOverlay>
+
+        <LightBoxImage src={props.image} width="100%"  />
+   
       </LightBoxInner>
     </LightBoxHolder>
   );

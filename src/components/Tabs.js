@@ -14,7 +14,7 @@ align-items: end;
 
 `;
 const TabActive = styled.div`
-
+border-radius: 5px 5px 0px 0px;
   cursor: pointer;
   padding: 5px 20px;
   background: #ffffff;
@@ -25,7 +25,7 @@ const TabActive = styled.div`
 
 `;
 const TabInActive = styled.div`
-
+border-radius: 5px 5px 0px 0px;
   cursor: pointer;
   background: #39595b;
   color: white;

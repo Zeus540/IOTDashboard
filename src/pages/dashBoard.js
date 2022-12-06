@@ -34,7 +34,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #ffffff;
+  background: #efefef;
   padding: 20px 0px;
   padding-top:0px;
   @media (max-width: 425px) {
@@ -51,6 +51,8 @@ const Inner = styled.div`
 const IntroHolder = styled.div`
   margin-bottom: 0px;
   padding: 0px 0px;
+  display: flex;
+  justify-content: space-between;
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
@@ -110,7 +112,7 @@ const WeekHolder = styled.div`
   min-width: 70px;
   background: #c5c5c5;
   cursor: pointer;
-  opacity:0.4;
+  opacity:0.8;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -125,7 +127,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #c5c5c5;
+  background: #ffffff;
   cursor: pointer;
   
   transition: all 0.2s ease;
@@ -212,6 +214,18 @@ color:white;
   font-size: 30px;
   margin-bottom: 0px;
 `;
+const DairyHeadingSmall = styled.sup`
+color:white;
+  margin-top: 0px;
+  font-size: 16px;
+  margin-bottom: 0px;
+`;
+const DairyHeadingSmallAccent = styled.span`
+color:#a7c957;
+  margin-top: 0px;
+  font-size: 16px;
+  margin-bottom: 0px;
+`;
 
 const TextHeading = styled.div`
   font-size: 18px;
@@ -280,16 +294,17 @@ const GalleryImageHolder = styled.div`
 const GalleryHolderInnerMain = styled.div`
 overflow:hidden;
 position: relative;
+width: 100%;
 `;
 const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
 position: absolute;
-background: #8bab50;
+background: #345153;
 padding: 10px;
 color: white;
 z-index: 2;
-opacity: 0.5;
+opacity: 0.8;
 transform: translate(0%, -50%);
 transition: all 0.2s ease;
     top: 50%;
@@ -303,11 +318,11 @@ const GalleryBack = styled.div`
 left: 10px;
 cursor: pointer;
 position: absolute;
-background: #8bab50;
+background: #345153;
 padding: 10px;
 color: white;
 z-index: 2;
-opacity: 0.5;
+opacity: 0.8;
 transform: translate(0%, -50%);
 transition: all 0.2s ease;
     top: 50%;
@@ -448,7 +463,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #f2f2f2;
+  background: #ffffff;
 
   border-radius: 5px;
 `;
@@ -518,9 +533,21 @@ border: none;
 border-radius: 50px;
 cursor: pointer;
 align-self: self-start;
-margin-bottom: 17px;
+
+margin-top: 20px;
 `;
 
+const ButtonUpload = styled.button`
+padding: 10px 40px;
+background: #39595b;
+color: white;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+margin: 0px 17px;
+margin-bottom : 17px;
+float: right;
+`;
 
 const InnerButtonHolder = styled.div`
 max-width: 1770px;
@@ -763,8 +790,8 @@ const HandleBackToPreviousPage = ()=>{
         
         <RightFlex>
           <IntroHolder>
-          <DairyHeading>{activeDiary?.Title}</DairyHeading>
-          
+          <DairyHeading>{activeDiary?.Title} </DairyHeading>
+          <DairyHeadingSmall><DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> Days old</DairyHeadingSmall>
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
@@ -801,6 +828,8 @@ const HandleBackToPreviousPage = ()=>{
 
 <Flex3>
 {days.length == 0 && <Helper>Select a Week</Helper>}
+
+
           <Heading>WEEKS</Heading>
 
 
@@ -925,7 +954,14 @@ const HandleBackToPreviousPage = ()=>{
       
 
         <Heading>GALLERY</Heading>
-
+{console.log("activeDay",activeDay)}
+  {activeDay.DayId && 
+          <ButtonUpload
+        
+        >
+        Upload Image
+        </ButtonUpload>
+  }
        <GalleryHolderInnerMain>
           {galleryData.length > 0 &&
             <>

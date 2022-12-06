@@ -242,7 +242,7 @@ const DiariesPublic = () => {
 
   useEffect(() => {
     setDiaryList(diaries.filter((d)=> d?.Public == 1))
-    Update()
+  
   }, [])
   
   const handleClick = (d) => {

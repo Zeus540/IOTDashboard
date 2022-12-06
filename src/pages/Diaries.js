@@ -29,7 +29,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
 
-  background: #ffffff;
+  background: #efefef;
   padding: 20px;
   padding-top: 10px;
   @media (max-width: 425px) {
@@ -233,21 +233,20 @@ align-items: center;
 
 
 const Diaries = () => {
-  const { diaries,Update } = useContext(DiaryContext);
+  const { diaries,Update,loading } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
 
-  useEffect(() => {
-    
-  }, [authToken])
+
   
   useEffect(() => {
-    if(userId?.UserId !== null){
+    console.log("loading",loading)
+    if(!loading){
 
-      setDiaryList(diaries?.filter((d)=> d?.UserId == userId?.UserId))
+      setDiaryList(diaries)
     }
     
   }, [diaries,userId])
@@ -474,7 +473,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaryList?.map((d) => {
+          {diaries?.filter((d)=> d?.UserId == userId?.UserId)?.map((d) => {
             return (
               <Diary
                 
@@ -496,7 +495,7 @@ const Diaries = () => {
                     <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
                   </TagHolder>
              <DeleteDiaryHolder>
-             <div>{d?.Title}</div>
+             <div>{d?.Title} </div>
                 {d?.UserId == userId?.UserId &&
                     <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
                 }

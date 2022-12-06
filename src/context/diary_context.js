@@ -7,56 +7,49 @@ export const DiaryContext = createContext();
 export const DiaryProvider = ({ children }) => {
 
   const [diaries, setDiaries] = useState([]);
+  const [loading, setLoading] = useState(true);
 const {authToken,auth,userId} = useContext(AuthContext)
+
+let token = localStorage.getItem("token")
 
   const Update = ()=>{
 
-    if(authToken !== ""){
+    if(token !== ""){
     let config = {
       headers: {
-        authorization: 'Bearer ' + authToken,
+        authorization: 'Bearer ' + token,
       }
     }
     
     axios.get('https://api.sweetleaf.co.za/diaries',config)
-    .then(function (response) {
-   
+    .then((response) => {
+      console.log("response",response.data)
       setDiaries(response.data)
     })
-    .catch(function (error) {
+    .catch((error) => {
   
       console.log(error);
+    }).finally((response)=>{
+      if(response?.data !== "Forbiden"){
+        setLoading(false)
+      }
+     
     })
   }
   }
 
   useEffect(() => {
-    console.log(authToken);
-    if(authToken !== null){
-      let config = {
-        headers: {
-          authorization: 'Bearer ' + authToken,
-        }
-      }
-      
-      axios.get('https://api.sweetleaf.co.za/diaries',config)
-      .then(function (response) {
-     
-        setDiaries(response.data)
-      })
-      .catch(function (error) {
-    
-        console.log(error);
-      })
-   
+
+    if(token){
+      Update()
     }
- 
    
-  }, [authToken,auth,userId])
+   
+  }, [token])
   
 
     return (
-        <DiaryContext.Provider value={{ diaries, setDiaries,Update }}>
+        <DiaryContext.Provider value={{ diaries, setDiaries,Update,loading }}>
             {children}
         </DiaryContext.Provider>
     )

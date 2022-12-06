@@ -5,7 +5,6 @@ import axios from "axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
-
 import {useNavigate} from 'react-router-dom'
 
 
@@ -61,7 +60,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #ffffff;
+  background: #efefef;
   padding: 20px 0px;
   @media (max-width: 425px) {
 
@@ -82,7 +81,7 @@ const TextHolderGroup2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #8bab50;
   background: #39595b;
   padding: 15px 15px;
   line-height: 25px;
@@ -113,7 +112,8 @@ border: none;
 border-radius: 50px;
 cursor: pointer;
 align-self: self-start;
-margin-bottom: 17px;
+
+margin-top: 20px;
 `;
 
 
@@ -138,18 +138,35 @@ const Harvest = () => {
 
 
   const { diaries } = useContext(DiaryContext);
+  const [harvestData, setHarvestData] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const params = useParams();
   const navigate = useNavigate ()
 
+
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    console.log("filtered",filtered);
     setActiveDiary(filtered);
-
+    
 
   }, [diaries]);
+
+  useEffect(() => {
+
+    axios
+    .get("https://api.sweetleaf.co.za/harvest")
+    .then(function (response) {
+      console.log("before",response.data);
+      console.log("after",response?.data?.filter((d) => d?.DiaryId == parseInt(params?.id)));
+      console.log("params",parseInt(params?.id));
+      setHarvestData(response.data.filter((d)=> d?.DiaryId ==  parseInt(params?.id))[0])
+    })
+    .catch(function (error) {
+      
+    });
+
+  }, [activeDiary]);
 
   const HandleBackToPreviousPage = ()=>{
     navigate(-1)
@@ -173,27 +190,28 @@ const Harvest = () => {
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
             <TextHeading>Wet Weight</TextHeading>
-         
+                  {console.log("harvestData",harvestData)}
+         {harvestData?.Wet_Weight} g
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
             <TextHeading>Dry Weight</TextHeading>
-            
+            {harvestData?.Dry_Weight} g
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
             <TextHeading>Total Days</TextHeading>
-       
+            {harvestData?.Total_Days}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 
         <TextHolderGroup2>
           <TextHolderGroup2Inner>
             <TextHeading>Plants Harvested</TextHeading>
-       
+            {harvestData?.Plants_Harvested}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 

@@ -58,7 +58,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #ffffff;
+  background: #efefef;
   padding: 20px 0px;
   @media (max-width: 425px) {
 
@@ -79,7 +79,7 @@ const TextHolderGroup2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #8bab50;
   background: #39595b;
   padding: 15px 15px;
   line-height: 25px;
@@ -149,7 +149,8 @@ border: none;
 border-radius: 50px;
 cursor: pointer;
 align-self: self-start;
-margin-bottom: 17px;
+
+margin-top: 20px;
 `;
 
 
@@ -231,90 +232,96 @@ const Stats = () => {
         <Flex2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-       
-            {activeDiary?.Strain}
+    
             <TextHeading>Strain</TextHeading>
+               
+            {activeDiary?.Strain}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
        
-            {activeDiary?.Light_Schedule}
+
             <TextHeading>Light Schedule</TextHeading>
+            {activeDiary?.Light_Schedule}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
            
-            {activeDiary?.Light_Type}
+   
             <TextHeading>Light Type</TextHeading>
+            {activeDiary?.Light_Type}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <img src={IndoorIcon} width='50px'/>
           <TextHolderGroup2Inner>
        
-            {activeDiary?.Room_Type}
+      
             <TextHeading>Room Type</TextHeading>
+            {activeDiary?.Room_Type}
           </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
          
-            {activeDiary?.Pot_Size}
+       
             <TextHeading>Pot Size</TextHeading>
+            {activeDiary?.Pot_Size}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-      
+          <TextHeading>Co2</TextHeading>
             {activeDiaryData?.Co2 == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Co2} PPM</>
             )}
-                  <TextHeading>Co2</TextHeading>
+              
                 </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-          
+          <TextHeading>Moisture</TextHeading>
             {activeDiaryData?.Moisture == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Moisture} %</>
             )}
-              <TextHeading>Moisture</TextHeading>
+             
               </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-    
+          <TextHeading>Temperature</TextHeading>
             {activeDiaryData?.Temperature == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Temperature} &#8451;</>
             )}
-                    <TextHeading>Temperature</TextHeading>
+                  
                 </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-         
+          <TextHeading>Humidity</TextHeading>
             {activeDiaryData?.Humidity == 0 ? (
               "N/A"
             ) : (
               <>{activeDiaryData?.Humidity} %</>
             )}
-               <TextHeading>Humidity</TextHeading>
+             
                   </TextHolderGroup2Inner>
                   
           </TextHolderGroup2>
 
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
+          <TextHeading>SMELL</TextHeading>
           <>Strong</>
-            <TextHeading>SMELL</TextHeading>
+          
     
                   </TextHolderGroup2Inner>
           </TextHolderGroup2>

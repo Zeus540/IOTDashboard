@@ -6,6 +6,7 @@ import { Formik, Field, Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios"
+import { NavLink } from "react-router-dom";
 
 const Root = styled.div`
 background:#39595b26;
@@ -70,6 +71,7 @@ border:none;
 background:#39595b;
 color:white;
 border-radius:5px;
+cursor:pointer;
 `;
 
 const Heading = styled.h1`
@@ -86,6 +88,27 @@ color: red;
     text-align: center;
 `;
 
+const Help = styled.p`
+color: #345153;
+margin: 0px;
+font-size: 16px;
+text-align: center;
+padding-top: 20px;
+`;
+
+const MenuLink = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 15px 5px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  color: #8bab50;
+  text-decoration: none;
+  &:hover {
+    border-bottom: 4px solid #8bab50;
+  
+  }
+
+`;
 
 function Login() {
   const {auth,setToken} = useContext(AuthContext)
@@ -162,7 +185,7 @@ function Login() {
 
       <Button>Login</Button>
 
-      <>Dont have an account?  <>Sign Up Here</> </>
+      <Help>Dont have an account?     <MenuLink to="/register">Sign Up Here</MenuLink> </Help>
       </Form>
         )}
     </Formik>

@@ -16,7 +16,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
 width:100%;
-  background: #ffffff;
+  background: #efefef;
   padding: 20px 20px;
   @media (max-width: 425px) {
     margin: 0px;
@@ -27,6 +27,7 @@ width:100%;
 `;
 const SubmitBtn = styled.button`
 margin:20px 0px;
+cursor:pointer;
 `;
 
 const GalleryHolder = styled.div`
