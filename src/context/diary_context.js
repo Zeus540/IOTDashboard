@@ -7,6 +7,7 @@ export const DiaryContext = createContext();
 export const DiaryProvider = ({ children }) => {
 
   const [diaries, setDiaries] = useState([]);
+  const [diariesPublic, setDiariesPublic] = useState([]);
   const [loading, setLoading] = useState(true);
 const {authToken,auth,userId} = useContext(AuthContext)
 
@@ -38,6 +39,26 @@ let token = localStorage.getItem("token")
   }
   }
 
+  const UpdatePublic = ()=>{
+
+    axios.get('https://api.sweetleaf.co.za/diaries/public')
+    .then((response) => {
+      console.log("response",response.data)
+      setDiariesPublic(response.data)
+    })
+    .catch((error) => {
+  
+      console.log(error);
+    }).finally((response)=>{
+      if(response?.data !== "Forbiden"){
+        setLoading(false)
+      }
+     
+    })
+  }
+
+
+  
   useEffect(() => {
 
     if(token){
@@ -49,7 +70,7 @@ let token = localStorage.getItem("token")
   
 
     return (
-        <DiaryContext.Provider value={{ diaries, setDiaries,Update,loading }}>
+        <DiaryContext.Provider value={{ diaries, setDiaries,Update,loading,UpdatePublic,diariesPublic }}>
             {children}
         </DiaryContext.Provider>
     )

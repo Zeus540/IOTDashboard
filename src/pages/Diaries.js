@@ -29,7 +29,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 5px;
 
-  background: #efefef;
+  background:#ffffff;
   padding: 20px;
   padding-top: 10px;
   @media (max-width: 425px) {

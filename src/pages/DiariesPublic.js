@@ -55,6 +55,11 @@ const DiaryHolder = styled.div`
   flex-wrap: wrap;
 `;
 
+const NoData = styled.div`
+text-align: center;
+width: 100%;
+`;
+
 const Diary = styled.div`
   
 background: #c5c5c5;
@@ -234,15 +239,15 @@ align-items: center;
 
 
 const DiariesPublic = () => {
-  const { diaries,Update } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState(diaries);
+  const { diariesPublic,UpdatePublic } = useContext(DiaryContext);
+
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
   useEffect(() => {
-    setDiaryList(diaries.filter((d)=> d?.Public == 1))
   
+    UpdatePublic()
   }, [])
   
   const handleClick = (d) => {
@@ -269,7 +274,7 @@ const DiariesPublic = () => {
     axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
     .then(function (response) {
       if(response.data.insertId !== undefined){
-        Update()
+    
         setPopUpOffset(-100);
       }
      
@@ -290,7 +295,7 @@ const DiariesPublic = () => {
     axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
     .then(function (response) {
       if(response.data.affectedRows > 0){
-        Update()
+    
         setPopUpOffset(-100);
       }
 
@@ -457,7 +462,7 @@ const DiariesPublic = () => {
         </Add>
 
         <DiaryHolder>
-          {diaryList?.map((d) => {
+          {diariesPublic?.map((d) => {
             return (
               <Diary
                 
@@ -490,6 +495,8 @@ const DiariesPublic = () => {
               </Diary>
             );
           })}
+
+  <NoData>        {diariesPublic.length <= 0 && "No Diaries Publicly  Available "}</NoData>
         </DiaryHolder>
       </Inner>
     </Root>

@@ -658,6 +658,8 @@ const DashBoard = () => {
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
   const [activeToggle, setActiveToggle] = useState(false);
+  const [publicToggle, setPublicToggle] = useState(false);
+  
   const { auth,authToken,userId } = useContext(AuthContext);
   
   const navigate = useNavigate ()
@@ -802,7 +804,10 @@ if(activeDiaryData?.Image !== undefined){
   if(activeDiary?.Active == 1){
     setActiveToggle(true)
   }
-
+  if(activeDiary?.Public == 1){
+    setPublicToggle(true)
+  }
+  
  }, [activeDiary,activeDiaryData])
  
 
@@ -822,16 +827,73 @@ const HandleBackToPreviousPage = ()=>{
   navigate(-1)
   }
 
-  const handleActiveToggle = (e)=>{
+  const handleActiveToggle = (e,activeDiary)=>{
    
     if(userId?.UserId == activeDiary?.UserId){
       setActiveToggle(e.target.checked)
     }
 
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    
+    let values = {
+      DiaryId:activeDiary.DiaryId,
+      Active:e.target.checked
+    }
+    console.log("values",values);
+    axios.post('https://api.sweetleaf.co.za/diaries/update/active',values,config,)
+    .then(function (response) {
+      if(response.data.insertId !== undefined){
+      
+      }
+     
+      console.log("response",response.data.insertId);
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
+ 
 
   }
 
+  
+  const handlePublicToggle = (e,activeDiary)=>{
+   
+    if(userId?.UserId == activeDiary?.UserId){
+      setPublicToggle(e.target.checked)
+    }
 
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    
+    let values = {
+      DiaryId:activeDiary.DiaryId,
+      Active:e.target.checked
+    }
+    console.log("values",values);
+    axios.post('https://api.sweetleaf.co.za/diaries/update/public',values,config,)
+    .then(function (response) {
+      if(response.data.insertId !== undefined){
+      
+      }
+     
+      console.log("response",response.data.insertId);
+    })
+    .catch(function (error) {
+  
+      console.log(error);
+    })
+ 
+
+  }
+  
   return (
 
   
@@ -872,10 +934,20 @@ const HandleBackToPreviousPage = ()=>{
 <CheckFlex>
 
 <ToggleHolderLabel>In-Active</ToggleHolderLabel><label class="switch">
-<input type="checkbox" checked={activeToggle} onChange={(e)=>{handleActiveToggle(e)}}/>
+<input type="checkbox" checked={activeToggle} onChange={(e)=>{handleActiveToggle(e,activeDiary)}}/>
 <span class="slider round"></span>
 
 </label>    <ToggleHolderLabel>Active</ToggleHolderLabel>
+
+</CheckFlex>
+
+<CheckFlex>
+
+<ToggleHolderLabel>Private</ToggleHolderLabel><label class="switch">
+<input type="checkbox" checked={publicToggle} onChange={(e)=>{handlePublicToggle(e,activeDiary)}}/>
+<span class="slider round"></span>
+
+</label>    <ToggleHolderLabel>Public</ToggleHolderLabel>
 
 </CheckFlex>
 </ToggleHolder>
