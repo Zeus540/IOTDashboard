@@ -469,7 +469,7 @@ const fadeIn = keyframes`
 const DayDotActive = styled.div`
   width: 10px;
   height: 10px;
-  background: #39595b;
+  background: #9fb970;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
