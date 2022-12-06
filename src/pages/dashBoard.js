@@ -12,7 +12,7 @@ import NotesPopUp from "../components/Notes";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import {useNavigate} from 'react-router-dom'
 import Tabs from "../components/Tabs";
-
+import { AuthContext } from "../context/auth_context";
 
 
 
@@ -53,6 +53,7 @@ const IntroHolder = styled.div`
   padding: 0px 0px;
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
@@ -70,7 +71,18 @@ const RightFlex = styled.div`
     width: unset;
   }
 `;
+const ToggleHolder= styled.div`
+display: flex;
 
+flex-direction: row;
+justify-content: end;
+align-items: center;
+
+`
+const ToggleHolderLabel= styled.div`
+color:white;
+padding: 0px 10px;
+`
 const Flex = styled.div`
   display: flex;
   padding: 0px 20px;
@@ -538,6 +550,20 @@ margin-top: 20px;
 
 `;
 
+const AssignButton = styled.button`
+padding: 5px 20px;
+
+width: fit-content;
+border: none;
+background: #8bab50;
+color: #345153;
+border-radius: 50px;
+cursor: pointer;
+font-weight: 700;
+margin:0px 10px
+`;
+
+
 const ButtonUpload = styled.button`
 padding: 10px 40px;
 background: #39595b;
@@ -566,6 +592,37 @@ padding-top:0px;
   padding-top: 0px;
 }
 `;
+
+const QuickActionHeading = styled.h2`
+color: #8bab50;
+margin: 10px 10px;
+font-weight: bold;
+margin-bottom: 10px;
+font-size: 18px;
+
+`;
+const QuickActionBlockFlex = styled.div`
+display: flex;
+flex-wrap: wrap;
+`;
+const CheckFlex = styled.div`
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+`;
+
+const QuickActionBlock = styled.button`
+padding: 5px 20px;
+background: white;
+max-width: calc(100% / 6 - 20px);
+margin:0px 10px;
+border-radius: 5px;
+text-align: center;
+font-weight: bold;
+border: none;
+cursor: pointer;
+`;
+
 const DashBoard = () => {
 
   let tabs = [
@@ -600,6 +657,8 @@ const DashBoard = () => {
   const location =useLocation()
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
+  const [activeToggle, setActiveToggle] = useState(false);
+  const { auth,authToken,userId } = useContext(AuthContext);
   
   const navigate = useNavigate ()
 
@@ -740,6 +799,10 @@ if(activeDiaryData?.Image !== undefined){
   imageCheck()
   console.log(activeDiary?.ThumbNail)
   console.log(activeDiaryData?.Image)
+  if(activeDiary?.Active == 1){
+    setActiveToggle(true)
+  }
+
  }, [activeDiary,activeDiaryData])
  
 
@@ -758,6 +821,16 @@ if(positionIndex > 0){
 const HandleBackToPreviousPage = ()=>{
   navigate(-1)
   }
+
+  const handleActiveToggle = (e)=>{
+   
+    if(userId?.UserId == activeDiary?.UserId){
+      setActiveToggle(e.target.checked)
+    }
+
+
+  }
+
 
   return (
 
@@ -790,6 +863,26 @@ const HandleBackToPreviousPage = ()=>{
           </ImgHolder>
         
         <RightFlex>
+
+{userId?.UserId == activeDiary?.UserId &&
+
+<ToggleHolder>
+{activeToggle &&  <AssignButton>Assign Device</AssignButton>}
+
+<CheckFlex>
+
+<ToggleHolderLabel>In-Active</ToggleHolderLabel><label class="switch">
+<input type="checkbox" checked={activeToggle} onChange={(e)=>{handleActiveToggle(e)}}/>
+<span class="slider round"></span>
+
+</label>    <ToggleHolderLabel>Active</ToggleHolderLabel>
+
+</CheckFlex>
+</ToggleHolder>
+}
+    
+
+
           <IntroHolder>
           <DairyHeading>{activeDiary?.Title} </DairyHeading>
           <DairyHeadingSmall><DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> Days old</DairyHeadingSmall>
@@ -799,18 +892,30 @@ const HandleBackToPreviousPage = ()=>{
           {diaryData !== "" && 
           <TextHolder>
            
+           <QuickActionHeading>Quick Action</QuickActionHeading>
+        
+        <QuickActionBlockFlex>
+        <QuickActionBlock>Water</QuickActionBlock>
+           <QuickActionBlock>Trim</QuickActionBlock>
+           <QuickActionBlock>Feed</QuickActionBlock>
+        </QuickActionBlockFlex>
+
             <HeadingCta>
               <TextHolderHeading>Notes</TextHolderHeading>
-              <HeadingCtaButton
-                onClick={() => {
-                  handleNotes();
-                }}
-              >
-                {console.log(daysNotes)}
-                {daysNotes == '' || undefined ? "Add Notes" : "Edit Notes"}
-              </HeadingCtaButton>
+              {userId?.UserId == activeDiary?.UserId && 
+                  <HeadingCtaButton
+                  onClick={() => {
+                    handleNotes();
+                  }}
+                >
+                  {console.log(daysNotes)}
+                  {daysNotes == '' || undefined ? "Add Notes" : "Edit Notes"}
+                </HeadingCtaButton>}
+          
             </HeadingCta>
             <Notes>{daysNotes}</Notes>
+
+
           </TextHolder>
           }
           </RightFlex>
@@ -955,8 +1060,8 @@ const HandleBackToPreviousPage = ()=>{
       
 
         <Heading>GALLERY</Heading>
-{console.log("activeDay",activeDay)}
-  {activeDay.DayId && 
+
+  {activeDay.DayId && userId?.UserId == activeDiary?.UserId &&
           <ButtonUpload
         
         >
