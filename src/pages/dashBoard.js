@@ -74,9 +74,15 @@ const RightFlex = styled.div`
 const ToggleHolder= styled.div`
 display: flex;
 
+flex-wrap: wrap;
+
 flex-direction: row;
 justify-content: end;
 align-items: center;
+@media (max-width: 425px) {
+  flex-direction: column;
+  align-items: end;
+}
 
 `
 const ToggleHolderLabel= styled.div`
@@ -560,7 +566,11 @@ color: #345153;
 border-radius: 50px;
 cursor: pointer;
 font-weight: 700;
-margin:0px 10px
+margin:0px 10px;
+@media (max-width: 425px) {
+  margin: 10px 10px;
+  margin-top: 0px;
+}
 `;
 
 
@@ -607,8 +617,12 @@ flex-wrap: wrap;
 `;
 const CheckFlex = styled.div`
 display: flex;
-flex-wrap: wrap;
+align-items: center;
 justify-content: space-between;
+@media (max-width: 425px) {
+  margin: 5px 0px;
+}
+
 `;
 
 const QuickActionBlock = styled.button`
@@ -621,6 +635,10 @@ text-align: center;
 font-weight: bold;
 border: none;
 cursor: pointer;
+@media (max-width: 425px) {
+  max-width: calc(100% / 3 - 20px);
+  margin-bottom:20px
+}
 `;
 
 const DashBoard = () => {

@@ -248,7 +248,7 @@ const Diaries = () => {
 
       setDiaryList(diaries)
     }
-    
+
   }, [diaries,userId])
   
   const handleClick = (d) => {
@@ -473,7 +473,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.filter((d)=> d?.UserId == userId?.UserId)?.map((d) => {
+          {diaryList?.filter((d)=> d?.UserId == userId?.UserId)?.map((d) => {
             return (
               <Diary
                 
