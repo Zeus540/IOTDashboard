@@ -26,7 +26,7 @@ const Image = styled.div`
   width:100vw;
   @media (max-width: 425px) {
     background-image:unset;
-    background-color: #efefef;
+    background-color: #1b2b2c7d;
   }
 `;
 

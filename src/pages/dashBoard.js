@@ -24,7 +24,7 @@ const Root = styled.div`
   flex-direction: column;
 
   @media (max-width: 425px) {
-    margin: 0px 0px;
+    margin: 0px 10px;
     margin-top: 0px;
     padding-bottom: 0px;
   }
@@ -535,6 +535,7 @@ cursor: pointer;
 align-self: self-start;
 
 margin-top: 20px;
+
 `;
 
 const ButtonUpload = styled.button`

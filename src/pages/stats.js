@@ -13,9 +13,9 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-  margin: 0px 0px;
-  margin-top: 0px;
-  padding-bottom: 0px;
+    margin: 0px 10px;
+    margin-top: 0px;
+    padding-bottom: 0px;
   }
 `;
 
