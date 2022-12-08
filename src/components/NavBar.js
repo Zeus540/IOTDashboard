@@ -61,7 +61,7 @@ const MenuLink = styled(NavLink)`
 `;
 const MenuLinkMobile = styled(NavLink)`
   margin: 0px 0px;
-  padding: 20px 15px;
+  padding: 20px 5px;
   text-align: center;
   color: white;
   text-decoration: none;
@@ -71,10 +71,10 @@ const MenuLinkMobile = styled(NavLink)`
   &:hover {
     border-bottom: 4px solid #8bab50;
   }
-  &:nth-child(even) {
-    background: white;
-    color: black!important;
-  }
+  // &:nth-child(even) {
+  //   background: white;
+  //   color: black!important;
+  // }
 `;
 const MenuLinklogo = styled(NavLink)`
   margin: 0px 0px;
@@ -125,7 +125,7 @@ const Pattie = styled.div`
   margin: 5px;
 `;
 const Icon = styled.div`
-  width: 45px;
+  width: 30px;
   margin: 0px auto;
 `;
 
@@ -213,7 +213,7 @@ const NavBar = () => {
               <MenuLinkMobile to="/my-devices" onClick={() => { setMobileMenu(false); }}>
                 <FlexLink>
                   <Icon>
-                    <img src={Journal} width="100%" />
+            
                   </Icon>
                   <div>My Devices</div>
                 </FlexLink>
