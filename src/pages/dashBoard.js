@@ -34,7 +34,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #efefef;
+  background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
   @media (max-width: 425px) {
@@ -130,7 +130,7 @@ const WeekHolder = styled.div`
   min-width: 70px;
   background: #c5c5c5;
   cursor: pointer;
-  opacity:0.8;
+  opacity:0.5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -145,7 +145,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #ffffff;
+  background: #c5c5c5;
   cursor: pointer;
   
   transition: all 0.2s ease;
@@ -828,6 +828,17 @@ if(activeDiaryData?.Image !== undefined){
   
  }, [activeDiary,activeDiaryData])
  
+ useEffect(() => {
+
+  if(activeDiary?.Active == 1){
+    setActiveToggle(true)
+  }
+  if(activeDiary?.Public == 1){
+    setPublicToggle(true)
+  }
+  
+ }, [params])
+
 
  const HandleNext = ()=>{
   setPosition(position - 25)

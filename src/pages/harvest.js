@@ -60,7 +60,7 @@ const Inner = styled.div`
   max-width: 1770px;
   border-radius: 0px 5px 5px 5px;
   width: 100%;
-  background: #efefef;
+  background: #ffffff;
   padding: 20px 0px;
   @media (max-width: 425px) {
 

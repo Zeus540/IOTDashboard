@@ -18,6 +18,7 @@ border-radius: 5px 5px 0px 0px;
   cursor: pointer;
   padding: 5px 20px;
   background: #ffffff;
+  font-weight: bold;
   @media (max-width: 425px) {
     border-bottom: 4px solid #8bab50;
  
