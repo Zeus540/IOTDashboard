@@ -639,8 +639,49 @@ cursor: pointer;
   max-width: calc(100% / 3 - 20px);
   margin-bottom:20px
 }
-`;
+`
+const Input = styled.input`
 
+background: transparent;
+border: none;
+border-bottom: 2px solid white;
+padding: ${(props) => !props.assignDevice ? "0px":"5px 5px"};
+width: ${(props) => !props.assignDevice ? "0px":"unset"};
+color: white;
+transition: 0.5s all ease;
+`
+
+;
+
+const InputHolder = styled.div`
+
+
+width: ${(props) => !props.assignDevice ? "0px":"unset"};
+
+display: flex;
+
+transition: 0.5s all ease;
+`
+
+;
+
+const InputHolderSumbit = styled.button`
+display: ${(props) => !props.assignDevice ? "none":"block"};
+padding: 5px 20px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    border: none;
+    background: #8bab50;
+    color: #345153;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin: 0px 10px;
+    transition: 0.5s all ease;
+`
+
+;
 const DashBoard = () => {
 
   let tabs = [
@@ -677,7 +718,8 @@ const DashBoard = () => {
   const [positionIndex, setPositionIndex] = useState(0);
   const [activeToggle, setActiveToggle] = useState(false);
   const [publicToggle, setPublicToggle] = useState(false);
-  
+  const [assignDevice, setAssignDevice] = useState(false);
+
   const { auth,authToken,userId } = useContext(AuthContext);
   
   const navigate = useNavigate ()
@@ -947,18 +989,28 @@ const HandleBackToPreviousPage = ()=>{
               }
               width="100%"
               height="100%"
-              onClick={() => {
-                handleLightBox(activeDiary?.ThumbNail, activeDiary);
-              }}
+              // onClick={() => {
+              //   handleLightBox(activeDiary?.ThumbNail, activeDiary);
+              // }}
             />
           </ImgHolder>
-        
+      
         <RightFlex>
 
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>
-{activeToggle &&  <AssignButton>Assign Device</AssignButton>}
+{activeToggle && 
+<>
+<AssignButton onClick={()=>{setAssignDevice(!assignDevice)}}>Assign Device +</AssignButton> 
+
+<InputHolder assignDevice={assignDevice}>
+<Input text placeholder="Enter Device Id" assignDevice={assignDevice}></Input>
+<InputHolderSumbit assignDevice={assignDevice} onClick={()=>{setAssignDevice(false)}}>Sumbit</InputHolderSumbit>
+</InputHolder>
+
+</>
+}
 
 <CheckFlex>
 

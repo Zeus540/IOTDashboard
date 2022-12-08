@@ -17,6 +17,7 @@ import Login from './pages/login';
 import MainPage from './pages/MainPage';
 import Store from './pages/Store';
 import DetailedProduct from './pages/DetailedProduct';
+import Devices from './pages/Devices';
 
 const MainContainer = () => {
     const { auth, setAuth } = useContext(AuthContext)
@@ -44,6 +45,7 @@ const MainContainer = () => {
                       <Route path="/public-diaries" element={<DiariesPublic />} />
                       
                     <Route path="/diaries" element={<Diaries />} />
+                    <Route path="/my-devices" element={<Devices />} />
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />

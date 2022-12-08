@@ -38,7 +38,7 @@ const LinkHolder = styled.div`
 `;
 const LinkHolderMobile = styled.div`
   display: flex;
-  position: fixed;
+  position: absolute;
   background: #39595b;
   right: 0;
   flex-direction: column;
@@ -105,7 +105,7 @@ font-weight: 700;
 `;
 
 const BurgerMenuHolder = styled.div`
-  position: relative;
+
   @media (min-width: 768px) {
     display: none;
   }
@@ -164,6 +164,7 @@ const NavBar = () => {
              
               <MenuLink to="/public-diaries">Public Diaries</MenuLink>
               <MenuLink to="/diaries">My Diaries</MenuLink>
+              <MenuLink to="/my-devices">My Devices</MenuLink>
               <MenuLink to="/store">Store</MenuLink>
               <Button onClick={()=>{logOut()}}>Log Out</Button>
               
@@ -206,6 +207,15 @@ const NavBar = () => {
                     <img src={Journal} width="100%" />
                   </Icon>
                   <div>My Diaries</div>
+                </FlexLink>
+              </MenuLinkMobile>
+
+              <MenuLinkMobile to="/my-devices" onClick={() => { setMobileMenu(false); }}>
+                <FlexLink>
+                  <Icon>
+                    <img src={Journal} width="100%" />
+                  </Icon>
+                  <div>My Devices</div>
                 </FlexLink>
               </MenuLinkMobile>
   </>

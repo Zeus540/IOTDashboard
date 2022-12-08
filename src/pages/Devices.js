@@ -12,9 +12,11 @@ import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
 
+import DeviceImg from "../assets/Planter.png"
+
 const Root = styled.div`
   margin-top: 50px;
-
+  
   @media (max-width: 425px) {
     margin: 0px 10px;
     margin-top: 10px;
@@ -30,16 +32,17 @@ background: #ffffff;
 padding: 20px;
 padding-top: 10px;
 margin: 0 auto;
+
   @media (max-width: 425px) {
     margin: 0px;
     padding: 0px;
-    padding-bottom: 20px;
-
+    border-radius: 5px;
+    padding-bottom: 5px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;
     padding: 0px;
-    padding-bottom: 20px;
+    border-radius: 5px;
   }
 `;
 
@@ -54,25 +57,19 @@ const DiaryHolder = styled.div`
   flex-wrap: wrap;
 `;
 
-const NoData = styled.div`
-text-align: center;
-width: 100%;
-`;
-
 const Diary = styled.div`
-  
 background: #c5c5c5;
 max-width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
   
-  @media (max-width: 619px) {
-    max-width: calc(100% / 1 - 30px);
-    width: 100%;
-    margin: 15px auto;
-    border-radius: 0px;
-  }
+@media (max-width: 619px) {
+  max-width: calc(100% / 1 - 30px);
+  width: 100%;
+  margin: 15px auto;
+  border-radius: 0px;
+}
   @media (min-width: 620px) and (max-width: 699px) {
     width: calc(100% / 2 - 20px);
     margin: 10px;
@@ -236,22 +233,70 @@ justify-content: space-between;
 align-items: center;  
 `;
 
+const New = styled.div`
+border: 2px solid #345153;
+border-radius: 5px;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+opacity: 0.4;
+margin:20px;
 
-const DiariesPublic = () => {
-  const { diariesPublic,UpdatePublic } = useContext(DiaryContext);
+`;
+const NewText = styled.p`
+margin:0px;
+padding: 0px;
 
+`;
+
+const DeviceHolderOutter = styled.div`
+display: flex;
+flex-wrap: wrap;
+`;
+
+const DeviceHolder = styled.div`
+max-width: calc(100% / 4 - 20px);
+background: #ededed;
+padding: 20px;
+border-radius: 5px;
+margin: 10px;
+@media (max-width: 425px) {
+  max-width: calc(100% / 1 - 40px);
+  margin:20px
+}
+`;
+
+
+const DeviceOnline = styled.div`
+margin: 0px 5px;
+background: #4caf50;
+width: 10px;
+display: block;
+height: 10px;
+border-radius: 50%;
+
+`;
+
+const DeviceTextGroup = styled.div`
+
+display: flex;
+align-items: baseline;
+`;
+
+
+
+const Devices = () => {
+
+  const [deviceList, setDeviceList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
-  useEffect(() => {
+
+
   
-    UpdatePublic()
-  }, [])
   
-  const handleClick = (d) => {
-    navigate(`/overview/${d.DiaryId}`);
-  };
 
   const handleAddPopUp = (d) => {
     if (popUpOffset == -100) {
@@ -262,51 +307,17 @@ const DiariesPublic = () => {
   };
 
 
-  const addDiary = (values)=>{
+  const addDevice = (values)=>{
     console.log("values",values);
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
     
-    axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
-    .then(function (response) {
-      if(response.data.insertId !== undefined){
-    
-        setPopUpOffset(-100);
-      }
-     
-      console.log("response",response.data.insertId);
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
+    setDeviceList([...deviceList,values])
+    setPopUpOffset(-100);
   }
 
-  const deleteDiary = (DiaryId)=>{
-    console.log("DiaryId",DiaryId);
-    let data ={
-      DiaryId:DiaryId
-    }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
-    .then(function (response) {
-      if(response.data.affectedRows > 0){
-    
-        setPopUpOffset(-100);
-      }
 
-     
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
-  }
-
+  useEffect(() => {
+    console.log("deviceList",deviceList);
+  }, [deviceList])
   
   return (
 
@@ -329,7 +340,7 @@ const DiariesPublic = () => {
     </ClosePopUpHolder>
       
           <Formik
-            initialValues={{ title: "", roomType: "" }}
+            initialValues={{ }}
             // validate={(values) => {
             //   const errors = {};
             //   if (!values.email) {
@@ -345,7 +356,7 @@ const DiariesPublic = () => {
             // }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                addDiary(values)
+               addDevice(values)
                 setSubmitting(false);
               }, 400);
             }}
@@ -365,79 +376,23 @@ const DiariesPublic = () => {
                  
    
               <FormHeadingGroup>
-              <FormHeading>Lets Get Setup</FormHeading>
-              <FormSub>Fill out the form below</FormSub>
+              <FormHeading>Lets Get You Setup</FormHeading>
+         
                 </FormHeadingGroup>
                 <InputHolder>
              
                 <div>
                   <Input
-                    id="title"
-                    label="Title"
-                    type="title"
+                    id="Id"
+                    label="Enter Device Id"
+                    type="Id"
                     variant="filled"
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                 </div>
                 
-                <div>
-                  <Input
-                    id="roomType"
-                    label="Room Type"
-                    type="roomType"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="potSize"
-                    label="Pot Size"
-                    type="potSize"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="strain"
-                    label="Strain"
-                    type="strain"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="lightSchedule"
-                    label="Light Schedule"
-                    type="lightSchedule"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                <div>
-                  <Input
-                    id="lightWattage"
-                    label="Light Wattage"
-                    type="lightWattage"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-             
-
-              
+   
                 <Button type="submit" disabled={isSubmitting}>
                   Submit
                 </Button>
@@ -455,52 +410,43 @@ const DiariesPublic = () => {
 
       <Inner>
         <Add>
-          <MainHeading>Public Diaries</MainHeading>
-        
+          <MainHeading>Devices</MainHeading>
+          {auth && deviceList.length > 0  && 
+          <Button
+            onClick={() => {
+              handleAddPopUp();
+            }}
+          >
+            Add Devices
+          </Button>} 
         
         </Add>
 
-        <DiaryHolder>
-          {diariesPublic?.map((d) => {
-            return (
-              <Diary
-                
-              >
-                <DiaryImageHolder onClick={() => {
-                  handleClick(d);
-                }}>
-                 
-                  <DiaryImage
-                    src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
-                    width="100%"
-                  />
-                </DiaryImageHolder>
-
-                <DiaryTextHolder>
-                  <TagHolder>
-                    <Tag> {d?.Strain}</Tag>
-                    <Tag> {d?.Room_Type}</Tag>
-                    <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
-                  </TagHolder>
-             <DeleteDiaryHolder>
-             <div>{d?.Title}</div>
-             {d?.UserId == userId?.UserId &&
-             <></>
-                    // <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
-                }
-             </DeleteDiaryHolder>
-                </DiaryTextHolder>
-              
-              </Diary>
-            );
-          })}
-
-  <NoData>        {diariesPublic.length <= 0 && "No Diaries Publicly Available "}</NoData>
-        </DiaryHolder>
+{deviceList.length > 0 ? 
+<DeviceHolderOutter>
+{deviceList?.map((device)=>{
+   return(
+    <DeviceHolder>
+      <><img src={DeviceImg} width="100%"/></>
+      <div>Device Id : {device.Id}</div>
+      <DeviceTextGroup>Status : Online <DeviceOnline></DeviceOnline> </DeviceTextGroup>
+    </DeviceHolder>
+    )
+})}
+</DeviceHolderOutter>
+:
+<New     onClick={() => {
+  handleAddPopUp();
+}}>
+<NewText >Link a device to your account</NewText>
+<NewText>+</NewText>
+</New>
+}
+      
       </Inner>
     </Root>
     </>
   );
 };
 
-export default DiariesPublic;
+export default Devices;

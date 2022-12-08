@@ -26,12 +26,12 @@ const Root = styled.div`
 
 
 const Inner = styled.div`
-  max-width: 1770px;
-  border-radius: 5px;
-
-  background:#ffffff;
-  padding: 20px;
-  padding-top: 10px;
+max-width: 1770px;
+border-radius: 5px;
+background: #ffffff;
+padding: 20px;
+padding-top: 10px;
+margin: 0 auto;
   @media (max-width: 425px) {
     margin: 0px;
     padding: 0px;
