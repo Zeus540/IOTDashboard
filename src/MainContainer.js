@@ -46,6 +46,8 @@ const MainContainer = () => {
                       
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/my-devices" element={<Devices />} />
+                    <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />
+               
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />

@@ -11,7 +11,7 @@ import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
-
+import { useLocation, useParams } from "react-router-dom";
 import DeviceImg from "../assets/Planter.png"
 
 const Root = styled.div`
@@ -293,7 +293,7 @@ const Devices = () => {
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
-
+  const params = useParams();
 
   
   
