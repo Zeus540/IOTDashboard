@@ -540,6 +540,9 @@ justify-content: center;
 display: none;
 @media (min-width: 0px) and (max-width: 768px) {
   display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: 0 auto;
 }
 `;
 
@@ -735,7 +738,7 @@ const DashBoard = () => {
     setActiveDiary(filtered);
 
     let data = {
-      Diaryid: params?.id,
+      DiaryId: params?.id,
     };
 
     axios
@@ -893,6 +896,8 @@ if(positionIndex > 0){
   setPositionIndex(positionIndex - 1)
 }
 }
+
+
 
 const HandleBackToPreviousPage = ()=>{
   navigate(-1)
@@ -1261,7 +1266,7 @@ const HandleBackToPreviousPage = ()=>{
           }
           return(
            
-            <Dot positionIndex={positionIndex} index={index}>
+            <Dot positionIndex={positionIndex} index={index} >
            
             </Dot>
           

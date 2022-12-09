@@ -3,6 +3,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import { AuthContext } from "../src/context/auth_context";
 import Stats from './pages/stats';
 import Harvest from './pages/harvest';
+import Notes from './pages/notes';
+
 import Register from './pages/register';
 import UploadImage from './pages/UploadImage';
 import RegistrationComplete from './pages/registrationComplete';
@@ -51,6 +53,8 @@ const MainContainer = () => {
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
+                    <Route path="/journal/:id" element={<Notes />} />
+                    
                     <Route path="/store" element={<Store />} />
                 </Routes>
             }

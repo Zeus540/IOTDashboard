@@ -24,7 +24,7 @@ let token = localStorage.getItem("token")
     
     axios.get('https://api.sweetleaf.co.za/diaries',config)
     .then((response) => {
-      console.log("response",response.data)
+      
       setDiaries(response.data)
     })
     .catch((error) => {

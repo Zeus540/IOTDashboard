@@ -3,9 +3,21 @@ import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import {useNavigate} from 'react-router-dom'
 
-const TabsHolder = styled.div`
+const TabsHolderOutter = styled.div`
 position: sticky;
 top: 70px;
+align-items: end;
+  display: flex;
+  max-width: 1770px;
+  width: 100%;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+
+const TabsHolder = styled.div`
+
+
 align-items: end;
   display: flex;
   max-width: 1770px;
@@ -19,6 +31,7 @@ border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;
   background: #ffffff;
   font-weight: bold;
+  border-bottom: 4px solid #8bab50;
   @media (max-width: 425px) {
     border-bottom: 4px solid #8bab50;
  
@@ -33,6 +46,7 @@ border-radius: 5px 5px 0px 0px;
 
   padding: 5px 20px;
   height: fit-content;
+  border-bottom: 4px solid #39595b;
   @media (max-width: 425px) {
     border-bottom: 4px solid #39595b;
  
@@ -56,6 +70,11 @@ const Tabs = () => {
         ,
         {
           tabName:'Harvest',
+          active:false
+        }
+        ,
+        {
+          tabName:'Journal',
           active:false
         }
       ]
@@ -90,7 +109,7 @@ useEffect(() => {
   }, [tabList])
 
   useEffect(() => {
-    console.log("tabList",tabList)
+   
 }, [tabList])
   
   const handleClick =(tabList,tab)=>{
@@ -110,12 +129,17 @@ useEffect(() => {
           case "Harvest":
             navigate(`/harvest/${params.id}`)
             break;
-          
+
+            case "Journal":
+            navigate(`/journal/${params.id}`)
+            break;
+            
     }
     
 }
 
   return (
+    <TabsHolderOutter>
     <TabsHolder>
 
     {tabList?.map((tab,index)=>{
@@ -133,6 +157,7 @@ useEffect(() => {
        })
        }
        </TabsHolder>
+       </TabsHolderOutter>
   )
 }
 
