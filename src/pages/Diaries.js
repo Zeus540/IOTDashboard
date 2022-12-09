@@ -473,7 +473,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.filter((d)=> d?.UserId == userId?.UserId)?.map((d) => {
+          {diaries?.map((d) => {
             return (
               <Diary
                 
