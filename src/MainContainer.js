@@ -5,6 +5,7 @@ import Stats from './pages/stats';
 import Harvest from './pages/harvest';
 import Notes from './pages/notes';
 
+
 import Register from './pages/register';
 import UploadImage from './pages/UploadImage';
 import RegistrationComplete from './pages/registrationComplete';
@@ -17,8 +18,8 @@ import DiariesPublic from './pages/DiariesPublic';
 
 import Login from './pages/login';
 import MainPage from './pages/MainPage';
-import Store from './pages/Store';
-import DetailedProduct from './pages/DetailedProduct';
+
+
 import Devices from './pages/Devices';
 
 const MainContainer = () => {
@@ -28,12 +29,9 @@ const MainContainer = () => {
             {!auth &&
 
                 <Routes>
-                    <Route path="/" element={<Store />} />
+             <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
-                    {/* <Route path="/analyzer" element={<UploadImage />} /> */}
-                    <Route path="/store" element={<Store />} />
                     <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                 </Routes>
@@ -42,8 +40,8 @@ const MainContainer = () => {
             {auth &&
 
                 <Routes>
-                      <Route path="/" element={<Store />} />
-                      <Route path="/product/:productName/:productId" element={<DetailedProduct />} />
+                      <Route path="/diaries" element={<Diaries />} />
+             
                       <Route path="/public-diaries" element={<DiariesPublic />} />
                       
                     <Route path="/diaries" element={<Diaries />} />
@@ -54,8 +52,7 @@ const MainContainer = () => {
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
                     <Route path="/journal/:id" element={<Notes />} />
-                    
-                    <Route path="/store" element={<Store />} />
+           
                 </Routes>
             }
         </div>
