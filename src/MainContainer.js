@@ -40,7 +40,7 @@ const MainContainer = () => {
             {auth &&
 
                 <Routes>
-                      <Route path="/diaries" element={<Diaries />} />
+                      <Route path="/" element={<Diaries />} />
              
                       <Route path="/public-diaries" element={<DiariesPublic />} />
                       
