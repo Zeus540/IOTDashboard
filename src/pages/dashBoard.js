@@ -233,7 +233,8 @@ const TextHolder = styled.div`
   @media (max-width: 425px) {
     margin-left: 0px;
     width: unset;
-    padding: 0px;
+    padding: 20px;
+    padding-top:0px;
     min-height: unset; 
   }
   @media (min-width: 426px) and (max-width: 768px) {
