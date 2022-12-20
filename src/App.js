@@ -17,16 +17,15 @@ const Root = styled.div`
 const Image = styled.div`
   background-image: url(${Back});
   background-size: cover;
-
-  background-color: #1b2b2c7d;
-  background-blend-mode: overlay;
+  background-color: #00000024;
+  background-blend-mode: saturation;
   min-height: 100vh;
   position: fixed;
   z-index: 2;
   width:100vw;
   @media (max-width: 425px) {
     background-image:unset;
-    background-color: #1b2b2c7d;
+    background-color: #00000024;
   }
 `;
 

@@ -109,7 +109,7 @@ const Tag = styled.sup`
   display: block;
   border-radius: 50px;
   color: white;
-  background: #39595b;
+  background: #234a4c;
 `;
 
 const TagHolder = styled.div`
@@ -135,7 +135,7 @@ const Add = styled.div`
 
 const Button = styled.button`
   padding: 10px 20px;
-  background: #39595b;
+  background: #234a4c;
   color: white;
   border: none;
   border-radius: 50px;
@@ -181,7 +181,7 @@ color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#39595b;
+background:#234a4c;
 color:white;
 padding: 20px;
 `;

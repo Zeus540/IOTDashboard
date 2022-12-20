@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const LightBoxInnerClose = styled.div`
-  background: #39595b;
+  background: #234a4c;
   color: white;
   padding: 10px 15px;
   display: flex;
@@ -72,8 +72,8 @@ padding:40px 0px;
 const GalleryImageOverlay = styled.div`
   
   cursor: pointer;
-
-  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 
   top: 0;
@@ -81,7 +81,7 @@ const GalleryImageOverlay = styled.div`
   color: white;
   padding: 10px;
   border-radius: 5px 5px  0px 0px;
-  background: #39595b;
+  background: #234a4c;
 `;
 
 
@@ -90,12 +90,17 @@ const LightBox = (props) => {
     <LightBoxHolder>
       <LightBoxInner>
              <GalleryImageOverlay>
+             <div>
+                
+                      {props.data?.Time && 
                       
-                      <div> Time : {props.data?.Time.split(":")[0]}:{props.data?.Time.split(":")[2]} </div>
-                      <div> Date : {props.data?.Date} </div>
-                      <LightBoxInnerClose>
-          {/* <div>{props.data?.Date?.split("T")[0]} </div> */}
-          <LightBoxClose
+                      <div>
+                        <div> Time : {props.data?.Time.split(":")[0]}:{props.data?.Time.split(":")[2]} </div>
+                        <div> Date : {props.data?.Date} </div>
+                      </div>
+                      }
+                          </div>
+                    <LightBoxClose
             onClick={() => {
               props.close(false);
             }}
@@ -103,8 +108,7 @@ const LightBox = (props) => {
             {" "}
             X
           </LightBoxClose>
-          
-        </LightBoxInnerClose>
+                 
                      </GalleryImageOverlay>
 
         <LightBoxImage src={props.image} width="100%"  />

@@ -17,7 +17,7 @@ align-items: end;
 
 const TabsHolder = styled.div`
 
-
+flex-wrap: wrap;
 align-items: end;
   display: flex;
   max-width: 1770px;
@@ -26,7 +26,7 @@ align-items: end;
 
 `;
 const TabActive = styled.div`
-border-radius: 5px 5px 0px 0px;
+
   cursor: pointer;
   padding: 5px 20px;
   background: #ffffff;
@@ -39,16 +39,16 @@ border-radius: 5px 5px 0px 0px;
 
 `;
 const TabInActive = styled.div`
-border-radius: 5px 5px 0px 0px;
+
   cursor: pointer;
-  background: #39595b;
+  background: #234a4c;
   color: white;
 
   padding: 5px 20px;
   height: fit-content;
-  border-bottom: 4px solid #39595b;
+  border-bottom: 4px solid #234a4c;
   @media (max-width: 425px) {
-    border-bottom: 4px solid #39595b;
+    border-bottom: 4px solid #234a4c;
  
   }
 `;

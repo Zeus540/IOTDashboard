@@ -9,7 +9,7 @@ import axios from "axios"
 import { NavLink } from "react-router-dom";
 
 const Root = styled.div`
-background:#39595b26;
+background:#234a4c26;
 
 padding-top: 0px;
 color:white;
@@ -46,7 +46,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#39595b;
+color:#234a4c;
 font-weight:bold;
 `;
 const Input = styled(Field)`
@@ -68,7 +68,7 @@ padding: 15px 50px;
 width: fit-content;
 margin-top: 20px;
 border:none;
-background:#39595b;
+background:#234a4c;
 color:white;
 border-radius:5px;
 cursor:pointer;
@@ -89,7 +89,7 @@ color: red;
 `;
 
 const Help = styled.p`
-color: #345153;
+color: #234a4c;
 margin: 0px;
 font-size: 16px;
 text-align: center;

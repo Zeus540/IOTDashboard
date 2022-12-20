@@ -8,7 +8,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "axios"
 
 const Root = styled.div`
-background:#39595b26;
+background:#234a4c26;
 
 padding-top: 0px;
 color:white;
@@ -50,11 +50,11 @@ display: flex;
 `;
 
 const Label = styled.label`
-color:#39595b;
+color:#234a4c;
 font-weight:bold;
 `;
 const LabelT = styled.label`
-color:#39595b;
+color:#234a4c;
 
 margin-left: 10px;
 `;
@@ -82,7 +82,7 @@ width: fit-content;
 margin: 0px 10px;
 margin-top: 20px;
 border:none;
-background:#39595b;
+background:#234a4c;
 color:white;
 border-radius:5px;
 cursor: pointer;

@@ -24,7 +24,7 @@ const Root = styled.div`
   flex-direction: column;
 
   @media (max-width: 425px) {
-    margin: 0px 10px;
+    margin: 0px 0px;
     margin-top: 0px;
     padding-bottom: 0px;
   }
@@ -50,20 +50,26 @@ const Inner = styled.div`
 
 const IntroHolder = styled.div`
   margin-bottom: 0px;
-  padding: 0px 0px;
+  padding: 20px 0px;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  @media (max-width: 425px) {
+    flex-direction: column-reverse;
+  }
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
   padding:  20px;
-
+  background: #234a4c;
   width: 60%;
   @media (max-width: 425px) {
-    margin-left: 0px;
-    padding: 20px 20px;
-    width: unset;
+    margin: 0px auto;
+    padding: 0px 0px;
+    width: 90%;
+    margin-top: -70px;
+    border-radius: 5px;
+    
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin-left: 0px;
@@ -82,6 +88,7 @@ align-items: center;
 @media (max-width: 425px) {
   flex-direction: column;
   align-items: end;
+  padding: 20px;
 }
 
 `
@@ -102,10 +109,12 @@ const Flex = styled.div`
 const FlexTop = styled.div`
   display: flex;
   padding: 0px 0px;
-  background: #39595b;
+  background: #234a4c;
   @media (max-width: 425px) {
     flex-direction: column;
     padding: 0px 0px;
+    background: unset;
+     
   }
   @media (min-width: 426px) and (max-width: 768px) {
     flex-direction: column;
@@ -122,6 +131,17 @@ const Flex2 = styled.div`
 const Flex3 = styled.div`
 
 `;
+const Flex3B = styled.div`
+
+
+padding: 20px 0px;
+margin: 20px 0px;
+@media (max-width: 425px) {
+  background: #234a4c;
+  color: white;
+}
+`;
+
 const WeekHolder = styled.div`
   width: fit-content;
   text-align: center;
@@ -132,6 +152,7 @@ const WeekHolder = styled.div`
   cursor: pointer;
   opacity:0.5;
   display: flex;
+  color: black;
   flex-direction: column;
   justify-content: space-between;
   &:hover {
@@ -147,7 +168,7 @@ const WeekHolderActive = styled.div`
   min-width: 70px;
   background: #c5c5c5;
   cursor: pointer;
-  
+  color: black;
   transition: all 0.2s ease;
   display: flex;
     flex-direction: column;
@@ -231,7 +252,21 @@ color:white;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
+  @media (max-width: 425px) {
+    font-size: 20px;
+  }
 `;
+const DairyHeadingTitle = styled.h3`
+color:white;
+  margin-top: 0px;
+  font-size: 16px;
+  margin-bottom: 0px;
+  @media (max-width: 425px) {
+    font-size: 16px;
+    padding-top: 15px;
+  }
+`;
+
 const DairyHeadingSmall = styled.sup`
 color:white;
   margin-top: 0px;
@@ -257,7 +292,7 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
-  background: #39595b;
+  background: #234a4c;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -318,7 +353,7 @@ const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
 position: absolute;
-background: #345153;
+background: #234a4c;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -336,7 +371,7 @@ const GalleryBack = styled.div`
 left: 10px;
 cursor: pointer;
 position: absolute;
-background: #345153;
+background: #234a4c;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -415,7 +450,7 @@ padding: 10px 40px;
 
 background: #f2f2f2;
 border: none;
-color: #39595b;
+color: #234a4c;
 border-radius: 50px;
 cursor: pointer;
 `;
@@ -446,14 +481,19 @@ const DayDotInner = styled.div`
 const DayDot = styled.div`
   width: 10px;
   height: 10px;
-  background: #39595b;
+
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
   opacity: 0.5;
+ 
+  background:  #234a4c;
   &:hover {
     opacity: 1;
  
+  }
+  @media (max-width: 425px) {
+    background: #ffffff;
   }
  
 `;
@@ -514,7 +554,7 @@ const TabActive = styled.div`
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #39595b;
+  background: #234a4c;
   color: white;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 20px;
@@ -526,7 +566,7 @@ text-align:center
 `;
 
 const Dot = styled.div`
-  background: ${props => props.index == props.positionIndex ? "#8bab50": "#39595b"};
+  background: ${props => props.index == props.positionIndex ? "#8bab50": "#234a4c"};
   border-radius: 50%;
   height: 10px;
   width: 10px;
@@ -548,7 +588,7 @@ display: none;
 
 const Button = styled.button`
 padding: 10px 40px;
-background: #39595b;
+background: #234a4c;
 color: white;
 border: none;
 border-radius: 50px;
@@ -565,21 +605,21 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 background: #8bab50;
-color: #345153;
+color: #234a4c;
 border-radius: 50px;
 cursor: pointer;
 font-weight: 700;
 margin:0px 10px;
 @media (max-width: 425px) {
   margin: 10px 10px;
-  margin-top: 0px;
+ 
 }
 `;
 
 
 const ButtonUpload = styled.button`
 padding: 10px 40px;
-background: #39595b;
+background: #234a4c;
 color: white;
 border: none;
 border-radius: 50px;
@@ -608,7 +648,7 @@ padding-top:0px;
 
 const QuickActionHeading = styled.h2`
 color: #8bab50;
-margin: 10px 10px;
+margin: 10px 0px;
 font-weight: bold;
 margin-bottom: 10px;
 font-size: 18px;
@@ -632,7 +672,9 @@ const QuickActionBlock = styled.button`
 padding: 5px 20px;
 background: white;
 max-width: calc(100% / 6 - 20px);
+
 margin:0px 10px;
+margin-left: 0px;
 border-radius: 5px;
 text-align: center;
 font-weight: bold;
@@ -657,12 +699,12 @@ transition: 0.5s all ease;
 ;
 
 const InputHolder = styled.div`
-
+padding: 20px;
 
 width: ${(props) => !props.assignDevice ? "0px":"unset"};
 
-display: flex;
 
+display: ${(props) => !props.assignDevice ?"none" : "flex"};
 transition: 0.5s all ease;
 `
 
@@ -676,11 +718,12 @@ padding: 5px 20px;
     width: fit-content;
     border: none;
     background: #8bab50;
-    color: #345153;
+    color: #234a4c;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
     margin: 0px 10px;
+    margi
     transition: 0.5s all ease;
 `
 
@@ -979,10 +1022,10 @@ const HandleBackToPreviousPage = ()=>{
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
-      <InnerButtonHolder>
+      {/* <InnerButtonHolder>
       <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
-      </InnerButtonHolder>
-    <Tabs/>
+      </InnerButtonHolder> */}
+   
       <Inner>
       
 
@@ -992,6 +1035,7 @@ const HandleBackToPreviousPage = ()=>{
               src={
                 mainImage
               }
+              onClick={()=>{handleLightBox(mainImage)}}
               width="100%"
               height="100%"
               // onClick={() => {
@@ -1001,12 +1045,15 @@ const HandleBackToPreviousPage = ()=>{
           </ImgHolder>
       
         <RightFlex>
-
+        <Tabs/>
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>
 {activeToggle && 
 <>
+
+<>
+
 <AssignButton onClick={()=>{setAssignDevice(!assignDevice)}}>Assign Device +</AssignButton> 
 
 <InputHolder assignDevice={assignDevice}>
@@ -1014,6 +1061,7 @@ const HandleBackToPreviousPage = ()=>{
 <InputHolderSumbit assignDevice={assignDevice} onClick={()=>{setAssignDevice(false)}}>Sumbit</InputHolderSumbit>
 </InputHolder>
 
+</>
 </>
 }
 
@@ -1042,7 +1090,10 @@ const HandleBackToPreviousPage = ()=>{
 
 
           <IntroHolder>
+ <div>
+ <DairyHeadingTitle>Title</DairyHeadingTitle>
           <DairyHeading>{activeDiary?.Title} </DairyHeading>
+ </div>
           <DairyHeadingSmall><DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> Days old</DairyHeadingSmall>
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
@@ -1090,7 +1141,7 @@ const HandleBackToPreviousPage = ()=>{
         )}
 
 
-<Flex3>
+<Flex3B>
 {days.length == 0 && <Helper>Select a Week</Helper>}
 
 
@@ -1213,7 +1264,7 @@ const HandleBackToPreviousPage = ()=>{
             })}
           </DayDotHolder>
           }
-        </Flex3>
+        </Flex3B>
      
       
 

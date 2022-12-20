@@ -41,7 +41,7 @@ display:block;
 `;
 
 const SectionFlex = styled.div`
-  background-color: #39595b;
+  background-color: #234a4c;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -59,7 +59,7 @@ const SectionFlex = styled.div`
   }
 `;
 const SectionText = styled.div`
-  background-color: #39595b;
+  background-color: #234a4c;
   border-radius: 10px;
   margin: 40px auto;
   max-width: 70%;
@@ -84,7 +84,7 @@ const SectionImage = styled.div`
   min-width: 50%;
   max-width: 50%;
   width: 100%;
-  background: #39595b;
+  background: #234a4c;
   background-size: cover;
   display: flex;
   flex-direction: column;

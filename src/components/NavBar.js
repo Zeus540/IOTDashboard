@@ -7,7 +7,7 @@ import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
 
 const Root = styled.div`
-  background-color: #345153;
+  background-color: #234a4c;
   display: flex;
   justify-content: center;
   position: sticky;
@@ -39,7 +39,7 @@ const LinkHolder = styled.div`
 const LinkHolderMobile = styled.div`
   display: flex;
   position: absolute;
-  background: #39595b;
+  background: #234a4c;
   right: 0;
   flex-direction: column;
   top: 70px;
@@ -86,7 +86,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #39595b;
+    border-bottom: 2px solid #234a4c;
   }
 `;
 const Button = styled.button`
@@ -94,7 +94,7 @@ padding: 10px 20px;
 width: fit-content;
 border: none;
 background: #8bab50;
-color: #345153;
+color: #234a4c;
 border-radius: 5px;
 cursor: pointer;
 font-weight: 700;

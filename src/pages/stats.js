@@ -37,7 +37,7 @@ const Heading = styled.h4`
   &::before {
   content: "";
     display: block;
-    background: #39595b;
+    background: #234a4c;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -45,7 +45,7 @@ const Heading = styled.h4`
   &::after {
     content: "";
     display: block;
-    background: #39595b;
+    background: #234a4c;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -80,7 +80,7 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   color: #8bab50;
-  background: #39595b;
+  background: #234a4c;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -143,7 +143,7 @@ align-items: center;
 
 const Button = styled.button`
 padding: 10px 40px;
-background: #39595b;
+background: #234a4c;
 color: white;
 border: none;
 border-radius: 50px;

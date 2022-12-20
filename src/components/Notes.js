@@ -21,7 +21,7 @@ z-index:50;
 const Notes = styled.div`
 
 
-background: #39595b;
+background: #234a4c;
 width: 40%;
 border-radius: 5px;
 @media(max-width:425px){
@@ -34,7 +34,7 @@ padding: 10px 40px;
 margin: 10px 20px;
 background: #f2f2f2;
 border: none;
-color: #39595b;
+color: #234a4c;
 border-radius: 50px;
 cursor: pointer;
 `;
@@ -69,7 +69,7 @@ display: flex;
 align-items: center;
 padding: 10px 20px;
 justify-content: space-between;
-background: #39595b;
+background: #234a4c;
     color: white;
 `;
 
