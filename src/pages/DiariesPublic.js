@@ -461,7 +461,7 @@ const DiariesPublic = () => {
         </Add>
 
         <DiaryHolder>
-          {diariesPublic?.map((d) => {
+          {diariesPublic?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
                 

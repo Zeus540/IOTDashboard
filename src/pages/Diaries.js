@@ -473,7 +473,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.map((d) => {
+          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
                 
