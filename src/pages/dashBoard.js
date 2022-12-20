@@ -56,6 +56,7 @@ const IntroHolder = styled.div`
   margin-top: 10px;
   @media (max-width: 425px) {
     flex-direction: column-reverse;
+    padding: 20px 20px;
   }
 `;
 const RightFlex = styled.div`
