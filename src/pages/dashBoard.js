@@ -61,7 +61,7 @@ const IntroHolder = styled.div`
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
-
+  border-radius: 5px;
   background: #234a4c;
 
 `;
@@ -243,7 +243,7 @@ const TextHolder = styled.div`
   @media (max-width: 425px) {
     margin-left: 0px;
     width: unset;
-    padding: 20px;
+    padding: 20px 0px;
     padding-top:0px;
     min-height: unset; 
   }
@@ -765,6 +765,9 @@ const DashBoard = () => {
   const [addNotes, setAddNotes] = useState(false);
   const [daysNotes, setDaysNotes] = useState("");
   const [diaryData, setDiaryData] = useState("");
+  const [dayId, setDayId] = useState("");
+  const [weekId, setWeekId] = useState("");
+  
   const [lightBoxImg, setLightBoxImg] = useState(Image);
   const [lightBoxData, setLightBoxData] = useState([]);
   const [galleryData, setGalleryData] = useState([]);
@@ -826,6 +829,7 @@ const DashBoard = () => {
 
   const handelGetWeekData = (w) => {
     setPositionIndex(0)
+    setWeekId( w.WeekId)
 if(activeWeek !== w){
   setGalleryData([]);
   setDiaryData('');
@@ -875,7 +879,7 @@ if(activeWeek !== w){
     if(activeDay !== day){
     setGalleryData([]);
     let preDay = day.DayId;
-
+    setDayId( day.DayId)
     if (day.DayId == preDay) {
       let data = {
         DiaryId: params?.id,
@@ -1051,7 +1055,7 @@ const HandleBackToPreviousPage = ()=>{
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
 
-<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage"/>
+<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} />
    
       <Inner>
       

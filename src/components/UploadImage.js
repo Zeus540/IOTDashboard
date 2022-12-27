@@ -18,14 +18,14 @@ width: 100%;
 `;
 const FormHeading = styled.h1`
 margin: 0px;
-
+font-size: 21px;
 color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
 background:#234a4c;
 color:white;
-padding: 20px;
+padding: 10px;
 `;
 
 const FormSub = styled.p`
@@ -62,117 +62,101 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+
+const ImgHolder = styled.div`
+background-image: ${(props) => `url(${props.img })`};
+height: ${(props) => props.img !== "" ? `200px` : `0px`};
+background-size: cover;
+margin-bottom: 20px;
+background-position: center center;
+`;
+
 const UploadImage = (props) => {
+  const [img, setImg] = useState('');
+  const [imgName, setImgName] = useState('');
+  const [imgBase64, setImgBase64] = useState([]);
+  const { auth,authToken,userId } = useContext(AuthContext);
+
     
-    const { diaries,Update,loading } = useContext(DiaryContext);
-    const [img, setImg] = useState([]);
-    const [popUpOffset, setPopUpOffset] = useState(-100);
-    const navigate = useNavigate();
-    const { auth,authToken,userId } = useContext(AuthContext);
+let base64String = "";
   
+function imageUploaded() {
+    var file = document.querySelector(
+        'input[type=file]')['files'][0];
   
-    const handleSetImage = (e)=>{
-    
-      setImg(URL.createObjectURL(e.target.files[0]));
+    var reader = new FileReader();
+  
+      
+    reader.onload = function () {
+        base64String = reader.result
+  
+        setImgBase64(base64String)
+        console.log(base64String);
+    }
+    reader.readAsDataURL(file);
+    setImg(URL.createObjectURL(file));
+    setImgName(file.name)
+}
+  
+function displayString(e) {
+  e.preventDefault()
+
+  let values = {
+  image:imgBase64,
+  DiaryId:props.DiaryId,
+  WeekId:props.WeekId,
+  DayId:props.DayId,
+  name:imgName
+  }
+
+  let config = {
+    headers: {
+      authorization: 'Bearer ' + authToken,
+    }
+  }
+  
+  axios.post('https://api.sweetleaf.co.za/upload/image',values,config,)
+  .then(function (response) {
+    if(response.status == 200 ){
+      props.setPopUpOffset(-100)
+      setImg("");
+      setImgName("")
     }
 
-    useEffect(() => {
-      console.log("img",img)
-    }, [img])
-    
+   
+    console.log("response",response.status);
+  })
+  .catch(function (error) {
 
-    const UploadImage = (e,img)=>{
-      console.log("e",e)
-      console.log("upload img",img)
-      
-        // values.userId = userId?.UserId
-        // console.log("values",values);
-        // let config = {
-        //   headers: {
-        //     authorization: 'Bearer ' + authToken,
-        //   }
-        // }
-        
-        // axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
-        // .then(function (response) {
-        //   if(response.data.insertId !== undefined){
-        //     Update()
-        //     props.setPopUpOffset(-100);
-        //   }
-         
-        //   console.log("response",response.data.insertId);
-        // })
-        // .catch(function (error) {
-      
-        //   console.log(error);
-        // })
-     
-      }
+    console.log(error);
+  })
+
+
+  
+}
 
   return (
-   
-    <Formik
-    initialValues={{ userId:userId?.UserId }}
-    // validate={(values) => {
-    //   const errors = {};
-    //   if (!values.email) {
-    //     errors.email = "Required";
-    //   } else if (
-    //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-    //       values.email
-    //     )
-    //   ) {
-    //     errors.email = "Invalid email address";
-    //   }
-    //   return errors;
-    // }}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        UploadImage(values)
-        setSubmitting(false);
-      }, 400);
-    }}
-  >
-    {({
-      values,
-      errors,
-      touched,
-      handleChange,
-      handleBlur,
-      handleSubmit,
-      isSubmitting,
-      /* and other goodies */
-    }) => (
 
-      <Form onSubmit={handleSubmit} encType="multipart/form-data">
+      <Form  encType="multipart/form-data">
          
-
-      <FormHeadingGroup>
+         <FormHeadingGroup>
       <FormHeading>Image Upload</FormHeading>
      
         </FormHeadingGroup>
         <InputHolder>
-     
-     <img src={img} width="100%"/>
-        <div>
-          <Input
-            id="image"
-            //label="Title"
-            type="file"
-            variant="filled"
-            onChange={handleSetImage}
-            onBlur={handleBlur}
-          />
-        </div>
-        
-    
-        <Button type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
-        </InputHolder>
+        <ImgHolder img={img}>
+{/* <img src={img} width="100%"/> */}
+  </ImgHolder>
+         <Input type="file" name="" id="fileId" 
+        onChange={()=>{imageUploaded()}}/>
+
+  
+    <Button onClick={(e)=>{displayString(e)}}>
+        Upload
+    </Button>
+    </InputHolder>
       </Form>
-    )}
-  </Formik>
+
   )
 }
 
