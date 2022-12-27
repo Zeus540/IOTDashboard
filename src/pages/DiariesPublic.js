@@ -11,6 +11,7 @@ import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import PopUp from "../components/PopUp";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -35,46 +36,44 @@ margin: 0 auto;
   @media (max-width: 425px) {
     margin: 0px;
     padding: 0px;
-    padding-bottom: 20px;
-
+    border-radius: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;
     padding: 0px;
-    padding-bottom: 20px;
+    border-radius: 0px;
   }
 `;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 40px;
+  font-size: 20px;
   margin-top: 0px;
+  font-weight: bolder;
 `;
 
 const DiaryHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
-`;
-
-const NoData = styled.div`
-text-align: center;
-width: 100%;
+  padding:10px;
+  @media (max-width: 619px) {
+    padding:0px 10px;
+  }
 `;
 
 const Diary = styled.div`
-  
-background: #c5c5c5;
+
 max-width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
   
-  @media (max-width: 619px) {
-    max-width: calc(100% / 1 - 30px);
-    width: 100%;
-    margin: 15px auto;
-    border-radius: 0px;
-  }
+@media (max-width: 619px) {
+  max-width: calc(100% / 2 - 20px);
+  width: 100%;
+  margin: 10px 10px;
+  border-radius: 0px;
+}
   @media (min-width: 620px) and (max-width: 699px) {
     width: calc(100% / 2 - 20px);
     margin: 10px;
@@ -87,36 +86,33 @@ width: 100%;
 const DiaryImageHolder = styled.div`
   border-radius: 5px 5px 0px 0px;
   cursor: pointer;
+  line-height: 0px;
+  border-radius: 5px;
   @media (max-width: 425px) {
 
-    border-radius: 0px;
+    border-radius: 5px;
   }
 `;
 
 const DiaryImage = styled.img`
-  border-radius: 5px 5px 0px 0px;
+border-radius: 5px;
   @media (max-width: 425px) {
 
-    border-radius: 0px;
+    border-radius: 5px;
   }
 `;
 const DiaryTextHolder = styled.div`
-  padding: 15px 15px;
+padding: 5px 0px;
+overflow: auto;
 `;
-const DeleteDiary = styled.div`
-cursor:pointer;
-`;
-const DeleteDiarySvg = styled.img`
-color:red;
-`;
+
 const Tag = styled.sup`
-  margin-right: 10px;
-  padding: 3px 10px;
-  font-size: 10px;
+
+  padding: 3px 0px;
+  font-size: 11px;
   display: block;
-  border-radius: 50px;
-  color: white;
-  background: #234a4c;
+
+
 `;
 
 const TagHolder = styled.div`
@@ -131,17 +127,17 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
+    padding: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
   }
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+padding: 8px 20px;
   background: #234a4c;
   color: white;
   border: none;
@@ -149,107 +145,39 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PopUpHolder = styled.div`
-  background: #121b1cc4 ;
-  top: 0;
-  position: fixed;
-  z-index: 999;
-  min-height: 100vh;
-  right: 0px;
-  height: calc(100vh - 74px);
-  left: 0px;
-  transform: translateY(${(props) => props.popUpOffset}%);
-  transition: all 0.2s ease;
-`;
-const PopUpHolderInner = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+const DiaryText = styled.p`
+font-size: 14px;
 
-`;
+white-space: nowrap;
 
-const ClosePopUpHolder = styled.div`
-  text-align: center;
-  padding: 10px;
-  font-size: 30px;
-  color: #b62a2a;
-  cursor: pointer;
-`;
-const Input = styled(TextField)`
-margin-bottom: 20px;
-width: 100%;
-`;
-const FormHeading = styled.h1`
 margin: 0px;
-
-color:white
-`;
-const FormHeadingGroup = styled.div`
-margin: 0px;
-background:#234a4c;
-color:white;
-padding: 20px;
-`;
-
-const FormSub = styled.p`
-margin: 0px;
-
-color:white
-`;
-
-const ClosePopUpHolderText = styled.p`
-  text-align: center;
-
-  font-size: 30px;
-  margin: 0 auto;
-  cursor: pointer;
-
-  left: 0;
-  color: #a5a5a5;
-  width: 100%;
-  transition: all 0.2s ease;
-  &:hover {
-    transform: scale(1.2);
-    color: #b62a2a;
-  }
-`;
-const Form = styled.form`
-overflow: auto;
-max-height: 80vh;
-
-background: white;
-border-radius: 5px;
-width:20%;
-overflow:auto;
-
-@media (max-width: 768px) {
-  width: 90%;
-}
-`;
-const InputHolder = styled.div`
-padding: 20px;
-
-`;
-const DeleteDiaryHolder = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;  
 `;
 
 
-const DiariesPublic = () => {
-  const { diariesPublic,UpdatePublic } = useContext(DiaryContext);
 
+
+
+const Diaries = () => {
+  const { diariesPublic,UpdatePublic,loading } = useContext(DiaryContext);
+  const [diaryList, setDiaryList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
+
 
   useEffect(() => {
   
     UpdatePublic()
   }, [])
+  
+  useEffect(() => {
+    console.log("loading",loading)
+    if(!loading){
+
+      setDiaryList(diariesPublic)
+    }
+
+  }, [diariesPublic,userId])
   
   const handleClick = (d) => {
     navigate(`/overview/${d.DiaryId}`);
@@ -264,194 +192,17 @@ const DiariesPublic = () => {
   };
 
 
-  const addDiary = (values)=>{
-    console.log("values",values);
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
-    
-    axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
-    .then(function (response) {
-      if(response.data.insertId !== undefined){
-    
-        setPopUpOffset(-100);
-      }
-     
-      console.log("response",response.data.insertId);
-    })
-    .catch(function (error) {
   
-      console.log(error);
-    })
- 
-  }
 
-  const deleteDiary = (DiaryId)=>{
-    console.log("DiaryId",DiaryId);
-    let data ={
-      DiaryId:DiaryId
-    }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
-    .then(function (response) {
-      if(response.data.affectedRows > 0){
-    
-        setPopUpOffset(-100);
-      }
 
-     
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
-  }
 
   
   return (
 
     <>
-      <PopUpHolder popUpOffset={popUpOffset}>
-    
 
-    <PopUpHolderInner>
 
-    <ClosePopUpHolder
-      onClick={() => {
-        handleAddPopUp();
-      }}
-    >
-      <ClosePopUpHolderText>
-      
-        <FontAwesomeIcon icon={faTimesCircle} />
-
-      </ClosePopUpHolderText>
-    </ClosePopUpHolder>
-      
-          <Formik
-            initialValues={{ title: "", roomType: "" }}
-            // validate={(values) => {
-            //   const errors = {};
-            //   if (!values.email) {
-            //     errors.email = "Required";
-            //   } else if (
-            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-            //       values.email
-            //     )
-            //   ) {
-            //     errors.email = "Invalid email address";
-            //   }
-            //   return errors;
-            // }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                addDiary(values)
-                setSubmitting(false);
-              }, 400);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-            }) => (
-
-              <Form onSubmit={handleSubmit}>
-                 
-   
-              <FormHeadingGroup>
-              <FormHeading>Lets Get Setup</FormHeading>
-              <FormSub>Fill out the form below</FormSub>
-                </FormHeadingGroup>
-                <InputHolder>
-             
-                <div>
-                  <Input
-                    id="title"
-                    label="Title"
-                    type="title"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                
-                <div>
-                  <Input
-                    id="roomType"
-                    label="Room Type"
-                    type="roomType"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="potSize"
-                    label="Pot Size"
-                    type="potSize"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="strain"
-                    label="Strain"
-                    type="strain"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="lightSchedule"
-                    label="Light Schedule"
-                    type="lightSchedule"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                <div>
-                  <Input
-                    id="lightWattage"
-                    label="Light Wattage"
-                    type="lightWattage"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-             
-
-              
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
-                </Button>
-                </InputHolder>
-              </Form>
-            )}
-          </Formik>
-    
-    </PopUpHolderInner>
-  </PopUpHolder>
-    
- 
+<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
     <Root>
     
 
@@ -479,25 +230,19 @@ const DiariesPublic = () => {
                 </DiaryImageHolder>
 
                 <DiaryTextHolder>
-                  <TagHolder>
+      
+                  <DiaryText>{d?.Title} </DiaryText>
                     <Tag> {d?.Strain}</Tag>
-                    <Tag> {d?.Room_Type}</Tag>
-                    <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
-                  </TagHolder>
-             <DeleteDiaryHolder>
-             <div>{d?.Title}</div>
-             {d?.UserId == userId?.UserId &&
-             <></>
-                    // <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
-                }
-             </DeleteDiaryHolder>
+
+                 
+                 
+                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+            
                 </DiaryTextHolder>
               
               </Diary>
             );
           })}
-
-  <NoData>        {diariesPublic.length <= 0 && "No Diaries Publicly Available "}</NoData>
         </DiaryHolder>
       </Inner>
     </Root>
@@ -505,4 +250,4 @@ const DiariesPublic = () => {
   );
 };
 
-export default DiariesPublic;
+export default Diaries;

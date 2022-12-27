@@ -44,7 +44,7 @@ const LinkHolder = styled.div`
 `;
 const LinkHolderMobile = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
   background:#1d3e3f;
   right: 0;
   flex-direction: column;

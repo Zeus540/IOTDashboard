@@ -24,8 +24,8 @@ const Image = styled.div`
   z-index: 2;
   width:100vw;
   @media (max-width: 425px) {
-
-    background-color: #00000024;
+    background-image: unset;
+    background-color: unset;
   }
 `;
 

@@ -49,7 +49,7 @@ margin: 0 auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 40px;
+  font-size: 20px;
   margin-top: 0px;
 `;
 
@@ -127,12 +127,11 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
+
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
   }
 `;
 
@@ -242,7 +241,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 opacity: 0.4;
-margin:20px;
+margin: 0px 20px;
 
 `;
 const NewText = styled.p`

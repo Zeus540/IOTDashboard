@@ -47,26 +47,31 @@ margin: 0 auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 40px;
+  font-size: 20px;
   margin-top: 0px;
+  font-weight: bolder;
 `;
 
 const DiaryHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
+  padding:10px;
+  @media (max-width: 619px) {
+    padding:0px 10px;
+  }
 `;
 
 const Diary = styled.div`
-background: #c5c5c5;
+
 max-width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
   
 @media (max-width: 619px) {
-  max-width: calc(100% / 1 - 30px);
+  max-width: calc(100% / 2 - 20px);
   width: 100%;
-  margin: 15px auto;
+  margin: 10px 10px;
   border-radius: 0px;
 }
   @media (min-width: 620px) and (max-width: 699px) {
@@ -81,36 +86,33 @@ width: 100%;
 const DiaryImageHolder = styled.div`
   border-radius: 5px 5px 0px 0px;
   cursor: pointer;
+  line-height: 0px;
+  border-radius: 5px;
   @media (max-width: 425px) {
 
-    border-radius: 0px;
+    border-radius: 5px;
   }
 `;
 
 const DiaryImage = styled.img`
-  border-radius: 5px 5px 0px 0px;
+border-radius: 5px;
   @media (max-width: 425px) {
 
-    border-radius: 0px;
+    border-radius: 5px;
   }
 `;
 const DiaryTextHolder = styled.div`
-  padding: 15px 15px;
+padding: 5px 0px;
+overflow: auto;
 `;
-const DeleteDiary = styled.div`
-cursor:pointer;
-`;
-const DeleteDiarySvg = styled.img`
-color:red;
-`;
+
 const Tag = styled.sup`
-  margin-right: 10px;
-  padding: 3px 10px;
-  font-size: 10px;
+
+  padding: 3px 0px;
+  font-size: 11px;
   display: block;
-  border-radius: 50px;
-  color: white;
-  background: #234a4c;
+
+
 `;
 
 const TagHolder = styled.div`
@@ -125,17 +127,17 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
+    padding: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     padding: 10px 20px;
-    padding-top: 20px;
+    padding: 20px;
   }
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+padding: 8px 20px;
   background: #234a4c;
   color: white;
   border: none;
@@ -143,11 +145,16 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const DeleteDiaryHolder = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;  
+const DiaryText = styled.p`
+font-size: 14px;
+
+white-space: nowrap;
+
+margin: 0px;
 `;
+
+
+
 
 
 const Diaries = () => {
@@ -184,26 +191,7 @@ const Diaries = () => {
 
   
 
-  const deleteDiary = (DiaryId)=>{
-    console.log("DiaryId",DiaryId);
-    let data ={
-      DiaryId:DiaryId
-    }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete',data)
-    .then(function (response) {
-      if(response.data.affectedRows > 0){
-        Update()
-        setPopUpOffset(-100);
-      }
 
-     
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
-  }
 
   
   return (
@@ -246,17 +234,14 @@ const Diaries = () => {
                 </DiaryImageHolder>
 
                 <DiaryTextHolder>
-                  <TagHolder>
+      
+                  <DiaryText>{d?.Title} </DiaryText>
                     <Tag> {d?.Strain}</Tag>
-                    <Tag> {d?.Room_Type}</Tag>
-                    <Tag> {d?.Start_Date?.split("T")[0]}</Tag>
-                  </TagHolder>
-             <DeleteDiaryHolder>
-             <div>{d?.Title} </div>
-                {d?.UserId == userId?.UserId &&
-                    <DeleteDiary onClick={()=>{deleteDiary(d?.DiaryId)}}>        <DeleteDiarySvg src={faTrash} width="20px"/></DeleteDiary>
-                }
-             </DeleteDiaryHolder>
+
+                 
+                 
+                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+            
                 </DiaryTextHolder>
               
               </Diary>
