@@ -62,7 +62,7 @@ const DiaryHolder = styled.div`
 `;
 
 const Diary = styled.div`
-
+cursor: pointer;
 max-width: calc(100% / 4 - 20px);
 margin: 10px;
 border-radius: 5px;
