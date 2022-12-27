@@ -16,6 +16,12 @@ const Root = styled.div`
   z-index: 50;
 
 `;
+const Empty = styled.div`
+width: calc(30px + 5px);
+@media (min-width: 768px) {
+  display: none;
+}
+`;
 
 const Inner = styled.div`
   max-width: 1770px;
@@ -26,7 +32,7 @@ const Inner = styled.div`
 `;
 
 const LogoHolder = styled.div`
-  width: 200px;
+  width: 150px;
 `;
 const LinkHolder = styled.div`
   display: flex;
@@ -39,12 +45,13 @@ const LinkHolder = styled.div`
 const LinkHolderMobile = styled.div`
   display: flex;
   position: absolute;
-  background: #234a4c;
+  background:#1d3e3f;
   right: 0;
   flex-direction: column;
-  top: 70px;
+  transition: 0.5s all ease;
+  transform: ${(props) => !props.mobileMenu ? "translateX(100%)":"translateX(0%)"};
   justify-content: space-between;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh );
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
@@ -119,10 +126,10 @@ const FlexLink = styled.div`
 `;
 
 const Pattie = styled.div`
-  width: 25px;
+  width: 20px;
   min-height: 2px;
   background: #fefefe;
-  margin: 5px;
+  margin: 5px  0px;
 `;
 const Icon = styled.div`
   width: 30px;
@@ -141,6 +148,20 @@ const NavBar = () => {
   return (
     <Root>
       <Inner>
+      <BurgerMenuHolder>
+          <BurgerMenu
+            onClick={() => {
+              setMobileMenu(!mobileMenu);
+            }}
+          >
+            <Pattie />
+            <Pattie />
+            <Pattie />
+          </BurgerMenu>
+
+      
+        </BurgerMenuHolder>
+
         <MenuLinklogo to="/">
           <LogoHolder>
             <img src={Logo} width="100%" />
@@ -174,18 +195,11 @@ const NavBar = () => {
           )}
         </LinkHolder>
 
-        <BurgerMenuHolder>
-          <BurgerMenu
-            onClick={() => {
-              setMobileMenu(!mobileMenu);
-            }}
-          >
-            <Pattie />
-            <Pattie />
-            <Pattie />
-          </BurgerMenu>
-          {mobileMenu && (
-            <LinkHolderMobile>
+     <Empty></Empty>
+      </Inner>
+          
+
+            <LinkHolderMobile mobileMenu={mobileMenu}>
              
       <LinkHolderM >
 
@@ -258,9 +272,8 @@ const NavBar = () => {
         
 
             </LinkHolderMobile>
-          )}
-        </BurgerMenuHolder>
-      </Inner>
+            
+       
     </Root>
   );
 };

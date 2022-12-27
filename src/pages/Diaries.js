@@ -11,6 +11,7 @@ import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import PopUp from "../components/PopUp";
 
 const Root = styled.div`
   margin-top: 50px;
@@ -18,8 +19,8 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 10px;
-    margin-top: 10px;
+    margin: 0px 0px;
+    margin-top: 0px;
     padding-bottom: 0px;
   }
 `;
@@ -142,89 +143,6 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PopUpHolder = styled.div`
-  background: #121b1cc4 ;
-  top: 0;
-  position: fixed;
-  z-index: 999;
-  min-height: 100vh;
-  right: 0px;
-  height: calc(100vh - 74px);
-  left: 0px;
-  transform: translateY(${(props) => props.popUpOffset}%);
-  transition: all 0.2s ease;
-`;
-const PopUpHolderInner = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-
-`;
-
-const ClosePopUpHolder = styled.div`
-  text-align: center;
-  padding: 10px;
-  font-size: 30px;
-  color: #b62a2a;
-  cursor: pointer;
-`;
-const Input = styled(TextField)`
-margin-bottom: 20px;
-width: 100%;
-`;
-const FormHeading = styled.h1`
-margin: 0px;
-
-color:white
-`;
-const FormHeadingGroup = styled.div`
-margin: 0px;
-background:#234a4c;
-color:white;
-padding: 20px;
-`;
-
-const FormSub = styled.p`
-margin: 0px;
-
-color:white
-`;
-
-const ClosePopUpHolderText = styled.p`
-  text-align: center;
-
-  font-size: 30px;
-  margin: 0 auto;
-  cursor: pointer;
-
-  left: 0;
-  color: #a5a5a5;
-  width: 100%;
-  transition: all 0.2s ease;
-  &:hover {
-    transform: scale(1.2);
-    color: #b62a2a;
-  }
-`;
-const Form = styled.form`
-overflow: auto;
-max-height: 80vh;
-
-background: white;
-border-radius: 5px;
-width:20%;
-overflow:auto;
-
-@media (max-width: 768px) {
-  width: 90%;
-}
-`;
-const InputHolder = styled.div`
-padding: 20px;
-
-`;
 const DeleteDiaryHolder = styled.div`
 display: flex;
 justify-content: space-between;
@@ -264,32 +182,7 @@ const Diaries = () => {
   };
 
 
-  const addDiary = (values)=>{
-   
-
-    values.userId = userId?.UserId
-    console.log("values",values);
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
-    
-    axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
-    .then(function (response) {
-      if(response.data.insertId !== undefined){
-        Update()
-        setPopUpOffset(-100);
-      }
-     
-      console.log("response",response.data.insertId);
-    })
-    .catch(function (error) {
   
-      console.log(error);
-    })
- 
-  }
 
   const deleteDiary = (DiaryId)=>{
     console.log("DiaryId",DiaryId);
@@ -316,145 +209,9 @@ const Diaries = () => {
   return (
 
     <>
-      <PopUpHolder popUpOffset={popUpOffset}>
-    
 
-    <PopUpHolderInner>
 
-    <ClosePopUpHolder
-      onClick={() => {
-        handleAddPopUp();
-      }}
-    >
-      <ClosePopUpHolderText>
-      
-        <FontAwesomeIcon icon={faTimesCircle} />
-
-      </ClosePopUpHolderText>
-    </ClosePopUpHolder>
-      
-          <Formik
-            initialValues={{ title: "", roomType: "", userId:userId?.UserId }}
-            // validate={(values) => {
-            //   const errors = {};
-            //   if (!values.email) {
-            //     errors.email = "Required";
-            //   } else if (
-            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-            //       values.email
-            //     )
-            //   ) {
-            //     errors.email = "Invalid email address";
-            //   }
-            //   return errors;
-            // }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                addDiary(values)
-                setSubmitting(false);
-              }, 400);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-            }) => (
-
-              <Form onSubmit={handleSubmit}>
-                 
-   
-              <FormHeadingGroup>
-              <FormHeading>Lets Get Setup</FormHeading>
-              <FormSub>Fill out the form below</FormSub>
-                </FormHeadingGroup>
-                <InputHolder>
-             
-                <div>
-                  <Input
-                    id="title"
-                    label="Title"
-                    type="title"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                
-                <div>
-                  <Input
-                    id="roomType"
-                    label="Room Type"
-                    type="roomType"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="potSize"
-                    label="Pot Size"
-                    type="potSize"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="strain"
-                    label="Strain"
-                    type="strain"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    id="lightSchedule"
-                    label="Light Schedule"
-                    type="lightSchedule"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                <div>
-                  <Input
-                    id="lightWattage"
-                    label="Light Wattage"
-                    type="lightWattage"
-                    variant="filled"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-
-             
-
-              
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
-                </Button>
-                </InputHolder>
-              </Form>
-            )}
-          </Formik>
-    
-    </PopUpHolderInner>
-  </PopUpHolder>
-    
- 
+<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
     <Root>
     
 

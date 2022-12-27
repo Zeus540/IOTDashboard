@@ -14,7 +14,7 @@ const Root = styled.div`
   align-items: center;
   flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 10px;
+    margin: 0px 0px;
     margin-top: 0px;
     padding-bottom: 0px;
   }
@@ -62,6 +62,7 @@ const Inner = styled.div`
   width: 100%;
   background: #ffffff;
   padding: 20px 0px;
+  padding-top:0px;
   @media (max-width: 425px) {
 
   }
@@ -178,12 +179,12 @@ const Harvest = () => {
 
   
     <Root>
-      <InnerButtonHolder>
+      {/* <InnerButtonHolder>
       <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
-      </InnerButtonHolder>
-   <Tabs/>
+      </InnerButtonHolder> */}
+
       <Inner>
-   
+      <Tabs/>
            
       <Heading>OUTCOME </Heading>
         <Flex2>

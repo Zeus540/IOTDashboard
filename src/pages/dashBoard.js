@@ -13,7 +13,7 @@ import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import {useNavigate} from 'react-router-dom'
 import Tabs from "../components/Tabs";
 import { AuthContext } from "../context/auth_context";
-
+import PopUp from "../components/PopUp";
 
 
 const Root = styled.div`
@@ -56,28 +56,38 @@ const IntroHolder = styled.div`
   margin-top: 10px;
   @media (max-width: 425px) {
     flex-direction: column-reverse;
-    padding: 20px 20px;
+    padding-bottom: 0px;
   }
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
-  padding:  20px;
+
   background: #234a4c;
-  width: 60%;
-  @media (max-width: 425px) {
-    margin: 0px auto;
-    padding: 0px 0px;
-    width: 90%;
-    margin-top: -70px;
-    border-radius: 5px;
-    
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin-left: 0px;
-    padding: 0px 20px;
-    width: unset;
-  }
+
 `;
+const RightFlexInner = styled.div`
+padding:  20px;
+
+`;
+
+
+const RightFlexHolder = styled.div`
+width: 60%;
+@media (max-width: 425px) {
+  margin: 0px auto;
+  padding: 0px 0px;
+  width: 90%;
+  margin-top: -70px;
+  border-radius: 5px;
+  
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  margin-left: 0px;
+  padding: 0px 20px;
+  width: unset;
+}
+`
+;
 const ToggleHolder= styled.div`
 display: flex;
 
@@ -89,7 +99,7 @@ align-items: center;
 @media (max-width: 425px) {
   flex-direction: column;
   align-items: end;
-  padding: 20px;
+
 }
 
 `
@@ -696,18 +706,26 @@ padding: ${(props) => !props.assignDevice ? "0px":"5px 5px"};
 width: ${(props) => !props.assignDevice ? "0px":"unset"};
 color: white;
 transition: 0.5s all ease;
+@media (max-width: 425px) {
+  width: ${(props) => !props.assignDevice ? "0px":"100%"};
+}
+
 `
 
 ;
 
 const InputHolder = styled.div`
-padding: 20px;
+padding: 20px 0px;
 
 width: ${(props) => !props.assignDevice ? "0px":"unset"};
 
 
 display: ${(props) => !props.assignDevice ?"none" : "flex"};
 transition: 0.5s all ease;
+@media (max-width: 425px) {
+  width: ${(props) => !props.assignDevice ? "0px":"100%"};
+}
+
 `
 
 ;
@@ -767,7 +785,7 @@ const DashBoard = () => {
   const [activeToggle, setActiveToggle] = useState(false);
   const [publicToggle, setPublicToggle] = useState(false);
   const [assignDevice, setAssignDevice] = useState(false);
-
+  const [popUpOffset, setPopUpOffset] = useState(-100);
   const { auth,authToken,userId } = useContext(AuthContext);
   
   const navigate = useNavigate ()
@@ -1015,6 +1033,14 @@ const HandleBackToPreviousPage = ()=>{
 
   }
   
+  const HandleImageUpload = ()=>{
+    if (popUpOffset == -100) {
+      setPopUpOffset(0);
+    } else {
+      setPopUpOffset(-100);
+    }
+   }
+  
   return (
 
   
@@ -1024,9 +1050,8 @@ const HandleBackToPreviousPage = ()=>{
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
-      {/* <InnerButtonHolder>
-      <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
-      </InnerButtonHolder> */}
+
+<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage"/>
    
       <Inner>
       
@@ -1046,8 +1071,10 @@ const HandleBackToPreviousPage = ()=>{
             />
           </ImgHolder>
       
-        <RightFlex>
+       <RightFlexHolder>
+       <RightFlex>
         <Tabs/>
+        <RightFlexInner>
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>
@@ -1129,7 +1156,9 @@ const HandleBackToPreviousPage = ()=>{
 
           </TextHolder>
           }
+          </RightFlexInner>
           </RightFlex>
+       </RightFlexHolder>
         </FlexTop>
         {addNotes && (
           <NotesPopUp
@@ -1273,9 +1302,7 @@ const HandleBackToPreviousPage = ()=>{
         <Heading>GALLERY</Heading>
 
   {activeDay.DayId && userId?.UserId == activeDiary?.UserId &&
-          <ButtonUpload
-        
-        >
+  <ButtonUpload onClick={()=>{HandleImageUpload()}}>
         Upload Image
         </ButtonUpload>
   }

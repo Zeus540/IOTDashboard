@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import {useNavigate} from 'react-router-dom'
 
 const TabsHolderOutter = styled.div`
-position: sticky;
+
 top: 70px;
 align-items: end;
   display: flex;
@@ -12,7 +12,7 @@ align-items: end;
   width: 100%;
   z-index: 5;
   overflow: hidden;
-  border-radius: 5px;
+
 `;
 
 const TabsHolder = styled.div`

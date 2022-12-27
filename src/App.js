@@ -9,7 +9,7 @@ import MainContainer from './MainContainer';
 
 const Root = styled.div`
 
-
+overflow-x: hidden;
   min-height: 100vh;
 
 `;
@@ -24,7 +24,7 @@ const Image = styled.div`
   z-index: 2;
   width:100vw;
   @media (max-width: 425px) {
-    background-image:unset;
+
     background-color: #00000024;
   }
 `;

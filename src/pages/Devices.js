@@ -18,8 +18,8 @@ const Root = styled.div`
   margin-top: 50px;
   
   @media (max-width: 425px) {
-    margin: 0px 10px;
-    margin-top: 10px;
+    margin: 0px 0px;
+    margin-top: 0px;
     padding-bottom: 0px;
   }
 `;
@@ -38,6 +38,7 @@ margin: 0 auto;
     padding: 0px;
     border-radius: 5px;
     padding-bottom: 5px;
+    
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px;

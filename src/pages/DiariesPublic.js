@@ -14,10 +14,12 @@ import axios from "axios";
 
 const Root = styled.div`
   margin-top: 50px;
-
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   @media (max-width: 425px) {
-    margin: 0px 10px;
-    margin-top: 10px;
+    margin: 0px 0px;
+    margin-top: 0px;
     padding-bottom: 0px;
   }
 `;
