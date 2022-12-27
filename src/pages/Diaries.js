@@ -221,11 +221,11 @@ const Diaries = () => {
           {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
-                
+              onClick={() => {
+                handleClick(d);
+              }}
               >
-                <DiaryImageHolder onClick={() => {
-                  handleClick(d);
-                }}>
+                <DiaryImageHolder >
                  
                   <DiaryImage
                     src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
