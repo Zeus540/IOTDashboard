@@ -221,14 +221,20 @@ const WeekHolderTextSub = styled.div`
 `;
 
 const ImgHolder = styled.div`
+
+    background-image: ${props => `url(${props.img})`};
+        background-size: cover;
+        height: 500px;
   max-width: 40%;
   border-radius: 5px;
   width: 100%;
   @media (max-width: 425px) {
     max-width: unset;
+    height: 300px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
+    height: 400px;
   }
 `;
 const TextHolder = styled.div`
@@ -1118,18 +1124,8 @@ if(positionIndex > 0){
       
 
         <FlexTop>
-          <ImgHolder>
-            <ImageMain
-              src={
-                mainImage
-              }
-              onClick={()=>{handleLightBox(mainImage)}}
-              width="100%"
-              height="100%"
-              // onClick={() => {
-              //   handleLightBox(activeDiary?.ThumbNail, activeDiary);
-              // }}
-            />
+          <ImgHolder img={ mainImage}  onClick={()=>{handleLightBox(mainImage)}}>
+           
           </ImgHolder>
       
        <RightFlexHolder>
@@ -1197,7 +1193,7 @@ if(positionIndex > 0){
  <DairyHeadingTitle>Title</DairyHeadingTitle>
           <DairyHeading>{activeDiary?.Title} </DairyHeading>
  </div>
-          <DairyHeadingSmall><DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> Days old</DairyHeadingSmall>
+          <DairyHeadingSmall>Day <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyHeadingSmall>
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
