@@ -10,6 +10,7 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
+import { TailSpin } from  'react-loader-spinner'
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -73,8 +74,10 @@ background-position: center center;
 
 const UploadImage = (props) => {
   const [img, setImg] = useState('');
+  const [loading, setLoading] = useState(false);
+  
   const [imgName, setImgName] = useState('');
-  const [imgBase64, setImgBase64] = useState([]);
+  const [imgBase64, setImgBase64] = useState("");
   const { auth,authToken,userId } = useContext(AuthContext);
 
     
@@ -99,8 +102,11 @@ function imageUploaded() {
 }
   
 function displayString(e) {
+  console.log(imgBase64)
   e.preventDefault()
-
+ if(imgBase64 !== ""){
+ 
+  setLoading(true)
   let values = {
   image:imgBase64,
   DiaryId:props.DiaryId,
@@ -121,6 +127,7 @@ function displayString(e) {
       props.setPopUpOffset(-100)
       setImg("");
       setImgName("")
+      setLoading(false)
     }
 
    
@@ -133,6 +140,7 @@ function displayString(e) {
 
 
   
+ }
 }
 
   return (
@@ -151,9 +159,22 @@ function displayString(e) {
         onChange={()=>{imageUploaded()}}/>
 
   
+  {!loading ?
     <Button onClick={(e)=>{displayString(e)}}>
         Upload
     </Button>
+:
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+     }
     </InputHolder>
       </Form>
 

@@ -137,18 +137,20 @@ padding-top:0px;
 
 const NoteHolderOutter = styled.div`
 padding: 10px;
-background: #e2e2e247;
+
 
 `;
 const NoteHolder = styled.div`
 padding: 10px;
-
-
+background: #e2e2e247;
+margin-bottom: 20px;
+border-bottom: 2px #8bab50 solid;
+border-radius: 5px;
 `;
 
 const NoteHolderText = styled.div`
-padding: 5px 20px;
-border-bottom: 2px #8bab50 solid;
+padding: 20px 20px;
+
 `;
 
 const WeekHolderOutter = styled.div`
@@ -242,6 +244,14 @@ const Helper = styled.p`
 text-align:center
 `;
 
+const NoteDay = styled.div`
+background: #8bab50;
+width: fit-content;
+padding: 2px 15px;
+border-radius: 50px;
+color: white;
+font-size: 14px;
+`;
 
 const Notes = () => {
  
@@ -252,7 +262,7 @@ const Notes = () => {
   const [weeks, setWeeks] = useState([]);
   const [activeWeekId, setActiveWeekId] = useState([]);
   const [activeWeek, setActiveWeek] = useState([]);
-  
+  const [days, setDays] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const params = useParams();
@@ -313,12 +323,39 @@ const Notes = () => {
       const HandleActiveWeek = (w) => {
         setActiveWeek(w)
         setActiveWeekId(w.WeekId)
+
+        let dataw = {
+          WeekId:  w.WeekId,
+        };
+      
+        axios
+          .post("https://api.sweetleaf.co.za/days", dataw)
+          .then(function (response) {
+            console.log("days", response.data);
+            setDays(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      
       };
 
-      useEffect(() => {
-        {console.log(activeWeek)}
-      }, [activeWeek])
       
+      
+
+      const UpdateDay =(day,dayId)=>{
+        console.log("day",day)
+        for (let index = 0; index < days.length; index++) {
+          const element = days[index];
+
+          if(element.DayId == dayId){
+           day.DayName = element.Day
+          }
+
+        }
+        console.log("noteData",noteData)
+      }
+
   return (
 
   
@@ -413,10 +450,11 @@ const Notes = () => {
           return(
             <NoteHolder>
              {console.log(noteData)}
-              <div>
-                
-              {n.DayId}
-              </div>
+              <NoteDay>
+                { UpdateDay(n,n.DayId)}
+             
+              {n?.DayName}
+              </NoteDay>
               <NoteHolderText>
               {n.Notes}
               </NoteHolderText>

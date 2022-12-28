@@ -16,6 +16,8 @@ import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
 import  faTrash  from "../assets/trash-can-regular.svg";
 
+import { InfinitySpin } from  'react-loader-spinner'
+
 const Root = styled.div`
   margin-top: 50px;
   display: flex;
@@ -106,6 +108,7 @@ align-items: center;
 const ToggleHolderLabel= styled.div`
 color:white;
 padding: 0px 10px;
+display: flex;
 `
 const Flex = styled.div`
   display: flex;
@@ -340,31 +343,63 @@ const ImageMain = styled.img`
     border-radius: 0px;
   }
 `;
-const GalleryImage = styled.img`
-border-radius:  0px 0px  5px 5px;
+const GalleryImageHolderFlex = styled.div`
+display: flex;
+min-width: calc(100% / 4 - 30px);
+background-image: ${props => `url(${props.img})`};
+margin: 0px 15px;
+border-radius: 5px;
+position: relative;
+cursor:pointer;
+height: 300px;
+background-size: cover;
+flex-direction: column;
+
+@media (max-width: 425px) {
+  min-width: calc(100% / 1 - 30px);
+  
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  max-width: calc(100% / 2 - 20px);
+  min-width: calc(100% / 2 - 20px);
+}
 `;
 
 const GalleryImageHolder = styled.div`
-  min-width: calc(100% / 4 - 30px);
-  background-image: ${props => `url(${props.img})`};
-  margin: 0px 15px;
-  border-radius: 5px;
-  position: relative;
-  cursor:pointer;
-  height: 300px;
-  background-size: cover;
-  @media (max-width: 425px) {
-    min-width: calc(100% / 1 - 30px);
-    
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    max-width: calc(100% / 2 - 20px);
-    min-width: calc(100% / 2 - 20px);
-  }
+min-width: calc(100% / 4 - 30px);
+background-image: ${props => `url(${props.img})`};
+
+border-radius: 5px 5px  0px 0px;
+position: relative;
+cursor:pointer;
+height: 300px;
+background-size: cover;
+@media (max-width: 425px) {
+  min-width: calc(100% / 1 - 30px);
+  
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  max-width: calc(100% / 2 - 20px);
+  min-width: calc(100% / 2 - 20px);
+}
 `;
 
 
+const GalleryImageOverlay = styled.div`
+  
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  top: 0;
+  z-index: 40;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0px 0px  5px 5px;
+  background: #234a4c;
+`;
 
 const GalleryHolderInnerMain = styled.div`
 overflow:hidden;
@@ -381,6 +416,7 @@ color: white;
 z-index: 2;
 opacity: 0.8;
 display: flex;
+border-radius: 50px;
 transform: translate(0%, -50%);
 transition: all 0.2s ease;
     top: 50%;
@@ -392,6 +428,7 @@ transition: all 0.2s ease;
 
 const GalleryBack = styled.div`
 left: 10px;
+border-radius: 50px;
 cursor: pointer;
 position: absolute;
 background: #234a4c;
@@ -606,7 +643,7 @@ display: none;
   display: flex;
   flex-wrap: wrap;
   width: 70%;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 `;
 
@@ -1165,11 +1202,15 @@ if(positionIndex > 0){
 
 <CheckFlex>
 
-<ToggleHolderLabel>Private</ToggleHolderLabel><label class="switch">
+<ToggleHolderLabel>
+<SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z"/></SvgW>
+  </ToggleHolderLabel><label class="switch">
 <input type="checkbox" checked={publicToggle} onChange={(e)=>{handlePublicToggle(e,activeDiary)}}/>
 <span class="slider round"></span>
 
-</label>    <ToggleHolderLabel>Public</ToggleHolderLabel>
+</label>    <ToggleHolderLabel>
+<SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></SvgW>
+</ToggleHolderLabel>
 
 </CheckFlex>
 
@@ -1373,7 +1414,7 @@ if(positionIndex > 0){
 
   {activeDay.DayId && userId?.UserId == activeDiary?.UserId &&
   <ButtonUpload onClick={()=>{HandleImageUpload()}}>
-        Upload Image
+        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></SvgW>
         </ButtonUpload>
   }
        <GalleryHolderInnerMain>
@@ -1388,10 +1429,11 @@ if(positionIndex > 0){
       </>
       }
         <GalleryHolderInner position={position}>
-          {galleryData.length > 0 ? (
+          {
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
                 return (
+              <GalleryImageHolderFlex>
                   <GalleryImageHolder key={index}  img={img?.Image}   onClick={() => {
                     handleLightBox(img?.Image, img);
                   }}>
@@ -1399,15 +1441,38 @@ if(positionIndex > 0){
                     
        
                   </GalleryImageHolder>
+                  <GalleryImageOverlay>
+                
+                
+                  <div>
+                    <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
+                    <div> Date : {img?.Date} </div>
+                  </div>
+                
+                      </GalleryImageOverlay>
+              </GalleryImageHolderFlex>
                 );
               }
             })
-          ) : (
-            <NoDataHolder>
-              <NoData>No Data Available</NoData>
-            </NoDataHolder>
-          )}
+          }
+       
+
         </GalleryHolderInner>
+        {galleryData.length < 1 &&  activeDay.DayId == undefined &&
+            <NoDataHolder>
+                        <NoData>No Data Available</NoData>
+            </NoDataHolder>
+          }
+              {galleryData.length < 1 &&  activeDay.DayId !== undefined &&
+            <NoDataHolder>
+              <NoData>
+              <InfinitySpin 
+  width='200'
+  color="#4fa94d"
+/>
+              </NoData>
+            </NoDataHolder>
+          }
         <DotHolder>
         {galleryData?.map((v,index)=>{
           if(index == positionIndex){
