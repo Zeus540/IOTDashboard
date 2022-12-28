@@ -340,12 +340,16 @@ border-radius:  0px 0px  5px 5px;
 
 const GalleryImageHolder = styled.div`
   min-width: calc(100% / 4 - 30px);
+  background-image: ${props => `url(${props.img})`};
   margin: 0px 15px;
   border-radius: 5px;
   position: relative;
   cursor:pointer;
+  height: 300px;
+  background-size: cover;
   @media (max-width: 425px) {
     min-width: calc(100% / 1 - 30px);
+    
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: calc(100% / 2 - 20px);
@@ -823,6 +827,7 @@ const DashBoard = () => {
 
   useEffect(() => {
     setPositionIndex(0)
+    setPosition(0)
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     console.log("filtered",filtered);
     console.log("filtered",diaries);
@@ -855,6 +860,7 @@ const DashBoard = () => {
 
   const handelGetWeekData = (w) => {
     setPositionIndex(0)
+    setPosition(0)
     setWeekId( w.WeekId)
 if(activeWeek !== w){
   setGalleryData([]);
@@ -902,6 +908,7 @@ if(activeWeek !== w){
 
   const handleDay = (days, day) => {
     setPositionIndex(0)
+    setPosition(0)
     if(activeDay !== day){
     setGalleryData([]);
     let preDay = day.DayId;
@@ -1389,16 +1396,11 @@ if(positionIndex > 0){
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
                 return (
-                  <GalleryImageHolder key={index}>
+                  <GalleryImageHolder key={index}  img={img?.Image}   onClick={() => {
+                    handleLightBox(img?.Image, img);
+                  }}>
                        
-                    <GalleryImage
-                      src={img?.Image}
-                      width="100%"
-               
-                      onClick={() => {
-                        handleLightBox(img?.Image, img);
-                      }}
-                    />
+                    
        
                   </GalleryImageHolder>
                 );
