@@ -184,6 +184,13 @@ const Stats = () => {
 
   const params = useParams();
   const navigate = useNavigate ()
+
+  useEffect(() => {
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    document.title = "Sweet Leaf - " + filtered?.Title + "  Environment" ;
+
+  }, [diaries])
+
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     console.log("filtered",filtered);

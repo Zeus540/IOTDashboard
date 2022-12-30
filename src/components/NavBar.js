@@ -14,7 +14,7 @@ const Root = styled.div`
   padding: 0px 20px;
   top: 0;
   z-index: 50;
-
+  padding-right: 0px;
 `;
 const Empty = styled.div`
 width: calc(30px + 5px);
@@ -56,7 +56,7 @@ const LinkHolderMobile = styled.div`
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
-  padding: 20px 30px;
+  padding: 16px 30px;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   color: white;
@@ -65,6 +65,16 @@ const MenuLink = styled(NavLink)`
     border-bottom: 4px solid #8bab50;
   
   }
+
+`;
+const MenuLinkActive = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 16px 30px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid #8bab50;
+  color: white;
+  text-decoration: none;
+
 
 `;
 const MenuLinkMobile = styled(NavLink)`
@@ -98,12 +108,13 @@ const LogOut = styled.p`
   }
 `;
 const Button = styled.button`
-padding: 5px 25px;
+padding: 20px 20px;
+display: flex;
 width: fit-content;
 border: none;
 background: #8bab50;
 color: white;
-border-radius: 50px;
+
 cursor: pointer;
 
 
@@ -228,11 +239,13 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
              
-              <MenuLink to="/public-diaries">Public Diaries</MenuLink>
+              <MenuLink to="/public-diaries" >Public Diaries</MenuLink>
               <MenuLink to="/diaries">My Diaries</MenuLink>
               <MenuLink to="/my-devices">My Devices</MenuLink>
          
-              <Button onClick={()=>{logOut()}}>Log Out</Button>
+              <Button onClick={()=>{logOut()}}>
+              <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M534.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L434.7 224 224 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM192 96c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-53 0-96 43-96 96l0 256c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></SvgW>
+              </Button>
               
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
               {/* <Button>Log Out</Button> */}
@@ -254,6 +267,14 @@ const NavBar = () => {
       {auth && 
   <>
        
+       <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
+                <FlexLink>
+                  <Icon>
+                    <img src={Journal} width="100%" />
+                  </Icon>
+                  <div>Public Diaries</div>
+                </FlexLink>
+              </MenuLinkMobile>
 
                 <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
                 <FlexLink>

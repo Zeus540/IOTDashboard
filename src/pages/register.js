@@ -1,4 +1,4 @@
-import React,{useState,useContext, useRef} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
 import styled from 'styled-components';
 import {useNavigate} from 'react-router-dom'
 import Logo from "../assets/logoLogin.png";
@@ -109,6 +109,12 @@ function Register() {
   const navigate = useNavigate ()
  const [age, setAge] = useState("")
  const [errorM, setError] = useState("")
+
+
+ useEffect(() => {
+
+  document.title = "Sweet Leaf - Login" 
+}, [])
 
   const handleLogin =(values) =>{
     

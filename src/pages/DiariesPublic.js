@@ -12,6 +12,7 @@ import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
 import PopUp from "../components/PopUp";
+import { NavLink } from "react-router-dom";
 
 const Root = styled.div`
 
@@ -47,7 +48,7 @@ margin: 0 auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 20px;
+  font-size: 24px;
   margin-top: 0px;
   font-weight: bolder;
 `;
@@ -61,13 +62,14 @@ const DiaryHolder = styled.div`
   }
 `;
 
-const Diary = styled.div`
-
-max-width: calc(100% / 4 - 20px);
+const Diary = styled(NavLink)`
+cursor: pointer;
+max-width: calc(100% / 6 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
-  
+text-decoration: none;
+color: black;
 @media (max-width: 619px) {
   max-width: calc(100% / 2 - 20px);
   width: 100%;
@@ -108,7 +110,7 @@ overflow: auto;
 
 const Tag = styled.sup`
 
-  padding: 3px 0px;
+  padding: 0px 0px;
   font-size: 11px;
   display: block;
 
@@ -145,11 +147,12 @@ padding: 8px 20px;
   cursor: pointer;
 `;
 
+
 const DiaryText = styled.p`
 font-size: 14px;
-
+padding-bottom: 5px;
 white-space: nowrap;
-
+font-weight: bold;
 margin: 0px;
 `;
 
@@ -166,6 +169,11 @@ const Diaries = () => {
 
 
   useEffect(() => {
+
+    document.title = "Sweet Leaf - Public Diaries" 
+  }, [])
+
+  useEffect(() => {
   
     UpdatePublic()
   }, [])
@@ -179,9 +187,6 @@ const Diaries = () => {
 
   }, [diariesPublic,userId])
   
-  const handleClick = (d) => {
-    navigate(`/overview/${d.DiaryId}`);
-  };
 
   const handleAddPopUp = (d) => {
     if (popUpOffset == -100) {
@@ -217,11 +222,9 @@ const Diaries = () => {
           {diariesPublic?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
-                
+              to={`/overview/${d.DiaryId}`}
               >
-                <DiaryImageHolder onClick={() => {
-                  handleClick(d);
-                }}>
+                <DiaryImageHolder>
                  
                   <DiaryImage
                     src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
@@ -232,6 +235,7 @@ const Diaries = () => {
                 <DiaryTextHolder>
       
                   <DiaryText>{d?.Title} </DiaryText>
+                  <Tag> {d?.UserName}</Tag>
                     <Tag> {d?.Strain}</Tag>
 
                  

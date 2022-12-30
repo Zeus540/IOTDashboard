@@ -148,10 +148,11 @@ const Harvest = () => {
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    setActiveDiary(filtered);
-    
+    document.title = "Sweet Leaf - " + filtered?.Title + " Havest" ;
 
-  }, [diaries]);
+  }, [diaries])
+
+
 
   useEffect(() => {
 

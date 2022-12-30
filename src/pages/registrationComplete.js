@@ -36,10 +36,7 @@ const Text = styled.p`
     margin: 0;
 
 `;
-const Email = styled.p`
-    color: #2196f3;
-    margin: 0;
-`;
+
 
 const RegistrationComplete = () => {
     const params = useParams()

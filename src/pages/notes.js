@@ -71,69 +71,7 @@ const Inner = styled.div`
   }
 `;
 
-const TextHeading = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-`;
 
-const TextHolderGroup2 = styled.div`
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #8bab50;
-  background: #234a4c;
-  padding: 15px 15px;
-  line-height: 25px;
-  margin: 15px;
-  border-radius: 5px;
-  min-width: calc(100% / 5 - 60px);
-  max-width: calc(100% / 5 - 60px);
-  @media (max-width: 425px) {
-    min-width: calc(100% / 2 - 50px);
-    padding: 10px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    max-width: unset;
-  }
-`;
-
-
-const TextHolderGroup2Inner = styled.div`
-width: 100%;
-
-`;
-
-const Button = styled.button`
-padding: 5px 25px;
-background: #234a4c;
-color: white;
-border: none;
-border-radius: 50px;
-cursor: pointer;
-align-self: self-start;
-
-margin-top: 20px;
-`;
-
-
-const InnerButtonHolder = styled.div`
-max-width: 1770px;
-border-radius: 0px 5px 5px 5px;
-width: 100%;
-
-padding: 20px 0px;
-padding-top:0px;
-@media (max-width: 425px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-@media (min-width: 426px) and (max-width: 768px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-`;
 
 const NoteHolderOutter = styled.div`
 padding: 10px;
@@ -141,24 +79,16 @@ padding: 10px;
 
 `;
 const NoteHolder = styled.div`
-padding: 10px;
+padding: 15px;
 background: #e2e2e247;
 margin-bottom: 20px;
-border-bottom: 2px #8bab50 solid;
+border-bottom: 4px #8bab50 solid;
 border-radius: 5px;
 `;
 
 const NoteHolderText = styled.div`
-padding: 20px 20px;
+padding: 20px 15px;
 
-`;
-
-const WeekHolderOutter = styled.div`
-margin: 10px 0px;
-display: flex;
-flex-wrap: wrap;
-background: #234a4c;
-border-radius: 5px;
 `;
 
 const WeekHolder = styled.div`
@@ -253,6 +183,30 @@ color: white;
 font-size: 14px;
 `;
 
+const KeyNote = styled.div`
+background: #ff4949;
+margin-bottom: 15px;
+border-radius: 5px;
+padding: 5px 10px;
+text-transform: uppercase;
+color: white;
+align-items: center;
+display: flex;
+max-width: fit-content;
+
+`;
+
+const KeyNoteText = styled.p`
+padding: 0px 10px;
+    margin: 5px 0px;
+`;
+
+
+const Svg = styled.svg`
+fill: white;
+width: 30px;
+`;
+
 const Notes = () => {
  
 
@@ -268,6 +222,12 @@ const Notes = () => {
   const params = useParams();
   const navigate = useNavigate ()
   const { auth,authToken,userId } = useContext(AuthContext);
+
+  useEffect(() => {
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    document.title = "Sweet Leaf - " + filtered?.Title + "  Notes" ;
+
+  }, [diaries])
 
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
@@ -450,6 +410,13 @@ const Notes = () => {
           return(
             <NoteHolder>
              {console.log(noteData)}
+             {n.KeyNote == 1 && 
+               <KeyNote>
+            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zm32 224c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32z"/></Svg>
+            <KeyNoteText>important</KeyNoteText>
+                </KeyNote>
+             }
+           
               <NoteDay>
                 { UpdateDay(n,n.DayId)}
              

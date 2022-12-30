@@ -134,15 +134,6 @@ const FlexTop = styled.div`
   }
 `;
 
-
-const Flex2 = styled.div`
-  display: flex;
-
-  flex-wrap: wrap;
-`;
-const Flex3 = styled.div`
-
-`;
 const Flex3B = styled.div`
 background: #234a4c;
 color:white;
@@ -229,7 +220,7 @@ background-image: ${props => `url(${props.img})`};
         background-position: center;
   max-width: 40%;
   width: 100%;
-  border-radius:  5px 5px 0px 0px;
+
 
   @media (max-width: 425px) {
     max-width: unset;
@@ -281,7 +272,7 @@ color:black;
   font-size: 30px;
   margin-bottom: 0px;
   @media (max-width: 425px) {
-    font-size: 20px;
+    font-size: 24px;
   }
 `;
 const DairyHeadingTitle = styled.p`
@@ -481,7 +472,7 @@ cursor: pointer;
 
 const NoData = styled.div`
   padding: 15px 0px;
-  font-size: 20px;
+  font-size: 24px;
 `;
 const NoDataHolder = styled.div`
   width: 100%;
@@ -559,32 +550,7 @@ const DayDotOutter = styled.div`
  
 `;
 
-const TabsHolder = styled.div`
-  
-align-items: end;
-  display: flex;
-  max-width: 1770px;
-  width: 100%;
 
-`;
-const TabActive = styled.div`
-
-  cursor: pointer;
-  padding: 5px 25px;
-  background: #ffffff;
-  border-radius: 5px 5px 0px 0px;
-
-`;
-const TabInActive = styled.div`
-
-  cursor: pointer;
-  background: #234a4c;
-  color: white;
-  border-radius: 5px 5px 0px 0px;
-  padding: 5px 20px;
-  height: fit-content;
-
-`;
 const Helper = styled.p`
 text-align:center
 `;
@@ -598,6 +564,7 @@ const Dot = styled.div`
   margin-top:10px;
   opacity:${props => props.index == props.positionIndex ? "1": "0.5"}
 `;
+
 const DotHolder= styled.div`
 
 justify-content: center;
@@ -610,18 +577,6 @@ display: none;
 }
 `;
 
-const Button = styled.button`
-padding: 5px 25px;
-background: #234a4c;
-color: white;
-border: none;
-border-radius: 50px;
-cursor: pointer;
-align-self: self-start;
-
-margin-top: 20px;
-
-`;
 
 const AssignButton = styled.button`
 padding: 5px 20px;
@@ -653,22 +608,6 @@ margin-bottom : 17px;
 float: right;
 `;
 
-const InnerButtonHolder = styled.div`
-max-width: 1770px;
-border-radius: 0px 5px 5px 5px;
-width: 100%;
-
-padding: 20px 0px;
-padding-top:0px;
-@media (max-width: 425px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-@media (min-width: 426px) and (max-width: 768px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-`;
 
 const QuickActionHeading = styled.h2`
 color: #234a4c;
@@ -786,6 +725,7 @@ const SvgB = styled.svg`
 width: 20px;
 fill: white;
 `;
+
 const DashBoard = () => {
 
   let tabs = [
@@ -817,7 +757,7 @@ const DashBoard = () => {
   const [activeWeek, setActiveWeek] = useState([]);
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
-  const { diaries } = useContext(DiaryContext);
+  const { diaries,Update } = useContext(DiaryContext);
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
   const location =useLocation()
@@ -834,12 +774,18 @@ const DashBoard = () => {
 
 
   useEffect(() => {
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    document.title = "Sweet Leaf - " + filtered?.Title;
+  }, [diaries])
+  
+  useEffect(() => {
     setPositionIndex(0)
     setPosition(0)
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    console.log("filtered",filtered);
-    console.log("filtered",diaries);
+
+ 
     
+
     setActiveDiary(filtered);
 
     let data = {
@@ -880,7 +826,7 @@ if(activeWeek !== w){
   axios
     .post("https://api.sweetleaf.co.za/days", dataw)
     .then(function (response) {
-      console.log("days", response.data);
+    
       setDays(response.data);
     })
     .catch(function (error) {
@@ -894,13 +840,14 @@ if(activeWeek !== w){
   axios
        .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
        .then(function (response) {
-         console.log("response", response.data);
+
          setActiveDiaryData(response.data.latest);
         
          axios
          .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
          .then(function (response) {
            setDaysNotes(response.data.Notes);
+         
          })
          .catch(function (error) {
            console.log(error);
@@ -933,14 +880,14 @@ if(activeWeek !== w){
       axios
         .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
         .then(function (response) {
-          console.log("response", response.data);
+      
           setActiveDiaryData(response.data.latest);
           setGalleryData(response.data.Day);
 
           axios
             .post("https://api.sweetleaf.co.za/notes/today", data)
             .then(function (response) {
-              setDaysNotes(response.data.Notes);
+              setDaysNotes(response.data);
             })
             .catch(function (error) {
               console.log(error);
@@ -970,8 +917,7 @@ if(activeDiaryData?.Image !== undefined){
 
  useEffect(() => {
   imageCheck()
-  console.log(activeDiary?.ThumbNail)
-  console.log(activeDiaryData?.Image)
+
   if(activeDiary?.Active == 1){
     setActiveToggle(true)
   }
@@ -1024,14 +970,14 @@ if(positionIndex > 0){
       DiaryId:activeDiary.DiaryId,
       Active:e.target.checked
     }
-    console.log("values",values);
+
     axios.post('https://api.sweetleaf.co.za/diaries/update/active',values,config,)
     .then(function (response) {
       if(response.data.insertId !== undefined){
       
       }
      
-      console.log("response",response.data.insertId);
+    
     })
     .catch(function (error) {
   
@@ -1058,14 +1004,14 @@ if(positionIndex > 0){
       DiaryId:activeDiary.DiaryId,
       Active:e.target.checked
     }
-    console.log("values",values);
+ 
     axios.post('https://api.sweetleaf.co.za/diaries/update/public',values,config,)
     .then(function (response) {
       if(response.data.insertId !== undefined){
       
       }
      
-      console.log("response",response.data.insertId);
+
     })
     .catch(function (error) {
   
@@ -1084,7 +1030,7 @@ if(positionIndex > 0){
    }
 
    const deleteDiary = (DiaryId)=>{
-    console.log("DiaryId",DiaryId);
+
     let data ={
       DiaryId:DiaryId
     }
@@ -1223,12 +1169,12 @@ if(positionIndex > 0){
                     handleNotes();
                   }}
                 >
-                  {console.log(daysNotes)}
-                  {daysNotes == '' || undefined ? "Add Notes" : "Edit Notes"}
+       
+                  {daysNotes?.Notes == '' || undefined ? "Add Notes" : "Edit Notes"}
                 </HeadingCtaButton>}
           
             </HeadingCta>
-            <Notes>{daysNotes}</Notes>
+            <Notes>{daysNotes?.Notes ? daysNotes?.Notes : daysNotes}</Notes>
 
 
           </TextHolder>
@@ -1237,13 +1183,17 @@ if(positionIndex > 0){
           </RightFlex>
        </RightFlexHolder>
         </FlexTop>
+    
         {addNotes && (
           <NotesPopUp
             setAddNotes={setAddNotes}
             setDaysNotes={setDaysNotes}
-            daysNotes={daysNotes}
+            daysNotes={daysNotes?.Notes ? daysNotes?.Notes : daysNotes}
             diaryDatas={diaryData}
+            keyNote={daysNotes?.KeyNote}
+       
           >
+
             {activeDiaryNotes}
           </NotesPopUp>
         )}

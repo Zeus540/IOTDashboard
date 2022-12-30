@@ -12,6 +12,7 @@ import { Formik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
 import PopUp from "../components/PopUp";
+import { NavLink } from "react-router-dom";
 
 const Root = styled.div`
 
@@ -47,7 +48,7 @@ margin: 0 auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 20px;
+  font-size: 24px;
   margin-top: 0px;
   font-weight: bolder;
 `;
@@ -61,13 +62,16 @@ const DiaryHolder = styled.div`
   }
 `;
 
-const Diary = styled.div`
+
+
+const Diary = styled(NavLink)`
 cursor: pointer;
-max-width: calc(100% / 4 - 20px);
+max-width: calc(100% / 6 - 20px);
 margin: 10px;
 border-radius: 5px;
 width: 100%;
-  
+text-decoration: none;
+color: black;
 @media (max-width: 619px) {
   max-width: calc(100% / 2 - 20px);
   width: 100%;
@@ -108,7 +112,7 @@ overflow: auto;
 
 const Tag = styled.sup`
 
-  padding: 3px 0px;
+  padding: 0px 0px;
   font-size: 11px;
   display: block;
 
@@ -147,15 +151,32 @@ padding: 8px 20px;
 
 const DiaryText = styled.p`
 font-size: 14px;
-
+padding-bottom: 5px;
 white-space: nowrap;
-
+font-weight: bold;
 margin: 0px;
 `;
 
+const UserAvatarHolder = styled.div`
+display: flex;
+align-items: center;
+}
+`
 
+const UserAvatar = styled.div`
+width: 5px;
+height: 5px;
+color: white;
+    padding: 10px;
+    font-size: 11px;
+    background: #8bab50;
+    margin-right: 10px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-
+`;
 
 const Diaries = () => {
   const { diaries,Update,loading } = useContext(DiaryContext);
@@ -165,6 +186,10 @@ const Diaries = () => {
   const { auth,authToken,userId } = useContext(AuthContext);
 
 
+  useEffect(() => {
+
+    document.title = "Sweet Leaf - My Diaries" 
+  }, [])
 
   useEffect(() => {
   
@@ -180,9 +205,7 @@ const Diaries = () => {
 
   }, [diaries,userId])
   
-  const handleClick = (d) => {
-    navigate(`/overview/${d.DiaryId}`);
-  };
+
 
   const handleAddPopUp = (d) => {
     if (popUpOffset == -100) {
@@ -225,10 +248,9 @@ const Diaries = () => {
           {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
-              onClick={() => {
-                handleClick(d);
-              }}
+          to={`/overview/${d.DiaryId}`}
               >
+                
                 <DiaryImageHolder >
                  
                   <DiaryImage
@@ -240,9 +262,15 @@ const Diaries = () => {
                 <DiaryTextHolder>
       
                   <DiaryText>{d?.Title} </DiaryText>
+                  <Tag> {d?.UserName}</Tag>
                     <Tag> {d?.Strain}</Tag>
-
-                 
+                    <UserAvatarHolder>
+                    {/* <UserAvatar>
+                  {d?.UserName.charAt(0)}
+                  </UserAvatar> */}
+                  
+                    
+                    </UserAvatarHolder>
                  
                   {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
             

@@ -49,7 +49,7 @@ margin: 0 auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 20px;
+  font-size: 24px;
   margin-top: 0px;
 `;
 

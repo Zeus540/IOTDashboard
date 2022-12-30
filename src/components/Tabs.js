@@ -26,7 +26,7 @@ align-items: end;
 
 `;
 const TabActive = styled.div`
-
+border-radius: 5px 0px 0px 0px;
   cursor: pointer;
   padding: 5px 20px;
   background: #ffffff;
