@@ -465,7 +465,7 @@ padding: 5px 25px;
 
 background: #8bab50;
 border: none;
-color: #234a4c;
+color: black;
 border-radius: 50px;
 cursor: pointer;
 `;
@@ -536,7 +536,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #d0d0d0;
+  background: #859ea34f;
 
   border-radius: 5px;
 `;
@@ -610,7 +610,7 @@ float: right;
 
 
 const QuickActionHeading = styled.h2`
-color: #234a4c;
+color: black;
 margin: 10px 0px;
 font-weight: bold;
 margin-bottom: 10px;
@@ -635,7 +635,7 @@ const QuickActionBlock = styled.button`
 padding: 5px 25px;
 background: #8bab50;
 margin:0px 10px;
-color: #234a4c;
+color: black;
 margin-left: 0px;
 border-radius: 50px;
 text-align: center;
@@ -688,7 +688,7 @@ padding: 5px 20px;
     width: fit-content;
     border: none;
     background: #8bab50;
-    color: #234a4c;
+    color: black;
     border-radius: 50px;
     cursor: pointer;
 ;
