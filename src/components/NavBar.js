@@ -105,7 +105,7 @@ background: #8bab50;
 color: white;
 border-radius: 50px;
 cursor: pointer;
-font-weight: 700;
+
 
 @media (min-width: 0px) and (max-width: 768px) {
   margin: 10px;
@@ -120,7 +120,7 @@ background: #8bab50;
 color: white;
 padding: 15px;
 cursor: pointer;
-font-weight: 700;
+
 display: flex;
 @media (min-width: 768px){
   
