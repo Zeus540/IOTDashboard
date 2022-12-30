@@ -8,7 +8,7 @@ import Tabs from "../components/Tabs";
 import {useNavigate} from 'react-router-dom'
 
 const Root = styled.div`
-  margin-top: 50px;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -318,14 +318,7 @@ const Stats = () => {
                   
           </TextHolderGroup2>
 
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>SMELL</TextHeading>
-          <>Strong</>
-          
-    
-                  </TextHolderGroup2Inner>
-          </TextHolderGroup2>
+        
 
           
         </Flex2>
