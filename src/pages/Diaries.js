@@ -14,7 +14,7 @@ import axios from "axios";
 import PopUp from "../components/PopUp";
 
 const Root = styled.div`
-  margin-top: 50px;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -131,7 +131,7 @@ const Add = styled.div`
     padding: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 10px 20px;
+    padding: 5px 25px;
     padding: 20px;
   }
 `;
@@ -166,6 +166,10 @@ const Diaries = () => {
 
 
 
+  useEffect(() => {
+  
+    Update()
+  }, [])
   
   useEffect(() => {
     console.log("loading",loading)

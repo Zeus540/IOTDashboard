@@ -30,7 +30,7 @@ border-radius: 5px;
 `;
 
 const Button = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 margin: 10px 20px;
 background: #f2f2f2;
 border: none;
@@ -67,7 +67,7 @@ text-align: end;
 const NotesHeadingHolder = styled.div`
 display: flex;
 align-items: center;
-padding: 10px 20px;
+padding: 5px 25px;
 justify-content: space-between;
 background: #234a4c;
     color: white;

@@ -9,13 +9,13 @@ import MainContainer from './MainContainer';
 
 const Root = styled.div`
 
-overflow-x: hidden;
+
   min-height: 100vh;
 
 `;
 
 const Image = styled.div`
-  background-image: url(${Back});
+  // background-image: url(${Back});
   background-size: cover;
   background-color: #00000024;
   background-blend-mode: saturation;

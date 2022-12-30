@@ -19,9 +19,9 @@ import  faTrash  from "../assets/trash-can-regular.svg";
 import { InfinitySpin } from  'react-loader-spinner'
 
 const Root = styled.div`
-  margin-top: 50px;
+
   display: flex;
-  padding-bottom: 50px;
+
   align-items: center;
   flex-direction: column;
 
@@ -56,16 +56,20 @@ const IntroHolder = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  @media (max-width: 425px) {
-    flex-direction: column-reverse;
-    padding-bottom: 0px;
-  }
+
 `;
 const RightFlex = styled.div`
   margin-bottom: 0px;
   border-radius: 5px;
-  background: #234a4c;
+  background: #ffffff;
 
+  @media (max-width: 425px) {
+    box-shadow: 0px 1px 8px 2px #00000047;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    box-shadow: 0px 1px 8px 2px #00000047;
+    margin-bottom: 20px;
+  }
 `;
 const RightFlexInner = styled.div`
 padding:  20px;
@@ -84,9 +88,12 @@ width: 60%;
   
 }
 @media (min-width: 426px) and (max-width: 768px) {
-  margin-left: 0px;
-  padding: 0px 20px;
-  width: unset;
+  margin: 0px auto;
+  padding: 0px 0px;
+  width: 90%;
+  margin-top: -70px;
+  border-radius: 5px;
+  
 }
 `
 ;
@@ -106,29 +113,20 @@ align-items: center;
 
 `
 const ToggleHolderLabel= styled.div`
-color:white;
+color:black;
 padding: 0px 10px;
 display: flex;
 `
-const Flex = styled.div`
-  display: flex;
-  padding: 0px 20px;
-  @media (max-width: 425px) {
-    flex-direction: column;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
+
 const FlexTop = styled.div`
   display: flex;
   padding: 0px 0px;
-  background: #234a4c;
+
   @media (max-width: 425px) {
     flex-direction: column;
     padding: 0px 0px;
     background: unset;
-     
+    margin-bottom: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     flex-direction: column;
@@ -146,10 +144,10 @@ const Flex3 = styled.div`
 
 `;
 const Flex3B = styled.div`
+background: #234a4c;
+color:white;
+padding: 40px 0px;
 
-
-padding: 20px 0px;
-margin: 20px 0px;
 @media (max-width: 425px) {
   background: #234a4c;
   color: white;
@@ -225,19 +223,26 @@ const WeekHolderTextSub = styled.div`
 
 const ImgHolder = styled.div`
 
-    background-image: ${props => `url(${props.img})`};
+background-image: ${props => `url(${props.img})`};
         background-size: cover;
-        height: 500px;
+        min-height: 500px;
+        background-position: center;
   max-width: 40%;
-  border-radius: 5px;
   width: 100%;
+  border-radius:  5px 5px 0px 0px;
+
   @media (max-width: 425px) {
     max-width: unset;
     height: 300px;
+    min-height: unset;
+  border-radius: unset;
+
   }
   @media (min-width: 426px) and (max-width: 768px) {
     max-width: unset;
     height: 400px;
+    border-radius: unset;
+
   }
 `;
 const TextHolder = styled.div`
@@ -250,11 +255,13 @@ const TextHolder = styled.div`
   
   border-radius: 5px;
   @media (max-width: 425px) {
-    margin-left: 0px;
+
     width: unset;
     padding: 20px 0px;
     padding-top:0px;
+    padding-bottom:0px;
     min-height: unset; 
+    
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin-left: 0px;
@@ -269,7 +276,7 @@ const TextHolderHeading = styled.h3`
   color:white;
 `;
 const DairyHeading = styled.h3`
-color:white;
+color:black;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -277,19 +284,19 @@ color:white;
     font-size: 20px;
   }
 `;
-const DairyHeadingTitle = styled.h3`
-color:white;
+const DairyHeadingTitle = styled.p`
+color:black;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
   @media (max-width: 425px) {
-    font-size: 16px;
-    padding-top: 15px;
+    font-size: 14px;
+    padding-top: 0px;
   }
 `;
 
 const DairyHeadingSmall = styled.sup`
-color:white;
+color:black;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -301,48 +308,7 @@ color:#a7c957;
   margin-bottom: 0px;
 `;
 
-const TextHeading = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-`;
 
-const TextHolderGroup2 = styled.div`
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: #234a4c;
-  padding: 15px 15px;
-  line-height: 25px;
-  margin: 15px;
-  border-radius: 5px;
-  min-width: calc(100% / 5 - 60px);
-  max-width: calc(100% / 5 - 60px);
-  @media (max-width: 425px) {
-    min-width: calc(100% / 2 - 50px);
-    padding: 10px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    max-width: unset;
-  }
-`;
-
-
-const TextHolderGroup2Inner = styled.div`
-width: 100%;
-
-`;
-const ImageMain = styled.img`
-  border-radius: 5px;
-  @media (max-width: 425px) {
-    border-radius: 0px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    border-radius: 0px;
-  }
-`;
 const GalleryImageHolderFlex = styled.div`
 display: flex;
 min-width: calc(100% / 4 - 30px);
@@ -366,7 +332,7 @@ flex-direction: column;
 `;
 
 const GalleryImageHolder = styled.div`
-min-width: calc(100% / 4 - 30px);
+
 background-image: ${props => `url(${props.img})`};
 
 border-radius: 5px 5px  0px 0px;
@@ -374,14 +340,7 @@ position: relative;
 cursor:pointer;
 height: 300px;
 background-size: cover;
-@media (max-width: 425px) {
-  min-width: calc(100% / 1 - 30px);
-  
-}
-@media (min-width: 426px) and (max-width: 768px) {
-  max-width: calc(100% / 2 - 20px);
-  min-width: calc(100% / 2 - 20px);
-}
+
 `;
 
 
@@ -458,6 +417,10 @@ const GalleryHolderInner = styled.div`
  
 `;
 
+const GalleryHolderOutter = styled.div`
+position: relative;
+`;
+
 const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
@@ -507,9 +470,9 @@ const HeadingCta = styled.div`
 `;
 
 const HeadingCtaButton = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 
-background: #f2f2f2;
+background: #8bab50;
 border: none;
 color: #234a4c;
 border-radius: 50px;
@@ -548,7 +511,7 @@ const DayDot = styled.div`
   cursor: pointer;
   opacity: 0.5;
  
-  background:  #234a4c;
+  background: #ffffff;
   &:hover {
     opacity: 1;
  
@@ -570,7 +533,7 @@ const fadeIn = keyframes`
 const DayDotActive = styled.div`
   width: 10px;
   height: 10px;
-  background: #9fb970;
+  background: #8bab50;
   border-radius: 50%;
   margin: 0px 5px;
   cursor: pointer;
@@ -582,7 +545,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #ffffff;
+  background: #d0d0d0;
 
   border-radius: 5px;
 `;
@@ -607,7 +570,7 @@ align-items: end;
 const TabActive = styled.div`
 
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 5px 25px;
   background: #ffffff;
   border-radius: 5px 5px 0px 0px;
 
@@ -648,7 +611,7 @@ display: none;
 `;
 
 const Button = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 background: #234a4c;
 color: white;
 border: none;
@@ -669,7 +632,7 @@ background: #8bab50;
 color: #234a4c;
 border-radius: 50px;
 cursor: pointer;
-font-weight: 700;
+
 margin:0px 10px;
 @media (max-width: 425px) {
   margin: 10px 10px;
@@ -679,7 +642,7 @@ margin:0px 10px;
 
 
 const ButtonUpload = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 background: #234a4c;
 color: white;
 border: none;
@@ -708,7 +671,7 @@ padding-top:0px;
 `;
 
 const QuickActionHeading = styled.h2`
-color: #8bab50;
+color: #234a4c;
 margin: 10px 0px;
 font-weight: bold;
 margin-bottom: 10px;
@@ -730,13 +693,12 @@ justify-content: space-between;
 `;
 
 const QuickActionBlock = styled.button`
-padding: 5px 20px;
-background: white;
-max-width: calc(100% / 6 - 20px);
-
+padding: 5px 25px;
+background: #8bab50;
 margin:0px 10px;
+color: #234a4c;
 margin-left: 0px;
-border-radius: 5px;
+border-radius: 50px;
 text-align: center;
 font-weight: bold;
 border: none;
@@ -750,10 +712,10 @@ const Input = styled.input`
 
 background: transparent;
 border: none;
-border-bottom: 2px solid white;
+border-bottom: 2px solid #8bab50;
 padding: ${(props) => !props.assignDevice ? "0px":"5px 5px"};
 width: ${(props) => !props.assignDevice ? "0px":"unset"};
-color: white;
+color: black;
 transition: 0.5s all ease;
 @media (max-width: 425px) {
   width: ${(props) => !props.assignDevice ? "0px":"100%"};
@@ -779,7 +741,7 @@ transition: 0.5s all ease;
 
 ;
 
-const InputHolderSumbit = styled.button`
+const InputHolderSubmit = styled.button`
 display: ${(props) => !props.assignDevice ? "none":"block"};
 padding: 5px 20px;
     width: -webkit-fit-content;
@@ -790,7 +752,7 @@ padding: 5px 20px;
     color: #234a4c;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: 700;
+;
     margin: 0px 10px;
     margi
     transition: 0.5s all ease;
@@ -817,10 +779,13 @@ fill: red;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: white;
+fill: black;
 `;
 
-
+const SvgB = styled.svg`
+width: 20px;
+fill: white;
+`;
 const DashBoard = () => {
 
   let tabs = [
@@ -1183,7 +1148,7 @@ if(positionIndex > 0){
 
 <InputHolder assignDevice={assignDevice}>
 <Input text placeholder="Enter Device Id" assignDevice={assignDevice}></Input>
-<InputHolderSumbit assignDevice={assignDevice} onClick={()=>{setAssignDevice(false)}}>Sumbit</InputHolderSumbit>
+<InputHolderSubmit assignDevice={assignDevice} onClick={()=>{setAssignDevice(false)}}>Submit</InputHolderSubmit>
 </InputHolder>
 
 </>
@@ -1231,8 +1196,9 @@ if(positionIndex > 0){
 
           <IntroHolder>
  <div>
- <DairyHeadingTitle>Title</DairyHeadingTitle>
+
           <DairyHeading>{activeDiary?.Title} </DairyHeading>
+          <DairyHeadingTitle>Stain : {activeDiary?.Strain}</DairyHeadingTitle>
  </div>
           <DairyHeadingSmall>Day <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyHeadingSmall>
           {/* <TextHeading>Start Date </TextHeading>
@@ -1414,20 +1380,12 @@ if(positionIndex > 0){
 
   {activeDay.DayId && userId?.UserId == activeDiary?.UserId &&
   <ButtonUpload onClick={()=>{HandleImageUpload()}}>
-        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></SvgW>
+        <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></SvgB>
         </ButtonUpload>
   }
        <GalleryHolderInnerMain>
-          {galleryData.length > 0 &&
-            <>
-            <GalleryNext onClick={()=>{HandleNext()}}>
-            <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></SvgW>
-            </GalleryNext>
-      <GalleryBack onClick={()=>{HandleBack()}}>
-      <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></SvgW>
-      </GalleryBack>
-      </>
-      }
+    
+        <GalleryHolderOutter>
         <GalleryHolderInner position={position}>
           {
             galleryData?.map((img, index) => {
@@ -1457,7 +1415,19 @@ if(positionIndex > 0){
           }
        
 
-        </GalleryHolderInner>
+
+</GalleryHolderInner>
+{galleryData.length > 0 &&
+            <>
+            <GalleryNext onClick={()=>{HandleNext()}}>
+            <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></SvgB>
+            </GalleryNext>
+      <GalleryBack onClick={()=>{HandleBack()}}>
+      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></SvgB>
+      </GalleryBack>
+      </>
+      }
+        </GalleryHolderOutter>
         {galleryData.length < 1 &&  activeDay.DayId == undefined &&
             <NoDataHolder>
                         <NoData>No Data Available</NoData>

@@ -12,7 +12,7 @@ background:#234a4c26;
 
 padding-top: 0px;
 color:white;
-min-height: calc(100vh - 70px);
+min-height: calc(100vh - 60px);
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -77,15 +77,15 @@ color: red;
 `;
 
 const Button = styled.button`
-padding: 15px 50px;
+padding: 5px 25px;
 width: fit-content;
-margin: 0px 10px;
-margin-top: 20px;
+
 border:none;
 background:#234a4c;
 color:white;
-border-radius:5px;
-cursor: pointer;
+border-radius:50px;
+cursor:pointer;
+margin: 15px ;
 `;
 
 const Heading = styled.div`

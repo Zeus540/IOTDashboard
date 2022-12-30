@@ -9,7 +9,7 @@ export const DiaryProvider = ({ children }) => {
   const [diaries, setDiaries] = useState([]);
   const [diariesPublic, setDiariesPublic] = useState([]);
   const [loading, setLoading] = useState(true);
-const {authToken,auth,userId} = useContext(AuthContext)
+const {authToken,auth,userId,logOut} = useContext(AuthContext)
 
 let token = localStorage.getItem("token")
 
@@ -24,8 +24,12 @@ let token = localStorage.getItem("token")
     
     axios.get('https://api.sweetleaf.co.za/diaries',config)
     .then((response) => {
-      
-      setDiaries(response.data)
+      if(response.data == "Forbiden"){
+        logOut()
+      }else{
+        setDiaries(response.data)
+      }
+
     })
     .catch((error) => {
   

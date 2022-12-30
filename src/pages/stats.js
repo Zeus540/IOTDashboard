@@ -143,7 +143,7 @@ align-items: center;
 `;
 
 const Button = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 background: #234a4c;
 color: white;
 border: none;

@@ -15,7 +15,7 @@ import { useLocation, useParams } from "react-router-dom";
 import DeviceImg from "../assets/Planter.png"
 
 const Root = styled.div`
-  margin-top: 50px;
+
   
   @media (max-width: 425px) {
     margin: 0px 0px;
@@ -136,7 +136,7 @@ const Add = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 5px 25px;
   background: #234a4c;
   color: white;
   border: none;

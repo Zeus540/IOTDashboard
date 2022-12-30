@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 const Root = styled.div`
-  margin-top: 50px;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -106,7 +106,7 @@ width: 100%;
 `;
 
 const Button = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 background: #234a4c;
 color: white;
 border: none;

@@ -106,7 +106,7 @@ width: 100%;
 `;
 
 const Button = styled.button`
-padding: 10px 40px;
+padding: 5px 25px;
 background: #234a4c;
 color: white;
 border: none;
@@ -367,7 +367,7 @@ const Notes = () => {
       <Inner>
       <Tabs/>
       {activeWeek.length == 0 && <Helper>Select a Week</Helper>}
-      <Heading>Journal </Heading>
+      <Heading>Notes </Heading>
         <Flex2>
       
           <WeekHolderInner>

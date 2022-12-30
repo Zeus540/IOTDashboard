@@ -53,7 +53,7 @@ padding: 20px;
 
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 5px 25px;
   background: #234a4c;
   color: white;
   border: none;

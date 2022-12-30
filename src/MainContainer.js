@@ -51,7 +51,7 @@ const MainContainer = () => {
                     <Route path="/overview/:id" element={<DashBoard />} />
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/journal/:id" element={<Notes />} />
+                    <Route path="/notes/:id" element={<Notes />} />
            
                 </Routes>
             }

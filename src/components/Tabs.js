@@ -41,14 +41,14 @@ const TabActive = styled.div`
 const TabInActive = styled.div`
 
   cursor: pointer;
-  background: #234a4c;
-  color: white;
+ 
+  color: black;
 
   padding: 5px 20px;
   height: fit-content;
-  border-bottom: 4px solid #234a4c;
+  border-bottom: 4px solid white;
   @media (max-width: 425px) {
-    border-bottom: 4px solid #234a4c;
+    border-bottom: 4px solid white;
  
   }
 `;
@@ -74,7 +74,7 @@ const Tabs = () => {
         }
         ,
         {
-          tabName:'Journal',
+          tabName:'Notes',
           active:false
         }
       ]
@@ -130,8 +130,8 @@ useEffect(() => {
             navigate(`/harvest/${params.id}`)
             break;
 
-            case "Journal":
-            navigate(`/journal/${params.id}`)
+            case "Notes":
+            navigate(`/notes/${params.id}`)
             break;
             
     }
