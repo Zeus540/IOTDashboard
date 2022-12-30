@@ -306,9 +306,9 @@ const NavBar = () => {
                 <UserInfoHolder> 
                 <UserInfo>
                   <UserAvatar>
-                  {user.User.charAt(0)}
+                  {user?.User?.charAt(0)}
                   </UserAvatar>
-               {user.User}
+               {user?.User}
                 </UserInfo>
                 <div>
                 <ButtonM onClick={()=>{logOut()}}>
