@@ -224,7 +224,7 @@ const NavBar = () => {
   const { auth,logOut,user } = useContext(AuthContext);
   const [mobileMenu, setMobileMenu] = useState(false);
 
-  console.log("userId",user)
+
   return (
     <Root>
       <Inner>

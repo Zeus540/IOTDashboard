@@ -32,7 +32,7 @@ background: #ffffff;
 padding-bottom: 20px;
 padding: 20px 0px;
 margin: 0 auto;
-
+width: 100%;
   @media (max-width: 425px) {
     margin: 0px;
     padding: 0px;

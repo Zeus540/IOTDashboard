@@ -11,10 +11,11 @@ import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import {useNavigate} from 'react-router-dom'
-import Tabs from "../components/Tabs";
+
 import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
 import  faTrash  from "../assets/trash-can-regular.svg";
+import StatsPublic from "./StatsPublic";
 
 import { InfinitySpin } from  'react-loader-spinner'
 
@@ -325,10 +326,10 @@ color:black;
 `;
 
 const DairyHeadingSmall = styled.sup`
-color: white;
+color:  #275557;
 margin-top: 0px;
 font-size: 16px;
-background: #275557;
+
 margin-bottom: 0px;
 padding: 5px 15px;
 height: fit-content;
@@ -355,7 +356,6 @@ color:#275557;
   font-size: 16px;
   margin-bottom: 0px;
 `;
-
 
 
 const GalleryImageHolderFlex = styled.div`
@@ -677,12 +677,13 @@ margin:0px 10px;
 `;
 
 const LikeButton = styled.button`
-
-
+align-items: center;
+display: flex;
+padding: 5px 25px;
 width: fit-content;
 border: none;
-background: #ffffff;
-color: #275557;
+background: #8bab50;
+color: white;
 border-radius: 50px;
 cursor: pointer;
 
@@ -692,7 +693,12 @@ cursor: pointer;
  
 }
 `;
+const LikeButtonText = styled.p`
 
+padding: 0px 0px;
+margin: 0px;
+
+`;
 
 const ButtonUpload = styled.button`
 padding: 5px 25px;
@@ -819,8 +825,8 @@ fill: #275557;
 margin-right: 10px;
 `;
 const SvgL = styled.svg`
-width: 30px;
-fill: #275557;
+width: 20px;
+fill: white;
 margin-right: 10px;
 `;
 const SvgVS = styled.svg`
@@ -843,7 +849,7 @@ width: 20px;
 fill: #275557;
 `;
 
-const DashBoard = (props) => {
+const DashBoardPublic = () => {
 
   let tabs = [
     {
@@ -874,7 +880,7 @@ const DashBoard = (props) => {
   const [activeWeek, setActiveWeek] = useState('');
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
-  const { diaries,Update } = useContext(DiaryContext);
+  const { diariesPublic,UpdatePublic } = useContext(DiaryContext);
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
   const location =useLocation()
@@ -893,19 +899,17 @@ const DashBoard = (props) => {
   const navigate = useNavigate ()
 
 
-
-  
   useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    setActiveDiary(filtered);
+    let filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
 
-  }, [diaries])
+  }, [diariesPublic])
 
   useEffect(() => {
 
-    if(activeDiary.length > 0){
+    if(activeDiary !== undefined){
   
     let datav ={
       DiaryId:parseInt(params?.id)
@@ -914,7 +918,7 @@ const DashBoard = (props) => {
     axios
     .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
     .then(function (response) {
-      Update()
+      UpdatePublic()
 
     })
     .catch(function (error) {
@@ -936,7 +940,7 @@ const handleLike = ()=>{
     axios
     .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
     .then(function (response) {
-      Update()
+      UpdatePublic()
 
     })
     .catch(function (error) {
@@ -947,31 +951,32 @@ const handleLike = ()=>{
 
 
   useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    let filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     document.title = "Sweet Leaf - " + filtered?.Title;
-  }, [diaries])
+  }, [diariesPublic])
   
   useEffect(() => {
     setPositionIndex(0)
     setPosition(0)
-  
-    
-   
- if(activeDiary?.length > 0){
-  let data = {
-    DiaryId: params?.id,
-  };
+    let filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
-  axios
-    .post("https://api.sweetleaf.co.za/weeks", data)
-    .then(function (response) {
-      setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
- }
-  }, [diaries]);
+
+
+    setActiveDiary(filtered);
+
+    let data = {
+      DiaryId: params?.id,
+    };
+
+    axios
+      .post("https://api.sweetleaf.co.za/weeks", data)
+      .then(function (response) {
+        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [diariesPublic]);
 
   const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
@@ -1248,11 +1253,10 @@ if(positionIndex > 0){
    
   return (
 
-
-    <Root>
-      {activeDiary &&
   
-   <>
+    <Root>
+    
+  
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
@@ -1274,11 +1278,11 @@ if(positionIndex > 0){
       
        <RightFlexHolder>
        <RightFlex>
-        <Tabs/>
+      
         <RightFlexInner>
         {userId?.UserId !== activeDiary?.UserId &&
         <LikeButton onClick={()=>{handleLike()}}>
-        <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgL>
+        <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgL> <LikeButtonText>Like</LikeButtonText>
           </LikeButton>  
           }
 {userId?.UserId == activeDiary?.UserId &&
@@ -1355,12 +1359,14 @@ if(positionIndex > 0){
           <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
  </div>
       
-          {/* <TextHeading>Start Date </TextHeading>
-          <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
+   
         </IntroHolder>
-          {diaryData !== "" && 
+        <StatsPublic />
+          {diaryData !== "" && userId?.UserId == activeDiary?.UserId && 
           <TextHolder>
            
+          
+          
            <QuickActionHeading>Quick Action</QuickActionHeading>
         
         <QuickActionBlockFlex>
@@ -1371,7 +1377,7 @@ if(positionIndex > 0){
 
             <HeadingCta>
               <TextHolderHeading>Notes</TextHolderHeading>
-              {userId?.UserId == activeDiary?.UserId && 
+           
                   <HeadingCtaButton
                   onClick={() => {
                     handleNotes();
@@ -1379,11 +1385,12 @@ if(positionIndex > 0){
                 >
        
                   {daysNotes?.Notes == '' || undefined ? "Add Notes" : "Edit Notes"}
-                </HeadingCtaButton>}
+                </HeadingCtaButton>
           
             </HeadingCta>
             <Notes>{daysNotes?.Notes ? daysNotes?.Notes : daysNotes}</Notes>
-
+          
+          
 
           </TextHolder>
           }
@@ -1409,7 +1416,7 @@ if(positionIndex > 0){
 
 <Flex3B>
   {console.log(activeWeek.WeekId)}
-{activeWeek !== "" && <HelperBtnHolder><HelperBtn onClick={() => {handleEditWeek()}}>Edit Week</HelperBtn></HelperBtnHolder>}
+{ userId?.UserId == activeDiary?.UserId && activeWeek !== "" && <HelperBtnHolder><HelperBtn onClick={() => {handleEditWeek()}}>Edit Week</HelperBtn></HelperBtnHolder>}
 {activeWeek.WeekId == undefined && <Helper>Select a Week</Helper>}
 
 
@@ -1502,10 +1509,11 @@ if(positionIndex > 0){
                 })}
               </>
 
-            <AddWeek onClick={()=>{handleAddWeek()}}>
+           {userId?.UserId == activeDiary?.UserId && <AddWeek onClick={()=>{handleAddWeek()}}>
 
             <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></AddWeekSvg>
             </AddWeek>
+            }
           </WeekHolderInner>
 
           {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}
@@ -1632,13 +1640,11 @@ if(positionIndex > 0){
         </DotHolder>
         </GalleryHolderInnerMain>
       </Inner>
-   </>
-      }
     </Root>
    
   );
 };
 
-export default DashBoard;
+export default DashBoardPublic;
 
 // python esptool.py --chip esp32 --port COM3 --baud 921600 --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m  --flash_size detect 0x1000 bootloader.bin 0x8000 partitions_espruino.bin 0x10000 espruino_esp32.bin

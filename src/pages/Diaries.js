@@ -31,7 +31,7 @@ const Inner = styled.div`
 max-width: 1770px;
 border-radius: 5px;
 background: #ffffff;
-
+width: 100%;
 padding: 20px 0px;
 margin: 0 auto;
   @media (max-width: 425px) {

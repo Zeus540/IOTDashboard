@@ -188,7 +188,7 @@ const KeyNote = styled.div`
 background: #ff4949;
 margin-bottom: 15px;
 border-radius: 50px;
-padding: 5px 10px;
+padding: 0px 0px;
 text-transform: uppercase;
 color: white;
 align-items: center;
@@ -200,13 +200,13 @@ float:right
 const KeyNoteText = styled.p`
 padding: 0px 10px;
 margin: 0px 0px;
-
+font-size: 14px;
 `;
 
 
 const Svg = styled.svg`
 fill: white;
-width: 20px;
+width: 24px;
 `;
 
 const Notes = () => {

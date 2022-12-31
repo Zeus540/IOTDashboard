@@ -10,6 +10,11 @@ export const AuthProvider = ({ children }) => {
     const [userId, setUserId] = useState(JSON.parse(localStorage.getItem('auth')));
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
+
+    useEffect(() => {
+        setUserId(JSON.parse(localStorage.getItem('auth')))
+    }, [])
+    
     const setToken = (token)=>{
         localStorage.setItem('token', token.token);
         localStorage.setItem('RefreshToken', token.refreshtoken);
