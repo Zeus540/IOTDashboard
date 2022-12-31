@@ -90,7 +90,7 @@ padding:  20px;
 
 
 const RightFlexHolder = styled.div`
-width: 60%;
+width: 50%;
 @media (max-width: 425px) {
   margin: 0px auto;
   padding: 0px 0px;
@@ -163,7 +163,7 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #c5c5c5;
+  background: white;
   cursor: pointer;
 
   display: flex;
@@ -181,9 +181,9 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: #c5c5c5;
+background: white;
 cursor: pointer;
-
+opacity: 0.8;
 display: flex;
 height: 88px;
 justify-content: center;
@@ -199,7 +199,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #c5c5c5;
+  background: white;
   cursor: pointer;
   color: black;
 
@@ -256,7 +256,7 @@ background-image: ${props => `url(${props.img})`};
         background-size: cover;
         min-height: 500px;
         background-position: center;
-  max-width: 40%;
+  max-width: 50%;
   width: 100%;
 
 
@@ -529,7 +529,7 @@ cursor: pointer;
 
 const NoData = styled.div`
   padding: 15px 0px;
-  font-size: 24px;
+  font-size: 20px;
 `;
 const NoDataHolder = styled.div`
   width: 100%;
@@ -611,6 +611,29 @@ const DayDotOutter = styled.div`
 const Helper = styled.p`
 text-align:center
 `;
+
+const HelperBtnHolder = styled.div`
+width: 80%;
+margin: 0 auto;
+display: flex;
+justify-content: end;
+
+   
+`;
+
+const HelperBtn = styled.button`
+
+text-align: center;
+    padding: 5px 20px;
+    background: #8bab50;
+    border: none;
+    color: black;
+    border-radius: 50px;
+    
+    cursor: pointer;
+
+`;
+
 
 const Dot = styled.div`
   background: ${props => props.index == props.positionIndex ? "#8bab50": "#275557"};
@@ -816,7 +839,7 @@ fill: white;
 `;
 const AddWeekSvg = styled.svg`
 width: 20px;
-fill: white;
+fill: #275557;
 `;
 
 const DashBoard = () => {
@@ -847,7 +870,7 @@ const DashBoard = () => {
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
-  const [activeWeek, setActiveWeek] = useState([]);
+  const [activeWeek, setActiveWeek] = useState('');
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
   const { diaries,Update } = useContext(DiaryContext);
@@ -860,6 +883,7 @@ const DashBoard = () => {
   const [publicToggle, setPublicToggle] = useState(false);
   const [assignDevice, setAssignDevice] = useState(false);
   const [popUpOffset, setPopUpOffset] = useState(-100);
+  const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-100);
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-100);
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
@@ -1210,6 +1234,16 @@ if(positionIndex > 0){
     }
    }
 
+   const handleEditWeek = ()=>{
+    if (popUpEditWeekOffset == -100) {
+      setPopUpEditWeekOffset(0);
+    } else {
+      setPopUpEditWeekOffset(-100);
+    }
+   }
+
+
+   
   return (
 
   
@@ -1223,6 +1257,10 @@ if(positionIndex > 0){
 <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} />
    
 <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
+
+<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
+
+
       <Inner>
       
 
@@ -1235,12 +1273,15 @@ if(positionIndex > 0){
        <RightFlex>
         <Tabs/>
         <RightFlexInner>
+        {userId?.UserId !== activeDiary?.UserId &&
         <LikeButton onClick={()=>{handleLike()}}>
         <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgL>
-          </LikeButton> 
+          </LikeButton>  
+          }
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>
+
 {activeToggle && 
 <>
 
@@ -1364,7 +1405,10 @@ if(positionIndex > 0){
 
 
 <Flex3B>
-{days.length == 0 && <Helper>Select a Week</Helper>}
+  {console.log(activeWeek.WeekId)}
+{activeWeek !== "" && <HelperBtnHolder><HelperBtn onClick={() => {handleEditWeek()}}>Edit Week</HelperBtn></HelperBtnHolder>}
+{activeWeek.WeekId == undefined && <Helper>Select a Week</Helper>}
+
 
 
           <Heading>WEEKS</Heading>

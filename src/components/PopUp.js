@@ -7,6 +7,8 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import AddDiary from './AddDiary';
 import AddWeek from './AddWeek';
+import EditWeek from './EditWeek';
+
 import UploadImage from './UploadImage';
 
 const PopUpHolder = styled.div`
@@ -89,6 +91,9 @@ const PopUp = (props) => {
     <AddWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId}  />
 }
 
+{props.type == "editWeek" && 
+    <EditWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} />
+}
 
     </PopUpHolderInner>
   </PopUpHolder>

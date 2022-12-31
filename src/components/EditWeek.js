@@ -71,30 +71,21 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const AddWeek = (props) => {
+const EditWeek = (props) => {
     
     const { diaries,Update,loading } = useContext(DiaryContext);
   
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     
-  
+  console.log(props.week)
   
 
-    const addWeek = (values)=>{
+    const editWeek = (values)=>{
    
     
-   var dateobj = new Date();
- 
-
-   var B = dateobj.toISOString();
- 
- 
-   
-
-
       values.DiaryId = props.DiaryId
-      values.date = B.split("T")[0]
+    
         console.log("values",values);
 
         let config = {
@@ -103,7 +94,7 @@ const AddWeek = (props) => {
           }
         }
         
-        axios.post('https://api.sweetleaf.co.za/weeks/add_week',values,config,)
+        axios.post('https://api.sweetleaf.co.za/weeks/edit_week',values,config,)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()
@@ -120,11 +111,15 @@ const AddWeek = (props) => {
       }
 
 
-    
+    let values = { 
+      weekType: props.week.Stage
+    }
+
   return (
    
     <Formik
-    initialValues={{ weekType: ""}}
+    initialValues={values}
+    enableReinitialize
     // validate={(values) => {
     //   const errors = {};
     //   if (!values.email) {
@@ -140,7 +135,7 @@ const AddWeek = (props) => {
     // }}
     onSubmit={(values, { setSubmitting }) => {
       setTimeout(() => {
-        addWeek(values)
+        editWeek(values)
         setSubmitting(false);
       }, 400);
     }}
@@ -160,22 +155,23 @@ const AddWeek = (props) => {
          
 
       <FormHeadingGroup>
-      <FormHeading>Add Week</FormHeading>
+      <FormHeading>Edit Week</FormHeading>
 
         </FormHeadingGroup>
         <InputHolder>
-     
+     {console.log(values.weekType)}
         <Control variant="filled">
         <InputLabel id="demo-simple-select-label">Stage</InputLabel>
           <Input
             id="weekType"
             name="weekType"
+            value="sadsad"
             onChange={(e)=>{handleChange(e)}}
           >
             <MenuItem value="Germination">Germination</MenuItem>
             <MenuItem value="Vegetation">Vegetation</MenuItem>
             <MenuItem value="Flowering">Flowering</MenuItem>
-            <MenuItem value="Havest">Havest</MenuItem>
+            <MenuItem value="Harvest">Harvest</MenuItem>
           </Input>
         </Control>
 
@@ -190,4 +186,4 @@ const AddWeek = (props) => {
   )
 }
 
-export default AddWeek
+export default EditWeek
