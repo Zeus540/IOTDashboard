@@ -52,12 +52,24 @@ const Inner = styled.div`
 
 const IntroHolder = styled.div`
   margin-bottom: 0px;
-  padding: 20px 0px;
+  padding: 0px 0px;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+
 
 `;
+
+const IntroHolderDay = styled.div`
+  margin-bottom: 0px;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: end;
+ 
+  padding-bottom: 10px;
+
+
+`;
+
 const RightFlex = styled.div`
   margin-bottom: 0px;
   border-radius: 5px;
@@ -153,9 +165,10 @@ const WeekHolder = styled.div`
   min-width: 70px;
   background: #c5c5c5;
   cursor: pointer;
-  opacity:0.5;
+
   display: flex;
   color: black;
+  opacity: 0.8;
   flex-direction: column;
   justify-content: space-between;
   &:hover {
@@ -163,6 +176,23 @@ const WeekHolder = styled.div`
  
   }
 `;
+const AddWeek = styled.div`
+width: fit-content;
+border-radius: 5px;
+margin: 10px 10px;
+min-width: 70px;
+background: #c5c5c5;
+cursor: pointer;
+
+display: flex;
+height: 88px;
+justify-content: center;
+  &:hover {
+    opacity: 1;
+ 
+  }
+`;
+
 const WeekHolderActive = styled.div`
   width: fit-content;
   text-align: center;
@@ -172,6 +202,7 @@ const WeekHolderActive = styled.div`
   background: #c5c5c5;
   cursor: pointer;
   color: black;
+
   transition: all 0.2s ease;
   display: flex;
     flex-direction: column;
@@ -186,6 +217,13 @@ const WeekHolderHeading = styled.div`
 `;
 const WeekHolderHeadingRed = styled.div`
   background: #de8605;
+  border-radius: 0px 0px 5px 5px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+`;
+const WeekHolderHeadingRedd = styled.div`
+  background: #f44336;
   border-radius: 0px 0px 5px 5px;
   padding: 5px 10px;
   color: white;
@@ -295,7 +333,22 @@ margin-bottom: 0px;
 padding: 5px 15px;
 height: fit-content;
 border-radius: 50px;
+margin-right: 10px;
+display: flex;
 `;
+const DairyViewsSmall = styled.sup`
+display: flex;
+color: white;
+margin-top: 0px;
+font-size: 16px;
+background: #275557;
+margin-bottom: 0px;
+padding: 5px 15px;
+height: fit-content;
+border-radius: 50px;
+margin-right: 10px;
+`;
+
 const DairyHeadingSmallAccent = styled.span`
 color:#a7c957;
   margin-top: 0px;
@@ -599,6 +652,23 @@ margin:0px 10px;
 }
 `;
 
+const LikeButton = styled.button`
+
+
+width: fit-content;
+border: none;
+background: #ffffff;
+color: #275557;
+border-radius: 50px;
+cursor: pointer;
+
+
+@media (max-width: 425px) {
+
+ 
+}
+`;
+
 
 const ButtonUpload = styled.button`
 padding: 5px 25px;
@@ -643,7 +713,7 @@ color: black;
 margin-left: 0px;
 border-radius: 50px;
 text-align: center;
-font-weight: bold;
+
 border: none;
 cursor: pointer;
 @media (max-width: 425px) {
@@ -719,6 +789,21 @@ const Svg = styled.svg`
 width: 20px;
 fill: red;
 `;
+const SvgV = styled.svg`
+width: 20px;
+fill: white;
+margin-right: 10px;
+`;
+const SvgL = styled.svg`
+width: 30px;
+fill: #275557;
+margin-right: 10px;
+`;
+const SvgVS = styled.svg`
+width: 15px;
+fill: white;
+margin-right: 10px;
+`;
 
 const SvgW = styled.svg`
 width: 20px;
@@ -726,6 +811,10 @@ fill: black;
 `;
 
 const SvgB = styled.svg`
+width: 20px;
+fill: white;
+`;
+const AddWeekSvg = styled.svg`
 width: 20px;
 fill: white;
 `;
@@ -771,10 +860,63 @@ const DashBoard = () => {
   const [publicToggle, setPublicToggle] = useState(false);
   const [assignDevice, setAssignDevice] = useState(false);
   const [popUpOffset, setPopUpOffset] = useState(-100);
-  const { auth,authToken,userId } = useContext(AuthContext);
+  const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-100);
+  const [views, setViews] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const { auth,authToken,userId, } = useContext(AuthContext);
   
   const navigate = useNavigate ()
 
+
+  useEffect(() => {
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+
+    setViews(filtered?.Views)
+    setLikes(filtered?.Likes)
+
+  }, [diaries])
+
+  useEffect(() => {
+
+    if(activeDiary !== undefined){
+  
+    let datav ={
+      DiaryId:parseInt(params?.id)
+    }
+
+    axios
+    .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
+    .then(function (response) {
+      Update()
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    }
+
+  }, [])
+  
+ 
+
+const handleLike = ()=>{
+  if(activeDiary !== undefined){
+  
+    let datav ={
+      DiaryId:parseInt(params?.id)
+    }
+
+    axios
+    .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
+    .then(function (response) {
+      Update()
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    }
+}
 
 
   useEffect(() => {
@@ -787,8 +929,7 @@ const DashBoard = () => {
     setPosition(0)
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
- 
-    
+
 
     setActiveDiary(filtered);
 
@@ -1060,6 +1201,15 @@ if(positionIndex > 0){
  
   }
   
+
+  const handleAddWeek = ()=>{
+    if (popUpAddWeekOffset == -100) {
+      setPopUpAddWeekOffset(0);
+    } else {
+      setPopUpAddWeekOffset(-100);
+    }
+   }
+
   return (
 
   
@@ -1072,6 +1222,7 @@ if(positionIndex > 0){
 
 <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} />
    
+<PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
       <Inner>
       
 
@@ -1084,6 +1235,9 @@ if(positionIndex > 0){
        <RightFlex>
         <Tabs/>
         <RightFlexInner>
+        <LikeButton onClick={()=>{handleLike()}}>
+        <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgL>
+          </LikeButton> 
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>
@@ -1142,15 +1296,21 @@ if(positionIndex > 0){
 </ToggleHolder>
 }
     
+<IntroHolderDay>
+<DairyHeadingSmall><SvgVS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M152 64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0C141.3 0 152 10.75 152 24V64zM48 248H128V192H48V248zM48 296V360H128V296H48zM176 296V360H272V296H176zM320 296V360H400V296H320zM400 192H320V248H400V192zM400 408H320V464H384C392.8 464 400 456.8 400 448V408zM272 408H176V464H272V408zM128 408H48V448C48 456.8 55.16 464 64 464H128V408zM272 192H176V248H272V192z"/></SvgVS> <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyHeadingSmall>
+<DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></SvgV><DairyHeadingSmallAccent>{views}</DairyHeadingSmallAccent> </DairyViewsSmall>
+<DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgV><DairyHeadingSmallAccent>{likes}</DairyHeadingSmallAccent> </DairyViewsSmall>
 
-
+</IntroHolderDay>
           <IntroHolder>
  <div>
 
           <DairyHeading>{activeDiary?.Title} </DairyHeading>
-          <DairyHeadingTitle>Stain : {activeDiary?.Strain}</DairyHeadingTitle>
+          
+          <DairyHeadingTitle>{activeDiary?.UserName}</DairyHeadingTitle>
+          <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
  </div>
-          <DairyHeadingSmall>Day <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyHeadingSmall>
+      
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
@@ -1211,8 +1371,7 @@ if(positionIndex > 0){
 
 
           <WeekHolderInner>
-            {activeDiaryWeeks.length > 0 ? (
-              <>
+          <>
                 {activeDiaryWeeks.map((w, index) => {
                   return (
                     <>
@@ -1247,6 +1406,12 @@ if(positionIndex > 0){
                   </WeekHolderHeadingRed>
                       }
 
+{w.Stage.toUpperCase() ==  "HAV"  &&
+                    <WeekHolderHeadingRedd>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingRedd>
+                      }
+
                     </WeekHolder>:
                     <WeekHolderActive
                       onClick={() => {
@@ -1277,16 +1442,23 @@ if(positionIndex > 0){
                     {w.Stage.toUpperCase()}
                   </WeekHolderHeadingRed>
                       }
-                        
+                        {w.Stage.toUpperCase() ==  "HAV"  &&
+                    <WeekHolderHeadingRedd>
+                    {w.Stage.toUpperCase()}
+                  </WeekHolderHeadingRedd>
+                      }
+                         
                      
                     </WeekHolderActive>}
                     </>
                   );
                 })}
               </>
-            ) : (
-              <NoData>No Data Available</NoData>
-            )}
+
+            <AddWeek onClick={()=>{handleAddWeek()}}>
+
+            <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></AddWeekSvg>
+            </AddWeek>
           </WeekHolderInner>
 
           {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}

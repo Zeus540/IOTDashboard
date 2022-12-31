@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import AddDiary from './AddDiary';
+import AddWeek from './AddWeek';
 import UploadImage from './UploadImage';
 
 const PopUpHolder = styled.div`
@@ -83,6 +84,11 @@ const PopUp = (props) => {
 {props.type == "uploadImage" && 
     <UploadImage setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId}/>
 }
+
+{props.type == "addWeek" && 
+    <AddWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId}  />
+}
+
 
     </PopUpHolderInner>
   </PopUpHolder>

@@ -10,9 +10,19 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
-const Input = styled(TextField)`
+
+
+const Input = styled(Select)`
 margin-bottom: 20px;
+width: 100%;
+`;
+const Control = styled(FormControl)`
+
 width: 100%;
 `;
 const FormHeading = styled.h1`
@@ -26,7 +36,6 @@ background:#275557;
 color:white;
 padding: 10px 15px;
 `;
-
 
 const FormSub = styled.p`
 margin: 0px;
@@ -62,31 +71,39 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const AddDiary = (props) => {
+const AddWeek = (props) => {
     
     const { diaries,Update,loading } = useContext(DiaryContext);
-    const [diaryList, setDiaryList] = useState([]);
-    const [popUpOffset, setPopUpOffset] = useState(-100);
-    const navigate = useNavigate();
-    const { auth,authToken,userId,user } = useContext(AuthContext);
   
+    const navigate = useNavigate();
+    const { auth,authToken,userId } = useContext(AuthContext);
+    
   
   
 
-    const addDiary = (values)=>{
+    const addWeek = (values)=>{
+   
+    
+   var dateobj = new Date();
+ 
+
+   var B = dateobj.toISOString();
+ 
+ 
    
 
-        values.userId = userId?.UserId
-        values.UserName = user?.User
-        
+
+      values.DiaryId = props.DiaryId
+      values.date = B.split("T")[0]
         console.log("values",values);
+
         let config = {
           headers: {
             authorization: 'Bearer ' + authToken,
           }
         }
         
-        axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
+        axios.post('https://api.sweetleaf.co.za/weeks/add_week',values,config,)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()
@@ -102,10 +119,12 @@ const AddDiary = (props) => {
      
       }
 
+
+    
   return (
    
     <Formik
-    initialValues={{ title: "", roomType: "", userId:userId?.UserId }}
+    initialValues={{ weekType: ""}}
     // validate={(values) => {
     //   const errors = {};
     //   if (!values.email) {
@@ -121,7 +140,7 @@ const AddDiary = (props) => {
     // }}
     onSubmit={(values, { setSubmitting }) => {
       setTimeout(() => {
-        addDiary(values)
+        addWeek(values)
         setSubmitting(false);
       }, 400);
     }}
@@ -141,77 +160,24 @@ const AddDiary = (props) => {
          
 
       <FormHeadingGroup>
-      <FormHeading>Lets Get Setup</FormHeading>
-      <FormSub>Fill out the form below</FormSub>
+      <FormHeading>Add Week</FormHeading>
+
         </FormHeadingGroup>
         <InputHolder>
      
-        <div>
+        <Control variant="filled">
+        <InputLabel id="demo-simple-select-label">Week Type</InputLabel>
           <Input
-            id="title"
-            label="Title"
-            type="title"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        
-        <div>
-          <Input
-            id="roomType"
-            label="Room Type"
-            type="roomType"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="potSize"
-            label="Pot Size"
-            type="potSize"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="strain"
-            label="Strain"
-            type="strain"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="lightSchedule"
-            label="Light Schedule"
-            type="lightSchedule"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div>
-          <Input
-            id="lightWattage"
-            label="Light Wattage"
-            type="lightWattage"
-            variant="filled"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-     
+            id="weekType"
+            name="weekType"
+            onChange={(e)=>{handleChange(e)}}
+          >
+            <MenuItem value="Germination">Germination</MenuItem>
+            <MenuItem value="Vegetation">Vegetation</MenuItem>
+            <MenuItem value="Flowering">Flowering</MenuItem>
+            <MenuItem value="Havest">Havest</MenuItem>
+          </Input>
+        </Control>
 
       
         <Button type="submit" disabled={isSubmitting}>
@@ -224,4 +190,4 @@ const AddDiary = (props) => {
   )
 }
 
-export default AddDiary
+export default AddWeek
