@@ -89,13 +89,13 @@ code {
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: #234a4cb6;
+  background: #275557b6;
 border-radius: 50px;
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: #234a4c;
+  background: #275557;
 }
 .switch {
   position: relative;
@@ -135,11 +135,11 @@ border-radius: 50px;
 }
 
 input:checked + .slider {
-  background-color: #234a4c;
+  background-color: #275557;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #234a4c;
+  box-shadow: 0 0 1px #275557;
 }
 
 input:checked + .slider:before {

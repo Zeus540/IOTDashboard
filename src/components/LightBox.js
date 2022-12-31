@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const LightBoxInnerClose = styled.div`
-  background: #234a4c;
+  background: #275557;
   color: white;
   padding: 10px 15px;
   display: flex;

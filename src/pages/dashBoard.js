@@ -135,12 +135,12 @@ const FlexTop = styled.div`
 `;
 
 const Flex3B = styled.div`
-background: #234a4c;
+background: #275557;
 color:white;
 padding: 40px 0px;
 
 @media (max-width: 425px) {
-  background: #234a4c;
+  background: #275557;
   color: white;
 }
 `;
@@ -287,10 +287,14 @@ color:black;
 `;
 
 const DairyHeadingSmall = styled.sup`
-color:black;
-  margin-top: 0px;
-  font-size: 16px;
-  margin-bottom: 0px;
+color: white;
+margin-top: 0px;
+font-size: 16px;
+background: #275557;
+margin-bottom: 0px;
+padding: 5px 15px;
+height: fit-content;
+border-radius: 50px;
 `;
 const DairyHeadingSmallAccent = styled.span`
 color:#a7c957;
@@ -348,7 +352,7 @@ const GalleryImageOverlay = styled.div`
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #234a4c;
+  background: #275557;
 `;
 
 const GalleryHolderInnerMain = styled.div`
@@ -360,7 +364,7 @@ const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
 position: absolute;
-background: #234a4c;
+background: #275557;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -381,7 +385,7 @@ left: 10px;
 border-radius: 50px;
 cursor: pointer;
 position: absolute;
-background: #234a4c;
+background: #275557;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -556,7 +560,7 @@ text-align:center
 `;
 
 const Dot = styled.div`
-  background: ${props => props.index == props.positionIndex ? "#8bab50": "#234a4c"};
+  background: ${props => props.index == props.positionIndex ? "#8bab50": "#275557"};
   border-radius: 50%;
   height: 10px;
   width: 10px;
@@ -584,7 +588,7 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 background: #8bab50;
-color: #234a4c;
+color: #275557;
 border-radius: 50px;
 cursor: pointer;
 
@@ -598,7 +602,7 @@ margin:0px 10px;
 
 const ButtonUpload = styled.button`
 padding: 5px 25px;
-background: #234a4c;
+background: #275557;
 color: white;
 border: none;
 border-radius: 50px;

@@ -4,7 +4,7 @@ import { AuthContext } from "../src/context/auth_context";
 import Stats from './pages/stats';
 import Harvest from './pages/harvest';
 import Notes from './pages/notes';
-
+import NotFound from './pages/NotFound';
 
 import Register from './pages/register';
 import UploadImage from './pages/UploadImage';
@@ -29,6 +29,8 @@ const MainContainer = () => {
             {!auth &&
 
                 <Routes>
+                    
+                    <Route path="*" element={<NotFound />} />
              <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
@@ -40,6 +42,7 @@ const MainContainer = () => {
             {auth &&
 
                 <Routes>
+                           <Route path="*" element={<NotFound />} />
                       <Route path="/" element={<Diaries />} />
              
                       <Route path="/public-diaries" element={<DiariesPublic />} />

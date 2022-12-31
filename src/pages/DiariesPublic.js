@@ -31,8 +31,8 @@ const Inner = styled.div`
 max-width: 1770px;
 border-radius: 5px;
 background: #ffffff;
-padding: 20px;
-padding-top: 10px;
+
+padding: 20px 0px;
 margin: 0 auto;
   @media (max-width: 425px) {
     margin: 0px;
@@ -51,6 +51,13 @@ const MainHeading = styled.div`
   font-size: 24px;
   margin-top: 0px;
   font-weight: bolder;
+  padding: 0px 20px;
+  @media (max-width: 425px) {
+    padding: unset;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: unset;
+  }
 `;
 
 const DiaryHolder = styled.div`
@@ -140,7 +147,7 @@ const Add = styled.div`
 
 const Button = styled.button`
 padding: 8px 20px;
-  background: #234a4c;
+  background: #275557;
   color: white;
   border: none;
   border-radius: 50px;

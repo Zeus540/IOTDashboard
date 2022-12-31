@@ -37,9 +37,9 @@ const Heading = styled.h4`
   margin-top: 30px;
   align-items: center;
   &::before {
-    content: "";
+  content: "";
     display: block;
-    background: #234a4c;
+    background: #8bab50;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
@@ -47,13 +47,14 @@ const Heading = styled.h4`
   &::after {
     content: "";
     display: block;
-    background: #234a4c;
+    background: #8bab50;
     height: 2px;
     width: 15%;
     margin: 0px 20px;
   },
 
 `;
+
 
 const Inner = styled.div`
 

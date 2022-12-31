@@ -29,8 +29,8 @@ const Inner = styled.div`
 max-width: 1770px;
 border-radius: 5px;
 background: #ffffff;
-padding: 20px;
-padding-top: 10px;
+padding-bottom: 20px;
+padding: 20px 0px;
 margin: 0 auto;
 
   @media (max-width: 425px) {
@@ -51,73 +51,15 @@ const MainHeading = styled.div`
   margin: 0px 0px;
   font-size: 24px;
   margin-top: 0px;
-`;
-
-const DiaryHolder = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Diary = styled.div`
-background: #c5c5c5;
-max-width: calc(100% / 4 - 20px);
-margin: 10px;
-border-radius: 5px;
-width: 100%;
-  
-@media (max-width: 619px) {
-  max-width: calc(100% / 1 - 30px);
-  width: 100%;
-  margin: 15px auto;
-  border-radius: 0px;
-}
-  @media (min-width: 620px) and (max-width: 699px) {
-    width: calc(100% / 2 - 20px);
-    margin: 10px;
-  }
-  @media (min-width: 700px) and (max-width: 940px) {
-    width: calc(100% / 2 - 20px);
-  }
-`;
-
-const DiaryImageHolder = styled.div`
-  border-radius: 5px 5px 0px 0px;
-  cursor: pointer;
+  font-weight: bolder;
+  padding: 0px 20px;
+  padding-bottom: 20px;
   @media (max-width: 425px) {
-
-    border-radius: 0px;
+    padding: unset;
   }
-`;
-
-const DiaryImage = styled.img`
-  border-radius: 5px 5px 0px 0px;
-  @media (max-width: 425px) {
-
-    border-radius: 0px;
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: unset;
   }
-`;
-const DiaryTextHolder = styled.div`
-  padding: 15px 15px;
-`;
-const DeleteDiary = styled.div`
-cursor:pointer;
-`;
-const DeleteDiarySvg = styled.img`
-color:red;
-`;
-const Tag = styled.sup`
-  margin-right: 10px;
-  padding: 3px 10px;
-  font-size: 10px;
-  display: block;
-  border-radius: 50px;
-  color: white;
-  background: #234a4c;
-`;
-
-const TagHolder = styled.div`
-  display: flex;
-  margin-bottom: 10px;
 `;
 
 const Add = styled.div`
@@ -137,11 +79,20 @@ const Add = styled.div`
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #234a4c;
+  background: #275557;
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
+`;
+const ButtonA = styled.button`
+  padding: 5px 25px;
+  background: #275557;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 0px 20px;
 `;
 
 const PopUpHolder = styled.div`
@@ -183,15 +134,9 @@ color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#234a4c;
+background:#275557;
 color:white;
 padding: 20px;
-`;
-
-const FormSub = styled.p`
-margin: 0px;
-
-color:white
 `;
 
 const ClosePopUpHolderText = styled.p`
@@ -227,14 +172,9 @@ const InputHolder = styled.div`
 padding: 20px;
 
 `;
-const DeleteDiaryHolder = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;  
-`;
 
 const New = styled.div`
-border: 2px solid #234a4c;
+border: 2px solid #275557;
 border-radius: 5px;
 padding: 20px;
 display: flex;
@@ -257,10 +197,10 @@ flex-wrap: wrap;
 
 const DeviceHolder = styled.div`
 max-width: calc(100% / 4 - 20px);
-background: #ededed;
+background: ghostwhite;
 padding: 20px;
 border-radius: 5px;
-margin: 10px;
+margin: 0px 20px;
 @media (max-width: 425px) {
   max-width: calc(100% / 1 - 40px);
   margin:20px
@@ -412,13 +352,13 @@ const Devices = () => {
         <Add>
           <MainHeading>Devices</MainHeading>
           {auth && deviceList.length > 0  && 
-          <Button
+          <ButtonA
             onClick={() => {
               handleAddPopUp();
             }}
           >
             Add Devices
-          </Button>} 
+          </ButtonA>} 
         
         </Add>
 
