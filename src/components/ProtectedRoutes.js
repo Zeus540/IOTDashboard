@@ -8,21 +8,16 @@ import {Navigate, Outlet} from 'react-router-dom'
 
 
 const useAuth=()=>{
-  const user=localStorage.getItem('auth')
+
   const params = useParams();
-  const { diaries,Update,loading } = useContext(DiaryContext);
+  const { diaries } = useContext(DiaryContext);
   const { userId } = useContext(AuthContext);
   
   let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
   
-  console.log("userid",userId.UserId)
-  console.log("d",filtered?.UserId)
-
   if(userId.UserId == filtered?.UserId){
-    console.log(user.UserId)
     return true
   } else {
-    console.log(user.UserId)
     return false
   }
 }
