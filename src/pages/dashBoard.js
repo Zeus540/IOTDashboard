@@ -924,8 +924,12 @@ const DashBoard = (props) => {
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-100);
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
-  const { auth,authToken,userId, } = useContext(AuthContext);
+  const { auth,authToken, } = useContext(AuthContext);
   let token = localStorage.getItem("token")
+
+  let userId =  JSON.parse(localStorage.getItem("auth"))
+
+  console.log('userId',userId)
   const navigate = useNavigate ()
 
 

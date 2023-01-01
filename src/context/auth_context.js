@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('RefreshToken');
         localStorage.removeItem('auth');
         setAuth(false)
-        navigate('/login')
+        navigate('/')
     }
 
     useEffect(() => {

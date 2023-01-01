@@ -71,12 +71,20 @@ const MenuLink = styled(NavLink)`
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   color: white;
+  align-items: center;
   text-decoration: none;
+  display: flex;
   &:hover {
     border-bottom: 4px solid #8bab50;
   
   }
 
+`;
+
+const Svg = styled.svg`
+width:20px;
+fill:white;
+margin-right: 20px;
 `;
 const MenuLinkActive = styled(NavLink)`
   margin: 0px 0px;
@@ -257,8 +265,8 @@ const NavBar = () => {
 
             
               <MenuLink to="/public-diaries" >Public Diaries</MenuLink>
-              <MenuLink to="/login">Login</MenuLink>
-              <MenuLink to="/register">Register</MenuLink>
+              <MenuLink to="/login"> <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></Svg>Login</MenuLink>
+              {/* <MenuLink to="/register">Register</MenuLink> */}
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}
               {/* <Button>Log Out</Button> */}
             </>
