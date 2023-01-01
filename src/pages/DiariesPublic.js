@@ -169,12 +169,21 @@ margin: 0px;
 
 const Diaries = () => {
   const { diariesPublic,UpdatePublic,loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState([]);
+  const [diaryHavestList, setDiaryHavestList] = useState([]);
+  const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
 
+
+  useEffect(() => {
+    setDiaryHavestList(diariesPublic.filter((d)=> d.HavestId !== null))
+    setDiaryOnGoingList(diariesPublic.filter((d)=> d.HavestId == null))
+    console.log(diariesPublic)
+    console.log(diariesPublic)
+  }, [diariesPublic])
+  
   useEffect(() => {
 
     document.title = "Sweet Leaf - Public Diaries" 
@@ -185,14 +194,7 @@ const Diaries = () => {
     UpdatePublic()
   }, [])
   
-  useEffect(() => {
-    console.log("loading",loading)
-    if(!loading){
 
-      setDiaryList(diariesPublic)
-    }
-
-  }, [diariesPublic,userId])
   
 
   const handleAddPopUp = (d) => {
@@ -220,13 +222,13 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>Public Diaries</MainHeading>
+          <MainHeading>On-Going Diaries</MainHeading>
         
         
         </Add>
 
         <DiaryHolder>
-          {diariesPublic?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+          {diaryOnGoingList?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
               to={`/overview/${d.DiaryId}`}
@@ -255,6 +257,40 @@ const Diaries = () => {
             );
           })}
         </DiaryHolder>
+
+        <MainHeading>Havested</MainHeading>
+
+        <DiaryHolder>
+          {diaryHavestList?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+            return (
+              <Diary
+              to={`/overview/${d.DiaryId}`}
+              >
+                <DiaryImageHolder>
+                 
+                  <DiaryImage
+                    src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
+                    width="100%"
+                  />
+                </DiaryImageHolder>
+
+                <DiaryTextHolder>
+      
+                  <DiaryText>{d?.Title} </DiaryText>
+                  <Tag> {d?.UserName}</Tag>
+                    <Tag> {d?.Strain}</Tag>
+
+                 
+                 
+                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+            
+                </DiaryTextHolder>
+              
+              </Diary>
+            );
+          })}
+        </DiaryHolder>
+
       </Inner>
     </Root>
     </>
