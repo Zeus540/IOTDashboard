@@ -101,19 +101,32 @@ function imageUploaded() {
     setImgName(file.name)
 }
   
+
+
 function displayString(e) {
   console.log(imgBase64)
   e.preventDefault()
  if(imgBase64 !== ""){
  
   setLoading(true)
-  let values = {
-  image:imgBase64,
-  DiaryId:props.DiaryId,
-  WeekId:props.WeekId,
-  DayId:props.DayId,
-  name:imgName
-  }
+  let values = {}
+
+if(props.DayId !== ''){
+  values = {
+    image:imgBase64,
+    DiaryId:props.DiaryId,
+    WeekId:props.WeekId,
+    DayId:props.DayId,
+    name:imgName
+    }
+}else{
+  values = {
+    image:imgBase64,
+    DiaryId:props.DiaryId,
+    WeekId:props.WeekId,
+    name:imgName
+    }
+}
 
   let config = {
     headers: {
@@ -128,6 +141,7 @@ function displayString(e) {
       setImg("");
       setImgName("")
       setLoading(false)
+      props.update()
     }
 
    

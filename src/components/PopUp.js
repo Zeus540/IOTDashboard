@@ -8,7 +8,7 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import AddDiary from './AddDiary';
 import AddWeek from './AddWeek';
 import EditWeek from './EditWeek';
-
+import DeleteWeek from './DeleteWeek';
 import UploadImage from './UploadImage';
 
 const PopUpHolder = styled.div`
@@ -84,7 +84,7 @@ const PopUp = (props) => {
     <AddDiary setPopUpOffset={props.setPopUpOffset}/>
 }
 {props.type == "uploadImage" && 
-    <UploadImage setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId}/>
+    <UploadImage setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
 }
 
 {props.type == "addWeek" && 
@@ -95,6 +95,9 @@ const PopUp = (props) => {
     <EditWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} />
 }
 
+{props.type == "deleteWeek" && 
+    <DeleteWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} />
+}
     </PopUpHolderInner>
   </PopUpHolder>
   )
