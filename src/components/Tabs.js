@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import {useNavigate} from 'react-router-dom'
-
+import { AuthContext } from "../context/auth_context";
 const TabsHolderOutter = styled.div`
 
 top: 70px;
@@ -84,7 +84,7 @@ const Tabs = () => {
     const location =useLocation()
     let path = location.pathname.toLowerCase().split("/")[1]
     const [tabList, setTabList] = useState(tabs)
- 
+    const { auth,authToken,userId } = useContext(AuthContext);
     
     useEffect(() => {
         setTabList(tabs)

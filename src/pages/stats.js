@@ -176,7 +176,7 @@ const Stats = () => {
  
 
 
-  const { diaries } = useContext(DiaryContext);
+  const { diaries,diariesPublic } = useContext(DiaryContext);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const [layout, setLayout] = useState({});
@@ -186,29 +186,20 @@ const Stats = () => {
   const navigate = useNavigate ()
 
   useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    let filtered = ""
+    if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
+    if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
+
     document.title = "Sweet Leaf - " + filtered?.Title + "  Environment" ;
-
-  }, [diaries])
-
-  useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    console.log("filtered",filtered);
     setActiveDiary(filtered);
+  }, [diaries,diariesPublic])
 
-    let layoutData = {
-      columns: 4  ,
-      rows: 1,
-    }
 
-    setLayout(layoutData)
 
-  }, [diaries]);
-
-  const HandleBackToPreviousPage = ()=>{
-    navigate(-1)
-    }
-  
 
   return (
 

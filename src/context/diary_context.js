@@ -15,7 +15,8 @@ let token = localStorage.getItem("token")
 
   const Update = ()=>{
 
-    if(token !== ""){
+
+    if(token !== null){
     let config = {
       headers: {
         authorization: 'Bearer ' + token,
@@ -68,7 +69,7 @@ let token = localStorage.getItem("token")
     if(token){
       Update()
     }
-   
+    UpdatePublic()
    
   }, [token])
   

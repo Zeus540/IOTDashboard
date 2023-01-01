@@ -139,7 +139,7 @@ const Harvest = () => {
  
 
 
-  const { diaries } = useContext(DiaryContext);
+  const { diaries,diariesPublic } = useContext(DiaryContext);
   const [harvestData, setHarvestData] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
@@ -147,12 +147,18 @@ const Harvest = () => {
   const navigate = useNavigate ()
 
 
+
   useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    let filtered = ""
+    if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
+    if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
     document.title = "Sweet Leaf - " + filtered?.Title + " Havest" ;
-
-  }, [diaries])
-
+    setActiveDiary(filtered);
+  }, [diaries,diariesPublic])
 
 
   useEffect(() => {
@@ -169,12 +175,9 @@ const Harvest = () => {
       
     });
 
-  }, [activeDiary]);
+  }, []);
 
-  const HandleBackToPreviousPage = ()=>{
-    navigate(-1)
-    }
-  
+
 
 
   return (

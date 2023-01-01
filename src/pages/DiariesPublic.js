@@ -229,7 +229,7 @@ const Diaries = () => {
           {diariesPublic?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
             return (
               <Diary
-              to={`/public-diaries/${d.DiaryId}`}
+              to={`/overview/${d.DiaryId}`}
               >
                 <DiaryImageHolder>
                  

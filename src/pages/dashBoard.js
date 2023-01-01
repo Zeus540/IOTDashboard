@@ -874,7 +874,7 @@ const DashBoard = (props) => {
   const [activeWeek, setActiveWeek] = useState('');
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
-  const { diaries,Update } = useContext(DiaryContext);
+  const { diaries,diariesPublic,Update,UpdatePublic } = useContext(DiaryContext);
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
   const location =useLocation()
@@ -889,19 +889,52 @@ const DashBoard = (props) => {
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
   const { auth,authToken,userId, } = useContext(AuthContext);
-  
+  let token = localStorage.getItem("token")
   const navigate = useNavigate ()
 
 
 
   
   useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    let filtered = ""
+    if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
+    if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
+      filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    }
 
+  
+    document.title = "Sweet Leaf - " + filtered?.Title;
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
 
-  }, [diaries])
+    setPositionIndex(0)
+    setPosition(0)
+  
+    setActiveDiary(filtered);
+
+    console.log("filtered",filtered)
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + token,
+      }
+    }
+
+    let data = {
+      DiaryId: params?.id,
+    };
+
+    axios
+      .post("https://api.sweetleaf.co.za/weeks", data,config)
+      .then(function (response) {
+        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [diaries,diariesPublic])
+
 
   useEffect(() => {
 
@@ -914,8 +947,13 @@ const DashBoard = (props) => {
     axios
     .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
     .then(function (response) {
-      Update()
-
+      if(diaries.length > 0 ){
+      
+        Update()
+      }
+      else{
+        UpdatePublic()
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -936,8 +974,14 @@ const handleLike = ()=>{
     axios
     .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
     .then(function (response) {
-      Update()
-
+      if(diaries.length > 0 ){
+      
+        Update()
+      }
+      else{
+        UpdatePublic()
+      }
+     
     })
     .catch(function (error) {
       console.log(error);
@@ -946,33 +990,8 @@ const handleLike = ()=>{
 }
 
 
-  useEffect(() => {
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    document.title = "Sweet Leaf - " + filtered?.Title;
-  }, [diaries])
+
   
-  useEffect(() => {
-    setPositionIndex(0)
-    setPosition(0)
-    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-
-
-
-    setActiveDiary(filtered);
-
-    let data = {
-      DiaryId: params?.id,
-    };
-
-    axios
-      .post("https://api.sweetleaf.co.za/weeks", data)
-      .then(function (response) {
-        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [diaries]);
 
   const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
@@ -1501,11 +1520,14 @@ if(positionIndex > 0){
                   );
                 })}
               </>
-
-            <AddWeek onClick={()=>{handleAddWeek()}}>
-
-            <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></AddWeekSvg>
+              {userId?.UserId == activeDiary?.UserId && 
+          <AddWeek onClick={()=>{handleAddWeek()}}>
+              <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></AddWeekSvg>
             </AddWeek>
+}
+  
+
+          
           </WeekHolderInner>
 
           {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}
