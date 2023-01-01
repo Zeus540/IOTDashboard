@@ -219,6 +219,8 @@ const Notes = () => {
   const [activeWeekId, setActiveWeekId] = useState([]);
   const [activeWeek, setActiveWeek] = useState([]);
   const [days, setDays] = useState([]);
+  const [activeWeekCheck, setActiveWeekCheck] = useState('');
+  
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const params = useParams();
@@ -235,7 +237,7 @@ const Notes = () => {
     }
 
     document.title = "Sweet Leaf - " + filtered?.Title + "  Notes" ;
-    setActiveDiary(filtered);
+  
   }, [diaries,diariesPublic])
 
   useEffect(() => {
@@ -249,12 +251,14 @@ const Notes = () => {
     let dataSend = {
       DiaryId:parseInt(params?.id)
     }
-    let data = []
+    
     axios
     .post("https://api.sweetleaf.co.za/notes/all",dataSend,config)
     .then(function (response) {
-      setNoteData(response.data)
-
+      console.log(response.data)
+      setActiveWeekCheck(noteData?.filter((n)=> n.WeekId == activeWeekId)[0]?.WeekId)
+      setNoteData(response.data?.filter((n)=> n.WeekId == activeWeekId))
+ 
     }).then(()=>{
       axios
       .post("https://api.sweetleaf.co.za/weeks",dataSend,config)
@@ -271,15 +275,9 @@ const Notes = () => {
 
  
 
-  }, [activeDiary]);
+  }, [activeWeekId]);
 
 
-
-
-  const HandleBackToPreviousPage = ()=>{
-    navigate(-1)
-    }
-  
 
 
       const HandleActiveWeek = (w) => {
@@ -336,7 +334,7 @@ const Notes = () => {
         {weeks?.map((w,index)=>{
           return(
          <>
-         {activeWeek !== w ? 
+         {activeWeekId !== w.WeekId ? 
                     <WeekHolder
                       onClick={() => {
                         HandleActiveWeek(w);
@@ -408,7 +406,7 @@ const Notes = () => {
 
 {activeWeek.WeekId   &&
   <NoteHolderOutter>
-        {noteData?.filter((n)=> n.WeekId == activeWeekId).map((n)=>{
+        {noteData?.map((n)=>{
           return(
             <NoteHolder>
              {console.log(noteData)}
