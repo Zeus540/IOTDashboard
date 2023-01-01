@@ -665,7 +665,7 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 background: #8bab50;
-color: #275557;
+color: black;
 border-radius: 50px;
 cursor: pointer;
 
@@ -897,7 +897,7 @@ const DashBoard = (props) => {
   
   useEffect(() => {
     let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    setActiveDiary(filtered);
+
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
 
@@ -905,7 +905,7 @@ const DashBoard = (props) => {
 
   useEffect(() => {
 
-    if(activeDiary.length > 0){
+    if(activeDiary !== undefined){
   
     let datav ={
       DiaryId:parseInt(params?.id)
@@ -954,23 +954,24 @@ const handleLike = ()=>{
   useEffect(() => {
     setPositionIndex(0)
     setPosition(0)
-  
-    
-   
- if(activeDiary?.length > 0){
-  let data = {
-    DiaryId: params?.id,
-  };
+    let filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
-  axios
-    .post("https://api.sweetleaf.co.za/weeks", data)
-    .then(function (response) {
-      setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
- }
+
+
+    setActiveDiary(filtered);
+
+    let data = {
+      DiaryId: params?.id,
+    };
+
+    axios
+      .post("https://api.sweetleaf.co.za/weeks", data)
+      .then(function (response) {
+        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, [diaries]);
 
   const handleLightBox = (img, data) => {
@@ -1248,11 +1249,10 @@ if(positionIndex > 0){
    
   return (
 
-
-    <Root>
-      {activeDiary &&
   
-   <>
+    <Root>
+    
+  
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
@@ -1632,8 +1632,6 @@ if(positionIndex > 0){
         </DotHolder>
         </GalleryHolderInnerMain>
       </Inner>
-   </>
-      }
     </Root>
    
   );

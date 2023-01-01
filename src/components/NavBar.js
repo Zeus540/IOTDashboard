@@ -36,7 +36,11 @@ const Inner = styled.div`
 `;
 
 const LogoHolder = styled.div`
-  width: 150px;
+  width: 140px;
+  margin-left:15px;
+  @media (max-width: 767px) {
+    margin-left:0px;
+  }
 `;
 const LinkHolder = styled.div`
   display: flex;
@@ -251,7 +255,8 @@ const NavBar = () => {
             <>
               {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
 
-       
+            
+              <MenuLink to="/public-diaries" >Public Diaries</MenuLink>
               <MenuLink to="/login">Login</MenuLink>
               <MenuLink to="/register">Register</MenuLink>
               {/* <MenuLink to="gallery">Gallery</MenuLink> */}

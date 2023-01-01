@@ -13,7 +13,7 @@ import UploadImage from './pages/UploadImage';
 import RegistrationComplete from './pages/registrationComplete';
 import VerifyComplete from './pages/verifyComplete';
 
-import axios from 'axios';
+import ProtectedRoutes from './components/ProtectedRoutes'
 import DashBoard from './pages/dashBoard';
 import DashBoardPublic from './pages/dashBoardPublic';
 
@@ -60,13 +60,13 @@ const MainContainer = () => {
                     <Route path="/my-devices" element={<Devices />} />
                     <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />
 
-
-                    <Route path="/overview/:id" element={<DashBoard />} />
-                    <Route path="/environment/:id" element={<Stats/>} />
-                    <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/notes/:id" element={<Notes />} />
-                    <Route path="/environment/:id" element={<StatsPublic />} />
-                    
+                    <Route path="/" element={<ProtectedRoutes/>}>
+                        <Route path="/overview/:id" element={<DashBoard />} />
+                        <Route path="/environment/:id" element={<Stats/>} />
+                        <Route path="/harvest/:id" element={<Harvest />} />
+                        <Route path="/notes/:id" element={<Notes />} />
+                       
+                    </Route>
          
                
                 </Routes>
