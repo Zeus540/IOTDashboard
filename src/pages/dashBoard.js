@@ -15,6 +15,9 @@ import Tabs from "../components/Tabs";
 import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
 import  faTrash  from "../assets/trash-can-regular.svg";
+import Mainline from '../assets/mainline.svg'
+import Topping from '../assets/topping.svg'
+import Defoliation from '../assets/defoil.svg'
 
 import { InfinitySpin } from  'react-loader-spinner'
 
@@ -643,7 +646,7 @@ const HelperBtn = styled.button`
 display: flex;
 align-items: center;
 text-align: center;
-    padding: 5px 20px;
+    padding: 2px 20px;
     background: #8bab50;
     border: none;
     color: white;
@@ -752,6 +755,7 @@ font-size: 18px;
 const QuickActionBlockFlex = styled.div`
 display: flex;
 flex-wrap: wrap;
+padding-top: 15px;
 `;
 const CheckFlex = styled.div`
 display: flex;
@@ -763,19 +767,26 @@ justify-content: space-between;
 
 `;
 
-const QuickActionBlock = styled.button`
-padding: 5px 25px;
-background: #8bab50;
-margin:0px 10px;
-color: black;
-margin-left: 0px;
-border-radius: 50px;
-text-align: center;
+const QuickActionBlockIcon = styled.img`
+width: 40px;
+margin-right:10px;
+`;
 
+const QuickActionBlock = styled.button`
+padding: 5px 10px;
+background: #275557;
+margin: 0px 10px;
+color: white;
+margin-left: 0px;
+margin-bottom: 10px;
+border-radius: 5px;
+text-align: center;
 border: none;
+display: flex;
 cursor: pointer;
+align-items: center;
 @media (max-width: 425px) {
-  max-width: calc(100% / 3 - 20px);
+
   margin-bottom:20px
 }
 `
@@ -922,7 +933,7 @@ const DashBoard = (props) => {
   const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-101);
   const [popUpDeleteWeekOffset, setPopUpDeleteWeekOffset] = useState(-101);
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-101);
-  
+
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
   const { auth,authToken, } = useContext(AuthContext);
@@ -1253,13 +1264,6 @@ if(positionIndex > 0){
 
   }
   
-  const HandleImageUpload = ()=>{
-    if (popUpOffset == -100) {
-      setPopUpOffset(0);
-    } else {
-      setPopUpOffset(-100);
-    }
-   }
 
    const deleteDiary = (DiaryId)=>{
 
@@ -1276,7 +1280,7 @@ if(positionIndex > 0){
     .then(function (response) {
       if(response.data.affectedRows > 0){
 
-        setPopUpOffset(-100);
+        setPopUpOffset(-101);
       }
 
      
@@ -1288,6 +1292,14 @@ if(positionIndex > 0){
  
   }
   
+  const HandleImageUpload = ()=>{
+    if (popUpOffset == -101) {
+      setPopUpOffset(0);
+    } else {
+      setPopUpOffset(-101);
+    }
+   }
+
 
   const handleAddWeek = ()=>{
     if (popUpAddWeekOffset == -101) {
@@ -1434,12 +1446,15 @@ if(positionIndex > 0){
           {diaryData !== "" && 
           <TextHolder>
            
-           <QuickActionHeading>Quick Action</QuickActionHeading>
+      
         
         <QuickActionBlockFlex>
-        <QuickActionBlock>Water</QuickActionBlock>
-           <QuickActionBlock>Trim</QuickActionBlock>
-           <QuickActionBlock>Feed</QuickActionBlock>
+        <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>LST</QuickActionBlock>
+           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>HST</QuickActionBlock>
+           <QuickActionBlock> <QuickActionBlockIcon src={Defoliation}/>Defoliation</QuickActionBlock>
+           <QuickActionBlock> <QuickActionBlockIcon src={Topping}/>Topping</QuickActionBlock>
+           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>ScrOG</QuickActionBlock>
+           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>Main-Lining</QuickActionBlock>
         </QuickActionBlockFlex>
 
             <HeadingCta>
