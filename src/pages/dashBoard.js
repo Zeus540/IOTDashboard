@@ -320,7 +320,7 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin-bottom: 0px;
-  color:white;
+  color:black;
 `;
 const DairyHeading = styled.h3`
 color:black;

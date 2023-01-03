@@ -74,7 +74,7 @@ const Tabs = () => {
         }
         ,
         {
-          tabName:'Notes',
+          tabName:'Journal',
           active:false
         }
       ]
@@ -130,8 +130,8 @@ useEffect(() => {
             navigate(`/harvest/${params.id}`)
             break;
 
-            case "Notes":
-            navigate(`/notes/${params.id}`)
+            case "Journal":
+            navigate(`/journal/${params.id}`)
             break;
             
     }

@@ -327,7 +327,7 @@ const Notes = () => {
       <Inner>
       <Tabs/>
       {activeWeek.length == 0 && <Helper>Select a Week</Helper>}
-      <Heading>Notes </Heading>
+      <Heading>Journal</Heading>
         <Flex2>
       
           <WeekHolderInner>
