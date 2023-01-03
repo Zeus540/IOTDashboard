@@ -54,6 +54,7 @@ const MainHeading = styled.div`
   padding: 0px 20px;
   @media (max-width: 425px) {
     padding: unset;
+    
   }
   @media (min-width: 426px) and (max-width: 768px) {
     padding: unset;
@@ -136,12 +137,12 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding: 20px;
-    padding: 20px;
+    padding: 10px 20px;
+    padding-bottom: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 5px 25px;
-    padding: 20px;
+    padding: 10px 20px;
+    padding-bottom: 0px;
   }
 `;
 
@@ -171,7 +172,7 @@ const Diaries = () => {
   const { diariesPublic,UpdatePublic,loading } = useContext(DiaryContext);
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
-  const [popUpOffset, setPopUpOffset] = useState(-100);
+  const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 
@@ -224,7 +225,7 @@ const Diaries = () => {
         <Add>
           <MainHeading>On-Going Diaries</MainHeading>
         
-        
+       
         </Add>
 
         <DiaryHolder>
@@ -258,7 +259,9 @@ const Diaries = () => {
           })}
         </DiaryHolder>
 
+        <Add>
         <MainHeading>Havested</MainHeading>
+        </Add>
 
         <DiaryHolder>
           {diaryHavestList?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {

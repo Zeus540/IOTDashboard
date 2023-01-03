@@ -18,6 +18,7 @@ const PopUpHolder = styled.div`
   z-index: 999;
   min-height: 100vh;
   right: 0px;
+  overflow: hidden;
   height: calc(100vh - 74px);
   left: 0px;
   transform: translateY(${(props) => props.popUpOffset}%);
@@ -70,7 +71,7 @@ const PopUp = (props) => {
 
     <ClosePopUpHolder
       onClick={() => {
-        props.setPopUpOffset(-100);
+        props.setPopUpOffset(-101);
       }}
     >
       <ClosePopUpHolderText>

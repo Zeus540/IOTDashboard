@@ -195,7 +195,7 @@ color: white;
 const Diaries = () => {
   const { diaries,Update,loading } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState([]);
-  const [popUpOffset, setPopUpOffset] = useState(-100);
+  const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
 

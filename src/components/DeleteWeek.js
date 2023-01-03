@@ -26,6 +26,12 @@ border-radius: 5px;
 display: flex;
 justify-content: center;
 flex-direction: column;
+@media (max-width: 425px) {
+  width: 80%;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  width: 80%;
+}
 `;
 const InnerHolder = styled.div`
 
@@ -84,7 +90,7 @@ const DeleteWeek = (props) => {
         .then(function (response) {
           if(response.data.affectedRows == 1){
             Update()
-            props.setPopUpOffset(-100);
+            props.setPopUpOffset(-101);
           }
          
           console.log("response",response.data.insertId);
@@ -111,7 +117,7 @@ const DeleteWeek = (props) => {
   <Button onClick={()=>{deleteWeek()}}>
           Yes
         </Button>
-        <Button onClick={()=>{props.setPopUpOffset(-100)}}>
+        <Button onClick={()=>{props.setPopUpOffset(-101)}}>
           Cancel
         </Button>
         </InnerHolder>

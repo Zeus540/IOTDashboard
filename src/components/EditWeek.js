@@ -98,7 +98,7 @@ const EditWeek = (props) => {
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()
-            props.setPopUpOffset(-100);
+            props.setPopUpOffset(-101);
           }
          
           console.log("response",response.data.insertId);

@@ -137,7 +137,7 @@ if(props.DayId !== ''){
   axios.post('https://api.sweetleaf.co.za/upload/image',values,config,)
   .then(function (response) {
     if(response.status == 200 ){
-      props.setPopUpOffset(-100)
+      props.setPopUpOffset(-101)
       setImg("");
       setImgName("")
       setLoading(false)
