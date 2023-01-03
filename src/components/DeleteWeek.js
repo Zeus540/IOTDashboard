@@ -69,7 +69,7 @@ const DeleteWeek = (props) => {
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     
-    console.log(props.week.WeekId);
+
 
     const deleteWeek = ()=>{
    

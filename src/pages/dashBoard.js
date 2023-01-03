@@ -295,7 +295,7 @@ background-image: ${props => `url(${props.img})`};
 const TextHolder = styled.div`
   display: flex;
   flex-direction: column;
-   min-height: 195px; 
+
 
   width: 100%;
 
@@ -905,7 +905,7 @@ const DashBoard = (props) => {
   const [addNotes, setAddNotes] = useState(false);
   const [daysNotes, setDaysNotes] = useState("");
   const [diaryData, setDiaryData] = useState("");
-  const [dayId, setDayId] = useState("");
+  const [dayId, setDayId] = useState(null);
   const [weekId, setWeekId] = useState("");
   
   const [lightBoxImg, setLightBoxImg] = useState(Image);
@@ -917,6 +917,8 @@ const DashBoard = (props) => {
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
+  const [techniques, setTechniques] = useState([]);
+  
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
   const { diaries,diariesPublic,Update,UpdatePublic } = useContext(DiaryContext);
@@ -941,7 +943,7 @@ const DashBoard = (props) => {
 
   let userId =  JSON.parse(localStorage.getItem("auth"))
 
-  console.log('userId',userId)
+
   const navigate = useNavigate ()
 
 
@@ -966,7 +968,7 @@ const DashBoard = (props) => {
   
     setActiveDiary(filtered);
 
-    console.log("filtered",filtered)
+
     let config = {
       headers: {
         authorization: 'Bearer ' + token,
@@ -1100,6 +1102,19 @@ if(activeWeek !== w){
           console.log(error);
         });
         setActiveWeek(w)
+
+        let weekData = {
+          WeekId:w.WeekId
+        }
+        axios
+        .post("https://api.sweetleaf.co.za/techniques/by_week_id",weekData )
+        .then(function (response) {
+
+        setTechniques(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 }
    
   };
@@ -1108,9 +1123,11 @@ if(activeWeek !== w){
     setPositionIndex(0)
     setPosition(0)
     if(activeDay !== day){
+
     setGalleryData([]);
     let preDay = day.DayId;
     setDayId( day.DayId)
+
     if (day.DayId == preDay) {
       let data = {
         DiaryId: params?.id,
@@ -1443,20 +1460,28 @@ if(positionIndex > 0){
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
-          {diaryData !== "" && 
+          {activeWeek !== "" && 
           <TextHolder>
            
-      
-        
         <QuickActionBlockFlex>
-        <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>LST</QuickActionBlock>
-           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>HST</QuickActionBlock>
-           <QuickActionBlock> <QuickActionBlockIcon src={Defoliation}/>Defoliation</QuickActionBlock>
-           <QuickActionBlock> <QuickActionBlockIcon src={Topping}/>Topping</QuickActionBlock>
-           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>ScrOG</QuickActionBlock>
-           <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>Main-Lining</QuickActionBlock>
+
+          {techniques?.map((t)=>{
+            return(
+              <>
+              <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</QuickActionBlock>
+              </>
+            )
+          })}
+
         </QuickActionBlockFlex>
 
+          </TextHolder>
+          }
+
+{console.log("dayId",dayId)}
+{dayId !== null && 
+          <TextHolder>
+           
             <HeadingCta>
               <TextHolderHeading>Notes</TextHolderHeading>
               {userId?.UserId == activeDiary?.UserId && 
@@ -1475,6 +1500,7 @@ if(positionIndex > 0){
 
           </TextHolder>
           }
+
           </RightFlexInner>
           </RightFlex>
        </RightFlexHolder>
@@ -1496,7 +1522,7 @@ if(positionIndex > 0){
 
 
 <Flex3B>
-  {console.log(activeWeek.WeekId)}
+
   <Flex3BtnHolder>
 
     
@@ -1552,7 +1578,7 @@ if(positionIndex > 0){
                   </WeekHolderHeadingRed>
                       }
 
-{w.Stage.toUpperCase() ==  "HAV"  &&
+{w.Stage.toUpperCase() ==  "HAR"  &&
                     <WeekHolderHeadingRedd>
                     {w.Stage.toUpperCase()}
                   </WeekHolderHeadingRedd>
@@ -1588,7 +1614,7 @@ if(positionIndex > 0){
                     {w.Stage.toUpperCase()}
                   </WeekHolderHeadingRed>
                       }
-                        {w.Stage.toUpperCase() ==  "HAV"  &&
+                        {w.Stage.toUpperCase() ==  "HAR"  &&
                     <WeekHolderHeadingRedd>
                     {w.Stage.toUpperCase()}
                   </WeekHolderHeadingRedd>

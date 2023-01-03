@@ -17,7 +17,7 @@ import Devices from './pages/Devices';
 
 const MainContainer = () => {
     const { auth,userId, setAuth } = useContext(AuthContext)
-    console.log("userId",userId)
+  
 
     const [hidden, setHidden] = useState(true)
 

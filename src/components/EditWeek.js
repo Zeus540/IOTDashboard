@@ -74,24 +74,31 @@ const Button = styled.button`
 const EditWeek = (props) => {
     
     const { diaries,Update,loading } = useContext(DiaryContext);
-  
+  const [technique_Name, setTechnique_Name] = useState("Topping")
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     
-  console.log(props.week)
-  
+
+
+
 
     const editWeek = (values)=>{
    
-    
-      values.DiaryId = props.DiaryId
-    
-        console.log("values",values);
+  
+      var dateobj = new Date();
+ 
 
-        let config = {
-          headers: {
-            authorization: 'Bearer ' + authToken,
-          }
+      var B = dateobj.toISOString();
+
+         values.WeekId = props.week.WeekId
+         values.date = B.split("T")[0]
+           console.log("values",values);
+   
+           let config = {
+             headers: {
+               authorization: 'Bearer ' + authToken,
+             }
+
         }
         
         axios.post('https://api.sweetleaf.co.za/weeks/edit_week',values,config,)
@@ -99,6 +106,7 @@ const EditWeek = (props) => {
           if(response.data.insertId !== undefined){
             Update()
             props.setPopUpOffset(-101);
+          
           }
          
           console.log("response",response.data.insertId);
@@ -108,12 +116,50 @@ const EditWeek = (props) => {
           console.log(error);
         })
      
+
+        let data = {
+          WeekId:props.week.WeekId,
+          Technique_Name:technique_Name
+        }
+
+         axios.post('https://api.sweetleaf.co.za/techniques/add',data,config,)
+          .then(function (response) {
+            if(response.data.insertId !== undefined){
+              console.log("response",response.data.insertId);
+            }
+           
+        
+          })
+          .catch(function (error) {
+        
+            console.log(error);
+          })
       }
 
 
     let values = { 
       weekType: props.week.Stage
     }
+
+
+    
+
+
+    useEffect(() => {
+      axios.get('https://api.sweetleaf.co.za/techniques')
+      .then(function (response) {
+        
+          console.log("techniques",response.data);
+      
+       
+    
+      })
+      .catch(function (error) {
+    
+        console.log(error);
+      })
+    }, [])
+    
 
   return (
    
@@ -159,7 +205,7 @@ const EditWeek = (props) => {
 
         </FormHeadingGroup>
         <InputHolder>
-     {console.log(values.weekType)}
+  
         <Control variant="filled">
         <InputLabel id="demo-simple-select-label">Stage</InputLabel>
           <Input
