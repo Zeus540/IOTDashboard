@@ -1594,7 +1594,7 @@ if(positionIndex > 0){
 </>
 }
 </Flex3BtnHolder>
-{activeWeek.WeekId == undefined && <Helper>Select a Week</Helper>}
+{activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
 
 
@@ -1695,7 +1695,7 @@ if(positionIndex > 0){
           
           </WeekHolderInner>
 
-          {days.length > 0 && galleryData.length == 0 && <Helper>Select a day</Helper>}
+          {days.length > 0 && galleryData.length == 0 && <Helper>Please Select a Day</Helper>}
 {days.length > 0  &&
           <DayDotHolder>
             {days?.map((d, index) => {
