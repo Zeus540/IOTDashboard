@@ -40,7 +40,7 @@ flex-wrap: wrap;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: #275557;
+color: #596876;
 padding: 0px 20px;
 padding-top: 20px;
 
@@ -49,7 +49,7 @@ padding-top: 20px;
 
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#275557;
+background:#596876;
 color:white;
 padding: 10px 15px;
 `;
@@ -75,7 +75,7 @@ overflow:auto;
 @media (max-width: 768px) {
   width: 90%;
 }
-@media (max-width: 1333px) {
+@media (min-width: 769px) and (max-width: 1333px) {
   width: 50%;
 }
 `;
@@ -102,7 +102,7 @@ display: flex;
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #275557;
+  background: #596876;
   color: white;
   border: none;
   border-radius: 50px;

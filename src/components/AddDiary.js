@@ -22,7 +22,7 @@ color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#275557;
+background:#596876;
 color:white;
 padding: 10px 15px;
 `;
@@ -55,7 +55,7 @@ padding: 20px 15px;
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #275557;
+  background: #596876;
   color: white;
   border: none;
   border-radius: 50px;

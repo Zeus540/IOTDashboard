@@ -79,7 +79,7 @@ const Add = styled.div`
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #275557;
+  background: #596876;
   color: white;
   border: none;
   border-radius: 50px;
@@ -87,7 +87,7 @@ const Button = styled.button`
 `;
 const ButtonA = styled.button`
   padding: 5px 25px;
-  background: #275557;
+  background: #596876;
   color: white;
   border: none;
   border-radius: 50px;
@@ -134,7 +134,7 @@ color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#275557;
+background:#596876;
 color:white;
 padding: 20px;
 `;
@@ -174,7 +174,7 @@ padding: 20px;
 `;
 
 const New = styled.div`
-border: 2px solid #275557;
+border: 2px solid #596876;
 border-radius: 5px;
 padding: 20px;
 display: flex;

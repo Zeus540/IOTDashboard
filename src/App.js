@@ -39,24 +39,26 @@ z-index: 5;
 
 function App() {
 
-  const theme = {
 
-  }
-
-
+// Define what props.theme will look like
+const theme = {
+  main: "#275557"
+};
 
   return (
     <Root>
       <Image></Image>
       <Inner>
-        <ThemeProvider theme={theme}>
+       
           <AuthProvider>
             <DiaryProvider>
+         
               <NavBar />
               <MainContainer />
+            
             </DiaryProvider>
           </AuthProvider>
-        </ThemeProvider>
+      
       </Inner>
     </Root>
   )

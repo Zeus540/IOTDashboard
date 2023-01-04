@@ -84,7 +84,7 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   color: #8bab50;
-  background: #275557;
+  background: #596876;
   padding: 15px 15px;
   line-height: 25px;
   margin: 15px;
@@ -108,7 +108,7 @@ width: 100%;
 
 const Button = styled.button`
 padding: 5px 25px;
-background: #275557;
+background: #596876;
 color: white;
 border: none;
 border-radius: 50px;

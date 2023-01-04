@@ -98,12 +98,18 @@ const RightFlex = styled.div`
 `;
 const RightFlexInner = styled.div`
 padding:  20px;
-
+padding-left: 0px;
+@media (max-width: 425px) {
+  padding-left: 20px;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  padding-left: 20px;
+}
 `;
 
 
 const RightFlexHolder = styled.div`
-width: 50%;
+min-width: 50%;
 @media (max-width: 425px) {
   margin: 0px auto;
   padding: 0px 0px;
@@ -160,12 +166,12 @@ const FlexTop = styled.div`
 `;
 
 const Flex3B = styled.div`
-background: #275557;
+// background: #596876;
 color:white;
 padding: 40px 0px;
-
+padding-bottom: 0px;
 @media (max-width: 425px) {
-  background: #275557;
+  // background: #596876;
   color: white;
 }
 `;
@@ -183,12 +189,12 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: white;
+  background: #d9e1e2;
   cursor: pointer;
 
   display: flex;
   color: black;
-  opacity: 0.8;
+  opacity: 0.5;
   flex-direction: column;
   justify-content: space-between;
   &:hover {
@@ -201,11 +207,12 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: white;
+background: #596876;
 cursor: pointer;
-opacity: 0.8;
+opacity: 0.5;
 display: flex;
 height: 88px;
+
 justify-content: center;
   &:hover {
     opacity: 1;
@@ -219,7 +226,7 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: white;
+  background: #d9e1e2;
   cursor: pointer;
   color: black;
 
@@ -278,11 +285,14 @@ background-image: ${props => `url(${props.img})`};
         background-position: center;
   max-width: 50%;
   width: 100%;
-
+  margin: 20px;
+  border-radius: 10px;
 
   @media (max-width: 425px) {
     max-width: unset;
     height: 300px;
+
+    margin: unset;
     min-height: unset;
   border-radius: unset;
 
@@ -291,7 +301,7 @@ background-image: ${props => `url(${props.img})`};
     max-width: unset;
     height: 400px;
     border-radius: unset;
-
+    margin: unset;
   }
 `;
 const TextHolder = styled.div`
@@ -348,7 +358,7 @@ const DairyHeadingSmall = styled.sup`
 color: white;
 margin-top: 0px;
 font-size: 16px;
-background: #275557;
+background: #596876;
 margin-bottom: 0px;
 padding: 5px 15px;
 height: fit-content;
@@ -358,7 +368,7 @@ display: flex;
 `;
 const DairyViewsSmall = styled.sup`
 display: flex;
-color:  #275557;
+color:  #596876;
 margin-top: 0px;
 font-size: 16px;
 
@@ -372,7 +382,7 @@ margin-right: 10px;
 `;
 
 const DairyHeadingSmallAccent = styled.span`
-color:#275557;
+color:#596876;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -428,7 +438,7 @@ const GalleryImageOverlay = styled.div`
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #275557;
+  background: #596876;
 `;
 
 const GalleryHolderInnerMain = styled.div`
@@ -440,7 +450,7 @@ const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
 position: absolute;
-background: #275557;
+background: #596876;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -461,7 +471,7 @@ left: 10px;
 border-radius: 50px;
 cursor: pointer;
 position: absolute;
-background: #275557;
+background: #596876;
 padding: 10px;
 color: white;
 z-index: 2;
@@ -510,9 +520,10 @@ const Heading = styled.h4`
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
+  color: black;
   &::before {
     content: "";
     display: block;
@@ -570,7 +581,7 @@ const DayDotInner = styled.div`
   margin: 15px 10px;
   flex-direction: column;
   align-items: center;
-
+color:black
 `;
 
 const DayDot = styled.div`
@@ -582,14 +593,12 @@ const DayDot = styled.div`
   cursor: pointer;
   opacity: 0.5;
  
-  background: #ffffff;
+  background: #d9e1e2;
   &:hover {
     opacity: 1;
  
   }
-  @media (max-width: 425px) {
-    background: #ffffff;
-  }
+
  
 `;
 
@@ -632,7 +641,8 @@ const DayDotOutter = styled.div`
 
 
 const Helper = styled.p`
-text-align:center
+text-align:center;
+color: black;
 `;
 
 const HelperBtnHolder = styled.div`
@@ -664,7 +674,7 @@ margin: 0;
 `;
 
 const Dot = styled.div`
-  background: ${props => props.index == props.positionIndex ? "#8bab50": "#275557"};
+  background: ${props => props.index == props.positionIndex ? "#8bab50": "#596876"};
   border-radius: 50%;
   height: 10px;
   width: 10px;
@@ -714,7 +724,7 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 
-color: #275557;
+color: #596876;
 border-radius: 50px;
 cursor: pointer;
 
@@ -735,7 +745,7 @@ color: #ffffff;
 
 const ButtonUpload = styled.button`
 padding: 5px 25px;
-background: #275557;
+background:#8bab50;
 color: white;
 border: none;
 border-radius: 50px;
@@ -779,7 +789,7 @@ padding: 5px 10px;
 background: #d9e1e2;
 
 margin: 0px 10px;
-color: #275557;
+color: #596876;
 margin-left: 0px;
 margin-bottom: 10px;
 border-radius: 5px;
@@ -863,7 +873,7 @@ fill: red;
 `;
 const SvgV = styled.svg`
 width: 20px;
-fill: #275557;
+fill: #596876;
 margin-right: 10px;
 `;
 const SvgL = styled.svg`
@@ -873,7 +883,7 @@ margin-right: 10px;
 `;
 const SvgVS = styled.svg`
 width: 15px;
-fill: #275557;
+fill: #596876;
 margin-right: 10px;
 `;
 
@@ -888,7 +898,7 @@ fill: white;
 `;
 const AddWeekSvg = styled.svg`
 width: 20px;
-fill: #275557;
+fill: white;
 `;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
@@ -1395,9 +1405,9 @@ if(positionIndex > 0){
       
        <RightFlexHolder>
        <RightFlex>
-        <Tabs/>
+      
         <RightFlexInner>
-       
+        <Tabs/>
 {userId?.UserId == activeDiary?.UserId &&
 
 <ToggleHolder>

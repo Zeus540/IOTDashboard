@@ -44,7 +44,7 @@ padding: 5px 25px;
 margin: 10px 20px;
 background: #f2f2f2;
 border: none;
-color: #275557;
+color: #596876;
 border-radius: 50px;
 cursor: pointer;
 `;
@@ -94,7 +94,7 @@ display: flex;
 
 `;
 const Label = styled.label`
-color:#275557;
+color:#596876;
 font-weight:bold;
 `;
 

@@ -43,7 +43,7 @@ justify-content: center;
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #275557;
+  background: #596876;
   color: white;
   border: none;
   border-radius: 50px;

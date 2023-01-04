@@ -50,11 +50,11 @@ display: flex;
 `;
 
 const Label = styled.label`
-color:#275557;
+color:#596876;
 font-weight:bold;
 `;
 const LabelT = styled.label`
-color:#275557;
+color:#596876;
 
 margin-left: 10px;
 `;
@@ -81,7 +81,7 @@ padding: 5px 25px;
 width: fit-content;
 
 border:none;
-background:#275557;
+background:#596876;
 color:white;
 border-radius:50px;
 cursor:pointer;

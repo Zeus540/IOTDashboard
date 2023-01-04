@@ -46,7 +46,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#275557;
+color:#596876;
 font-weight:bold;
 `;
 const Input = styled(Field)`
@@ -68,7 +68,7 @@ padding: 5px 25px;
 width: fit-content;
 
 border:none;
-background:#275557;
+background:#596876;
 color:white;
 border-radius:50px;
 cursor:pointer;
@@ -89,7 +89,7 @@ color: red;
 `;
 
 const Help = styled.p`
-color: #275557;
+color: #596876;
 margin: 0px;
 font-size: 16px;
 text-align: center;

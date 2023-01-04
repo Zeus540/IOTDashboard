@@ -149,7 +149,7 @@ const Add = styled.div`
 
 const Button = styled.button`
 padding: 8px 20px;
-  background: #275557;
+  background: #8bab50;
   color: white;
   border: none;
   border-radius: 50px;

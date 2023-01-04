@@ -5,9 +5,11 @@ import { AuthContext } from "../context/auth_context";
 import { NavLink } from "react-router-dom";
 import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
+import { ThemeProvider } from 'styled-components';
 
 const Root = styled.div`
-  background-color: #275557;
+  background-color: #596876;
+  
   display: flex;
   justify-content: center;
   position: sticky;
@@ -55,7 +57,8 @@ const LinkHolderMobile = styled.div`
   position: fixed;
   background: ghostwhite;
   left: 0;
-  width: 50%;
+  min-width: 50%;
+  top:0px;
   flex-direction: column;
   transition: 0.5s all ease;
   transform: ${(props) => !props.mobileMenu ? "translateX(-101%)":"translateX(0%)"};
@@ -109,7 +112,7 @@ const MenuLinkMobile = styled(NavLink)`
     border-bottom: 4px solid #8bab50;
   }
    &:nth-child(even) {
-    background: #275557;
+    background: #596876;
     color: white!important;
    }
 `;
@@ -123,7 +126,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #275557;
+    border-bottom: 2px solid #596876;
   }
 `;
 const Button = styled.button`
@@ -188,7 +191,7 @@ const IconW = styled.svg`
 const IconB = styled.svg`
   width: 20px;
   margin-right: 15px;
-  fill: #275557;
+  fill: #596876;
 `;
 
 const LinkHolderM = styled.div`
@@ -198,7 +201,7 @@ flex-direction: column;
 const UserInfoHolder = styled.div`
 display: flex;
 justify-content: space-between;
-background: #275557;
+background: #596876;
 `;
 
 const UserInfo = styled.div`
@@ -236,9 +239,22 @@ const NavBar = () => {
   const { auth,logOut,user } = useContext(AuthContext);
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const OffClick = () =>{
+    if(mobileMenu ==  true){
+      setMobileMenu(false);
+    }
+  }
+
+  // Define what props.theme will look like
+const theme = {
+  dark: "#275557"
+};
 
   return (
-    <Root>
+
+    <Root onClick={() => {
+      OffClick();
+    }}>
       <Inner>
       <BurgerMenuHolder>
           <BurgerMenu
@@ -378,6 +394,7 @@ const NavBar = () => {
             
        
     </Root>
+
   );
 };
 
