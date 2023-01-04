@@ -44,6 +44,16 @@ const LogoHolder = styled.div`
     margin-left:0px;
   }
 `;
+const LogoHolderText = styled.span`
+
+color: white;
+font-size: 12px;
+margin-top: -16px;
+display: block;
+text-align: end;
+padding-bottom: 3px;
+`;
+
 const LinkHolder = styled.div`
   display: flex;
   justify-content: center;
@@ -271,6 +281,7 @@ const theme = {
         <MenuLinklogo to="/">
           <LogoHolder>
             <img src={Logo} width="100%" />
+            <LogoHolderText>Master Your Grow</LogoHolderText>
           </LogoHolder>
         </MenuLinklogo>
 

@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
 import MainContainer from './MainContainer';
+import Footer from './components/Footer';
 
 const Root = styled.div`
 
@@ -23,10 +24,7 @@ const Image = styled.div`
   position: fixed;
   z-index: 2;
   width:100vw;
-  @media (max-width: 425px) {
-    background-image: unset;
-    background-color: unset;
-  }
+
 `;
 
 
@@ -55,7 +53,7 @@ const theme = {
          
               <NavBar />
               <MainContainer />
-            
+              <Footer />
             </DiaryProvider>
           </AuthProvider>
       

@@ -31,20 +31,20 @@ border-radius: 5px;
 background: #ffffff;
 padding-bottom: 20px;
 padding: 20px 0px;
-margin: 0 auto;
+margin: 80px auto;
 width: 100%;
-  @media (max-width: 425px) {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 5px;
-    padding-bottom: 5px;
-    
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 5px;
-  }
+@media (max-width: 425px) {
+  margin: 20px;
+  padding: 0px;
+  border-radius: 5px;
+  width: unset;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  margin: 20px;
+  padding: 0px;
+  border-radius: 5px;
+  width: unset;
+}
 `;
 
 const MainHeading = styled.div`
@@ -84,15 +84,25 @@ const Button = styled.button`
   border: none;
   border-radius: 50px;
   cursor: pointer;
+
 `;
 const ButtonA = styled.button`
   padding: 5px 25px;
   background: #596876;
+  margin-right: 0px;
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   margin: 0px 20px;
+  @media (max-width: 425px) {
+    margin-right: 0px;
+
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin-right: 0px;
+  }
+
 `;
 
 const PopUpHolder = styled.div`

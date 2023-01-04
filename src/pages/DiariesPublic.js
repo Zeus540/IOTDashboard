@@ -33,17 +33,19 @@ border-radius: 5px;
 background: #ffffff;
 width: 100%;
 padding: 20px 0px;
-margin: 0 auto;
-  @media (max-width: 425px) {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 0px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 0px;
-  }
+margin: 80px auto;
+@media (max-width: 425px) {
+  margin: 20px;
+  padding: 0px;
+  border-radius: 5px;
+  width: 90%;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  margin: 20px;
+  padding: 0px;
+  border-radius: 5px;
+  width: 95%;
+}
 `;
 
 const MainHeading = styled.div`
@@ -72,24 +74,27 @@ const DiaryHolder = styled.div`
 
 const Diary = styled(NavLink)`
 cursor: pointer;
-max-width: calc(100% / 6 - 20px);
+width: calc(100% / 6 - 20px);
 margin: 10px;
 border-radius: 5px;
-width: 100%;
+
 text-decoration: none;
 color: black;
-@media (max-width: 619px) {
-  max-width: calc(100% / 2 - 20px);
+@media (max-width: 425px) {
+  max-width: calc(100% / 1 - 20px);
   width: 100%;
   margin: 10px 10px;
   border-radius: 0px;
 }
-  @media (min-width: 620px) and (max-width: 699px) {
-    width: calc(100% / 2 - 20px);
-    margin: 10px;
-  }
+@media (min-width: 426px) and (max-width: 699px) {
+  width: calc(100% / 2 - 20px);
+  margin: 10px;
+}
   @media (min-width: 700px) and (max-width: 940px) {
     width: calc(100% / 2 - 20px);
+  }
+  @media (min-width: 941px) and (max-width: 1330px) {
+    width: calc(100% / 4 - 20px);
   }
 `;
 
@@ -98,6 +103,9 @@ const DiaryImageHolder = styled.div`
   cursor: pointer;
   line-height: 0px;
   border-radius: 5px;
+  min-height: 190px;
+  background-position: center!important;
+  background-size: cover!important;
   @media (max-width: 425px) {
 
     border-radius: 5px;
@@ -137,12 +145,12 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding: 10px 20px;
-    padding-bottom: 0px;
+    padding:20px;
+   
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 10px 20px;
-    padding-bottom: 0px;
+    padding: 20px;
+  
   }
 `;
 
@@ -234,12 +242,9 @@ const Diaries = () => {
               <Diary
               to={`/overview/${d.DiaryId}`}
               >
-                <DiaryImageHolder>
+                <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
                  
-                  <DiaryImage
-                    src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
-                    width="100%"
-                  />
+              
                 </DiaryImageHolder>
 
                 <DiaryTextHolder>
@@ -269,13 +274,10 @@ const Diaries = () => {
               <Diary
               to={`/overview/${d.DiaryId}`}
               >
-                <DiaryImageHolder>
+                  <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
                  
-                  <DiaryImage
-                    src={d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail}
-                    width="100%"
-                  />
-                </DiaryImageHolder>
+              
+                 </DiaryImageHolder>
 
                 <DiaryTextHolder>
       
