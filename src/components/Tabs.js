@@ -144,14 +144,14 @@ useEffect(() => {
 
     {tabList?.map((tab,index)=>{
        return(
-        <>
+        <div key={index}>
          {
             
            tab?.active == true ?  
-           <TabActive key={index} onClick={()=>{handleClick(tabList,tab)}}>{tab.tabName}</TabActive> : 
-           <TabInActive key={index} onClick={()=>{handleClick(tabList,tab)}}>{tab.tabName}</TabInActive>
+           <TabActive  onClick={()=>{handleClick(tabList,tab)}}>{tab.tabName}</TabActive> : 
+           <TabInActive  onClick={()=>{handleClick(tabList,tab)}}>{tab.tabName}</TabInActive>
          }
-        </>
+        </div>
         
        )
        })

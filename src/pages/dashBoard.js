@@ -1465,11 +1465,11 @@ if(positionIndex > 0){
            
         <QuickActionBlockFlex>
 
-          {techniques?.map((t)=>{
+          {techniques?.map((t,index)=>{
             return(
-              <>
-              <QuickActionBlock> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</QuickActionBlock>
-              </>
+             
+              <QuickActionBlock key={index}> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</QuickActionBlock>
+              
             )
           })}
 
@@ -1552,13 +1552,13 @@ if(positionIndex > 0){
           <>
                 {activeDiaryWeeks.map((w, index) => {
                   return (
-                    <>
+                    <div  key={index}>
                     {activeWeek !== w ? 
                     <WeekHolder
                       onClick={() => {
                         handelGetWeekData(w);
                       }}
-                      key={index}
+                     
                     >
                       <WeekHolderText>
                         
@@ -1595,7 +1595,7 @@ if(positionIndex > 0){
                       onClick={() => {
                         handelGetWeekData(w);
                       }}
-                      key={w.Week + 1}
+                 
                     >
                           <WeekHolderText>
                         
@@ -1628,7 +1628,7 @@ if(positionIndex > 0){
                          
                      
                     </WeekHolderActive>}
-                    </>
+                    </div>
                   );
                 })}
               </>
@@ -1698,8 +1698,8 @@ if(positionIndex > 0){
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
                 return (
-              <GalleryImageHolderFlex>
-                  <GalleryImageHolder key={index}  img={img?.Image}   onClick={() => {
+              <GalleryImageHolderFlex key={index} >
+                  <GalleryImageHolder  img={img?.Image}   onClick={() => {
                     handleLightBox(img?.Image, img);
                   }}>
                        
