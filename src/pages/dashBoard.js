@@ -774,11 +774,12 @@ width: 40px;
 margin-right:10px;
 `;
 
-const QuickActionBlock = styled.button`
+const QuickActionBlock = styled.div`
 padding: 5px 10px;
-background: #275557;
+background: #d9e1e2;
+
 margin: 0px 10px;
-color: white;
+color: #275557;
 margin-left: 0px;
 margin-bottom: 10px;
 border-radius: 5px;
@@ -889,7 +890,15 @@ const AddWeekSvg = styled.svg`
 width: 20px;
 fill: #275557;
 `;
+const FormHeadingSmall = styled.h1`
+margin: 0px;
+font-size: 18px;
+color: black;
+padding: 0px 0px;
+padding-top: 20px;
 
+
+`;
 const DashBoard = (props) => {
 
   let tabs = [
@@ -1477,7 +1486,7 @@ if(positionIndex > 0){
         </IntroHolder>
           {activeWeek !== "" && 
           <TextHolder>
-           
+              <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
         <QuickActionBlockFlex>
 
           {techniques?.map((t,index)=>{
