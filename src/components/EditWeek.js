@@ -10,7 +10,11 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
+import Mainline from '../assets/mainline.svg'
+import LST from '../assets/lst.svg'
 
+import Topping from '../assets/topping.svg'
+import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
@@ -26,6 +30,23 @@ margin: 0px;
 font-size: 24px;
 color:white
 `;
+
+
+const GrowTechniques = styled.div`
+padding: 5px 20px;
+display: flex;
+flex-wrap: wrap;
+`;
+const FormHeadingSmall = styled.h1`
+margin: 0px;
+font-size: 18px;
+color: #275557;
+padding: 0px 20px;
+padding-top: 20px;
+
+
+`;
+
 const FormHeadingGroup = styled.div`
 margin: 0px;
 background:#275557;
@@ -40,6 +61,9 @@ color:white
 `;
 
 const Form = styled.form`
+
+`;
+const Root = styled.div`
 overflow: auto;
 max-height: 80vh;
 
@@ -51,12 +75,30 @@ overflow:auto;
 @media (max-width: 768px) {
   width: 90%;
 }
+@media (max-width: 1333px) {
+  width: 50%;
+}
 `;
+
 const InputHolder = styled.div`
 padding: 20px 15px;
-
+padding-top: 0px;
 `;
-
+const GrowTechniquesBlock = styled.button`
+border:none;
+padding: 5px 20px;
+margin-bottom: 20px;
+margin-right: 20px;
+display: flex;
+background: #859ea34f;
+border-radius: 5px;
+align-items: center;
+`;
+const GrowTechniquesBlockIcon = styled.div`
+width: 40px;
+margin-right:10px;
+display: flex;
+`;
 
 const Button = styled.button`
   padding: 5px 25px;
@@ -75,7 +117,8 @@ const EditWeek = (props) => {
     const { auth,authToken,userId } = useContext(AuthContext);
     const [stage, setStage] = useState("")
     const [week, setWeek] = useState("")
-
+    const [techniques, setTechniques] = useState([])
+    
     
 
 
@@ -118,40 +161,45 @@ const EditWeek = (props) => {
         })
      
   }
-        // let data = {
-        //   WeekId:props.week.WeekId,
-        //   Technique_Name:technique_Name
-        // }
-
-        //  axios.post('https://api.sweetleaf.co.za/techniques/add',data,config,)
-        //   .then(function (response) {
-        //     if(response.data.insertId !== undefined){
-        //       console.log("response",response.data.insertId);
-        //     }
-           
-        
-        //   })
-        //   .catch(function (error) {
-        
-        //     console.log(error);
-        //   })
-    
+      
 
 
   
+const addTech = (t)=>{
 
+  let config = {
+    headers: {
+      authorization: 'Bearer ' + authToken,
+    }
+  }
+     let data = {
+           WeekId:props.week.WeekId,
+           Technique_Name:t.Grow_Techniques_Option_Name,
+         }
 
+          axios.post('https://api.sweetleaf.co.za/techniques/add',data,config)
+           .then(function (response) {
+             if(response.data.insertId !== undefined){
+              Update()
+         
+              props.setPopUpOffset(-101);
+             }
+           
+        
+           })
+           .catch(function (error) {
+        
+             console.log(error);
+           })
     
+}
 
 
     useEffect(() => {
       axios.get('https://api.sweetleaf.co.za/techniques')
       .then(function (response) {
+        setTechniques(response.data)
         
-          console.log("techniques",response.data);
-      
-       
-    
       })
       .catch(function (error) {
     
@@ -194,36 +242,73 @@ setStage(e.target.value)
           }
   return (
    
-    <Formik
-    initialValues={data}
-    enableReinitialize
-   
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        editWeek(values)
-        setSubmitting(false);
-      }, 400);
-    }}
-  >
-    {({
-      values,
-      errors,
-      touched,
-      handleChange,
-      handleBlur,
-      handleSubmit,
-      isSubmitting,
-      /* and other goodies */
-    }) => (
 
-      <Form onSubmit={handleSubmit}>
+  <Root>
          
 
-      <FormHeadingGroup>
+         <FormHeadingGroup>
       <FormHeading>Edit Week</FormHeading>
 
         </FormHeadingGroup>
       
+        <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
+      <GrowTechniques>      
+      
+        {techniques.map((t)=>{
+          return(
+            <GrowTechniquesBlock onClick={()=>{addTech(t)}}>
+              <GrowTechniquesBlockIcon>
+              {t.Grow_Techniques_Option_Name == "Topping" && 
+              <img src={Topping}/>
+              }
+                  {t.Grow_Techniques_Option_Name == "Main-Lining" && 
+              <img src={Mainline}/>
+              }
+                  {t.Grow_Techniques_Option_Name == "LST" && 
+              <img src={LST}/>
+              }
+                {t.Grow_Techniques_Option_Name == "HST" && 
+              <img src={Topping}/>
+              }
+                {t.Grow_Techniques_Option_Name == "Defoliation" && 
+              <img src={Defoliation}/>
+              }
+                {t.Grow_Techniques_Option_Name == "Feeding" && 
+              <img src={Topping}/>
+              }
+              </GrowTechniquesBlockIcon>
+              <div>
+              {t.Grow_Techniques_Option_Name}
+              </div>
+            </GrowTechniquesBlock>
+          )
+        })}
+      </GrowTechniques>
+
+<Formik
+initialValues={data}
+enableReinitialize
+
+onSubmit={(values, { setSubmitting }) => {
+  setTimeout(() => {
+    editWeek(values)
+    setSubmitting(false);
+  }, 400);
+}}
+>
+{({
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting,
+  /* and other goodies */
+}) => (
+
+  <Form onSubmit={handleSubmit}>
+
         <InputHolder>
         <Input 
         id="Week" 
@@ -258,6 +343,7 @@ setStage(e.target.value)
       </Form>
     )}
   </Formik>
+  </Root>
   )
 }
 

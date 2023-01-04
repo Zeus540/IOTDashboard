@@ -16,8 +16,10 @@ import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
 import  faTrash  from "../assets/trash-can-regular.svg";
 import Mainline from '../assets/mainline.svg'
+import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
+import MenuItem from '@mui/material/MenuItem';
 
 import { InfinitySpin } from  'react-loader-spinner'
 
@@ -1119,6 +1121,19 @@ if(activeWeek !== w){
    
   };
 
+
+  const UpdateTech = (data)=>{
+    axios
+    .post("https://api.sweetleaf.co.za/techniques/by_week_id",data )
+    .then(function (response) {
+
+    setTechniques(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  
   const handleDay = (days, day) => {
     setPositionIndex(0)
     setPosition(0)
@@ -1357,7 +1372,7 @@ if(positionIndex > 0){
    
 <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
 
-<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
+<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech}/>
 
 <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
 
@@ -1468,7 +1483,26 @@ if(positionIndex > 0){
           {techniques?.map((t,index)=>{
             return(
              
-              <QuickActionBlock key={index}> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</QuickActionBlock>
+              <QuickActionBlock key={index}> 
+              {t?.Technique_Name == "Main-Lining" && 
+             <> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</>
+            }
+              {t?.Technique_Name == "Topping" && 
+             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
+            }
+              {t?.Technique_Name == "LST" && 
+             <> <QuickActionBlockIcon src={LST}/>{t?.Technique_Name}</>
+            }
+              {t?.Technique_Name == "HST" && 
+             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
+            }
+                {t?.Technique_Name == "Defoliation" && 
+             <> <QuickActionBlockIcon src={Defoliation}/>{t?.Technique_Name}</>
+            }
+                {t?.Technique_Name == "Feeding" && 
+             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
+            }
+              </QuickActionBlock>
               
             )
           })}
