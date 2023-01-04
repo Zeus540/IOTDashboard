@@ -10,21 +10,17 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 
 
-const Input = styled(Select)`
+const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
 `;
-const Control = styled(FormControl)`
 
-width: 100%;
-`;
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 24px;
@@ -77,8 +73,10 @@ const EditWeek = (props) => {
   const [technique_Name, setTechnique_Name] = useState("Topping")
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
-    
+    const [stage, setStage] = useState("")
+    const [week, setWeek] = useState("")
 
+    
 
 
 
@@ -91,7 +89,9 @@ const EditWeek = (props) => {
       var B = dateobj.toISOString();
 
          values.WeekId = props.week.WeekId
-         values.date = B.split("T")[0]
+         values.Week = parseInt(week)
+         values.weekType = stage
+         
            console.log("values",values);
    
            let config = {
@@ -101,9 +101,10 @@ const EditWeek = (props) => {
 
         }
         
-        axios.post('https://api.sweetleaf.co.za/weeks/edit_week',values,config,)
+        axios.post('https://api.sweetleaf.co.za/weeks/edit_week',values,config)
         .then(function (response) {
           if(response.data.insertId !== undefined){
+            console.log("response.data",response.data);
             Update()
             props.setPopUpOffset(-101);
           
@@ -116,30 +117,28 @@ const EditWeek = (props) => {
           console.log(error);
         })
      
+  }
+        // let data = {
+        //   WeekId:props.week.WeekId,
+        //   Technique_Name:technique_Name
+        // }
 
-        let data = {
-          WeekId:props.week.WeekId,
-          Technique_Name:technique_Name
-        }
-
-         axios.post('https://api.sweetleaf.co.za/techniques/add',data,config,)
-          .then(function (response) {
-            if(response.data.insertId !== undefined){
-              console.log("response",response.data.insertId);
-            }
+        //  axios.post('https://api.sweetleaf.co.za/techniques/add',data,config,)
+        //   .then(function (response) {
+        //     if(response.data.insertId !== undefined){
+        //       console.log("response",response.data.insertId);
+        //     }
            
         
-          })
-          .catch(function (error) {
+        //   })
+        //   .catch(function (error) {
         
-            console.log(error);
-          })
-      }
+        //     console.log(error);
+        //   })
+    
 
 
-    let values = { 
-      weekType: props.week.Stage
-    }
+  
 
 
     
@@ -160,25 +159,45 @@ const EditWeek = (props) => {
       })
     }, [])
     
+  
+    let data = { 
+      weekType: props.week.Stage
+    }
+    
+    useEffect(() => {
+      console.log(  props?.week);
+    
+      setWeek(props?.week?.Week)
+    if(props?.week?.Stage == "GER"){
+      setStage("Germination")
+    }
+    if(props?.week?.Stage == "VEG"){
+      setStage("Vegetation")
+    }
+    if(props?.week?.Stage == "FLO"){
+      setStage("Flowering")
+    }
+    if(props?.week?.Stage == "HAR"){
+      setStage("Harvest")
+    }
+    }, [props])
+    
 
+    const handleStageChange =(e)=>{
+
+setStage(e.target.value)
+    }
+    const handleWeekChange =(e)=>{
+
+      setWeek(e.target.value)
+
+          }
   return (
    
     <Formik
-    initialValues={values}
+    initialValues={data}
     enableReinitialize
-    // validate={(values) => {
-    //   const errors = {};
-    //   if (!values.email) {
-    //     errors.email = "Required";
-    //   } else if (
-    //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-    //       values.email
-    //     )
-    //   ) {
-    //     errors.email = "Invalid email address";
-    //   }
-    //   return errors;
-    // }}
+   
     onSubmit={(values, { setSubmitting }) => {
       setTimeout(() => {
         editWeek(values)
@@ -204,23 +223,33 @@ const EditWeek = (props) => {
       <FormHeading>Edit Week</FormHeading>
 
         </FormHeadingGroup>
+      
         <InputHolder>
-  
-        <Control variant="filled">
-        <InputLabel id="demo-simple-select-label">Stage</InputLabel>
-          <Input
-            id="weekType"
-            name="weekType"
-            value="sadsad"
-            onChange={(e)=>{handleChange(e)}}
-          >
-            <MenuItem value="Germination">Germination</MenuItem>
+        <Input 
+        id="Week" 
+        label="Week" 
+        value={week}
+        onChange={(e)=>{handleWeekChange(e)}}
+        type="number"
+        variant="outlined" 
+      
+        />
+
+        <Input 
+        id="weekType" 
+        label="Stage" 
+        value={stage}
+        variant="outlined" 
+        onChange={(e)=>{handleStageChange(e)}}
+        select>
+      <MenuItem value="Germination">Germination</MenuItem>
             <MenuItem value="Vegetation">Vegetation</MenuItem>
             <MenuItem value="Flowering">Flowering</MenuItem>
             <MenuItem value="Harvest">Harvest</MenuItem>
-          </Input>
-        </Control>
-
+        </Input>
+    
+     
+ 
       
         <Button type="submit" disabled={isSubmitting}>
           Submit

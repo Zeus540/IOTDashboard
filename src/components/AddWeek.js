@@ -10,21 +10,17 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 
 
 
-const Input = styled(Select)`
+
+const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
 `;
-const Control = styled(FormControl)`
 
-width: 100%;
-`;
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 24px;
@@ -77,8 +73,9 @@ const AddWeek = (props) => {
   
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
-    
-  
+    let token = localStorage.getItem("token")
+    const [stage, setStage] = useState("")
+    const [week, setWeek] = useState("")
   
 
     const addWeek = (values)=>{
@@ -95,6 +92,9 @@ const AddWeek = (props) => {
 
       values.DiaryId = props.DiaryId
       values.date = B.split("T")[0]
+      values.weekType = stage
+      values.Week = parseInt(week)
+      
         console.log("values",values);
 
         let config = {
@@ -108,6 +108,8 @@ const AddWeek = (props) => {
           if(response.data.insertId !== undefined){
             Update()
             props.setPopUpOffset(-101);
+            setWeek("")
+            setStage("")
           }
          
           console.log("response",response.data.insertId);
@@ -119,7 +121,15 @@ const AddWeek = (props) => {
      
       }
 
-
+      const handleStageChange =(e,child)=>{
+console.log("child",child)
+        setStage(e.target.value)
+            }
+            const handleWeekChange =(e)=>{
+        
+              setWeek(e.target.value)
+        
+                  }
     
   return (
    
@@ -165,25 +175,39 @@ const AddWeek = (props) => {
         </FormHeadingGroup>
         <InputHolder>
      
-        <Control variant="filled">
-        <InputLabel id="demo-simple-select-label">Stage</InputLabel>
-          <Input
-            id="weekType"
-            name="weekType"
-            onChange={(e)=>{handleChange(e)}}
-          >
-            <MenuItem value="Germination">Germination</MenuItem>
+      
+        <Input 
+        id="Week" 
+        label="Week" 
+        value={week}
+        onChange={(e)=>{handleWeekChange(e)}}
+        type="number"
+        variant="outlined" 
+      
+        />
+
+        <Input 
+        id="weekType" 
+        label="Stage" 
+        value={stage}
+        variant="outlined" 
+        onChange={(e,child)=>{handleStageChange(e,child)}}
+        select>
+      <MenuItem value="Germination">Germination</MenuItem>
             <MenuItem value="Vegetation">Vegetation</MenuItem>
             <MenuItem value="Flowering">Flowering</MenuItem>
-            <MenuItem value="Havest">Havest</MenuItem>
-          </Input>
-        </Control>
-
+            <MenuItem value="Harvest">Harvest</MenuItem>
+        </Input>
+    
+     
+ 
       
         <Button type="submit" disabled={isSubmitting}>
           Submit
         </Button>
         </InputHolder>
+
+   
       </Form>
     )}
   </Formik>

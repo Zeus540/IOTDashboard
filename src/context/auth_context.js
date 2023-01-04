@@ -32,14 +32,14 @@ export const AuthProvider = ({ children }) => {
         setAuth(false)
         navigate('/')
     }
-
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        const token = localStorage.getItem('token');
+      
         if(token){
             setAuthToken(token)
             setAuth(true)
         }
-    }, [])
+    }, [token])
     
     return (
         <AuthContext.Provider value={{ auth, setToken,logOut,authToken,userId,user }}>
