@@ -18,16 +18,15 @@ width: 100%;
 `;
 const FormHeading = styled.h1`
 margin: 0px;
+font-size: 20px;
+color: #596876;
 
-color:white
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#596876;
-color:white;
-padding: 20px;
+padding: 10px 15px;
+padding-bottom: 0px;
 `;
-
 const FormSub = styled.p`
 margin: 0px;
 

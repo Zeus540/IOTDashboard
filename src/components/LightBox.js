@@ -22,7 +22,7 @@ const LightBoxInnerClose = styled.div`
 `;
 
 const LightBoxClose = styled.div`
-  color: red;
+  color: #f44336;
   font-size: 24px;
   font-weight: bold;
   display: flex;
@@ -95,7 +95,7 @@ const GalleryImageOverlay = styled.div`
 `;
 const Svg = styled.svg`
 width: 14px;
-fill: red;
+fill: #f44336;
 `;
 
 const SvgW = styled.svg`

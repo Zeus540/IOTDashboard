@@ -71,7 +71,7 @@ background:#4e5f612e;
 
 
 const ErrorText = styled.p`
-color: red;
+color: #f44336;
     margin: 0px;
     font-size: 12px;
 `;
@@ -98,7 +98,7 @@ text-align:center;
 const ErrM = styled.h1`
 margin: 0px;
 padding-bottom: 10px;
-color:red;
+color:#f44336;
 text-align:center;
 font-size: 14px;
 `;

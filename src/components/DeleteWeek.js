@@ -41,15 +41,17 @@ justify-content: center;
 
 `;
 
+
 const Button = styled.button`
   padding: 5px 25px;
-  background: #596876;
-  color: white;
+  background: #8bab50;
+  color: black;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   margin: 0px 20px;
 `;
+
 const Heading = styled.h2`
 text-align: center;
 font-size: 21px;
@@ -57,7 +59,7 @@ margin-top: 0px;
 `;
 const Text = styled.p`
 text-align: center;
-color:red;
+color:#f44336;
 margin-top: 0px;
 `;
 
@@ -108,11 +110,12 @@ const DeleteWeek = (props) => {
   <>
     <Inner>
       <Heading>
-        Are you sure you want to delete this Week ?
+        Are you sure you want to delete Week {props.week.Week} ?
       </Heading>
       <Text>
-        Warning this action is irreversible !
+        Warning this action will deleted all information relating to week {props.week.Week} and is irreversible !
       </Text>
+      
       <InnerHolder>
   <Button onClick={()=>{deleteWeek()}}>
           Yes

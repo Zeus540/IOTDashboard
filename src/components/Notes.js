@@ -62,7 +62,7 @@ resize: none;
 `;
 
 const NotesClose = styled.div`
-color:red;
+color:#f44336;
 text-align: end;
 
   font-size: 22px;

@@ -668,7 +668,7 @@ text-align: center;
 
 `;
 const HelperBtnText = styled.p`
-
+color: black;
 padding: 5px 10px;
 margin: 0;
 `;
@@ -869,7 +869,7 @@ cursor:pointer;
 
 const Svg = styled.svg`
 width: 20px;
-fill: red;
+fill: #f44336;
 `;
 const SvgV = styled.svg`
 width: 20px;

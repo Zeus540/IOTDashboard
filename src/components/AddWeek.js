@@ -23,14 +23,14 @@ width: 100%;
 
 const FormHeading = styled.h1`
 margin: 0px;
-font-size: 24px;
-color:white
+font-size: 20px;
+color: #596876;
+
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#596876;
-color:white;
 padding: 10px 15px;
+padding-bottom: 0px;
 `;
 
 const FormSub = styled.p`
@@ -60,8 +60,8 @@ padding: 20px 15px;
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #596876;
-  color: white;
+  background: #8bab50;
+  color: black;
   border: none;
   border-radius: 50px;
   cursor: pointer;

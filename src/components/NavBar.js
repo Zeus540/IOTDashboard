@@ -128,6 +128,7 @@ const MenuLinkMobile = styled(NavLink)`
 `;
 const MenuLinklogo = styled(NavLink)`
   margin: 0px 0px;
+  text-decoration: none!important;
 `;
 
 const LogOut = styled.p`

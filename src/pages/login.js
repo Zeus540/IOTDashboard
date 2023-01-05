@@ -58,7 +58,7 @@ background: #4e5f612e;
 `;
 
 const ErrorText = styled.p`
-color: red;
+color: #f44336;
     margin: 0px;
     font-size: 12px;
 `;
@@ -82,7 +82,7 @@ text-align:center;
 `;
 
 const ErrMsg = styled.p`
-color: red;
+color: #f44336;
     margin: 0px;
     font-size: 16px;
     text-align: center;
