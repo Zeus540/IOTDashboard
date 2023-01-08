@@ -46,7 +46,7 @@ const LogoHolder = styled.div`
   }
 `;
 const Img = styled.img`
-filter: drop-shadow(2px 2px 0px #00000066);
+filter: drop-shadow(4px 1px 3px black)
 `;
 
 const LogoHolderText = styled.span`
