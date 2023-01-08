@@ -34,6 +34,7 @@ background: #ffffff;
 width: 100%;
 padding: 20px 0px;
 margin: 80px auto;
+padding-top: 0px;
 @media (max-width: 425px) {
   margin: 20px;
   padding: 0px;
@@ -50,16 +51,17 @@ margin: 80px auto;
 
 const MainHeading = styled.div`
   margin: 0px 0px;
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 0px;
   font-weight: bolder;
-  padding: 0px 20px;
+  margin: 0px 20px;
+  border-bottom: 2px solid #8bab50;
   @media (max-width: 425px) {
-    padding: unset;
+    margin: unset;
     
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: unset;
+    margin: unset;
   }
 `;
 
@@ -153,6 +155,50 @@ const Add = styled.div`
   
   }
 `;
+const SearchType = styled.div`
+  display: flex;
+  margin: 0px 0px;
+  box-shadow: 0px 0px 20px #00000012;
+  margin-bottom: 20px;
+  border-radius: 5px 5px 0px 0px;
+  cursor: pointer;
+  @media (max-width: 425px) {
+    padding:20px;
+   
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: 20px;
+  
+  }
+`;
+const SearchTypeBlock = styled.div`
+padding: 10px 20px;
+
+
+
+  @media (max-width: 425px) {
+    padding:20px;
+   
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: 20px;
+  
+  }
+`;
+
+const SearchTypeBlockActive = styled.div`
+padding: 10px 20px;  
+color: white;
+background:#8bab50;
+  @media (max-width: 425px) {
+    padding:20px;
+   
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: 20px;
+  
+  }
+`;
 
 const Button = styled.button`
 padding: 8px 20px;
@@ -180,6 +226,9 @@ const Diaries = () => {
   const { diariesPublic,UpdatePublic,loading } = useContext(DiaryContext);
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
+  const [diaryMostViewedList, setDiaryMostViewedList] = useState([]);
+  const [diaryTypes, setDiaryTypes] = useState([]);
+  const [diaryActiveType, setDiaryActiveType] = useState("");
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -189,6 +238,17 @@ const Diaries = () => {
   useEffect(() => {
     setDiaryHavestList(diariesPublic.filter((d)=> d.HavestId !== null))
     setDiaryOnGoingList(diariesPublic.filter((d)=> d.HavestId == null))
+    setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+    
+    let types = diariesPublic.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+     t.Type === value.Type
+    ))
+    )
+    setDiaryTypes(types)
+  
+  
+
     console.log(diariesPublic)
     console.log(diariesPublic)
   }, [diariesPublic])
@@ -217,7 +277,15 @@ const Diaries = () => {
 
   
 
+const setFilter =(type)=>{
+console.log(type)
+setDiaryActiveType(type)
+let list = diariesPublic.filter((d)=> d.Type == type)
+setDiaryHavestList(list?.filter((d)=> d.HavestId !== null))
+setDiaryOnGoingList(list.filter((d)=> d.HavestId == null))
+setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
 
+}
 
   
   return (
@@ -230,14 +298,38 @@ const Diaries = () => {
     
 
       <Inner>
-        <Add>
-          <MainHeading>On-Going Diaries</MainHeading>
+      <SearchType>
+        {console.log("diaryActiveType",diaryActiveType)}
+      {diaryTypes.map((d)=>{
+  return(
+    <>
+    {diaryActiveType == d.Type ? 
+    
+    <SearchTypeBlockActive onClick={()=>{setFilter(d.Type)}}>
+    {d.Type}
+    </SearchTypeBlockActive>
+  :
+  <SearchTypeBlock onClick={()=>{setFilter(d.Type)}}>
+  {d.Type}
+  </SearchTypeBlock>
+
+  }
+
+    </>
+  )
+})}
+     </SearchType>
+
+     {diaryMostViewedList.length > 0 && 
+<>
+      <Add>
+          <MainHeading>Most Viewed</MainHeading>
         
        
         </Add>
 
         <DiaryHolder>
-          {diaryOnGoingList?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+          {diaryMostViewedList?.map((d) => {
             return (
               <Diary
               to={`/overview/${d.DiaryId}`}
@@ -264,12 +356,56 @@ const Diaries = () => {
           })}
         </DiaryHolder>
 
+</>
+}
+        {diaryOnGoingList.length > 0 && 
+<>
+        <Add>
+          <MainHeading>On-Going Diaries</MainHeading>
+        
+       
+        </Add>
+
+        <DiaryHolder>
+          {diaryOnGoingList?.map((d) => {
+            return (
+              <Diary
+              to={`/overview/${d.DiaryId}`}
+              >
+                <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
+                 
+              
+                </DiaryImageHolder>
+
+                <DiaryTextHolder>
+      
+                  <DiaryText>{d?.Title} </DiaryText>
+                  <Tag> {d?.UserName}</Tag>
+                    <Tag> {d?.Strain}</Tag>
+
+                 
+                 
+                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+            
+                </DiaryTextHolder>
+              
+              </Diary>
+            );
+          })}
+        </DiaryHolder>
+
+</>
+}
+{diaryHavestList.length > 0 && 
+<>
+
+
         <Add>
         <MainHeading>Havested</MainHeading>
         </Add>
 
         <DiaryHolder>
-          {diaryHavestList?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+          {diaryHavestList?.map((d) => {
             return (
               <Diary
               to={`/overview/${d.DiaryId}`}
@@ -295,6 +431,7 @@ const Diaries = () => {
             );
           })}
         </DiaryHolder>
+        </>}
 
       </Inner>
     </Root>

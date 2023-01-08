@@ -243,24 +243,7 @@ const AddDiary = (props) => {
 
               </div>
 
-              <div>
-
-
-<Input
-  id="roomType"
-  label="Room Type"
-  value={roomType}
-  variant="outlined"
-  required
-  onChange={(e, child) => { handleRoomTypeChange(e, child) }}
-  select>
-  <MenuItem value="Indoor">Indoor</MenuItem>
-  <MenuItem value="Green House">Green House</MenuItem>
-  <MenuItem value="Outdoor">Outdoor</MenuItem>
-  <MenuItem value="Hydroponics">Hydroponics</MenuItem>
-</Input>
-
-</div>
+        
             </InputHolderTop>
           </FormHeadingGroup>
           <InputHolder>
@@ -293,7 +276,24 @@ const AddDiary = (props) => {
 {type !== "" && 
 <>
 
+<div>
 
+
+<Input
+  id="roomType"
+  label="Room Type"
+  value={roomType}
+  variant="outlined"
+  required
+  onChange={(e, child) => { handleRoomTypeChange(e, child) }}
+  select>
+  <MenuItem value="Indoor">Indoor</MenuItem>
+  <MenuItem value="Green House">Green House</MenuItem>
+  <MenuItem value="Outdoor">Outdoor</MenuItem>
+  <MenuItem value="Hydroponics">Hydroponics</MenuItem>
+</Input>
+
+</div>
 
 {roomType !== "Hydroponics" &&
 <>
