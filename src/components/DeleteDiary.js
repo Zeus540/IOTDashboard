@@ -108,7 +108,7 @@ const DeleteDiary = (props) => {
         Are you sure you want to delete <br/> {props.Diary.Title} ?
       </Heading>
       <Text>
-        Warning this action will deleted all information relating to {props.Diary.Title} <br/> this action is irreversible !
+        Warning this action will delete all information relating to {props.Diary.Title} <br/> this action is irreversible !
       </Text>
       
       <InnerHolder>

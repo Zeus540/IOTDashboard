@@ -44,11 +44,14 @@ max-height: 80vh;
 
 background: white;
 border-radius: 5px;
-width:20%;
+min-width:20%;
 overflow:auto;
 
-@media (max-width: 768px) {
+@media (max-width:425px) {
   width: 90%;
+}
+@media (min-width: 426px) and (max-width: 970px) {
+  width: 60%;
 }
 `;
 const InputHolder = styled.div`
@@ -57,7 +60,7 @@ padding: 20px 15px;
 `;
 const InputHolderType = styled.div`
 display: flex;
-
+flex-wrap: wrap;
 `;
 
 const TypeBlock = styled.div`
@@ -198,11 +201,11 @@ const AddDiary = (props) => {
 
       <Form onSubmit={handleSubmit}>
          
-{/* 
+
       <FormHeadingGroup>
       <FormHeading>New Diary</FormHeading>
  
-        </FormHeadingGroup> */}
+        </FormHeadingGroup>
         <InputHolder>
         <FormHeading>Type of Diary</FormHeading>
         <InputHolderType>

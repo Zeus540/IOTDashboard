@@ -157,3 +157,18 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+
+
+/* smartphones, touchscreens */
+@media (hover: none) and (pointer: coarse) {
+  form::-webkit-scrollbar-thumb {
+    background: #275557b6;
+    background: #ab5350 ;
+  border-radius: 50px;
+  }
+  
+  form::-webkit-scrollbar {
+    width: 0px;
+    height: 10px;
+  }
+}
