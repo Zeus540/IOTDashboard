@@ -163,25 +163,27 @@ const SearchType = styled.div`
   border-radius: 5px 5px 0px 0px;
   cursor: pointer;
   @media (max-width: 425px) {
-    padding:20px;
-   
+    padding:0px;
+    margin-bottom: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 20px;
-  
+    padding: 0px;
+    margin-bottom: 0px;
   }
 `;
 const SearchTypeBlock = styled.div`
 padding: 10px 20px;
 
 
-
+:nth-child(1){
+  border-radius: 5px 0px 0px 0px;
+}
   @media (max-width: 425px) {
-    padding:20px;
+    padding:10px;
    
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 20px;
+    padding: 10px;
   
   }
 `;
@@ -190,14 +192,16 @@ const SearchTypeBlockActive = styled.div`
 padding: 10px 20px;  
 color: white;
 background:#8bab50;
-  @media (max-width: 425px) {
-    padding:20px;
-   
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    padding: 20px;
-  
-  }
+:nth-child(1){
+  border-radius: 5px 0px 0px 0px;
+}
+@media (max-width: 425px) {
+  padding:10px;
+ 
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  padding: 10px;
+
 `;
 
 const Button = styled.button`
