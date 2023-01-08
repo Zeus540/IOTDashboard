@@ -39,11 +39,12 @@ const Root = styled.div`
 
 const Inner = styled.div`
   max-width: 1770px;
-  border-radius: 0px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
   width: 100%;
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
+    margin: 80px auto;
   @media (max-width: 425px) {
     margin: 0px;
     padding-top: 0px;
@@ -109,14 +110,15 @@ padding-left: 0px;
 
 
 const RightFlexHolder = styled.div`
-min-width: 50%;
+max-width: 50%;
+width: 100%;
 @media (max-width: 425px) {
   margin: 0px auto;
   padding: 0px 0px;
   width: 90%;
   margin-top: -70px;
   border-radius: 5px;
-  
+  max-width: unset;
 }
 @media (min-width: 426px) and (max-width: 768px) {
   margin: 0px auto;
@@ -124,7 +126,7 @@ min-width: 50%;
   width: 90%;
   margin-top: -70px;
   border-radius: 5px;
-  
+  max-width: unset;
 }
 `
 ;
@@ -207,7 +209,7 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: #596876;
+background: #d9e1e2;
 cursor: pointer;
 opacity: 0.5;
 display: flex;
@@ -286,7 +288,7 @@ background-image: ${props => `url(${props.img})`};
   max-width: 50%;
   width: 100%;
   margin: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
 
   @media (max-width: 425px) {
     max-width: unset;
@@ -431,14 +433,15 @@ const GalleryImageOverlay = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  flex-direction: row-reverse;
+}
   top: 0;
   z-index: 40;
-  color: white;
+  color: black;
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #596876;
+  background: #d9e1e2;
 `;
 
 const GalleryHolderInnerMain = styled.div`
@@ -450,13 +453,13 @@ const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
 position: absolute;
-background: #596876;
+background: #8bab50;
 padding: 10px;
 color: white;
 z-index: 2;
-opacity: 0.8;
+
 display: flex;
-border-radius: 50px;
+border-radius: 5px;
 transform: translate(0%, -50%);
 transition: all 0.2s ease;
     top: 50%;
@@ -468,14 +471,14 @@ transition: all 0.2s ease;
 
 const GalleryBack = styled.div`
 left: 10px;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 position: absolute;
-background: #596876;
+background: #8bab50;
 padding: 10px;
 color: white;
 z-index: 2;
-opacity: 0.8;
+
 display: flex;
 transform: translate(0%, -50%);
 transition: all 0.2s ease;
@@ -556,7 +559,7 @@ padding: 5px 25px;
 
 background: #8bab50;
 border: none;
-color: black;
+color: white;
 border-radius: 50px;
 cursor: pointer;
 `;
@@ -668,7 +671,7 @@ text-align: center;
 
 `;
 const HelperBtnText = styled.p`
-color: black;
+color: white;
 padding: 5px 10px;
 margin: 0;
 `;
@@ -702,7 +705,7 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 background: #8bab50;
-color: black;
+color: white;
 border-radius: 50px;
 cursor: pointer;
 
@@ -744,7 +747,7 @@ color: #ffffff;
 
 
 const ButtonUpload = styled.button`
-padding: 5px 25px;
+padding: 2px 20px;
 background:#8bab50;
 color: white;
 border: none;
@@ -753,6 +756,8 @@ cursor: pointer;
 margin: 0px 17px;
 margin-bottom : 17px;
 float: right;
+display: flex;
+align-items: center;
 `;
 
 
@@ -844,12 +849,10 @@ padding: 5px 20px;
     width: fit-content;
     border: none;
     background: #8bab50;
-    color: black;
+    color: white;
     border-radius: 50px;
     cursor: pointer;
-;
     margin: 0px 10px;
-    margi
     transition: 0.5s all ease;
 `
 
@@ -1494,7 +1497,7 @@ if(positionIndex > 0){
           {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
         </IntroHolder>
-          {activeWeek !== "" && 
+          {techniques.length > 0  && 
           <TextHolder>
               <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
         <QuickActionBlockFlex>
@@ -1741,6 +1744,8 @@ if(positionIndex > 0){
   {activeWeek &&  userId?.UserId == activeDiary?.UserId &&
   <ButtonUpload onClick={()=>{HandleImageUpload()}}>
         <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></SvgB>
+        <HelperBtnText>Upload</HelperBtnText>
+        
         </ButtonUpload>
   }
        <GalleryHolderInnerMain>
@@ -1762,10 +1767,10 @@ if(positionIndex > 0){
                   <GalleryImageOverlay>
                 
                 
-                  <div>
+             
                     <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
                     <div> Date : {img?.Date} </div>
-                  </div>
+              
                 
                       </GalleryImageOverlay>
               </GalleryImageHolderFlex>

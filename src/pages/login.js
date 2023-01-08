@@ -9,7 +9,7 @@ import axios from "axios"
 import { NavLink } from "react-router-dom";
 
 const Root = styled.div`
-background:#27555726;
+
 
 padding-top: 0px;
 color:white;

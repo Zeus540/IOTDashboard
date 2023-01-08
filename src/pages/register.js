@@ -8,7 +8,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "axios"
 
 const Root = styled.div`
-background:#27555726;
+//background:#27555726;
 
 padding-top: 0px;
 color:white;

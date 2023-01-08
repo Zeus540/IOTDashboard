@@ -59,11 +59,12 @@ const Heading = styled.h4`
 const Inner = styled.div`
 
   max-width: 1770px;
-  border-radius: 0px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
   width: 100%;
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
+  margin: 80px auto;
   @media (max-width: 425px) {
 
   }

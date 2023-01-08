@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 const Root = styled.div`
 margin: 0px;
-background:#596876;
-color:white;
-padding: 10px 15px;
+    background: #ffffff;
+    color: black;
+    padding: 10px 15px;
+    box-shadow:  0px 0px 20px #00000012;
+    position: relative;
 `;
 
 const Inner = styled.div`
@@ -20,11 +22,16 @@ const Inner = styled.div`
     flex-direction: row-reverse;
   }
 `;
+
+const LegalText = styled.p`
+margin: 5px;
+`;
+
 const Footer = () => {
   return (
     <Root>
         <Inner>
-        <p>&copy; 2023 Copyright - SweetLeaf</p>
+        <LegalText>&copy; 2023 Copyright - SweetLeaf</LegalText>
     </Inner>
     </Root>
   )

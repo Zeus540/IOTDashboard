@@ -35,15 +35,17 @@ margin: 80px auto;
 width: 100%;
 @media (max-width: 425px) {
   margin: 20px;
-  padding: 0px;
+  padding: 20px 0px;
   border-radius: 5px;
   width: unset;
+  padding-top: 0px;
 }
 @media (min-width: 426px) and (max-width: 768px) {
   margin: 20px;
-  padding: 0px;
+  padding: 20px 0px;
   border-radius: 5px;
   width: unset;
+  padding-top: 0px;
 }
 `;
 
@@ -79,8 +81,8 @@ const Add = styled.div`
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #596876;
-  color: white;
+  background: #8bab50;
+  color: black;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -88,9 +90,9 @@ const Button = styled.button`
 `;
 const ButtonA = styled.button`
   padding: 5px 25px;
-  background: #596876;
+  background: #8bab50;
   margin-right: 0px;
-  color: white;
+  color: black;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -326,7 +328,7 @@ const Devices = () => {
                  
    
               <FormHeadingGroup>
-              <FormHeading>Lets Get You Setup</FormHeading>
+              <FormHeading>Add Device</FormHeading>
          
                 </FormHeadingGroup>
                 <InputHolder>

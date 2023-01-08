@@ -56,11 +56,12 @@ const Heading = styled.h4`
 const Inner = styled.div`
 
   max-width: 1770px;
-  border-radius: 0px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
   width: 100%;
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
+  margin: 80px auto;
   @media (max-width: 425px) {
 
   }
@@ -72,7 +73,7 @@ const Inner = styled.div`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: black;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -81,13 +82,13 @@ const TextHolderGroup2 = styled.div`
   align-items: center;
   justify-content: center;
   color: #8bab50;
-  background: #596876;
-  padding: 15px 15px;
-  line-height: 25px;
-  margin: 15px;
+  background: ghostwhite;
+  padding: 10px ;
+  line-height: 20px;
+  margin: 10px;
   border-radius: 5px;
-  min-width: calc(100% / 5 - 60px);
-  max-width: calc(100% / 5 - 60px);
+  min-width: calc(100% / 5 - 40px);
+  max-width: calc(100% / 5 - 40px);
   @media (max-width: 425px) {
     min-width: calc(100% / 2 - 50px);
     padding: 10px;
@@ -254,7 +255,7 @@ const Stats = () => {
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
-          <img src={IndoorIcon} width='50px'/>
+          {/* <img src={IndoorIcon} width='50px'/> */}
           <TextHolderGroup2Inner>
        
       

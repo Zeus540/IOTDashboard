@@ -230,10 +230,10 @@ const Diaries = () => {
 
 
   const handleAddPopUp = (d) => {
-    if (popUpOffset == -100) {
+    if (popUpOffset == -101) {
       setPopUpOffset(0);
     } else {
-      setPopUpOffset(-100);
+      setPopUpOffset(-101);
     }
   };
 

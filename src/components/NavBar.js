@@ -9,11 +9,13 @@ import { ThemeProvider } from 'styled-components';
 
 const Root = styled.div`
   background-color: #596876;
-  
+  background-color:   #ffffff;
+
   display: flex;
   justify-content: center;
   position: sticky;
-  box-shadow: 0px 0px 11px -5px #060d0e;
+  box-shadow:  0px 0px 20px #00000012;
+
   top: 0;
   z-index: 50;
   padding-right: 0px;
@@ -32,21 +34,24 @@ const Inner = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 767px) {
-    flex-direction: row-reverse;
-  }
 `;
 
 const LogoHolder = styled.div`
   width: 140px;
   margin-left:15px;
+
   @media (max-width: 767px) {
     margin-left:0px;
+    width: 130px;
   }
 `;
+const Img = styled.img`
+filter: drop-shadow(2px 2px 0px #00000066);
+`;
+
 const LogoHolderText = styled.span`
 
-color: white;
+color: black;
 font-size: 12px;
 margin-top: -16px;
 display: block;
@@ -67,37 +72,33 @@ const LinkHolderMobile = styled.div`
   position: fixed;
   background: ghostwhite;
   left: 0;
-  min-width: 50%;
-  top:0px;
+  min-width: 15%;
+  bottom:0px;
   flex-direction: column;
   transition: 0.5s all ease;
   transform: ${(props) => !props.mobileMenu ? "translateX(-101%)":"translateX(0%)"};
   justify-content: space-between;
-  min-height: calc(100vh );
-  @media (min-width: 768px) {
-    display: none;
+  min-height: calc(100vh - 60px );
+  @media (min-width: 0px) and (max-width: 767px) {
+    min-height: calc(100vh - 54px );
   }
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
-  padding: 16px 30px;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  color: white;
+  padding: 16px 10px;
+
+  color: black;
   align-items: center;
   text-decoration: none;
   display: flex;
-  &:hover {
-    border-bottom: 4px solid #8bab50;
-  
-  }
+ 
 
 `;
 
 const Svg = styled.svg`
 width:20px;
-fill:white;
-margin-right: 20px;
+fill:#8bab50;
+margin-right: 10px;
 `;
 const MenuLinkActive = styled(NavLink)`
   margin: 0px 0px;
@@ -121,10 +122,7 @@ const MenuLinkMobile = styled(NavLink)`
   &:hover {
     border-bottom: 4px solid #8bab50;
   }
-   &:nth-child(even) {
-    background: #596876;
-    color: white!important;
-   }
+
 `;
 const MenuLinklogo = styled(NavLink)`
   margin: 0px 0px;
@@ -173,9 +171,7 @@ display: flex;
 `;
 const BurgerMenuHolder = styled.div`
 
-  @media (min-width: 768px) {
-    display: none;
-  }
+
 `;
 
 const BurgerMenu = styled.div`
@@ -185,6 +181,7 @@ display: flex;
 const FlexLink = styled.div`
   display: flex;
   align-items: center;
+  padding:0px 20px
 `;
 
 const Pattie = styled.div`
@@ -240,9 +237,16 @@ fill: white;
 width: 25px;
 `;
 const SvgWMenu = styled.svg`
-padding-right: 20px;
-fill: white;
+padding-left: 20px;
+fill: #8bab50;
 width: 25px;
+position: absolute;
+z-index: 5;
+top: 50%;
+transform: translate(0%, -50%);
+@media (max-width: 425px) {
+ 
+}
 `;
 
 
@@ -267,11 +271,11 @@ const theme = {
       OffClick();
     }}>
       <Inner>
-      <BurgerMenuHolder>
-          <BurgerMenu
-            onClick={() => {
+      <BurgerMenuHolder onClick={() => {
               setMobileMenu(!mobileMenu);
-            }}
+            }}>
+          <BurgerMenu
+            
           >
          <SvgWMenu xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M624.6 325.2c-12.3-12.4-29.7-19.2-48.4-17.2-43.3-1-49.7-34.9-37.5-98.8 22.8-57.5-14.9-131.5-87.4-130.8-77.4.7-81.7 82-130.9 82-48.1 0-54-81.3-130.9-82-72.9-.8-110.1 73.3-87.4 130.8 12.2 63.9 5.8 97.8-37.5 98.8-21.2-2.3-37 6.5-53 22.5-19.9 19.7-19.3 94.8 42.6 102.6 47.1 5.9 81.6-42.9 61.2-87.8-47.3-103.7 185.9-106.1 146.5-8.2-.1.1-.2.2-.3.4-26.8 42.8 6.8 97.4 58.8 95.2 52.1 2.1 85.4-52.6 58.8-95.2-.1-.2-.2-.3-.3-.4-39.4-97.9 193.8-95.5 146.5 8.2-4.6 10-6.7 21.3-5.7 33 4.9 53.4 68.7 74.1 104.9 35.2 17.8-14.8 23.1-65.6 0-88.3zm-303.9-19.1h-.6c-43.4 0-62.8-37.5-62.8-62.8 0-34.7 28.2-62.8 62.8-62.8h.6c34.7 0 62.8 28.1 62.8 62.8 0 25-19.2 62.8-62.8 62.8z"/></SvgWMenu>
           </BurgerMenu>
@@ -281,7 +285,7 @@ const theme = {
 
         <MenuLinklogo to="/">
           <LogoHolder>
-            <img src={Logo} width="100%" />
+            <Img src={Logo} width="100%" />
             <LogoHolderText>Master Your Grow</LogoHolderText>
           </LogoHolder>
         </MenuLinklogo>
@@ -289,30 +293,17 @@ const theme = {
         <LinkHolder>
           {!auth && (
             <>
-              {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
-
-            
-              <MenuLink to="/public-diaries" >Public Diaries</MenuLink>
               <MenuLink to="/login"> <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></Svg>Login</MenuLink>
-              {/* <MenuLink to="/register">Register</MenuLink> */}
-              {/* <MenuLink to="gallery">Gallery</MenuLink> */}
-              {/* <Button>Log Out</Button> */}
+              <MenuLink to="/register"> 
+              <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></Svg>Sign Up</MenuLink>
             </>
           )}
           {auth && (
-            <>
-              {/* <MenuLink to="dashboard">DashBoard</MenuLink> */}
-             
-              <MenuLink to="/public-diaries" >Public Diaries</MenuLink>
-              <MenuLink to="/diaries">My Diaries</MenuLink>
-              <MenuLink to="/my-devices">My Devices</MenuLink>
-         
+            <> 
               <Button onClick={()=>{logOut()}}>
               <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M534.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L434.7 224 224 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM192 96c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-53 0-96 43-96 96l0 256c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></SvgW>
               </Button>
-              
-              {/* <MenuLink to="gallery">Gallery</MenuLink> */}
-              {/* <Button>Log Out</Button> */}
+
             </>
           )}
         </LinkHolder>
@@ -325,43 +316,39 @@ const theme = {
 
             <LinkHolderMobile mobileMenu={mobileMenu}>
              
-      <LinkHolderM >
-
     
-      {auth && 
-  <>
-       
-       <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
-                <FlexLink>
-                 
-                  <IconB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></IconB>
-                  
-                  <div>Public Diaries</div>
-                </FlexLink>
-              </MenuLinkMobile>
 
-                <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
-                <FlexLink>
-                <IconW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></IconW>
-                  <div>My Diaries</div>
-                </FlexLink>
-              </MenuLinkMobile>
+     
+             <section>
+             <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
+                     <FlexLink>
+                     
+                       <div>Home</div>
+                     </FlexLink>
+                   </MenuLinkMobile>
 
-              <MenuLinkMobile to="/my-devices" onClick={() => { setMobileMenu(false); }}>
-                <FlexLink>
-                <IconB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M176 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64c-35.3 0-64 28.7-64 64H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64c0 35.3 28.7 64 64 64v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448c35.3 0 64-28.7 64-64h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V280h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V176h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H280V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H176V24zM160 128H352c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32zm192 32H160V352H352V160z"/></IconB>
-                  <div>My Devices</div>
-                </FlexLink>
-              </MenuLinkMobile>
-  </>
+                 {auth && 
+                  <>
+                   <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
+                   <FlexLink>
+                   
+                     <div>My Diaries</div>
+                   </FlexLink>
+                 </MenuLinkMobile>
+
+                 <MenuLinkMobile to="/my-devices" onClick={() => { setMobileMenu(false); }}>
+                   <FlexLink>
+                   
+                     <div>My Devices</div>
+                   </FlexLink>
+                 </MenuLinkMobile>
+                  </>
+                 }
+             </section>
+                {!auth && 
+
               
 
-         }
-
-            
-      </LinkHolderM>
-
-                {!auth && 
             <LinkHolderM>
                 <MenuLinkMobile to="/login" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
@@ -384,6 +371,9 @@ const theme = {
          }
           
              {auth && 
+
+
+
                 <UserInfoHolder> 
                 <UserInfo>
                   <UserAvatar>
@@ -391,8 +381,8 @@ const theme = {
                   </UserAvatar>
                {user?.User}
                 </UserInfo>
-                <div>
-                <ButtonM onClick={()=>{logOut()}}>
+                <div onClick={()=>{logOut()}}>
+                <ButtonM >
                 <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M534.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L434.7 224 224 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM192 96c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-53 0-96 43-96 96l0 256c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></SvgW>
                 </ButtonM>
                 </div>
