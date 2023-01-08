@@ -6,7 +6,8 @@ import { NavLink } from "react-router-dom";
 import Chip from "../assets/chip.png";
 import Journal from "../assets/journalW.png";
 import { ThemeProvider } from 'styled-components';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 const Root = styled.div`
   background-color: #596876;
   background-color:   #ffffff;
@@ -79,15 +80,15 @@ const LinkHolderMobile = styled.div`
   position: fixed;
   background: ghostwhite;
   left: 0;
-  min-width: 15%;
+  min-width: 10%;
   bottom:0px;
   flex-direction: column;
   transition: 0.5s all ease;
   transform: ${(props) => !props.mobileMenu ? "translateX(-101%)":"translateX(0%)"};
   justify-content: space-between;
-  min-height: calc(100vh - 60px );
+  min-height: 100vh ;
   @media (min-width: 0px) and (max-width: 767px) {
-    min-height: calc(100vh - 54px );
+   
   }
 `;
 const MenuLink = styled(NavLink)`
@@ -215,6 +216,15 @@ const LinkHolderM = styled.div`
 display: flex;
 flex-direction: column;
 `;
+const LinkHolderMLogin = styled.div`
+display: flex;
+flex-direction: column;
+@media (min-width: 768px){
+  
+  display:none
+}
+`;
+
 const UserInfoHolder = styled.div`
 display: flex;
 justify-content: space-between;
@@ -245,17 +255,41 @@ const SvgW = styled.svg`
 fill: white;
 width: 25px;
 `;
+
+const Close = styled.p`
+color:#ff0000;
+margin: 0px;
+`;
+const CloseHolder = styled(NavLink)`
+color:#ff0000;
+margin: 0px;
+padding-top: 20px;
+@media (min-width: 2146px){
+  display:none
+
+}
+`;
 const SvgWMenu = styled.svg`
 
 fill: #929292;
 width: 20px;
-position: absolute;
-z-index: 5;
-top: 50%;
-transform: translate(0%, -50%);
-@media (max-width: 425px) {
-  padding-left: 20px;
+padding-left: 20px;
+
+
+@media (max-width: 768px){
+  
+
 }
+`;
+
+const SvgWMenuDraw = styled.svg`
+
+fill: #929292;
+width: 20px;
+padding-left: 20px;
+
+
+
 `;
 
 
@@ -336,6 +370,13 @@ const theme = {
      
              <section>
              <LinkHolderM>
+             <CloseHolder to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
+                     
+                     
+             <SvgWMenuDraw xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></SvgWMenuDraw>
+                    
+                   </CloseHolder>
+        
              <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
                      <FlexLink>
                      
@@ -364,11 +405,11 @@ const theme = {
             
              </section>
 
-                {/* {!auth && 
+                {!auth && 
 
               
 
-            <LinkHolderM>
+            <LinkHolderMLogin>
                 <MenuLinkMobile to="/login" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
                   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></Svg>
@@ -382,8 +423,8 @@ const theme = {
                     <div>Sign Up</div>
                   </FlexLink>
                 </MenuLinkMobile>
-            </LinkHolderM>
-         } */}
+            </LinkHolderMLogin>
+         }
           
              {auth && 
 

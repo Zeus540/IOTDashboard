@@ -228,11 +228,12 @@ margin: 0px;
 
 const Diaries = () => {
   const { diariesPublic,UpdatePublic,loading } = useContext(DiaryContext);
+  const [diaryList, setDiaryList] = useState(diariesPublic);
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
   const [diaryMostViewedList, setDiaryMostViewedList] = useState([]);
   const [diaryTypes, setDiaryTypes] = useState([]);
-  const [diaryActiveType, setDiaryActiveType] = useState("");
+  const [diaryActiveType, setDiaryActiveType] = useState("All");
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -282,12 +283,23 @@ const Diaries = () => {
   
 
 const setFilter =(type)=>{
-console.log(type)
-setDiaryActiveType(type)
-let list = diariesPublic.filter((d)=> d.Type == type)
-setDiaryHavestList(list?.filter((d)=> d.HavestId !== null))
-setDiaryOnGoingList(list.filter((d)=> d.HavestId == null))
-setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
+
+
+if(type == "All"){
+
+  setDiaryActiveType(type)
+  setDiaryHavestList(diariesPublic.filter((d)=> d.HavestId !== null))
+  setDiaryOnGoingList(diariesPublic.filter((d)=> d.HavestId == null))
+  setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+  
+}else{
+  setDiaryActiveType(type)
+  let list = diariesPublic.filter((d)=> d.Type == type)
+  setDiaryHavestList(list?.filter((d)=> d.HavestId !== null))
+  setDiaryOnGoingList(list.filter((d)=> d.HavestId == null))
+  setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
+  
+}
 
 }
 
@@ -304,6 +316,17 @@ setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
       <Inner>
       <SearchType>
         {console.log("diaryActiveType",diaryActiveType)}
+        {diaryActiveType == "All" ? 
+    
+    <SearchTypeBlockActive onClick={()=>{setFilter("All")}}>
+    All
+    </SearchTypeBlockActive>
+  :
+  <SearchTypeBlock onClick={()=>{setFilter("All")}}>
+All
+  </SearchTypeBlock>
+
+  }
       {diaryTypes.map((d)=>{
   return(
     <>
