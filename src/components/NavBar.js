@@ -179,7 +179,7 @@ display: flex;
 }
 `;
 const BurgerMenuHolder = styled.div`
-
+cursor: pointer;
 
 `;
 
@@ -190,7 +190,7 @@ display: flex;
 const FlexLink = styled.div`
   display: flex;
   align-items: center;
-  padding:0px 20px
+
 `;
 
 const Pattie = styled.div`
@@ -246,15 +246,15 @@ fill: white;
 width: 25px;
 `;
 const SvgWMenu = styled.svg`
-padding-left: 20px;
-fill: #8bab50;
-width: 25px;
+
+fill: #929292;
+width: 20px;
 position: absolute;
 z-index: 5;
 top: 50%;
 transform: translate(0%, -50%);
 @media (max-width: 425px) {
- 
+  padding-left: 20px;
 }
 `;
 
@@ -335,6 +335,7 @@ const theme = {
 
      
              <section>
+             <LinkHolderM>
              <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
                      <FlexLink>
                      
@@ -342,7 +343,7 @@ const theme = {
                      </FlexLink>
                    </MenuLinkMobile>
 
-                 {auth && 
+                   {auth && 
                   <>
                    <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
                    <FlexLink>
@@ -359,31 +360,30 @@ const theme = {
                  </MenuLinkMobile>
                   </>
                  }
+                   </LinkHolderM>
+            
              </section>
-                {!auth && 
+
+                {/* {!auth && 
 
               
 
             <LinkHolderM>
                 <MenuLinkMobile to="/login" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
-                    {/* <Icon>
-                        <img src={Chip} width="100%" />
-                      </Icon> */}
+                  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></Svg>
                     <div>Login</div>
                   </FlexLink>
                 </MenuLinkMobile>
 
                 <MenuLinkMobile to="/register" onClick={() => { setMobileMenu(false); }}>
                   <FlexLink>
-                    {/* <Icon>
-                        <img src={Chip} width="100%" />
-                      </Icon> */}
-                    <div>Register</div>
+                  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></Svg>
+                    <div>Sign Up</div>
                   </FlexLink>
                 </MenuLinkMobile>
             </LinkHolderM>
-         }
+         } */}
           
              {auth && 
 
