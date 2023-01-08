@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
@@ -11,6 +11,7 @@ import Cannabis from "../assets/sweetleaf-icons/cannabis.png";
 import Mushrooms from "../assets/sweetleaf-icons/mushroom.png";
 import Veg from "../assets/sweetleaf-icons/vegetables.png";
 
+import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
@@ -19,6 +20,11 @@ const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
 `;
+const InputTop = styled(TextField)`
+margin-bottom: 10px;
+width: 100%;
+`;
+
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 20px;
@@ -56,11 +62,22 @@ overflow:auto;
 `;
 const InputHolder = styled.div`
 padding: 20px 15px;
-
+padding-top: 0px;
 `;
+const InputHolderTop = styled.div`
+padding: 10px 0px;
+padding-bottom: 0px;
+`;
+
 const InputHolderType = styled.div`
 display: flex;
 flex-wrap: wrap;
+margin-bottom: 10px;
+`;
+const Error = styled.p`
+margin: 0px;
+font-size: 12px;
+color: red;
 `;
 
 const TypeBlock = styled.div`
@@ -103,210 +120,254 @@ const Button = styled.button`
   cursor: pointer;
 `;
 const AddDiary = (props) => {
-    
-    const { diaries,Update,loading } = useContext(DiaryContext);
-    const [diaryList, setDiaryList] = useState([]);
-    const [type, setType] = useState("");
-    const [popUpOffset, setPopUpOffset] = useState(-100);
-    const navigate = useNavigate();
-    const { auth,authToken,userId,user } = useContext(AuthContext);
-  
-  
-  
 
-    const addDiary = (values)=>{
-   
+  const { diaries, Update, loading } = useContext(DiaryContext);
+  const [diaryList, setDiaryList] = useState([]);
+  const [type, setType] = useState("");
+  const [roomType, setRoomType] = useState("");
+  const [errorType, setErrorType] = useState(false);
+  
+  const [popUpOffset, setPopUpOffset] = useState(-100);
+  const navigate = useNavigate();
+  const { auth, authToken, userId, user } = useContext(AuthContext);
 
-        values.userId = userId?.UserId
-        values.UserName = user?.User
-        values.Type = type
 
-        console.log("values",values);
-        let config = {
-          headers: {
-            authorization: 'Bearer ' + authToken,
-          }
+
+
+  const addDiary = (values) => {
+
+
+    values.userId = userId?.UserId
+    values.UserName = user?.User
+    values.Type = type
+
+    console.log("values", values);
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+
+    axios.post('https://api.sweetleaf.co.za/diaries/add', values, config,)
+      .then(function (response) {
+        if (response.data.insertId !== undefined) {
+          Update()
+          props.setPopUpOffset(-101);
         }
-        
-        axios.post('https://api.sweetleaf.co.za/diaries/add',values,config,)
-        .then(function (response) {
-          if(response.data.insertId !== undefined){
-            Update()
-            props.setPopUpOffset(-101);
-          }
-         
-          console.log("response",response.data.insertId);
-        })
-        .catch(function (error) {
-      
-          console.log(error);
-        })
-     
-      }
 
-      const handleType = (type)=>{
-        setType(type)
-      }
+        console.log("response", response.data.insertId);
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+
+  }
+
+  const handleType = (type) => {
+    if(errorType == true){
+      setErrorType(false)
+    }
+    setType(type)
+  
+  }
+
+  let types = [
+    {
+      type: 'Cannabis',
+      img: Cannabis,
+    },
+    {
+      type: 'Mushrooms',
+      img: Mushrooms,
+    },
+    {
+      type: 'Fruits & Veg',
+      img: Veg,
+    },
+  ]
 
 
-      let types = [
-        {
-          type:'Cannabis',
-          img:Cannabis,
-        },
-        {
-          type:'Mushrooms',
-          img:Mushrooms,
-        },
-        {
-          type:'Fruit & Veg',
-          img:Veg,
-        },
-      ]
+  const handleRoomTypeChange = (e, child) => {
+
+    setRoomType(e.target.value)
+    setErrorType(false)
+  }
 
   return (
-   
+
     <Formik
-    initialValues={{ title: "", roomType: "", userId:userId?.UserId }}
-    // validate={(values) => {
-    //   const errors = {};
-    //   if (!values.email) {
-    //     errors.email = "Required";
-    //   } else if (
-    //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-    //       values.email
-    //     )
-    //   ) {
-    //     errors.email = "Invalid email address";
-    //   }
-    //   return errors;
-    // }}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
+      initialValues={{ title: "", roomType: roomType, userId: userId?.UserId }}
+      
+      onSubmit={(values, { setSubmitting }) => {
+        console.log("type",type)
+        setTimeout(() => {
+       if(type == ""){
+        setErrorType(true)
+       }else{
         addDiary(values)
         setSubmitting(false);
-      }, 400);
-    }}
-  >
-    {({
-      values,
-      errors,
-      touched,
-      handleChange,
-      handleBlur,
-      handleSubmit,
-      isSubmitting,
-      /* and other goodies */
-    }) => (
-
-      <Form onSubmit={handleSubmit}>
-         
-
-      <FormHeadingGroup>
-      <FormHeading>New Diary</FormHeading>
- 
-        </FormHeadingGroup>
-        <InputHolder>
-        <FormHeading>Type of Diary</FormHeading>
-        <InputHolderType>
-
-
-         {types.map((t)=>{
-          return(
-          <>
-            {type == t.type ?
-            <TypeBlockActive >
-            <TypeBlockImg src={t.img} width="100%"/>
-            <TypeBlockText>{t.type}</TypeBlockText>
-           </TypeBlockActive>:
-            <TypeBlock onClick={()=>{handleType(t.type)}}>
-            <TypeBlockImg src={t.img} width="100%"/>
-            <TypeBlockText>{t.type}</TypeBlockText>
-           </TypeBlock>
-           }
-          </>
-                   
-          )
-         })}
-         
-        </InputHolderType>
-
-        <div>
-          <Input
-            id="title"
-            label="Title"
-            type="title"
-            variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          
-        </div>
-        
-        <div>
-          <Input
-            id="roomType"
-            label="Room Type"
-            type="roomType"
-                variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="potSize"
-            label="Pot Size"
-            type="potSize"
-                variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="strain"
-            label="Strain"
-            type="strain"
-                variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-        <div>
-          <Input
-            id="lightSchedule"
-            label="Light Schedule"
-            type="lightSchedule"
-                variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div>
-          <Input
-            id="lightWattage"
-            label="Light Wattage"
-            type="lightWattage"
-                variant="outlined" 
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-
-     
-
       
-        <Button type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
-        </InputHolder>
-      </Form>
-    )}
-  </Formik>
+       }
+
+        }, 400);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        /* and other goodies */
+      }) => (
+
+        <Form onSubmit={handleSubmit}>
+
+
+          <FormHeadingGroup>
+            <FormHeading>New Diary</FormHeading>
+            <InputHolderTop>
+              <div>
+                <InputTop
+                  id="title"
+                  label="Title"
+                  type="title"
+                  variant="outlined"
+                  required
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+
+              </div>
+
+              <div>
+
+
+<Input
+  id="roomType"
+  label="Room Type"
+  value={roomType}
+  variant="outlined"
+  required
+  onChange={(e, child) => { handleRoomTypeChange(e, child) }}
+  select>
+  <MenuItem value="Indoor">Indoor</MenuItem>
+  <MenuItem value="Green House">Green House</MenuItem>
+  <MenuItem value="Outdoor">Outdoor</MenuItem>
+  <MenuItem value="Hydroponics">Hydroponics</MenuItem>
+</Input>
+
+</div>
+            </InputHolderTop>
+          </FormHeadingGroup>
+          <InputHolder>
+            <FormHeading>Type of Diary</FormHeading>
+        {errorType &&   <Error>Select a Type</Error>}
+            <InputHolderType>
+
+
+              {types.map((t) => {
+                return (
+                  <>
+                    {type == t.type ?
+                      <TypeBlockActive >
+                        <TypeBlockImg src={t.img} width="100%" />
+                        <TypeBlockText>{t.type}</TypeBlockText>
+                      </TypeBlockActive> :
+                      <TypeBlock onClick={() => { handleType(t.type) }}>
+                        <TypeBlockImg src={t.img} width="100%" />
+                        <TypeBlockText>{t.type}</TypeBlockText>
+                      </TypeBlock>
+                    }
+                  </>
+
+                )
+              })}
+
+
+            </InputHolderType>
+          
+{type !== "" && 
+<>
+
+
+
+{roomType !== "Hydroponics" &&
+<>
+<div>
+<Input
+  id="potSize"
+  label="Pot Size"
+  type="potSize"
+  variant="outlined"
+  onChange={handleChange}
+  onBlur={handleBlur}
+/>
+</div>
+
+</>
+}
+
+
+
+<div>
+<Input
+  id="strain"
+  label="Strain"
+  type="strain"
+  required
+  variant="outlined"
+  onChange={handleChange}
+  onBlur={handleBlur}
+/>
+</div>
+
+
+{roomType !== "Outdoor" &&
+<>
+  <div>
+    <Input
+      id="lightSchedule"
+      label="Light Schedule"
+      type="lightSchedule"
+      variant="outlined"
+      onChange={handleChange}
+      onBlur={handleBlur}
+    />
+  </div>
+
+  <div>
+  <Input
+    id="lightWattage"
+    label="Light Wattage"
+    type="lightWattage"
+    variant="outlined"
+    onChange={handleChange}
+    onBlur={handleBlur}
+  />
+</div>
+
+</>
+}
+
+
+</>}
+
+           
+
+
+
+
+            <Button type="submit" >
+              Submit
+            </Button>
+          </InputHolder>
+        </Form>
+      )}
+    </Formik>
   )
 }
 
