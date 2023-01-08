@@ -81,7 +81,7 @@ padding: 5px 25px;
 width: fit-content;
 
 border:none;
-background:#596876;
+background:#8bab50;
 color:white;
 border-radius:50px;
 cursor:pointer;
@@ -238,7 +238,7 @@ function Register() {
       </InputGrp>
   
 
-      <Button type="submit">Create Account</Button>
+      <Button type="submit">Sign Up</Button>
       </Form>
         )}
     </Formik>

@@ -9,6 +9,8 @@ import AddDiary from './AddDiary';
 import AddWeek from './AddWeek';
 import EditWeek from './EditWeek';
 import DeleteWeek from './DeleteWeek';
+import DeleteDiary from './DeleteDiary';
+
 import UploadImage from './UploadImage';
 
 const PopUpHolder = styled.div`
@@ -99,6 +101,11 @@ const PopUp = (props) => {
 {props.type == "deleteWeek" && 
     <DeleteWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} />
 }
+
+{props.type == "deleteDiary" && 
+    <DeleteDiary setPopUpOffset={props.setPopUpOffset} Diary={props.Diary} week={props.week} />
+}
+
     </PopUpHolderInner>
   </PopUpHolder>
   )

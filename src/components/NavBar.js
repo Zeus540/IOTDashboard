@@ -38,7 +38,7 @@ const Inner = styled.div`
 
 const LogoHolder = styled.div`
   width: 140px;
-  margin-left:15px;
+
 
   @media (max-width: 767px) {
     margin-left:0px;
@@ -48,6 +48,12 @@ const LogoHolder = styled.div`
 const Img = styled.img`
 filter: drop-shadow(4px 1px 3px black)
 `;
+
+
+const Div = styled.div`
+width: calc(100% / 3);
+`;
+
 
 const LogoHolderText = styled.span`
 
@@ -61,8 +67,9 @@ padding-bottom: 3px;
 
 const LinkHolder = styled.div`
   display: flex;
-  justify-content: center;
+
   align-items: center;
+  justify-content: end;
   @media (min-width: 0px) and (max-width: 767px) {
     display: none;
   }
@@ -127,6 +134,8 @@ const MenuLinkMobile = styled(NavLink)`
 const MenuLinklogo = styled(NavLink)`
   margin: 0px 0px;
   text-decoration: none!important;
+  display: flex;
+  justify-content: center;
 `;
 
 const LogOut = styled.p`
@@ -271,25 +280,31 @@ const theme = {
       OffClick();
     }}>
       <Inner>
+        <Div>
       <BurgerMenuHolder onClick={() => {
               setMobileMenu(!mobileMenu);
             }}>
           <BurgerMenu
             
           >
-         <SvgWMenu xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M624.6 325.2c-12.3-12.4-29.7-19.2-48.4-17.2-43.3-1-49.7-34.9-37.5-98.8 22.8-57.5-14.9-131.5-87.4-130.8-77.4.7-81.7 82-130.9 82-48.1 0-54-81.3-130.9-82-72.9-.8-110.1 73.3-87.4 130.8 12.2 63.9 5.8 97.8-37.5 98.8-21.2-2.3-37 6.5-53 22.5-19.9 19.7-19.3 94.8 42.6 102.6 47.1 5.9 81.6-42.9 61.2-87.8-47.3-103.7 185.9-106.1 146.5-8.2-.1.1-.2.2-.3.4-26.8 42.8 6.8 97.4 58.8 95.2 52.1 2.1 85.4-52.6 58.8-95.2-.1-.2-.2-.3-.3-.4-39.4-97.9 193.8-95.5 146.5 8.2-4.6 10-6.7 21.3-5.7 33 4.9 53.4 68.7 74.1 104.9 35.2 17.8-14.8 23.1-65.6 0-88.3zm-303.9-19.1h-.6c-43.4 0-62.8-37.5-62.8-62.8 0-34.7 28.2-62.8 62.8-62.8h.6c34.7 0 62.8 28.1 62.8 62.8 0 25-19.2 62.8-62.8 62.8z"/></SvgWMenu>
+         {/* <SvgWMenu xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M624.6 325.2c-12.3-12.4-29.7-19.2-48.4-17.2-43.3-1-49.7-34.9-37.5-98.8 22.8-57.5-14.9-131.5-87.4-130.8-77.4.7-81.7 82-130.9 82-48.1 0-54-81.3-130.9-82-72.9-.8-110.1 73.3-87.4 130.8 12.2 63.9 5.8 97.8-37.5 98.8-21.2-2.3-37 6.5-53 22.5-19.9 19.7-19.3 94.8 42.6 102.6 47.1 5.9 81.6-42.9 61.2-87.8-47.3-103.7 185.9-106.1 146.5-8.2-.1.1-.2.2-.3.4-26.8 42.8 6.8 97.4 58.8 95.2 52.1 2.1 85.4-52.6 58.8-95.2-.1-.2-.2-.3-.3-.4-39.4-97.9 193.8-95.5 146.5 8.2-4.6 10-6.7 21.3-5.7 33 4.9 53.4 68.7 74.1 104.9 35.2 17.8-14.8 23.1-65.6 0-88.3zm-303.9-19.1h-.6c-43.4 0-62.8-37.5-62.8-62.8 0-34.7 28.2-62.8 62.8-62.8h.6c34.7 0 62.8 28.1 62.8 62.8 0 25-19.2 62.8-62.8 62.8z"/></SvgWMenu> */}
+         <SvgWMenu xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></SvgWMenu>
           </BurgerMenu>
 
       
         </BurgerMenuHolder>
+        </Div>
 
+        <Div>
         <MenuLinklogo to="/">
           <LogoHolder>
             <Img src={Logo} width="100%" />
             <LogoHolderText>Master Your Grow</LogoHolderText>
           </LogoHolder>
         </MenuLinklogo>
+        </Div>
 
+        <Div>
         <LinkHolder>
           {!auth && (
             <>
@@ -307,8 +322,8 @@ const theme = {
             </>
           )}
         </LinkHolder>
+</Div>
 
-     <Empty></Empty>
       </Inner>
 
       {/* //mobile */}

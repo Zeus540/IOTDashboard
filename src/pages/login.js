@@ -68,7 +68,7 @@ padding: 5px 25px;
 width: fit-content;
 
 border:none;
-background:#596876;
+background:#8bab50;
 color:white;
 border-radius:50px;
 cursor:pointer;

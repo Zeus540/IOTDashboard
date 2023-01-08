@@ -7,6 +7,10 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
+import Cannabis from "../assets/sweetleaf-icons/cannabis.png";
+import Mushrooms from "../assets/sweetleaf-icons/mushroom.png";
+import Veg from "../assets/sweetleaf-icons/vegetables.png";
+
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
@@ -17,21 +21,21 @@ width: 100%;
 `;
 const FormHeading = styled.h1`
 margin: 0px;
-font-size: 24px;
-color:white
+font-size: 20px;
+color: #596876;
+
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
-background:#596876;
-color:white;
 padding: 10px 15px;
+padding-bottom: 0px;
 `;
 
 
 const FormSub = styled.p`
 margin: 0px;
 
-color:white
+color: #596876;
 `;
 
 const Form = styled.form`
@@ -51,21 +55,55 @@ const InputHolder = styled.div`
 padding: 20px 15px;
 
 `;
+const InputHolderType = styled.div`
+display: flex;
 
+`;
+
+const TypeBlock = styled.div`
+padding: 10px;
+margin: 10px;
+border: 2px white solid;
+background: #859ea34f;
+border-radius: 5px;
+margin-left: 0px;
+display: flex;
+align-items: center;
+flex-direction: column;
+`;
+
+const TypeBlockActive = styled.div`
+padding: 10px;
+margin: 10px;
+border: 2px #8bab50 solid;
+background: #859ea34f;
+border-radius: 5px;
+margin-left: 0px;
+display: flex;
+align-items: center;
+flex-direction: column;
+`;
+
+const TypeBlockImg = styled.img`
+width: 55px;
+`;
+const TypeBlockText = styled.p`
+margin: 0px;
+`;
 
 const Button = styled.button`
   padding: 5px 25px;
-  background: #596876;
+  background: #8bab50;
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
 `;
-
 const AddDiary = (props) => {
     
     const { diaries,Update,loading } = useContext(DiaryContext);
     const [diaryList, setDiaryList] = useState([]);
+    const [type, setType] = useState("");
     const [popUpOffset, setPopUpOffset] = useState(-100);
     const navigate = useNavigate();
     const { auth,authToken,userId,user } = useContext(AuthContext);
@@ -78,7 +116,8 @@ const AddDiary = (props) => {
 
         values.userId = userId?.UserId
         values.UserName = user?.User
-        
+        values.Type = type
+
         console.log("values",values);
         let config = {
           headers: {
@@ -101,6 +140,26 @@ const AddDiary = (props) => {
         })
      
       }
+
+      const handleType = (type)=>{
+        setType(type)
+      }
+
+
+      let types = [
+        {
+          type:'Cannabis',
+          img:Cannabis,
+        },
+        {
+          type:'Mushrooms',
+          img:Mushrooms,
+        },
+        {
+          type:'Fruit & Veg',
+          img:Veg,
+        },
+      ]
 
   return (
    
@@ -139,22 +198,46 @@ const AddDiary = (props) => {
 
       <Form onSubmit={handleSubmit}>
          
-
+{/* 
       <FormHeadingGroup>
-      <FormHeading>Lets Get Setup</FormHeading>
-      <FormSub>Fill out the form below</FormSub>
-        </FormHeadingGroup>
+      <FormHeading>New Diary</FormHeading>
+ 
+        </FormHeadingGroup> */}
         <InputHolder>
-     
+        <FormHeading>Type of Diary</FormHeading>
+        <InputHolderType>
+
+
+         {types.map((t)=>{
+          return(
+          <>
+            {type == t.type ?
+            <TypeBlockActive >
+            <TypeBlockImg src={t.img} width="100%"/>
+            <TypeBlockText>{t.type}</TypeBlockText>
+           </TypeBlockActive>:
+            <TypeBlock onClick={()=>{handleType(t.type)}}>
+            <TypeBlockImg src={t.img} width="100%"/>
+            <TypeBlockText>{t.type}</TypeBlockText>
+           </TypeBlock>
+           }
+          </>
+                   
+          )
+         })}
+         
+        </InputHolderType>
+
         <div>
           <Input
             id="title"
             label="Title"
             type="title"
-            variant="filled"
+            variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
+          
         </div>
         
         <div>
@@ -162,7 +245,7 @@ const AddDiary = (props) => {
             id="roomType"
             label="Room Type"
             type="roomType"
-            variant="filled"
+                variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -173,7 +256,7 @@ const AddDiary = (props) => {
             id="potSize"
             label="Pot Size"
             type="potSize"
-            variant="filled"
+                variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -184,7 +267,7 @@ const AddDiary = (props) => {
             id="strain"
             label="Strain"
             type="strain"
-            variant="filled"
+                variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -195,7 +278,7 @@ const AddDiary = (props) => {
             id="lightSchedule"
             label="Light Schedule"
             type="lightSchedule"
-            variant="filled"
+                variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -205,7 +288,7 @@ const AddDiary = (props) => {
             id="lightWattage"
             label="Light Wattage"
             type="lightWattage"
-            variant="filled"
+                variant="outlined" 
             onChange={handleChange}
             onBlur={handleBlur}
           />
