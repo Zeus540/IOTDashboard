@@ -66,10 +66,10 @@ const Inner = styled.div`
   padding-top:0px;
   margin: 80px auto;
   @media (max-width: 425px) {
-
+    margin: 0px auto;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-
+    margin: 0px auto;
   }
 `;
 
@@ -82,7 +82,7 @@ padding: 10px;
 `;
 const NoteHolder = styled.div`
 padding: 15px;
-background: #859ea34f;
+background: #f5f5f5;
 margin-bottom: 20px;
 border-bottom: 4px #8bab50 solid;
 border-radius: 5px;

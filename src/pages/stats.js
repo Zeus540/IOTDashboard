@@ -63,10 +63,10 @@ const Inner = styled.div`
   padding-top:0px;
   margin: 80px auto;
   @media (max-width: 425px) {
-
+    margin: 0px auto;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-
+    margin: 0px auto;
   }
 `;
 
