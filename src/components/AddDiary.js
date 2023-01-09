@@ -7,10 +7,6 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
-import Cannabis from "../assets/sweetleaf-icons/cannabis.png";
-import Mushrooms from "../assets/sweetleaf-icons/mushroom.png";
-import Veg from "../assets/sweetleaf-icons/vegetables.png";
-
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
@@ -122,8 +118,9 @@ const Button = styled.button`
 const AddDiary = (props) => {
 
   const { diaries, Update, loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState([]);
+  const [diaryTypes, setDiaryTypes] = useState([]);
   const [type, setType] = useState("");
+  
   const [roomType, setRoomType] = useState("");
   const [errorType, setErrorType] = useState(false);
   
@@ -131,7 +128,21 @@ const AddDiary = (props) => {
   const navigate = useNavigate();
   const { auth, authToken, userId, user } = useContext(AuthContext);
 
+  let token = localStorage.getItem("token")
 
+useEffect(() => {
+
+  
+  axios.get('https://api.sweetleaf.co.za/diaries/types')
+  .then((response) => {
+    setDiaryTypes(response.data)
+    console.log(response.data);
+  })
+  .catch((error) => {
+
+    console.log(error);
+  })
+}, [])
 
 
   const addDiary = (values) => {
@@ -172,20 +183,7 @@ const AddDiary = (props) => {
   
   }
 
-  let types = [
-    {
-      type: 'Cannabis',
-      img: Cannabis,
-    },
-    {
-      type: 'Mushrooms',
-      img: Mushrooms,
-    },
-    {
-      type: 'Fruits & Veg',
-      img: Veg,
-    },
-  ]
+
 
 
   const handleRoomTypeChange = (e, child) => {
@@ -252,17 +250,17 @@ const AddDiary = (props) => {
             <InputHolderType>
 
 
-              {types.map((t) => {
+              {diaryTypes?.map((t) => {
                 return (
                   <>
-                    {type == t.type ?
+                    {type == t.Diary_Types_Name ?
                       <TypeBlockActive >
-                        <TypeBlockImg src={t.img} width="100%" />
-                        <TypeBlockText>{t.type}</TypeBlockText>
+                        <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
+                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
                       </TypeBlockActive> :
-                      <TypeBlock onClick={() => { handleType(t.type) }}>
-                        <TypeBlockImg src={t.img} width="100%" />
-                        <TypeBlockText>{t.type}</TypeBlockText>
+                      <TypeBlock onClick={() => { handleType(t.Diary_Types_Name) }}>
+                        <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
+                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
                       </TypeBlock>
                     }
                   </>

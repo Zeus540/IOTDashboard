@@ -95,11 +95,15 @@ function imageUploaded() {
         base64String = reader.result
   
         setImgBase64(base64String)
-        console.log(base64String);
+     
     }
     reader.readAsDataURL(file);
     setImg(URL.createObjectURL(file));
+
+    let name =  new Date().toLocaleDateString().replaceAll("/","-") + new Date().toLocaleTimeString().replaceAll("PM","").replaceAll("AM","") 
+    // name.trim()+ "." + file.name.split(".")[file.name.split(".").length - 1]
     setImgName(file.name)
+   
 }
   
 
@@ -125,6 +129,7 @@ if(props.DayId !== ''){
     image:imgBase64,
     DiaryId:props.DiaryId,
     WeekId:props.WeekId,
+    DayId:null,
     name:imgName
     }
 }
