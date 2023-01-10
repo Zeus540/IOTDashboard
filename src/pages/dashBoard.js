@@ -20,7 +20,7 @@ import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
-
+import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from  'react-loader-spinner'
 
 const Root = styled.div`
@@ -403,15 +403,17 @@ cursor:pointer;
 height: 300px;
 background-size: cover;
 flex-direction: column;
-
-@media (max-width: 425px) {
+background-position: center;
+@media (max-width: 600px) {
   min-width: calc(100% / 1 - 30px);
   
 }
-@media (min-width: 426px) and (max-width: 768px) {
-  max-width: calc(100% / 2 - 20px);
-  min-width: calc(100% / 2 - 20px);
+@media (min-width: 601px) and (max-width: 1023px) {
+  max-width: calc(100% / 2 - 30px);
+  min-width: calc(100% / 2 - 30px);
+  margin: 0px 15px;
 }
+
 `;
 
 const GalleryImageHolder = styled.div`
@@ -423,7 +425,7 @@ position: relative;
 cursor:pointer;
 height: 300px;
 background-size: cover;
-
+background-position: center;
 `;
 
 
@@ -494,10 +496,12 @@ const GalleryHolderInner = styled.div`
   display: flex;
   transform: translateX(${props => props.position}%);
   transition: 0.5s all ease;
-  @media (max-width: 425px) {
-    transform: translateX(${props => props.position * 4}%);
+  @media (max-width: 600px) {
+    transform: translateX(${props => props.position }%);
   }
-
+  @media (min-width: 601px) and (max-width: 768px) {
+    transform: translateX(${props => props.position }%);
+  }
  
 `;
 
@@ -1237,17 +1241,86 @@ if(activeDiaryData?.Image !== undefined){
   
  }, [params])
 
+ 
+ const isMobile = useMediaQuery('(max-width: 600px)');
+ const isTablet = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+ const isLaptop = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+ const isDesktop = useMediaQuery('(min-width: 1024px)');
+
 
  const HandleNext = ()=>{
-  setPosition(position - 25)
-  setPositionIndex(positionIndex + 1)
+ 
+  
+
+  if (isMobile) {
+
+    if (positionIndex < galleryData.length - 1) {
+  
+      setPosition(position - 100 )
+      setPositionIndex(positionIndex + 1)
+    }
+  
+    if (positionIndex === galleryData.length - 1) {
+      setPosition(0)
+      setPositionIndex(0)
+    }
+  }
+  
+  if (isTablet) {
+
+    if (positionIndex < galleryData.length - 2) {
+  
+      setPosition(position - (100 / 2) )
+      setPositionIndex(positionIndex + 1)
+    }
+  
+    if (positionIndex === galleryData.length - 2) {
+      setPosition(0)
+      setPositionIndex(0)
+    }
+  }
+  
+  if (isDesktop) {
+
+    if (positionIndex < galleryData.length - 4) {
+
+        setPosition(position - (100 / 4))
+        setPositionIndex(positionIndex + 1)
+    }
+    if (positionIndex === galleryData.length - 4) {
+        setPosition(0)
+        setPositionIndex(0)
+    }
+}
+
+
+
  }
 
  const HandleBack = ()=>{
-if(positionIndex > 0){
-  setPosition(position + 25)
-  setPositionIndex(positionIndex - 1)
+
+  if (position < 0) {
+
+    if (isMobile) {
+      setPosition(position + 100 )
+        setPositionIndex(positionIndex - 1)
+    }
+
+    if (isTablet) {
+      setPosition(position + (100 / 2))
+        setPositionIndex(positionIndex - 1)
+    }
+
+    if (isDesktop) {
+      setPosition(position + 25)
+        setPositionIndex(positionIndex - 1)
+    }
+
+  
+
 }
+
+
 }
 
 

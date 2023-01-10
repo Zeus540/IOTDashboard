@@ -36,8 +36,13 @@ z-index: 5;
 `;
 
 function App() {
+  let nameCleaned = Date.now();
 
 
+  useEffect(() => {
+    console.log(nameCleaned)
+  }, [nameCleaned])
+  
 // Define what props.theme will look like
 const theme = {
   main: "#275557"
