@@ -72,14 +72,19 @@ const DiaryHolder = styled.div`
 
 
 const User = styled.div`
-
+padding: 5px 10px;
 width: calc(100% / 1 - 20px);
 margin: 10px;
 border-radius: 5px;
 display: flex;
     justify-content: space-between;
 text-decoration: none;
+align-items: center;
 color: black;
+
+&:hover {
+  background: ghostwhite;
+}
 @media (max-width: 425px) {
   max-width: calc(100% / 1 - 20px);
   width: 100%;
@@ -156,6 +161,7 @@ const Tag = styled.sup`
 const Svg = styled.svg`
   fill:  #8bab50;
   padding: 10px;
+  padding-right: 0px;
   width:20px;
  
 `;

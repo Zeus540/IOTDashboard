@@ -183,7 +183,33 @@ const Add = styled.div`
   }
 `;
 
+const UserInfo = styled.div`
+display: flex;
+color: white;
+padding: 0px 10px;
+align-items: center;
+`;
 
+const UserInfoTop = styled.div`
+display: flex;
+color: black;
+padding: 20px;
+
+`;
+
+const UserAvatar = styled.div`
+width: 300px;
+height: 300px;
+color: white;
+    padding: 10px;
+    background: #8bab50;
+    margin-right: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`;
 
 const ProfileUser = () => {
 
@@ -249,9 +275,16 @@ const ProfileUser = () => {
     
 
       <Inner>
-      <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
-          <MainHeading>{userList.Name} {userList.Surname}</MainHeading>
+      
 
+          <UserInfoTop>
+                  <UserAvatar>
+                  {userList?.UserName?.charAt(0)}
+                  </UserAvatar>
+                <div>
+                <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
+          <MainHeading>{userList.Name} {userList.Surname}</MainHeading></div>
+                </UserInfoTop>
         
         
 
