@@ -25,10 +25,6 @@ import { InfinitySpin } from  'react-loader-spinner'
 
 const Root = styled.div`
 
-  display: flex;
-
-  align-items: center;
-  flex-direction: column;
 
   @media (max-width: 425px) {
     margin: 0px 0px;
@@ -38,13 +34,13 @@ const Root = styled.div`
 `;
 
 const Inner = styled.div`
-  max-width: 1770px;
+
   border-radius: 5px 5px 5px 5px;
-  width: 100%;
+
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
-    margin: 80px auto;
+    margin: 80px;
   @media (max-width: 425px) {
     margin: 0px;
     padding-top: 0px;

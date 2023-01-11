@@ -12,6 +12,10 @@ import VerifyComplete from './pages/verifyComplete';
 import DashBoard from './pages/dashBoard';
 import Diaries from './pages/Diaries';
 import DiariesPublic from './pages/DiariesPublic';
+import Users from './pages/Users';
+import MyProfile from './pages/MyProfile';
+import ProfileUser from './pages/ProfileUser';
+
 import Login from './pages/login';
 import Devices from './pages/Devices';
 
@@ -46,8 +50,13 @@ const MainContainer = () => {
             {auth &&
                 <Routes>
                     <Route path="*" element={<NotFound />} />
-                    <Route path="/" element={<Diaries />} />
+                    <Route path="/" element={<DiariesPublic />} />
+               
                     <Route path="/public-diaries" element={<DiariesPublic />} />
+                    <Route path="/users" element={<Users />} />
+                    <Route path="/my-profile" element={<MyProfile />} />
+                    <Route path="/profile/:username/:userId" element={<ProfileUser />} />
+
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/my-devices" element={<Devices />} />
                     <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />

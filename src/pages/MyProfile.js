@@ -24,12 +24,13 @@ const Root = styled.div`
   }
 `;
 
+
 const Inner = styled.div`
 
 border-radius: 5px;
 background: #ffffff;
 
-padding: 0px 0px;
+padding: 20px 0px;
 margin: 80px ;
   @media (max-width: 425px) {
     margin: 20px;
@@ -70,12 +71,13 @@ const DiaryHolder = styled.div`
 
 
 
-const Diary = styled(NavLink)`
+const User = styled(NavLink)`
 cursor: pointer;
-width: calc(100% / 6 - 20px);
+width: calc(100% / 1 - 20px);
 margin: 10px;
 border-radius: 5px;
-
+display: flex;
+    justify-content: space-between;
 text-decoration: none;
 color: black;
 @media (max-width: 425px) {
@@ -122,6 +124,18 @@ padding: 5px 0px;
 overflow: auto;
 `;
 
+
+const UserBtnHolder = styled.div`
+display: flex;
+align-items: center;
+`;
+const UserBtn = styled.button`
+display: flex;
+align-items: center;
+background: unset;
+border: unset;
+`;
+
 const Tag = styled.sup`
 
   padding: 0px 0px;
@@ -131,10 +145,13 @@ const Tag = styled.sup`
 
 `;
 
-const TagHolder = styled.div`
-  display: flex;
-  margin-bottom: 10px;
+const Svg = styled.svg`
+  fill:  #8bab50;
+  padding: 10px;
+  width:20px;
+ 
 `;
+
 
 const Add = styled.div`
   display: flex;
@@ -152,54 +169,11 @@ const Add = styled.div`
   }
 `;
 
-const Button = styled.button`
-padding: 8px 20px;
-  background: #8bab50;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  margin: 0px 20px;
-  @media (max-width: 425px) {
-    margin: 0px 0px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px 0px;
-  }
-`;
 
-const DiaryText = styled.p`
-font-size: 14px;
-padding-bottom: 5px;
-white-space: nowrap;
-font-weight: bold;
-margin: 0px;
-`;
 
-const UserAvatarHolder = styled.div`
-display: flex;
-align-items: center;
-}
-`
+const MyProfile = () => {
 
-const UserAvatar = styled.div`
-width: 5px;
-height: 5px;
-color: white;
-    padding: 10px;
-    font-size: 11px;
-    background: #8bab50;
-    margin-right: 10px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-const Diaries = () => {
-  const { diaries,Update,loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -207,22 +181,31 @@ const Diaries = () => {
 
   useEffect(() => {
 
-    document.title = "Sweet Leaf - My Diaries" 
+    document.title = "Sweet Leaf - My Profile" 
   }, [])
 
   useEffect(() => {
   
-    Update()
-  }, [])
-  
-  useEffect(() => {
-    console.log("loading",loading)
-    if(!loading){
-
-      setDiaryList(diaries)
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
     }
 
-  }, [diaries,userId])
+    axios.get('https://api.sweetleaf.co.za/users',config)
+      .then(function (response) {
+        setUserList(response.data)
+        console.log("response", response.data);
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+
+  
+  }, [])
+  
+
   
 
 
@@ -251,50 +234,37 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>My Diaries</MainHeading>
-          {auth &&   
-          <Button
-            onClick={() => {
-              handleAddPopUp();
-            }}
-          >
-            Add New Diary
-          </Button>}
+          <MainHeading>My Profile</MainHeading>
+       
         
         </Add>
 
         <DiaryHolder>
-          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+          {/* {userList?.map((d) => {
             return (
-              <Diary
-          to={`/overview/${d.DiaryId}`}
+              <User
+          to={`/profile/${d.UserName}`}
               >
-        <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
-                 
-              
-                 </DiaryImageHolder>
- 
-
+    
                 <DiaryTextHolder>
-      
-                  <DiaryText>{d?.Title} </DiaryText>
-                  <Tag> {d?.UserName}</Tag>
-                    <Tag> {d?.Strain}</Tag>
-                    <UserAvatarHolder>
-                    {/* <UserAvatar>
-                  {d?.UserName.charAt(0)}
-                  </UserAvatar> */}
-                  
-                    
-                    </UserAvatarHolder>
-                 
-                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-            
+                <Tag> {d?.UserName}</Tag>
                 </DiaryTextHolder>
-              
-              </Diary>
+              <UserBtnHolder>
+                
+             
+              <UserBtn>
+                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></Svg>
+                </UserBtn>
+                <UserBtn>
+                <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></Svg>
+                
+                </UserBtn>
+
+             
+                </UserBtnHolder>
+              </User>
             );
-          })}
+          })} */}
         </DiaryHolder>
       </Inner>
     </Root>
@@ -302,4 +272,4 @@ const Diaries = () => {
   );
 };
 
-export default Diaries;
+export default MyProfile;

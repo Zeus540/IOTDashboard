@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('auth', JSON.stringify({UserId:token.UserId}));
         localStorage.setItem('user', JSON.stringify({User:token.UserName}));
         setAuth(true)
-        navigate('/diaries')
+        navigate('/')
     }
 
     const logOut = ()=>{

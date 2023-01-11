@@ -8,19 +8,32 @@ import Journal from "../assets/journalW.png";
 import { ThemeProvider } from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+
 const Root = styled.div`
-  background-color: #596876;
-  background-color:   #ffffff;
 
-  display: flex;
-  justify-content: center;
-  position: sticky;
-  box-shadow:  0px 0px 20px #00000012;
 
-  top: 0;
-  z-index: 50;
-  padding-right: 0px;
+  @media (max-width: 425px) {
+    margin: 0px 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+  }
 `;
+
+const Inner = styled.div`
+
+padding:0px 80px ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  @media (max-width: 768px) {
+    padding:0px 20px ;
+  }
+`;
+
+
+
 const Empty = styled.div`
 width: calc(30px + 5px);
 @media (min-width: 768px) {
@@ -28,14 +41,7 @@ width: calc(30px + 5px);
 }
 `;
 
-const Inner = styled.div`
-  max-width: 1770px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
-`;
 
 const LogoHolder = styled.div`
   width: 140px;
@@ -238,6 +244,13 @@ padding: 0px 10px;
 align-items: center;
 `;
 
+const UserInfoTop = styled.div`
+display: flex;
+color: black;
+padding: 0px 10px;
+align-items: center;
+`;
+
 const UserAvatar = styled.div`
 width: 15px;
 height: 15px;
@@ -273,7 +286,7 @@ const SvgWMenu = styled.svg`
 
 fill: #929292;
 width: 20px;
-padding-left: 20px;
+
 
 
 @media (max-width: 768px){
@@ -349,6 +362,16 @@ const theme = {
           )}
           {auth && (
             <> 
+                  <MenuLink to="/my-profile"> 
+         
+              <UserInfoTop>
+                  <UserAvatar>
+                  {user?.User?.charAt(0)}
+                  </UserAvatar>
+               {user?.User}
+                </UserInfoTop>
+              </MenuLink>
+
               <Button onClick={()=>{logOut()}}>
               <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M534.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L434.7 224 224 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM192 96c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-53 0-96 43-96 96l0 256c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></SvgW>
               </Button>
@@ -397,6 +420,13 @@ const theme = {
                    <FlexLink>
                    
                      <div>My Devices</div>
+                   </FlexLink>
+                 </MenuLinkMobile>
+
+                 <MenuLinkMobile to="/users" onClick={() => { setMobileMenu(false); }}>
+                   <FlexLink>
+                   
+                     <div>Users</div>
                    </FlexLink>
                  </MenuLinkMobile>
                   </>

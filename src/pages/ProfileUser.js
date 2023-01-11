@@ -13,7 +13,7 @@ import { TextField } from "@mui/material";
 import axios from "axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
-
+import { useLocation, useParams } from "react-router-dom";
 const Root = styled.div`
 
 
@@ -24,12 +24,13 @@ const Root = styled.div`
   }
 `;
 
+
 const Inner = styled.div`
 
 border-radius: 5px;
 background: #ffffff;
 
-padding: 0px 0px;
+padding: 20px 0px;
 margin: 80px ;
   @media (max-width: 425px) {
     margin: 20px;
@@ -59,6 +60,20 @@ const MainHeading = styled.div`
   }
 `;
 
+const MainHeadingSmall = styled.div`
+  margin: 0px 0px;
+  font-size: 18px;
+  margin-top: 0px;
+
+  padding: 0px 20px;
+  @media (max-width: 425px) {
+    padding: unset;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    padding: unset;
+  }
+`;
+
 const DiaryHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -70,12 +85,13 @@ const DiaryHolder = styled.div`
 
 
 
-const Diary = styled(NavLink)`
+const User = styled(NavLink)`
 cursor: pointer;
-width: calc(100% / 6 - 20px);
+width: calc(100% / 1 - 20px);
 margin: 10px;
 border-radius: 5px;
-
+display: flex;
+    justify-content: space-between;
 text-decoration: none;
 color: black;
 @media (max-width: 425px) {
@@ -122,6 +138,18 @@ padding: 5px 0px;
 overflow: auto;
 `;
 
+
+const UserBtnHolder = styled.div`
+display: flex;
+align-items: center;
+`;
+const UserBtn = styled.button`
+display: flex;
+align-items: center;
+background: unset;
+border: unset;
+`;
+
 const Tag = styled.sup`
 
   padding: 0px 0px;
@@ -131,10 +159,13 @@ const Tag = styled.sup`
 
 `;
 
-const TagHolder = styled.div`
-  display: flex;
-  margin-bottom: 10px;
+const Svg = styled.svg`
+  fill:  #8bab50;
+  padding: 10px;
+  width:20px;
+ 
 `;
+
 
 const Add = styled.div`
   display: flex;
@@ -152,77 +183,45 @@ const Add = styled.div`
   }
 `;
 
-const Button = styled.button`
-padding: 8px 20px;
-  background: #8bab50;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  margin: 0px 20px;
-  @media (max-width: 425px) {
-    margin: 0px 0px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px 0px;
-  }
-`;
 
-const DiaryText = styled.p`
-font-size: 14px;
-padding-bottom: 5px;
-white-space: nowrap;
-font-weight: bold;
-margin: 0px;
-`;
 
-const UserAvatarHolder = styled.div`
-display: flex;
-align-items: center;
-}
-`
+const ProfileUser = () => {
 
-const UserAvatar = styled.div`
-width: 5px;
-height: 5px;
-color: white;
-    padding: 10px;
-    font-size: 11px;
-    background: #8bab50;
-    margin-right: 10px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-const Diaries = () => {
-  const { diaries,Update,loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState([]);
+  const [userList, setUser] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
-
+  const params = useParams();
 
   useEffect(() => {
 
-    document.title = "Sweet Leaf - My Diaries" 
+    document.title = "Sweet Leaf - My Profile" 
   }, [])
 
   useEffect(() => {
   
-    Update()
-  }, [])
-  
-  useEffect(() => {
-    console.log("loading",loading)
-    if(!loading){
-
-      setDiaryList(diaries)
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
     }
 
-  }, [diaries,userId])
+    axios.get('https://api.sweetleaf.co.za/users',config)
+      .then(function (response) {
+
+        console.log(response.data.filter((u) => u.UserId == params.userId))
+        setUser(response.data.filter((u) => u.UserId == params.userId)[0])
+   
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+
+  
+  }, [])
+  
+
   
 
 
@@ -250,51 +249,14 @@ const Diaries = () => {
     
 
       <Inner>
-        <Add>
-          <MainHeading>My Diaries</MainHeading>
-          {auth &&   
-          <Button
-            onClick={() => {
-              handleAddPopUp();
-            }}
-          >
-            Add New Diary
-          </Button>}
+      <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
+          <MainHeading>{userList.Name} {userList.Surname}</MainHeading>
+
         
-        </Add>
+        
 
         <DiaryHolder>
-          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
-            return (
-              <Diary
-          to={`/overview/${d.DiaryId}`}
-              >
-        <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
-                 
-              
-                 </DiaryImageHolder>
- 
-
-                <DiaryTextHolder>
-      
-                  <DiaryText>{d?.Title} </DiaryText>
-                  <Tag> {d?.UserName}</Tag>
-                    <Tag> {d?.Strain}</Tag>
-                    <UserAvatarHolder>
-                    {/* <UserAvatar>
-                  {d?.UserName.charAt(0)}
-                  </UserAvatar> */}
-                  
-                    
-                    </UserAvatarHolder>
-                 
-                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-            
-                </DiaryTextHolder>
-              
-              </Diary>
-            );
-          })}
+          
         </DiaryHolder>
       </Inner>
     </Root>
@@ -302,4 +264,4 @@ const Diaries = () => {
   );
 };
 
-export default Diaries;
+export default ProfileUser;

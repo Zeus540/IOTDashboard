@@ -2,27 +2,44 @@ import React, { useContext, useState,useEffect } from "react";
 import styled from "styled-components";
 
 
+
+
 const Root = styled.div`
+box-shadow:  0px 0px 20px #00000012;
 margin: 0px;
     background: #ffffff;
     color: black;
-    padding: 10px 15px;
+    padding: 0px 0px;
     box-shadow:  0px 0px 20px #00000012;
-    position: relative;
-`;
 
-const Inner = styled.div`
-  max-width: 1770px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content:end;
-  margin: 0 auto;
-  @media (max-width: 767px) {
-    flex-direction: row-reverse;
+  @media (max-width: 425px) {
+    margin: 0px 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
   }
 `;
 
+
+const Inner = styled.div`
+
+border-radius: 5px;
+background: #ffffff;
+
+
+padding: 20px 80px ;
+  @media (max-width: 425px) {
+    margin: 20px;
+    padding: 10px 0px;
+    border-radius: 5px;
+    width: 90%;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 95%;
+  }
+`;
 const LegalText = styled.p`
 margin: 5px;
 `;
