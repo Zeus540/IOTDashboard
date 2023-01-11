@@ -284,6 +284,7 @@ const ProfileUser = () => {
                 <div>
                 <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
           {/* <MainHeading>{userList.Name} {userList.Surname}</MainHeading></div> */}
+          </div>
                 </UserInfoTop>
         
         
