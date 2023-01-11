@@ -395,15 +395,15 @@ color:#596876;
 const GalleryImageHolderFlex = styled.div`
 display: flex;
 min-width: calc(100% / 4 - 30px);
-background-image: ${props => `url(${props.img})`};
+
 margin: 0px 15px;
 border-radius: 5px;
 position: relative;
 cursor:pointer;
-height: 300px;
-background-size: cover;
+
+
 flex-direction: column;
-background-position: center;
+
 @media (max-width: 600px) {
   min-width: calc(100% / 1 - 30px);
   
@@ -913,9 +913,18 @@ font-size: 18px;
 color: black;
 padding: 0px 0px;
 padding-top: 20px;
-
-
 `;
+
+const SetImageHolder = styled.div`
+position: absolute;
+z-index: 50;
+background: #8bab50;
+color: black;
+padding-left: 10px;
+border-radius: 5px 0px 5px 0px;
+display: flex;
+`;
+
 const DashBoard = (props) => {
 
   let tabs = [
@@ -1326,6 +1335,7 @@ if(activeDiaryData?.Image !== undefined){
 
 
 
+
   const handleActiveToggle = (e,activeDiary)=>{
    
     if(userId?.UserId == activeDiary?.UserId){
@@ -1438,6 +1448,29 @@ if(activeDiaryData?.Image !== undefined){
     }
    }
 
+   const handleThumbnailUpdate = (DiaryId,Image) =>{
+
+    
+    let config = {
+      headers: {
+        authorization: 'Bearer ' + authToken,
+      }
+    }
+    let data = {
+      DiaryId:DiaryId,
+      Image:Image
+    }
+
+    axios
+    .post("https://api.sweetleaf.co.za/diaries/update_thumbnail", data,config)
+    .then(function (response) {
+      console.log('response',response)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+   }
+  
   return (
 
   
@@ -1816,11 +1849,16 @@ if(activeDiaryData?.Image !== undefined){
             galleryData?.map((img, index) => {
               if (img?.Image !== "") {
                 return (
+              <>
+                
               <GalleryImageHolderFlex key={index} >
+              <SetImageHolder onClick={()=>{handleThumbnailUpdate(img.DiaryId,img?.Image)}}>
+              <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z"/></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
+              </SetImageHolder>
                   <GalleryImageHolder  img={img?.Image}   onClick={() => {
                     handleLightBox(img?.Image, img);
                   }}>
-                       
+                    
                     
        
                   </GalleryImageHolder>
@@ -1834,6 +1872,7 @@ if(activeDiaryData?.Image !== undefined){
                 
                       </GalleryImageOverlay>
               </GalleryImageHolderFlex>
+              </>
                 );
               }
             })

@@ -36,11 +36,10 @@ const LightBoxClose = styled.div`
 `;
 
 const LightBoxImage = styled.img`
-  border-radius: 5px;
+border-radius: 0px 0px 5px 5px;
 `;
 const LightBoxImageHolder = styled.div`
-  border-radius: 5px;
-  border-radius: 5px;
+border-radius: 0px 0px 5px 5px;
   max-height: 50vh;
   overflow: auto;
   line-height: 0px;
@@ -80,6 +79,8 @@ padding:40px 0px;
 
 const GalleryImageOverlay = styled.div`
   
+background: #fdfdfd;
+
   cursor: pointer;
   display: flex;
   justify-content: space-between;
