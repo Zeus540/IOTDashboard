@@ -30,7 +30,7 @@ const Inner = styled.div`
 border-radius: 5px;
 background: #ffffff;
 
-padding: 20px 0px;
+padding: 0px 0px;
 margin: 80px ;
   @media (max-width: 425px) {
     margin: 20px;
@@ -46,19 +46,6 @@ margin: 80px ;
   }
 `;
 
-const MainHeading = styled.div`
-  margin: 0px 0px;
-  font-size: 24px;
-  margin-top: 0px;
-  font-weight: bolder;
-  padding: 0px 20px;
-  @media (max-width: 425px) {
-    padding: unset;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    padding: unset;
-  }
-`;
 
 const MainHeadingSmall = styled.div`
   margin: 0px 0px;
@@ -74,133 +61,80 @@ const MainHeadingSmall = styled.div`
   }
 `;
 
-const DiaryHolder = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  padding:10px;
-  @media (max-width: 619px) {
-    padding:0px 10px;
-  }
-`;
+const MainHeading = styled.div`
+  margin: 0px 0px;
+  font-size: 24px;
+  margin-top: 0px;
 
-
-
-const User = styled(NavLink)`
-cursor: pointer;
-width: calc(100% / 1 - 20px);
-margin: 10px;
-border-radius: 5px;
-display: flex;
-    justify-content: space-between;
-text-decoration: none;
-color: black;
-@media (max-width: 425px) {
-  max-width: calc(100% / 1 - 20px);
-  width: 100%;
-  margin: 10px 10px;
-  border-radius: 0px;
-}
-@media (min-width: 426px) and (max-width: 699px) {
-  width: calc(100% / 2 - 20px);
-  margin: 10px;
-}
-  @media (min-width: 700px) and (max-width: 940px) {
-    width: calc(100% / 2 - 20px);
-  }
-  @media (min-width: 941px) and (max-width: 1330px) {
-    width: calc(100% / 4 - 20px);
-  }
-`;
-
-const DiaryImageHolder = styled.div`
-  border-radius: 5px 5px 0px 0px;
-  cursor: pointer;
-  line-height: 0px;
-  border-radius: 5px;
-  min-height: 190px;
-  background-position: center!important;
-  background-size: cover!important;
+  padding: 0px 20px;
   @media (max-width: 425px) {
-
-    border-radius: 5px;
-  }
-`;
-
-const DiaryImage = styled.img`
-border-radius: 5px;
-  @media (max-width: 425px) {
-
-    border-radius: 5px;
-  }
-`;
-const DiaryTextHolder = styled.div`
-padding: 5px 0px;
-overflow: auto;
-`;
-
-
-const UserBtnHolder = styled.div`
-display: flex;
-align-items: center;
-`;
-const UserBtn = styled.button`
-display: flex;
-align-items: center;
-background: unset;
-border: unset;
-`;
-
-const Tag = styled.sup`
-
-  padding: 0px 0px;
-  font-size: 11px;
-  display: block;
-
-
-`;
-
-const Svg = styled.svg`
-  fill:  #8bab50;
-  padding: 10px;
-  width:20px;
- 
-`;
-
-
-const Add = styled.div`
-  display: flex;
-
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: 425px) {
-    padding: 20px;
-    padding: 20px;
+    padding: unset;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 5px 25px;
-    padding: 20px;
+    padding: unset;
   }
 `;
 
-const UserInfo = styled.div`
-display: flex;
-color: white;
-padding: 0px 10px;
-align-items: center;
-`;
 
 const UserInfoTop = styled.div`
 display: flex;
 color: black;
 padding: 20px;
+@media (max-width: 425px) {
+  flex-direction: column;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  flex-direction: column;
+}
+`;
+
+const BlockHolder = styled.div`
+display: flex;
+color: black;
+padding: 10px 20px;
+
+border-radius: 5px;
+@media (max-width: 425px) {
+  padding: 10px 0px;
+
+}
+`;
+const Block = styled.div`
+display: flex;
+color: black;
+padding: 10px 20px;
+background: whitesmoke;
+border-radius: 5px;
 
 `;
 
+const BlockHeading = styled.div`
+margin: 0px 0px;
+font-size: 16px;
+margin-top: 0px;
+
+padding: 0px 0px;
+@media (max-width: 425px) {
+  padding: unset;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  padding: unset;
+}
+`;
+
+const BlockNum = styled.div`
+margin: 0px 0px;
+font-size: 16px;
+margin-top: 0px;
+
+padding-left: 10px ;
+
+`;
 const UserAvatar = styled.div`
 width: 300px;
 height: 300px;
 color: white;
+background-size: cover!important;
     padding: 10px;
     background: #8bab50;
     margin-right: 10px;
@@ -208,6 +142,18 @@ color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 425px) {
+      width: 150px;
+      height: 150px;
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 426px) and (max-width: 768px) {
+      width: 150px;
+      height: 150px;
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
 
 `;
 
@@ -278,20 +224,25 @@ const ProfileUser = () => {
       
 
           <UserInfoTop>
-                  <UserAvatar>
-                  {userList?.UserName?.charAt(0)}
+                  <UserAvatar style={{backgroundImage:`url(${userList?.User_Img})`}}>
+                  
                   </UserAvatar>
                 <div>
                 <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
-          {/* <MainHeading>{userList.Name} {userList.Surname}</MainHeading></div> */}
+
+
+                <MainHeading>Stats</MainHeading>
+
+
+<BlockHolder>
+               <Block>
+               <BlockHeading>Diaries</BlockHeading>
+                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
+               </Block>
+               </BlockHolder>
           </div>
                 </UserInfoTop>
         
-        
-
-        <DiaryHolder>
-          
-        </DiaryHolder>
       </Inner>
     </Root>
     </>

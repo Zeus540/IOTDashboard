@@ -208,7 +208,7 @@ const Users = () => {
 
     axios.get('https://api.sweetleaf.co.za/users',config)
       .then(function (response) {
-        setUserList(response.data.filter((u) => u.UserId !== userId.UserId))
+        setUserList(response.data)
         console.log("response", response.data);
       })
       .catch(function (error) {
