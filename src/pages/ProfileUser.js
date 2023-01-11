@@ -98,6 +98,10 @@ border-radius: 5px;
   padding: 10px 0px;
 
 }
+
+@media (min-width: 426px) and (max-width: 768px) {
+  padding: 10px 0px;
+}
 `;
 const Block = styled.div`
 display: flex;

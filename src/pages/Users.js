@@ -65,7 +65,7 @@ const DiaryHolder = styled.div`
   flex-wrap: wrap;
   padding:10px;
   @media (max-width: 619px) {
-    padding:0px 10px;
+    padding:0px 0px;
   }
 `;
 
@@ -152,7 +152,7 @@ cursor: pointer;
 const Tag = styled.sup`
 
   padding: 0px 0px;
-  font-size: 11px;
+  font-size: 18px;
   display: block;
 
 
