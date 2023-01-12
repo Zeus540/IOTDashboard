@@ -22,6 +22,9 @@ import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from  'react-loader-spinner'
+import io from 'socket.io-client';
+
+const socket = io("https://api.sweetleaf.co.za");
 
 const Root = styled.div`
 
@@ -921,6 +924,57 @@ border-radius: 5px 0px 5px 0px;
 display: flex;
 `;
 
+const ChatHolder = styled.div`
+
+background: whitesmoke;
+color: black;
+padding: 20px;
+margin: 0px 20px;
+border-radius: 5px;
+`;
+
+
+const ChatMsgRight = styled.div`
+background: green;
+padding: 10px 20px;
+border-radius: 5px;
+color: white;
+width: fit-content;
+margin-bottom: 10px;
+`;
+
+const ChatMsgLeft = styled.div`
+background: #8bab50;
+padding: 10px 20px;
+border-radius: 5px;
+color: white;
+width: fit-content;
+margin-bottom: 10px;
+`;
+
+const ChatButton = styled.button`
+background: #8bab50;
+padding: 10px 20px;
+border-radius: 5px;
+color: white;
+width: 20%;
+border:none;
+cursor: pointer;
+`;
+const ChatInputHolder = styled.div`
+display: flex;
+`;
+
+const ChatInput = styled.input`
+padding: 10px 20px;
+border-radius: 5px;
+border: 1px solid #b1b1b1;
+width: calc(80% - 20px);
+margin-right: 20px;
+margin-bottom: 0px;
+min-height:25px;
+`;
+
 const DashBoard = (props) => {
 
   let tabs = [
@@ -970,10 +1024,13 @@ const DashBoard = (props) => {
   const [popUpDeleteDiaryOffset, setPopUpDeleteDiaryOffset] = useState(-101);
   
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-101);
-
+  const [comment, setComment] = useState('');
+  const [commentList, setCommentList] = useState([]);
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
+
   const { auth,authToken, } = useContext(AuthContext);
+  const [isConnected, setIsConnected] = useState(socket.connected);
   let token = localStorage.getItem("token")
 
   let userId =  JSON.parse(localStorage.getItem("auth"))
@@ -1466,26 +1523,104 @@ if(activeDiaryData?.Image !== undefined){
       console.log(error);
     });
    }
+
+
+
+  //Chat Config
+   useEffect(() => {
   
+
+    socket.off('connection').on('connection', () => {
+      setIsConnected(true);
+    });
+
+    socket.off('disconnect').on('disconnect', () => {
+      setIsConnected(false);
+    });
+    
+    if(auth) {
+    
+    
+  
+     
+    }
+   }, [])
+   
+
+  
+
+
+   //Chat Listen
+   useEffect(() => {
+   
+    socket.off('broadcast').on('broadcast', (data) => {
+      setCommentList([...commentList,data])
+      console.log("data",data)
+     });
+
+ 
+   }, [socket,commentList])
+  
+
+   const HandleComment = (e)=>{
+
+    setComment(e.target.value)
+    
+   }
+
+   
+   const SendComment = ()=>{
+
+   
+    setComment("")
+    if(comment !== ""){
+      if(userId?.UserId == undefined){
+        socket.off('comment').emit('comment', {userId:0 ,comment} );
+       
+      }else{
+        socket.off('comment').emit('comment', {userId:userId?.UserId ,comment} );
+        setComment("")
+      }
+    }
+    
+
+   }
+
+
+
+
+ 
+   
+   
   return (
 
   
     <Root>
-    
+    {popUpOffset !== -101 && 
+<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
+   }
+
+   {popUpAddWeekOffset !== -101 && 
+<PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
+  }
+
+{popUpEditWeekOffset !== -101 && 
+<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech}/>
+  }
+
+{popUpDeleteWeekOffset !== -101 && 
+<PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
+  }
+
+{popUpDeleteDiaryOffset !== -101 && 
+<PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
+  }
   
     {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
+      
 
-<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
-   
-<PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
-
-<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech}/>
-
-<PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
-
-<PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
       <Inner>
       
 
@@ -1623,7 +1758,7 @@ if(activeDiaryData?.Image !== undefined){
           </TextHolder>
           }
 
-{console.log("dayId",dayId)}
+
 {dayId !== null && 
           <TextHolder>
            
@@ -1918,6 +2053,34 @@ if(activeDiaryData?.Image !== undefined){
         })}
         </DotHolder>
         </GalleryHolderInnerMain>
+
+        <ChatHolder>
+       
+          <div>
+            {commentList?.map((c)=>{
+             
+             return(
+              
+              <ChatMsgLeft>
+              <div>{c.userId}</div>
+              <div>{c.comment}</div>
+              </ChatMsgLeft>
+           
+            )
+            
+            })}
+          </div>
+
+          <ChatInputHolder>
+          
+        
+        <ChatInput value={comment} onChange={(e)=>{HandleComment(e)}}/>
+    
+        <ChatButton onClick={()=>{SendComment()}}>
+        Send
+        </ChatButton>
+        </ChatInputHolder>
+        </ChatHolder>
       </Inner>
     </Root>
    

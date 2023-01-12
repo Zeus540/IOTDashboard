@@ -32,12 +32,14 @@ padding: 20px 80px ;
     padding: 10px 0px;
     border-radius: 5px;
     width: 90%;
+    margin-bottom: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 20px;
     padding: 10px;
     border-radius: 5px;
     width: 95%;
+    margin-bottom: 0px;
   }
 `;
 const LegalText = styled.p`

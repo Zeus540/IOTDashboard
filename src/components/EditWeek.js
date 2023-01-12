@@ -214,7 +214,7 @@ const addTech = (t)=>{
     }
     
     useEffect(() => {
-      console.log(  props?.week);
+    
     
       setWeek(props?.week?.Week)
     if(props?.week?.Stage == "GER"){
