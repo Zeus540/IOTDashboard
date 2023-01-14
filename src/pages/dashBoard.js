@@ -950,9 +950,9 @@ flex-direction: column;
 justify-content: space-between;
 `;
 const ChatHolderInner = styled.div`
-
+max-height: 250px;
 padding: 10px;
-
+overflow: auto;
 `;
 
 
