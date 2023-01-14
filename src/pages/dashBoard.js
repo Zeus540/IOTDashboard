@@ -23,8 +23,21 @@ import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from  'react-loader-spinner'
 import io from 'socket.io-client';
-
+import { NavLink } from "react-router-dom";
 const socket = io("https://api.sweetleaf.co.za");
+
+
+const MenuLink = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 16px 10px;
+
+  color: #8bab50;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+ 
+
+`;
 
 const Root = styled.div`
 
@@ -925,39 +938,64 @@ display: flex;
 `;
 
 const ChatHolder = styled.div`
-
+position: relative;
 background: whitesmoke;
 color: black;
-padding: 20px;
+min-height: 200px;
+border: 1px solid #b1b1b1;
 margin: 0px 20px;
 border-radius: 5px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+`;
+const ChatHolderInner = styled.div`
+
+padding: 10px;
+
 `;
 
 
-const ChatMsgRight = styled.div`
-background: green;
-padding: 10px 20px;
-border-radius: 5px;
-color: white;
-width: fit-content;
-margin-bottom: 10px;
-`;
 
 const ChatMsgLeft = styled.div`
-background: #8bab50;
-padding: 10px 20px;
-border-radius: 5px;
+
+
+
 color: white;
 width: fit-content;
+
 margin-bottom: 10px;
 `;
 
+const ChatMsgUser = styled.div`
+color: black;
+font-size: 12px;
+`;
+const ChatMsgComment = styled.p`
+margin: 0px;
+background: #8bab50;
+padding: 5px 20px;
+display: flex;
+border-radius: 5px;
+`;
+const ChatMsgCommentFlex = styled.div`
+display: flex;
+align-items: end;
+`;
+
+const ChatMsgTime = styled.p`
+margin: 0px;
+margin-left: 10px;
+color: black;
+font-size: 12px;
+line-height: 8px;
+`;
 const ChatButton = styled.button`
 background: #8bab50;
 padding: 10px 20px;
-border-radius: 5px;
+border-radius: 0px 0px 5px 0px;
 color: white;
-width: 20%;
+
 border:none;
 cursor: pointer;
 `;
@@ -967,12 +1005,34 @@ display: flex;
 
 const ChatInput = styled.input`
 padding: 10px 20px;
-border-radius: 5px;
+border-radius: 0px 0px 0px 5px;
 border: 1px solid #b1b1b1;
-width: calc(80% - 20px);
-margin-right: 20px;
+width: 100%;
+background: whitesmoke;
 margin-bottom: 0px;
 min-height:25px;
+border-bottom: 0px;
+border-left: 0px;
+`;
+
+
+const ChatHidden = styled.div`
+background: #f5f5f578;
+position: absolute;
+z-index: 2;
+width: 100%;
+height: 100%;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 16px;
+`;
+const SvgLogin = styled.svg`
+fill: #8bab50;
+margin-right: 10px;
+width: 20px;
+
 `;
 
 const DashBoard = (props) => {
@@ -2054,22 +2114,35 @@ if(activeDiaryData?.Image !== undefined){
         </DotHolder>
         </GalleryHolderInnerMain>
 
+        <Heading>COMMENTS</Heading>
+
         <ChatHolder>
-       
-          <div>
+       {!token &&   <ChatHidden>
+        Sign In To Comment       <MenuLink to="/login"> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></SvgLogin>Login</MenuLink>
+       </ChatHidden> }
+    
+          <ChatHolderInner>
             {commentList?.map((c)=>{
              
              return(
               
-              <ChatMsgLeft>
-              <div>{c.userId}</div>
-              <div>{c.comment}</div>
-              </ChatMsgLeft>
+            <ChatMsgLeft>
+              <ChatMsgUser>
+            {c.userId}
+              </ChatMsgUser>
+              <ChatMsgCommentFlex>
+              <ChatMsgComment>
+             {c.comment}
+       
+              </ChatMsgComment>
+              <ChatMsgTime>13:00</ChatMsgTime>
+              </ChatMsgCommentFlex>
+            </ChatMsgLeft>
            
             )
             
             })}
-          </div>
+          </ChatHolderInner>
 
           <ChatInputHolder>
           
@@ -2077,7 +2150,7 @@ if(activeDiaryData?.Image !== undefined){
         <ChatInput value={comment} onChange={(e)=>{HandleComment(e)}}/>
     
         <ChatButton onClick={()=>{SendComment()}}>
-        Send
+        <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"/></SvgB>
         </ChatButton>
         </ChatInputHolder>
         </ChatHolder>

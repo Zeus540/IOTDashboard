@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logoLogin.png";
 import { AuthContext } from "../context/auth_context";
 import { NavLink } from "react-router-dom";
-import Chip from "../assets/chip.png";
-import Journal from "../assets/journalW.png";
+
 import { ThemeProvider } from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -53,7 +52,7 @@ const LogoHolder = styled.div`
   }
 `;
 const Img = styled.img`
-filter: drop-shadow(4px 1px 3px black)
+
 `;
 
 
