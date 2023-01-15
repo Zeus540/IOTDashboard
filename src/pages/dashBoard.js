@@ -25,6 +25,7 @@ import { InfinitySpin } from 'react-loader-spinner'
 import io from 'socket.io-client';
 import { NavLink } from "react-router-dom";
 import date from 'date-and-time';
+import { Helmet } from "react-helmet";
 
 const socket = io("https://api.sweetleaf.co.za");
 
@@ -32,6 +33,17 @@ const socket = io("https://api.sweetleaf.co.za");
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
   padding: 16px 10px;
+
+  color: #8bab50;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+ 
+
+`;
+const ChatMsgLeftMenuLink = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 0px 10px;
 
   color: #8bab50;
   align-items: center;
@@ -371,18 +383,7 @@ color:black;
   }
 `;
 
-const DairyHeadingSmall = styled.sup`
-color: white;
-margin-top: 0px;
-font-size: 16px;
-background: #596876;
-margin-bottom: 0px;
-padding: 5px 15px;
-height: fit-content;
-border-radius: 50px;
-margin-right: 10px;
-display: flex;
-`;
+
 const DairyViewsSmall = styled.sup`
 display: flex;
 color:  #596876;
@@ -979,12 +980,13 @@ position: relative;
 background: whitesmoke;
 color: black;
 min-height: 200px;
-border: 1px solid #b1b1b1;
+// border: 1px solid #b1b1b1;
 margin: 0px 20px;
 border-radius: 5px;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+overflow: hidden;
 `;
 const ChatHolderInner = styled.div`
 max-height: 250px;
@@ -1014,6 +1016,7 @@ background: #596876;
 padding: 5px 15px;
 display: flex;
 border-radius: 50px;
+line-height: 20px;
 `;
 const ChatMsgCommentFlex = styled.div`
 display: flex;
@@ -1043,7 +1046,7 @@ display: flex;
 const ChatInput = styled.input`
 padding: 10px 20px;
 border-radius: 0px 0px 0px 5px;
-border: 1px solid #b1b1b1;
+border: none;
 width: 100%;
 background: whitesmoke;
 margin-bottom: 0px;
@@ -1060,7 +1063,7 @@ display: flex;
 `;
 
 const ChatHidden = styled.div`
-background: #f5f5f578;
+background: #f5f5f5eb;
 position: absolute;
 z-index: 2;
 width: 100%;
@@ -1154,7 +1157,7 @@ const DashBoard = (props) => {
     }
 
 
-    document.title = "Sweet Leaf - " + filtered?.Title;
+
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
 
@@ -1715,6 +1718,15 @@ const DashBoard = (props) => {
 
 
     <Root>
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sweet Leaf - ${activeDiary?.Title}`}</title>
+        <meta name="description"  content={`Sweet Leaf - ${activeDiary?.Title}.${activeDiary?.Strain} + "Grow by" + ${activeDiary?.UserName}}`}/>
+        <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
+      </Helmet>
+
+{console.log(activeDiary)}
       {popUpOffset !== -101 &&
         <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
       }
@@ -2185,7 +2197,7 @@ const DashBoard = (props) => {
 
         <ChatHolder>
           {!token && <ChatHidden>
-            <MenuLink to="/login" state={location.pathname}> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></SvgLogin>Sign In</MenuLink> To Comment
+            <MenuLink to="/sign-in" state={location.pathname}> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></SvgLogin>Sign In</MenuLink> To Comment
           </ChatHidden>}
 
           <ChatHolderInner className="chat" id="chat">
@@ -2194,9 +2206,11 @@ const DashBoard = (props) => {
               return (
 
                 <ChatMsgLeft key={index}>
+                    <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
                   <ChatMsgUser>
-                    {c.Sender_Id}
+                    {c.Sender_Name}
                   </ChatMsgUser>
+                  </ChatMsgLeftMenuLink>
                   <ChatMsgCommentFlex>
                     <ChatMsgComment>
                       {c.Comment}

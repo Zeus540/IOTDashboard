@@ -92,13 +92,26 @@ const LinkHolderMobile = styled.div`
   transform: ${(props) => !props.mobileMenu ? "translateX(-101%)" : "translateX(0%)"};
   justify-content: space-between;
   min-height: 100vh ;
+  z-index: 50;
   @media (min-width: 0px) and (max-width: 767px) {
-   
+    min-width: 50%;
   }
 `;
 const MenuLink = styled(NavLink)`
   margin: 0px 0px;
   padding: 16px 10px;
+
+  color: black;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+ 
+
+`;
+
+const MenuLinkTop = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 0px 10px;
 
   color: black;
   align-items: center;
@@ -305,30 +318,27 @@ padding-left: 20px;
 `;
 
 
-const NavBar = () => {
+const NavBar = (props) => {
   const { auth, logOut, user, userId } = useContext(AuthContext);
-  const [mobileMenu, setMobileMenu] = useState(false);
 
-  const OffClick = () => {
-    if (mobileMenu == true) {
-      setMobileMenu(false);
-    }
-  }
 
   // Define what props.theme will look like
   const theme = {
     dark: "#275557"
   };
 
+
+
+console.log()
   return (
 
     <Root onClick={() => {
-      OffClick();
+      props.OffClick();
     }}>
       <Inner>
         <Div>
           <BurgerMenuHolder onClick={() => {
-            setMobileMenu(!mobileMenu);
+            props.setMobileMenu(!props.mobileMenu);
           }}>
             <BurgerMenu
 
@@ -354,14 +364,14 @@ const NavBar = () => {
           <LinkHolder>
             {!auth && (
               <>
-                <MenuLink to="/login"> <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></Svg>Sign In</MenuLink>
-                <MenuLink to="/register">
+                <MenuLink to="/sign-in"> <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></Svg>Sign In</MenuLink>
+                <MenuLink to="/sign-up">
                   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" /></Svg>Sign Up</MenuLink>
               </>
             )}
             {auth && (
               <>
-                <MenuLink to={`/profile/${user?.User}/${userId?.UserId}`}>
+                <MenuLinkTop to={`/profile/${user?.User}/${userId?.UserId}`}>
 
                   <UserInfoTop>
                     <UserAvatar>
@@ -369,7 +379,7 @@ const NavBar = () => {
                     </UserAvatar>
                     {user?.User}
                   </UserInfoTop>
-                </MenuLink>
+                </MenuLinkTop>
 
                 <Button onClick={() => { logOut() }}>
                   <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M534.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L434.7 224 224 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM192 96c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-53 0-96 43-96 96l0 256c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" /></SvgW>
@@ -385,21 +395,21 @@ const NavBar = () => {
       {/* //mobile */}
 
 
-      <LinkHolderMobile mobileMenu={mobileMenu}>
+      <LinkHolderMobile mobileMenu={ props.mobileMenu} >
 
 
 
 
         <section>
           <LinkHolderM>
-            <CloseHolder onClick={() => { setMobileMenu(false); }}>
+            <CloseHolder onClick={() => {  props.setMobileMenu(false); }}>
 
 
               <SvgWMenuDraw xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" /></SvgWMenuDraw>
 
             </CloseHolder>
 
-            <MenuLinkMobile to="/public-diaries" onClick={() => { setMobileMenu(false); }}>
+            <MenuLinkMobile to="/public-diaries" onClick={() => {  props.setMobileMenu(false); }}>
               <FlexLink>
 
                 <div>Home</div>
@@ -408,21 +418,21 @@ const NavBar = () => {
 
             {auth &&
               <>
-                <MenuLinkMobile to="/diaries" onClick={() => { setMobileMenu(false); }}>
+                <MenuLinkMobile to="/diaries" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>My Diaries</div>
                   </FlexLink>
                 </MenuLinkMobile>
 
-                <MenuLinkMobile to="/my-devices" onClick={() => { setMobileMenu(false); }}>
+                <MenuLinkMobile to="/my-devices" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>My Devices</div>
                   </FlexLink>
                 </MenuLinkMobile>
 
-                <MenuLinkMobile to="/users" onClick={() => { setMobileMenu(false); }}>
+                <MenuLinkMobile to="/users" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>Users</div>
@@ -439,14 +449,14 @@ const NavBar = () => {
 
 
           <LinkHolderMLogin>
-            <MenuLinkMobile to="/login" onClick={() => { setMobileMenu(false); }}>
+            <MenuLinkMobile to="/sign-in" onClick={() => {  props.setMobileMenu(false); }}>
               <FlexLink>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></Svg>
                 <div>Sign In</div>
               </FlexLink>
             </MenuLinkMobile>
 
-            <MenuLinkMobile to="/register" onClick={() => { setMobileMenu(false); }}>
+            <MenuLinkMobile to="/sign-up" onClick={() => {  props.setMobileMenu(false); }}>
               <FlexLink>
                 <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" /></Svg>
                 <div>Sign Up</div>

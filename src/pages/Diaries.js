@@ -13,7 +13,7 @@ import { TextField } from "@mui/material";
 import axios from "axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 const Root = styled.div`
 
 
@@ -244,6 +244,11 @@ const Diaries = () => {
 
     <>
 
+<Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sweet Leaf - My Diaries`}</title>
+        <link rel="canonical" href={`https://sweetleaf.co.za/diaries`} />
+      </Helmet>
 
 <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
     <Root>

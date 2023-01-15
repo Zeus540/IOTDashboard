@@ -19,7 +19,7 @@ import ProfileUser from './pages/ProfileUser';
 import Login from './pages/login';
 import Devices from './pages/Devices';
 
-const MainContainer = () => {
+const MainContainer = (props) => {
     const { auth, userId, setAuth } = useContext(AuthContext)
 
 
@@ -34,9 +34,9 @@ const MainContainer = () => {
 
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<DiariesPublic />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
+                    <Route path="/sign-in" element={<Login />} />
+                    <Route path="/sign-up" element={<Register />} />
+                    <Route path="/sign-up/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                     <Route path="/public-diaries" element={<DiariesPublic />} />
 
@@ -57,7 +57,7 @@ const MainContainer = () => {
 
                     <Route path="/profile/:username/:userId" element={<ProfileUser />} />
 
-                    <Route path="/diaries" element={<Diaries />} />
+                    <Route path="/diaries" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
                     <Route path="/my-devices" element={<Devices />} />
                     <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />
 

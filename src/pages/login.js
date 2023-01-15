@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios"
 import { NavLink } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Root = styled.div`
 
@@ -116,10 +117,7 @@ function Login() {
   const [errMsg, setErrMsg] = useState("")
 
 
-  useEffect(() => {
 
-    document.title = "Sweet Leaf - Login"
-  }, [])
 
   const handleLogin = (values) => {
     console.log("values", values);
@@ -157,6 +155,13 @@ function Login() {
 
   return (
     <Root>
+
+         <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sweet Leaf - Sign In`}</title>
+        <link rel="canonical" href={`https://sweetleaf.co.za/sign-in`} />
+      </Helmet>
+
       <RootInner>
         <Heading>
           <img src={Logo} width="60%" />
@@ -192,7 +197,7 @@ function Login() {
 
               <Button>Login</Button>
 
-              <Help>Dont have an account?     <MenuLink to="/register">Sign Up Here</MenuLink> </Help>
+              <Help>Need a account?     <MenuLink to="/sign-up">Sign Up Here</MenuLink> </Help>
             </Form>
           )}
         </Formik>

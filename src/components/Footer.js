@@ -28,7 +28,7 @@ background: #ffffff;
 
 padding: 20px 80px ;
   @media (max-width: 425px) {
-    margin: 20px;
+    margin: 0px 20px;
     padding: 10px 0px;
     border-radius: 5px;
     width: 90%;

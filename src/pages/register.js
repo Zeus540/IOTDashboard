@@ -6,6 +6,7 @@ import { Formik, Field, Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios"
+import { Helmet } from "react-helmet";
 
 const Root = styled.div`
 //background:#27555726;
@@ -111,10 +112,7 @@ function Register() {
  const [errorM, setError] = useState("")
 
 
- useEffect(() => {
-
-  document.title = "Sweet Leaf - Login" 
-}, [])
+ 
 
   const handleLogin =(values) =>{
     
@@ -166,6 +164,13 @@ function Register() {
   
   return (
     <Root>
+
+<Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sweet Leaf - Sign Up`}</title>
+        <link rel="canonical" href={`https://sweetleaf.co.za/sign-up`} />
+      </Helmet>
+
      <RootInner>
      <Heading>
      <img src={Logo} width="60%" />

@@ -37,16 +37,23 @@ z-index: 5;
 
 function App() {
 
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const OffClick = () => {
+    if (mobileMenu == true) {
+      setMobileMenu(false);
+    }
+  }
 
   return (
-    <Root>
+    <Root onClick={()=>{OffClick()}}>
       <Image></Image>
       <Inner>
        
           <AuthProvider>
             <DiaryProvider>
          
-              <NavBar />
+              <NavBar mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} OffClick={OffClick}/>
               <MainContainer />
               <Footer />
             </DiaryProvider>
