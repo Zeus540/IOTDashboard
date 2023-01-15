@@ -972,9 +972,9 @@ display: flex;
 
 const ChatHolder = styled.div`
 position: relative;
-background: whitesmoke;
 color: black;
 min-height: 200px;
+background: #e7e7e7;
 // border: 1px solid #b1b1b1;
 margin: 0px 20px;
 border-radius: 5px;
@@ -984,10 +984,10 @@ justify-content: space-between;
 overflow: hidden;
 `;
 const ChatHolderInner = styled.div`
-max-height: 250px;
+
 padding: 10px;
 overflow: auto;
-background: #e7e7e7;
+
 `;
 
 
