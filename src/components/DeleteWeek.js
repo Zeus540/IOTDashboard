@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-
+import { useSnackbar} from 'notistack';
 
 
 const Inner = styled.div`
@@ -65,7 +65,7 @@ margin-top: 0px;
 
 
 const DeleteWeek = (props) => {
-    
+  const {enqueueSnackbar} = useSnackbar()
     const { diaries,Update,loading } = useContext(DiaryContext);
   
     const navigate = useNavigate();
@@ -91,10 +91,13 @@ const DeleteWeek = (props) => {
         axios.post('https://api.sweetleaf.co.za/weeks/delete_week',data,config,)
         .then(function (response) {
           if(response.data.affectedRows == 1){
+            enqueueSnackbar("Week Successfully Deleted",{variant:'success'})
             Update()
             props.setPopUpOffset(-101);
+          }else{
+            enqueueSnackbar(response.status,{variant:'error'})
           }
-         
+       
           console.log("response",response.data.insertId);
         })
         .catch(function (error) {

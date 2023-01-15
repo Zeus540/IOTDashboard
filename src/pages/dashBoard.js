@@ -2,30 +2,25 @@ import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Image from "../assets/imagesrsadere.png";
-import Image2 from "../assets/imagesrsaderes.png";
-import Image3 from "../assets/seedling.jpg";
 import axios from "axios";
 import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
-import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import { useNavigate } from 'react-router-dom'
 import Tabs from "../components/Tabs";
 import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
-import faTrash from "../assets/trash-can-regular.svg";
 import Mainline from '../assets/mainline.svg'
 import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
-import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from 'react-loader-spinner'
 import io from 'socket.io-client';
 import { NavLink } from "react-router-dom";
-import date from 'date-and-time';
 import { Helmet } from "react-helmet";
+import { useSnackbar } from 'notistack';
 
 const socket = io("https://api.sweetleaf.co.za");
 
@@ -391,7 +386,7 @@ margin-top: 0px;
 font-size: 16px;
 
 margin-bottom: 0px;
-padding: 5px 15px;
+padding: 0px 15px;
 padding-left: 0px;
 padding-top: 0px;
 height: fit-content;
@@ -1087,16 +1082,7 @@ width: 20px;
 
 const DashBoard = (props) => {
 
-  let tabs = [
-    {
-      tabName: 'Overview',
-      active: false
-    },
-    {
-      tabName: 'Statistics',
-      active: false
-    }
-  ]
+  const { enqueueSnackbar } = useSnackbar()
 
   const [lightBox, setLightBox] = useState(false);
   const [addNotes, setAddNotes] = useState(false);
@@ -1120,7 +1106,7 @@ const DashBoard = (props) => {
   const [mainImage, setMainImage] = useState("");
   const { diaries, diariesPublic, Update, UpdatePublic } = useContext(DiaryContext);
   const params = useParams();
-  const [tabList, setTabList] = useState(tabs)
+
   const location = useLocation()
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
@@ -1203,7 +1189,7 @@ const DashBoard = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [params,diaries])
+  }, [params, diaries])
 
   useEffect(() => {
 
@@ -1335,9 +1321,9 @@ const DashBoard = (props) => {
   };
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    console.log("activeWeek",activeWeek)
+    console.log("activeWeek", activeWeek)
     let weekData = {
       WeekId: activeWeek.WeekId
     }
@@ -1350,7 +1336,7 @@ const DashBoard = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  },[diaries])
+  }, [diaries])
 
   const UpdateTech = (data) => {
     axios
@@ -1654,7 +1640,13 @@ const DashBoard = (props) => {
     axios
       .post("https://api.sweetleaf.co.za/diaries/update_thumbnail", data, config)
       .then(function (response) {
-        console.log('response', response)
+        if (response.status == 200) {
+          enqueueSnackbar("Cover Successfully Updated", { variant: 'success' })
+        } else {
+          enqueueSnackbar(response.status, { variant: 'error' })
+        }
+
+
       })
       .catch(function (error) {
         console.log(error);
@@ -1743,11 +1735,11 @@ const DashBoard = (props) => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>{`Sweet Leaf - ${activeDiary?.Title}`}</title>
-        <meta name="description"  content={`Sweet Leaf - ${activeDiary?.Title}.${activeDiary?.Strain} + "Grow by" + ${activeDiary?.UserName}}`}/>
+        <meta name="description" content={`Sweet Leaf - ${activeDiary?.Title}.${activeDiary?.Strain} + "Grow by" + ${activeDiary?.UserName}}`} />
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
-{console.log(activeDiary)}
+      {console.log(activeDiary)}
       {popUpOffset !== -101 &&
         <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
       }
@@ -2001,12 +1993,11 @@ const DashBoard = (props) => {
                         onClick={() => {
                           handelGetWeekData(w);
                         }}
-
                       >
                         <WeekHolderText>
 
                           <WeekHolderTextSub>Week</WeekHolderTextSub>
-                          <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
+                          <div>{w.Week}</div>
                         </WeekHolderText>
 
                         {w.Stage.toUpperCase() == "GER" &&
@@ -2043,7 +2034,7 @@ const DashBoard = (props) => {
                         <WeekHolderText>
 
                           <WeekHolderTextSub>Week</WeekHolderTextSub>
-                          <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
+                          <div>{w.Week}</div>
                         </WeekHolderText>
 
                         {w.Stage.toUpperCase() == "GER" &&
@@ -2227,10 +2218,10 @@ const DashBoard = (props) => {
               return (
 
                 <ChatMsgLeft key={index}>
-                    <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
-                  <ChatMsgUser>
-                    {c.Sender_Name}
-                  </ChatMsgUser>
+                  <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
+                    <ChatMsgUser>
+                      {c.Sender_Name}
+                    </ChatMsgUser>
                   </ChatMsgLeftMenuLink>
                   <ChatMsgCommentFlex>
                     <ChatMsgComment>

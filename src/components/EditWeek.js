@@ -18,7 +18,7 @@ import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
-
+import { useSnackbar} from 'notistack';
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -111,7 +111,7 @@ const Button = styled.button`
 `;
 
 const EditWeek = (props) => {
-    
+  const {enqueueSnackbar} = useSnackbar()
     const { diaries,Update,loading } = useContext(DiaryContext);
   const [technique_Name, setTechnique_Name] = useState("Topping")
     const navigate = useNavigate();
@@ -149,12 +149,15 @@ const EditWeek = (props) => {
         .then(function (response) {
           if(response.data.insertId !== undefined){
             console.log("response.data",response.data);
+            enqueueSnackbar("Week Successfully Edited",{variant:'success'})
             Update()
             props.setPopUpOffset(-101);
           
+          }else{
+            enqueueSnackbar(response.status,{variant:'error'})
           }
-         
-          console.log("response",response.data.insertId);
+  
+
         })
         .catch(function (error) {
       
@@ -182,9 +185,11 @@ const addTech = (t)=>{
            .then(function (response) {
              if(response.data.insertId !== undefined){
               Update()
-         
+              enqueueSnackbar("Grow Technique Successfully Added",{variant:'success'})
               props.setPopUpOffset(-101);
-             }
+             }else{
+              enqueueSnackbar(response.status,{variant:'error'})
+            }
            
         
            })

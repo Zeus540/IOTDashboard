@@ -10,7 +10,7 @@ import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
-
+import { useSnackbar} from 'notistack';
 import MenuItem from '@mui/material/MenuItem';
 
 
@@ -68,7 +68,7 @@ const Button = styled.button`
 `;
 
 const AddWeek = (props) => {
-    
+  const {enqueueSnackbar} = useSnackbar()
     const { diaries,Update,loading } = useContext(DiaryContext);
   
     const navigate = useNavigate();
@@ -107,12 +107,15 @@ const AddWeek = (props) => {
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()
+            enqueueSnackbar("Week Successfully Added",{variant:'success'})
             props.setPopUpOffset(-101);
             setWeek("")
             setStage("")
+          }else{
+            enqueueSnackbar(response.status,{variant:'error'})
           }
          
-          console.log("response",response.data.insertId);
+         
         })
         .catch(function (error) {
       

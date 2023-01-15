@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
 import { TailSpin } from  'react-loader-spinner'
+import { useSnackbar} from 'notistack';
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -74,6 +75,7 @@ background-position: center center;
 `;
 
 const UploadImage = (props) => {
+  const {enqueueSnackbar} = useSnackbar()
   const [img, setImg] = useState('');
   const [loading, setLoading] = useState(false);
   
@@ -148,10 +150,12 @@ if(props.DayId !== ''){
       setImgName("")
       setLoading(false)
       props.update()
+      enqueueSnackbar("Image Successfully Uploaded",{variant:'success'})
+    }else{
+      enqueueSnackbar(response.status,{variant:'error'})
     }
 
    
-    console.log("response",response.status);
   })
   .catch(function (error) {
 

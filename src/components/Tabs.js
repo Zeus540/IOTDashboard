@@ -77,10 +77,7 @@ const Tabs = () => {
           tabName:'Journal',
           active:false
         },
-        {
-          tabName:'Settings',
-          active:false
-        }
+      
       ]
 
     const params = useParams();
@@ -137,6 +134,7 @@ useEffect(() => {
             case "Journal":
             navigate(`/journal/${params.id}`)
             break;
+            
             
     }
     

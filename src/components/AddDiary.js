@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios";
+import { useSnackbar} from 'notistack';
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -117,6 +118,7 @@ const Button = styled.button`
 `;
 const AddDiary = (props) => {
 
+  const {enqueueSnackbar} = useSnackbar()
   const { diaries, Update, loading } = useContext(DiaryContext);
   const [diaryTypes, setDiaryTypes] = useState([]);
   const [type, setType] = useState("");
@@ -161,10 +163,12 @@ useEffect(() => {
       .then(function (response) {
         if (response.data.insertId !== undefined) {
           Update()
+          enqueueSnackbar("Diary Successfully Added ",{variant:'success'})
           props.setPopUpOffset(-101);
+        }else{
+          enqueueSnackbar(response.status,{variant:'error'})
         }
 
-        console.log("response", response.data.insertId);
       })
       .catch(function (error) {
 

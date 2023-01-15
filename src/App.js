@@ -7,7 +7,7 @@ import { AuthProvider } from '../src/context/auth_context';
 import { DiaryProvider } from '../src/context/diary_context';
 import MainContainer from './MainContainer';
 import Footer from './components/Footer';
-
+import { SnackbarProvider,enqueueSnackbar} from 'notistack';
 const Root = styled.div`
 
 
@@ -49,7 +49,7 @@ function App() {
     <Root onClick={()=>{OffClick()}}>
       <Image></Image>
       <Inner>
-       
+       <SnackbarProvider maxSnack={4} >
           <AuthProvider>
             <DiaryProvider>
          
@@ -58,7 +58,7 @@ function App() {
               <Footer />
             </DiaryProvider>
           </AuthProvider>
-      
+          </SnackbarProvider>
       </Inner>
     </Root>
   )
