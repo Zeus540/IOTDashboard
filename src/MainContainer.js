@@ -13,37 +13,37 @@ import DashBoard from './pages/dashBoard';
 import Diaries from './pages/Diaries';
 import DiariesPublic from './pages/DiariesPublic';
 import Users from './pages/Users';
-import MyProfile from './pages/MyProfile';
+
 import ProfileUser from './pages/ProfileUser';
 
 import Login from './pages/login';
 import Devices from './pages/Devices';
 
 const MainContainer = () => {
-    const { auth,userId, setAuth } = useContext(AuthContext)
-  
+    const { auth, userId, setAuth } = useContext(AuthContext)
+
 
     const [hidden, setHidden] = useState(true)
 
     return (
         <div>
-                         
+
             {!auth &&
 
                 <Routes>
-                    
+
                     <Route path="*" element={<NotFound />} />
-             <Route path="/" element={<DiariesPublic />} />
+                    <Route path="/" element={<DiariesPublic />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/register/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                     <Route path="/public-diaries" element={<DiariesPublic />} />
-                    
+
                     <Route path="/overview/:id" element={<DashBoard />} />
-                        <Route path="/environment/:id" element={<Stats/>} />
-                        <Route path="/harvest/:id" element={<Harvest />} />
-                        <Route path="/journal/:id" element={<Notes />} />
+                    <Route path="/environment/:id" element={<Stats />} />
+                    <Route path="/harvest/:id" element={<Harvest />} />
+                    <Route path="/journal/:id" element={<Notes />} />
                 </Routes>
             }
 
@@ -51,25 +51,25 @@ const MainContainer = () => {
                 <Routes>
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<DiariesPublic />} />
-               
+
                     <Route path="/public-diaries" element={<DiariesPublic />} />
                     <Route path="/users" element={<Users />} />
-                    <Route path="/my-profile" element={<MyProfile />} />
+
                     <Route path="/profile/:username/:userId" element={<ProfileUser />} />
 
                     <Route path="/diaries" element={<Diaries />} />
                     <Route path="/my-devices" element={<Devices />} />
                     <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />
 
-         
-                        <Route path="/overview/:id" element={<DashBoard />} />
-                        <Route path="/environment/:id" element={<Stats/>} />
-                        <Route path="/harvest/:id" element={<Harvest />} />
-                        <Route path="/journal/:id" element={<Notes />} />
-                
+
+                    <Route path="/overview/:id" element={<DashBoard />} />
+                    <Route path="/environment/:id" element={<Stats />} />
+                    <Route path="/harvest/:id" element={<Harvest />} />
+                    <Route path="/journal/:id" element={<Notes />} />
+
                 </Routes>
             }
-               
+
         </div>
     )
 }

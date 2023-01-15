@@ -167,9 +167,9 @@ const NotesHolder = (props) => {
 
         </TextArea>
         <InputGrp>
-        <label class="switch">
+        <label className="switch">
 <input type="checkbox" checked={keyNote} onChange={(e)=>{handleActiveToggle()}}/>
-<span class="slider round"></span>
+<span className="slider round"></span>
 
 </label> 
 <ToggleHolderLabel>Key Note</ToggleHolderLabel>

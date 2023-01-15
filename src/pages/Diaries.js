@@ -264,10 +264,11 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d) => {
+          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d,index) => {
             return (
               <Diary
           to={`/overview/${d.DiaryId}`}
+          key={index}
               >
         <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
                  

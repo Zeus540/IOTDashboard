@@ -1,10 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-
+import { useLocation } from "react-router-dom";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate ()
+    const location = useLocation ()
+
     const [auth, setAuth] = useState(false);
     const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
     const [userId, setUserId] = useState(JSON.parse(localStorage.getItem('auth')));
@@ -22,7 +24,14 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('auth', JSON.stringify({UserId:token.UserId}));
         localStorage.setItem('user', JSON.stringify({User:token.UserName}));
         setAuth(true)
-        navigate('/')
+
+        console.log(location.state)
+        if(location.state !== null){
+            navigate(location.state)
+        }else{
+            navigate('/')
+        }
+      
     }
 
     const logOut = ()=>{

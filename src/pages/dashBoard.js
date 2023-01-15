@@ -10,20 +10,22 @@ import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Tabs from "../components/Tabs";
 import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
-import  faTrash  from "../assets/trash-can-regular.svg";
+import faTrash from "../assets/trash-can-regular.svg";
 import Mainline from '../assets/mainline.svg'
 import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from "../components/shared/useMediaQuery";
-import { InfinitySpin } from  'react-loader-spinner'
+import { InfinitySpin } from 'react-loader-spinner'
 import io from 'socket.io-client';
 import { NavLink } from "react-router-dom";
+import date from 'date-and-time';
+
 const socket = io("https://api.sweetleaf.co.za");
 
 
@@ -141,8 +143,8 @@ width: 100%;
   max-width: unset;
 }
 `
-;
-const ToggleHolder= styled.div`
+  ;
+const ToggleHolder = styled.div`
 display: flex;
 
 flex-wrap: wrap;
@@ -157,7 +159,7 @@ align-items: center;
 }
 
 `
-const ToggleHolderLabel= styled.div`
+const ToggleHolderLabel = styled.div`
 color:black;
 padding: 0px 10px;
 display: flex;
@@ -187,13 +189,14 @@ padding-bottom: 0px;
 @media (max-width: 425px) {
   // background: #596876;
   color: white;
+  padding-bottom: 20px;
 }
 `;
 const Flex3BtnHolder = styled.div`
 justify-content: end;
 padding: 0px 20px;
 display: flex;
-
+flex-wrap: wrap;
 `;
 
 
@@ -509,10 +512,10 @@ const GalleryHolderInner = styled.div`
   transform: translateX(${props => props.position}%);
   transition: 0.5s all ease;
   @media (max-width: 600px) {
-    transform: translateX(${props => props.position }%);
+    transform: translateX(${props => props.position}%);
   }
   @media (min-width: 601px) and (max-width: 768px) {
-    transform: translateX(${props => props.position }%);
+    transform: translateX(${props => props.position}%);
   }
  
 `;
@@ -543,6 +546,40 @@ const Heading = styled.h4`
   margin-top: 30px;
   align-items: center;
   color: black;
+  &::before {
+    content: "";
+    display: block;
+    background: #8bab50;
+    height: 2px;
+    width: 15%;
+    margin: 0px 20px;
+  }
+  &::after {
+    content: "";
+    display: block;
+    background: #8bab50;
+    height: 2px;
+    width: 15%;
+    margin: 0px 20px;
+  },
+
+`;
+
+const HeadingC = styled.h4`
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 80px;
+  margin-top: 80px;
+  align-items: center;
+  color: black;
+  @media (min-width: 0px) and (max-width: 768px) {
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
   &::before {
     content: "";
     display: block;
@@ -682,7 +719,7 @@ text-align: center;
     border: none;
     color: white;
     border-radius: 50px;
-    
+    margin-bottom: 20px;
     cursor: pointer;
 
 `;
@@ -693,16 +730,16 @@ margin: 0;
 `;
 
 const Dot = styled.div`
-  background: ${props => props.index == props.positionIndex ? "#8bab50": "#596876"};
+  background: ${props => props.index == props.positionIndex ? "#8bab50" : "#596876"};
   border-radius: 50%;
   height: 10px;
   width: 10px;
   margin:0px 5px;
   margin-top:10px;
-  opacity:${props => props.index == props.positionIndex ? "1": "0.5"}
+  opacity:${props => props.index == props.positionIndex ? "1" : "0.5"}
 `;
 
-const DotHolder= styled.div`
+const DotHolder = styled.div`
 
 justify-content: center;
 display: none;
@@ -829,36 +866,36 @@ const Input = styled.input`
 background: transparent;
 border: none;
 border-bottom: 2px solid #8bab50;
-padding: ${(props) => !props.assignDevice ? "0px":"5px 5px"};
-width: ${(props) => !props.assignDevice ? "0px":"unset"};
+padding: ${(props) => !props.assignDevice ? "0px" : "5px 5px"};
+width: ${(props) => !props.assignDevice ? "0px" : "unset"};
 color: black;
 transition: 0.5s all ease;
 @media (max-width: 425px) {
-  width: ${(props) => !props.assignDevice ? "0px":"100%"};
+  width: ${(props) => !props.assignDevice ? "0px" : "100%"};
 }
 
 `
 
-;
+  ;
 
 const InputHolder = styled.div`
 padding: 20px 0px;
 
-width: ${(props) => !props.assignDevice ? "0px":"unset"};
+width: ${(props) => !props.assignDevice ? "0px" : "unset"};
 
 
-display: ${(props) => !props.assignDevice ?"none" : "flex"};
+display: ${(props) => !props.assignDevice ? "none" : "flex"};
 transition: 0.5s all ease;
 @media (max-width: 425px) {
-  width: ${(props) => !props.assignDevice ? "0px":"100%"};
+  width: ${(props) => !props.assignDevice ? "0px" : "100%"};
 }
 
 `
 
-;
+  ;
 
 const InputHolderSubmit = styled.button`
-display: ${(props) => !props.assignDevice ? "none":"block"};
+display: ${(props) => !props.assignDevice ? "none" : "block"};
 padding: 5px 20px;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -872,7 +909,7 @@ padding: 5px 20px;
     transition: 0.5s all ease;
 `
 
-;
+  ;
 
 const DeleteDiaryHolder = styled.div`
 display: flex;
@@ -973,10 +1010,10 @@ font-size: 12px;
 `;
 const ChatMsgComment = styled.p`
 margin: 0px;
-background: #8bab50;
-padding: 5px 20px;
+background: #596876;
+padding: 5px 15px;
 display: flex;
-border-radius: 5px;
+border-radius: 50px;
 `;
 const ChatMsgCommentFlex = styled.div`
 display: flex;
@@ -988,7 +1025,7 @@ margin: 0px;
 margin-left: 10px;
 color: black;
 font-size: 12px;
-line-height: 8px;
+line-height: 10px;
 `;
 const ChatButton = styled.button`
 background: #8bab50;
@@ -1016,6 +1053,12 @@ border-left: 0px;
 `;
 
 
+const Form = styled.form`
+box-shadow: 0px -6px 7px #c7c7c7;
+width: 100%;
+display: flex;
+`;
+
 const ChatHidden = styled.div`
 background: #f5f5f578;
 position: absolute;
@@ -1039,12 +1082,12 @@ const DashBoard = (props) => {
 
   let tabs = [
     {
-      tabName:'Overview',
-      active:false
+      tabName: 'Overview',
+      active: false
     },
     {
-      tabName:'Statistics',
-      active:false
+      tabName: 'Statistics',
+      active: false
     }
   ]
 
@@ -1054,7 +1097,7 @@ const DashBoard = (props) => {
   const [diaryData, setDiaryData] = useState("");
   const [dayId, setDayId] = useState(null);
   const [weekId, setWeekId] = useState("");
-  
+
   const [lightBoxImg, setLightBoxImg] = useState(Image);
   const [lightBoxData, setLightBoxData] = useState([]);
   const [galleryData, setGalleryData] = useState([]);
@@ -1065,13 +1108,13 @@ const DashBoard = (props) => {
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
   const [techniques, setTechniques] = useState([]);
-  
+
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
-  const { diaries,diariesPublic,Update,UpdatePublic } = useContext(DiaryContext);
+  const { diaries, diariesPublic, Update, UpdatePublic } = useContext(DiaryContext);
   const params = useParams();
   const [tabList, setTabList] = useState(tabs)
-  const location =useLocation()
+  const location = useLocation()
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
   const [activeToggle, setActiveToggle] = useState(false);
@@ -1082,44 +1125,49 @@ const DashBoard = (props) => {
   const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-101);
   const [popUpDeleteWeekOffset, setPopUpDeleteWeekOffset] = useState(-101);
   const [popUpDeleteDiaryOffset, setPopUpDeleteDiaryOffset] = useState(-101);
-  
+
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-101);
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState([]);
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
 
-  const { auth,authToken, } = useContext(AuthContext);
+  const { auth, authToken, } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(socket.connected);
   let token = localStorage.getItem("token")
 
-  let userId =  JSON.parse(localStorage.getItem("auth"))
+  let userId = JSON.parse(localStorage.getItem("auth"))
 
 
-  const navigate = useNavigate ()
+  const navigate = useNavigate()
 
 
 
-  
+
   useEffect(() => {
     let filtered = ""
-    if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
-      filtered =  diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    if (diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
+      filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
-    if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
-      filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+    if (diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
+      filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
 
-  
+
     document.title = "Sweet Leaf - " + filtered?.Title;
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
 
     setPositionIndex(0)
     setPosition(0)
-  
+
     setActiveDiary(filtered);
 
+
+
+  }, [diaries, diariesPublic])
+
+  useEffect(() => {
 
     let config = {
       headers: {
@@ -1132,72 +1180,80 @@ const DashBoard = (props) => {
     };
 
     axios
-      .post("https://api.sweetleaf.co.za/weeks", data,config)
+      .post("https://api.sweetleaf.co.za/weeks", data, config)
       .then(function (response) {
-        setActiveDiaryWeeks(response.data.sort((a,b) => a.Week-b.Week));
+        setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [diaries,diariesPublic])
 
+    axios
+      .post("https://api.sweetleaf.co.za/diaries/get_comments", data)
+      .then(function (response) {
+        setCommentList(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [params])
 
   useEffect(() => {
 
-    if(activeDiary !== undefined){
-  
-    let datav ={
-      DiaryId:parseInt(params?.id)
-    }
+    if (activeDiary !== undefined) {
 
-    axios
-    .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
-    .then(function (response) {
-      if(diaries.length > 0 ){
-      
-        Update()
+      let datav = {
+        DiaryId: parseInt(params?.id)
       }
-      else{
-        UpdatePublic()
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
+      axios
+        .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
+        .then(function (response) {
+          if (diaries.length > 0) {
+
+            Update()
+          }
+          else {
+            UpdatePublic()
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
   }, [])
-  
- 
 
-const handleLike = ()=>{
-  if(activeDiary !== undefined){
-  
-    let datav ={
-      DiaryId:parseInt(params?.id)
-    }
 
-    axios
-    .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
-    .then(function (response) {
-      if(diaries.length > 0 ){
-      
-        Update()
+
+  const handleLike = () => {
+    if (activeDiary !== undefined) {
+
+      let datav = {
+        DiaryId: parseInt(params?.id)
       }
-      else{
-        UpdatePublic()
-      }
-     
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
+      axios
+        .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
+        .then(function (response) {
+          if (diaries.length > 0) {
+
+            Update()
+          }
+          else {
+            UpdatePublic()
+          }
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-}
+  }
 
 
 
-  
+
 
   const handleLightBox = (img, data) => {
     setLightBox(!lightBox);
@@ -1212,107 +1268,39 @@ const handleLike = ()=>{
   const handelGetWeekData = (w) => {
     setPositionIndex(0)
     setPosition(0)
-    setWeekId( w.WeekId)
-if(activeWeek !== w){
-  setGalleryData([]);
-  setDiaryData('');
-  let dataw = {
-    WeekId:  w.WeekId,
-  };
-
-  axios
-    .post("https://api.sweetleaf.co.za/days", dataw)
-    .then(function (response) {
-    
-      setDays(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  let data = {
-    DiaryId: w?.DiaryId,
-    WeekId: w.WeekId,
-  };
-  axios
-       .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
-       .then(function (response) {
-
-         setActiveDiaryData(response.data.latest);
-        
-         axios
-         .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
-         .then(function (response) {
-           setDaysNotes(response.data.Notes);
-         
-         })
-         .catch(function (error) {
-           console.log(error);
-         });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        setActiveWeek(w)
-
-        let weekData = {
-          WeekId:w.WeekId
-        }
-        axios
-        .post("https://api.sweetleaf.co.za/techniques/by_week_id",weekData )
-        .then(function (response) {
-
-        setTechniques(response.data)
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-}
-   
-  };
-
-
-  const UpdateTech = (data)=>{
-    axios
-    .post("https://api.sweetleaf.co.za/techniques/by_week_id",data )
-    .then(function (response) {
-
-    setTechniques(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  
-  const handleDay = (days, day) => {
-    setPositionIndex(0)
-    setPosition(0)
-    if(activeDay !== day){
-
-    setGalleryData([]);
-    let preDay = day.DayId;
-    setDayId( day.DayId)
-
-    if (day.DayId == preDay) {
-      let data = {
-        DiaryId: params?.id,
-        DayId: day.DayId,
-        WeekId: day.WeekId,
+    setWeekId(w.WeekId)
+    if (activeWeek !== w) {
+      setGalleryData([]);
+      setDiaryData('');
+      let dataw = {
+        WeekId: w.WeekId,
       };
 
-      setDiaryData(data);
+      axios
+        .post("https://api.sweetleaf.co.za/days", dataw)
+        .then(function (response) {
 
+          setDays(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      let data = {
+        DiaryId: w?.DiaryId,
+        WeekId: w.WeekId,
+      };
       axios
         .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
         .then(function (response) {
-      
+
           setActiveDiaryData(response.data.latest);
-          setGalleryData(response.data.Day);
 
           axios
-            .post("https://api.sweetleaf.co.za/notes/today", data)
+            .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
             .then(function (response) {
-              setDaysNotes(response.data);
+              setDaysNotes(response.data.Notes);
+
             })
             .catch(function (error) {
               console.log(error);
@@ -1321,137 +1309,202 @@ if(activeWeek !== w){
         .catch(function (error) {
           console.log(error);
         });
-      preDay = "";
-      day.active = true;
+      setActiveWeek(w)
+
+      let weekData = {
+        WeekId: w.WeekId
+      }
+      axios
+        .post("https://api.sweetleaf.co.za/techniques/by_week_id", weekData)
+        .then(function (response) {
+
+          setTechniques(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-    setActiveDay(day)
-  }
+
   };
 
-  const imageCheck = ()=>{
-if(activeDiary?.ThumbNail !== undefined){
-  setMainImage(activeDiary?.ThumbNail)
-}
-if(activeDiaryData?.Image !== undefined){
-  setMainImage(activeDiaryData?.Image)
- }
- if(activeDiaryData?.Image == undefined && activeDiary?.ThumbNail == (undefined || "")){
-  setMainImage(PlaceHolder)
- }
+
+  const UpdateTech = (data) => {
+    axios
+      .post("https://api.sweetleaf.co.za/techniques/by_week_id", data)
+      .then(function (response) {
+
+        setTechniques(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
- useEffect(() => {
-  imageCheck()
+  const handleDay = (days, day) => {
+    setPositionIndex(0)
+    setPosition(0)
+    if (activeDay !== day) {
 
-  if(activeDiary?.Active == 1){
-    setActiveToggle(true)
-  }
-  if(activeDiary?.Public == 1){
-    setPublicToggle(true)
-  }
-  
- }, [activeDiary,activeDiaryData])
- 
- useEffect(() => {
+      setGalleryData([]);
+      let preDay = day.DayId;
+      setDayId(day.DayId)
 
-  if(activeDiary?.Active == 1){
-    setActiveToggle(true)
-  }
-  if(activeDiary?.Public == 1){
-    setPublicToggle(true)
-  }
-  
- }, [params])
+      if (day.DayId == preDay) {
+        let data = {
+          DiaryId: params?.id,
+          DayId: day.DayId,
+          WeekId: day.WeekId,
+        };
 
- 
- const isMobile = useMediaQuery('(max-width: 600px)');
- const isTablet = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
- const isLaptop = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
- const isDesktop = useMediaQuery('(min-width: 1024px)');
+        setDiaryData(data);
 
+        axios
+          .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+          .then(function (response) {
 
- const HandleNext = ()=>{
- 
-  
+            setActiveDiaryData(response.data.latest);
+            setGalleryData(response.data.Day);
 
-  if (isMobile) {
-
-    if (positionIndex < galleryData.length - 1) {
-  
-      setPosition(position - 100 )
-      setPositionIndex(positionIndex + 1)
+            axios
+              .post("https://api.sweetleaf.co.za/notes/today", data)
+              .then(function (response) {
+                setDaysNotes(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        preDay = "";
+        day.active = true;
+      }
+      setActiveDay(day)
     }
-  
-    if (positionIndex === galleryData.length - 1) {
-      setPosition(0)
-      setPositionIndex(0)
-    }
-  }
-  
-  if (isTablet) {
+  };
 
-    if (positionIndex < galleryData.length - 2) {
-  
-      setPosition(position - (100 / 2) )
-      setPositionIndex(positionIndex + 1)
+  const imageCheck = () => {
+    if (activeDiary?.ThumbNail !== undefined) {
+      setMainImage(activeDiary?.ThumbNail)
     }
-  
-    if (positionIndex === galleryData.length - 2) {
-      setPosition(0)
-      setPositionIndex(0)
+    if (activeDiaryData?.Image !== undefined) {
+      setMainImage(activeDiaryData?.Image)
+    }
+    if (activeDiaryData?.Image == undefined && activeDiary?.ThumbNail == (undefined || "")) {
+      setMainImage(PlaceHolder)
     }
   }
-  
-  if (isDesktop) {
 
-    if (positionIndex < galleryData.length - 4) {
+  useEffect(() => {
+    imageCheck()
 
-        setPosition(position - (100 / 4))
-        setPositionIndex(positionIndex + 1)
+    if (activeDiary?.Active == 1) {
+      setActiveToggle(true)
     }
-    if (positionIndex === galleryData.length - 4) {
-        setPosition(0)
-        setPositionIndex(0)
+    if (activeDiary?.Public == 1) {
+      setPublicToggle(true)
     }
-}
+
+    if (activeDiary?.Active == 1) {
+      setActiveToggle(true)
+    }
+    if (activeDiary?.Public == 1) {
+      setPublicToggle(true)
+    }
+
+  }, [activeDiary, activeDiaryData])
 
 
 
- }
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const isTablet = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+  const isLaptop = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
- const HandleBack = ()=>{
 
-  if (position < 0) {
+  const HandleNext = () => {
+
+
 
     if (isMobile) {
-      setPosition(position + 100 )
-        setPositionIndex(positionIndex - 1)
+
+      if (positionIndex < galleryData.length - 1) {
+
+        setPosition(position - 100)
+        setPositionIndex(positionIndex + 1)
+      }
+
+      if (positionIndex === galleryData.length - 1) {
+        setPosition(0)
+        setPositionIndex(0)
+      }
     }
 
     if (isTablet) {
-      setPosition(position + (100 / 2))
-        setPositionIndex(positionIndex - 1)
+
+      if (positionIndex < galleryData.length - 2) {
+
+        setPosition(position - (100 / 2))
+        setPositionIndex(positionIndex + 1)
+      }
+
+      if (positionIndex === galleryData.length - 2) {
+        setPosition(0)
+        setPositionIndex(0)
+      }
     }
 
     if (isDesktop) {
-      setPosition(position + 25)
-        setPositionIndex(positionIndex - 1)
+
+      if (positionIndex < galleryData.length - 4) {
+
+        setPosition(position - (100 / 4))
+        setPositionIndex(positionIndex + 1)
+      }
+      if (positionIndex === galleryData.length - 4) {
+        setPosition(0)
+        setPositionIndex(0)
+      }
     }
 
-  
-
-}
 
 
-}
+  }
+
+  const HandleBack = () => {
+
+    if (position < 0) {
+
+      if (isMobile) {
+        setPosition(position + 100)
+        setPositionIndex(positionIndex - 1)
+      }
+
+      if (isTablet) {
+        setPosition(position + (100 / 2))
+        setPositionIndex(positionIndex - 1)
+      }
+
+      if (isDesktop) {
+        setPosition(position + 25)
+        setPositionIndex(positionIndex - 1)
+      }
+
+
+
+    }
+
+
+  }
 
 
 
 
 
-  const handleActiveToggle = (e,activeDiary)=>{
-   
-    if(userId?.UserId == activeDiary?.UserId){
+  const handleActiveToggle = (e, activeDiary) => {
+
+    if (userId?.UserId == activeDiary?.UserId) {
       setActiveToggle(e.target.checked)
     }
 
@@ -1460,32 +1513,32 @@ if(activeDiaryData?.Image !== undefined){
         authorization: 'Bearer ' + authToken,
       }
     }
-    
+
     let values = {
-      DiaryId:activeDiary.DiaryId,
-      Active:e.target.checked
+      DiaryId: activeDiary.DiaryId,
+      Active: e.target.checked
     }
 
-    axios.post('https://api.sweetleaf.co.za/diaries/update/active',values,config,)
-    .then(function (response) {
-      if(response.data.insertId !== undefined){
-      
-      }
-     
-    
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
+    axios.post('https://api.sweetleaf.co.za/diaries/update/active', values, config,)
+      .then(function (response) {
+        if (response.data.insertId !== undefined) {
+
+        }
+
+
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+
 
   }
 
-  
-  const handlePublicToggle = (e,activeDiary)=>{
-   
-    if(userId?.UserId == activeDiary?.UserId){
+
+  const handlePublicToggle = (e, activeDiary) => {
+
+    if (userId?.UserId == activeDiary?.UserId) {
       setPublicToggle(e.target.checked)
     }
 
@@ -1494,101 +1547,101 @@ if(activeDiaryData?.Image !== undefined){
         authorization: 'Bearer ' + authToken,
       }
     }
-    
-    let values = {
-      DiaryId:activeDiary.DiaryId,
-      Active:e.target.checked
-    }
- 
-    axios.post('https://api.sweetleaf.co.za/diaries/update/public',values,config,)
-    .then(function (response) {
-      if(response.data.insertId !== undefined){
-      
-      }
-     
 
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
- 
+    let values = {
+      DiaryId: activeDiary.DiaryId,
+      Active: e.target.checked
+    }
+
+    axios.post('https://api.sweetleaf.co.za/diaries/update/public', values, config,)
+      .then(function (response) {
+        if (response.data.insertId !== undefined) {
+
+        }
+
+
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+
 
   }
-  
 
-  
-  
-  const HandleImageUpload = ()=>{
+
+
+
+  const HandleImageUpload = () => {
     if (popUpOffset == -101) {
       setPopUpOffset(0);
     } else {
       setPopUpOffset(-101);
     }
-   }
+  }
 
 
-  const handleAddWeek = ()=>{
+  const handleAddWeek = () => {
     if (popUpAddWeekOffset == -101) {
       setPopUpAddWeekOffset(0);
     } else {
       setPopUpAddWeekOffset(-101);
     }
-   }
+  }
 
-   const handleEditWeek = ()=>{
+  const handleEditWeek = () => {
     if (popUpEditWeekOffset == -101) {
       setPopUpEditWeekOffset(0);
     } else {
       setPopUpEditWeekOffset(-101);
     }
-   }
+  }
 
-   const handleDeleteWeek = ()=>{
+  const handleDeleteWeek = () => {
     if (popUpEditWeekOffset == -101) {
       setPopUpDeleteWeekOffset(0);
     } else {
       setPopUpDeleteWeekOffset(-101);
     }
-   }
-   
-   
-   const handleDeleteDiary = ()=>{
+  }
+
+
+  const handleDeleteDiary = () => {
     if (popUpDeleteDiaryOffset == -101) {
       setPopUpDeleteDiaryOffset(0);
     } else {
       setPopUpDeleteDiaryOffset(-101);
     }
-   }
+  }
 
-   const handleThumbnailUpdate = (DiaryId,Image) =>{
+  const handleThumbnailUpdate = (DiaryId, Image) => {
 
-    
+
     let config = {
       headers: {
         authorization: 'Bearer ' + authToken,
       }
     }
     let data = {
-      DiaryId:DiaryId,
-      Image:Image
+      DiaryId: DiaryId,
+      Image: Image
     }
 
     axios
-    .post("https://api.sweetleaf.co.za/diaries/update_thumbnail", data,config)
-    .then(function (response) {
-      console.log('response',response)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-   }
+      .post("https://api.sweetleaf.co.za/diaries/update_thumbnail", data, config)
+      .then(function (response) {
+        console.log('response', response)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
 
 
   //Chat Config
-   useEffect(() => {
-  
+  useEffect(() => {
+
 
     socket.off('connection').on('connection', () => {
       setIsConnected(true);
@@ -1597,255 +1650,261 @@ if(activeDiaryData?.Image !== undefined){
     socket.off('disconnect').on('disconnect', () => {
       setIsConnected(false);
     });
-    
-    if(auth) {
-    
-    
-  
-     
+
+    if (auth) {
+
+
+
+
     }
-   }, [])
-   
-
-  
+  }, [])
 
 
-   //Chat Listen
-   useEffect(() => {
-   
+
+  //Chat Listen
+  useEffect(() => {
+
     socket.off('broadcast').on('broadcast', (data) => {
-      setCommentList([...commentList,data])
-      console.log("data",data)
-     });
+      setCommentList([...commentList, data])
+      console.log("data", data)
+    });
 
- 
-   }, [socket,commentList])
-  
+  })
 
-   const HandleComment = (e)=>{
+
+  const HandleComment = (e) => {
 
     setComment(e.target.value)
-    
-   }
 
-   
-   const SendComment = ()=>{
+  }
 
-   
+
+
+
+  const SendComment = (e) => {
+    e.preventDefault()
+
+    var d = new Date();
+
+    let time = d.toString().split(" ")[4]
+    let tz = d.toString().split(" ")[5]
+
+
     setComment("")
-    if(comment !== ""){
-      if(userId?.UserId == undefined){
-        socket.off('comment').emit('comment', {userId:0 ,comment} );
-       
-      }else{
-        socket.off('comment').emit('comment', {userId:userId?.UserId ,comment} );
+    if (comment !== "") {
+      if (userId?.UserId !== undefined) {
+
+        socket.off('comment').emit('comment', { Sender_Id: userId?.UserId, Diary_Id: activeDiary?.DiaryId, Comment: comment, Time: time, TimeZone: tz });
         setComment("")
+
       }
     }
-    
-
-   }
 
 
+  }
 
 
- 
-   
-   
+  useEffect(() => {
+
+    var objDiv = document.getElementById("chat");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
+  }, [commentList])
+
   return (
 
-  
+
     <Root>
-    {popUpOffset !== -101 && 
-<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
-   }
+      {popUpOffset !== -101 &&
+        <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
+      }
 
-   {popUpAddWeekOffset !== -101 && 
-<PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
-  }
+      {popUpAddWeekOffset !== -101 &&
+        <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
+      }
 
-{popUpEditWeekOffset !== -101 && 
-<PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech}/>
-  }
+      {popUpEditWeekOffset !== -101 &&
+        <PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech} />
+      }
 
-{popUpDeleteWeekOffset !== -101 && 
-<PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
-  }
+      {popUpDeleteWeekOffset !== -101 &&
+        <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
+      }
 
-{popUpDeleteDiaryOffset !== -101 && 
-<PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
-  }
-  
-    {lightBox && (
+      {popUpDeleteDiaryOffset !== -101 &&
+        <PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
+      }
+
+      {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
       )}
-      
+
 
       <Inner>
-      
+
 
         <FlexTop>
-          <ImgHolder img={ mainImage}  onClick={()=>{handleLightBox(mainImage)}}>
-           
+          <ImgHolder img={mainImage} onClick={() => { handleLightBox(mainImage) }}>
+
           </ImgHolder>
-      
-       <RightFlexHolder>
-       <RightFlex>
-      
-        <RightFlexInner>
-        <Tabs/>
-{userId?.UserId == activeDiary?.UserId &&
 
-<ToggleHolder>
+          <RightFlexHolder>
+            <RightFlex>
 
-{activeToggle && 
-<>
+              <RightFlexInner>
+                <Tabs />
+                {userId?.UserId == activeDiary?.UserId &&
 
-<>
+                  <ToggleHolder>
+
+                    {activeToggle &&
+                      <>
+
+                        <>
 
 
 
-<AssignButton onClick={()=>{setAssignDevice(!assignDevice)}}>Assign Device +</AssignButton> 
+                          <AssignButton onClick={() => { setAssignDevice(!assignDevice) }}>Assign Device +</AssignButton>
 
-<InputHolder assignDevice={assignDevice}>
-<Input text placeholder="Enter Device Id" assignDevice={assignDevice}></Input>
-<InputHolderSubmit assignDevice={assignDevice} onClick={()=>{setAssignDevice(false)}}>Submit</InputHolderSubmit>
-</InputHolder>
+                          <InputHolder assignDevice={assignDevice}>
+                            <Input text placeholder="Enter Device Id" assignDevice={assignDevice}></Input>
+                            <InputHolderSubmit assignDevice={assignDevice} onClick={() => { setAssignDevice(false) }}>Submit</InputHolderSubmit>
+                          </InputHolder>
 
-</>
-</>
-}
+                        </>
+                      </>
+                    }
 
-<CheckFlex>
+                    <CheckFlex>
 
-<ToggleHolderLabel>In-Active</ToggleHolderLabel><label class="switch">
-<input type="checkbox" checked={activeToggle} onChange={(e)=>{handleActiveToggle(e,activeDiary)}}/>
-<span class="slider round"></span>
+                      <ToggleHolderLabel>In-Active</ToggleHolderLabel><label className="switch">
+                        <input type="checkbox" checked={activeToggle} onChange={(e) => { handleActiveToggle(e, activeDiary) }} />
+                        <span className="slider round"></span>
 
-</label>    <ToggleHolderLabel>Active</ToggleHolderLabel>
+                      </label>    <ToggleHolderLabel>Active</ToggleHolderLabel>
 
-</CheckFlex>
+                    </CheckFlex>
 
-<CheckFlex>
+                    <CheckFlex>
 
-<ToggleHolderLabel>
-<SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z"/></SvgW>
-  </ToggleHolderLabel><label class="switch">
-<input type="checkbox" checked={publicToggle} onChange={(e)=>{handlePublicToggle(e,activeDiary)}}/>
-<span class="slider round"></span>
+                      <ToggleHolderLabel>
+                        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z" /></SvgW>
+                      </ToggleHolderLabel><label className="switch">
+                        <input type="checkbox" checked={publicToggle} onChange={(e) => { handlePublicToggle(e, activeDiary) }} />
+                        <span className="slider round"></span>
 
-</label>    
-<ToggleHolderLabel>
-<SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></SvgW>
-</ToggleHolderLabel>
+                      </label>
+                      <ToggleHolderLabel>
+                        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z" /></SvgW>
+                      </ToggleHolderLabel>
 
-</CheckFlex>
+                    </CheckFlex>
 
-<DeleteDiaryHolder>
-           
-{userId?.UserId == activeDiary?.UserId &&
-               <DeleteDiary onClick={()=>{ handleDeleteDiary()}}>        
-             
+                    <DeleteDiaryHolder>
 
-               <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"/></Svg>
-               </DeleteDiary>
-           }
-        </DeleteDiaryHolder>
-</ToggleHolder>
-}
-    
-<IntroHolderDay>
+                      {userId?.UserId == activeDiary?.UserId &&
+                        <DeleteDiary onClick={() => { handleDeleteDiary() }}>
 
-{userId?.UserId !== activeDiary?.UserId &&
-        <LikeButton onClick={()=>{handleLike()}}>
-        <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgL><LikeButtonText>Like</LikeButtonText> 
-          </LikeButton>  
-          }
 
-<Flex>
-<DairyViewsSmall><SvgVS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M152 64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0C141.3 0 152 10.75 152 24V64zM48 248H128V192H48V248zM48 296V360H128V296H48zM176 296V360H272V296H176zM320 296V360H400V296H320zM400 192H320V248H400V192zM400 408H320V464H384C392.8 464 400 456.8 400 448V408zM272 408H176V464H272V408zM128 408H48V448C48 456.8 55.16 464 64 464H128V408zM272 192H176V248H272V192z"/></SvgVS> <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyViewsSmall>
-<DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></SvgV><DairyHeadingSmallAccent>{views}</DairyHeadingSmallAccent> </DairyViewsSmall>
-<DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"/></SvgV><DairyHeadingSmallAccent>{likes}</DairyHeadingSmallAccent></DairyViewsSmall>
+                          <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
+                        </DeleteDiary>
+                      }
+                    </DeleteDiaryHolder>
+                  </ToggleHolder>
+                }
 
-</Flex>
-</IntroHolderDay>
-          <IntroHolder>
- <div>
+                <IntroHolderDay>
 
-          <DairyHeading>{activeDiary?.Title} </DairyHeading>
-          
-          <DairyHeadingTitle>{activeDiary?.UserName}</DairyHeadingTitle>
-          <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
- </div>
-      
-          {/* <TextHeading>Start Date </TextHeading>
+                  {userId?.UserId !== activeDiary?.UserId &&
+                    <LikeButton onClick={() => { handleLike() }}>
+                      <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgL><LikeButtonText>Like</LikeButtonText>
+                    </LikeButton>
+                  }
+
+                  <Flex>
+                    <DairyViewsSmall><SvgVS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M152 64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0C141.3 0 152 10.75 152 24V64zM48 248H128V192H48V248zM48 296V360H128V296H48zM176 296V360H272V296H176zM320 296V360H400V296H320zM400 192H320V248H400V192zM400 408H320V464H384C392.8 464 400 456.8 400 448V408zM272 408H176V464H272V408zM128 408H48V448C48 456.8 55.16 464 64 464H128V408zM272 192H176V248H272V192z" /></SvgVS> <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyViewsSmall>
+                    <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z" /></SvgV><DairyHeadingSmallAccent>{views}</DairyHeadingSmallAccent> </DairyViewsSmall>
+                    <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgV><DairyHeadingSmallAccent>{likes}</DairyHeadingSmallAccent></DairyViewsSmall>
+
+                  </Flex>
+                </IntroHolderDay>
+                <IntroHolder>
+                  <div>
+
+                    <DairyHeading>{activeDiary?.Title} </DairyHeading>
+
+                    <DairyHeadingTitle>{activeDiary?.UserName}</DairyHeadingTitle>
+                    <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
+                  </div>
+
+                  {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
-        </IntroHolder>
-          {techniques.length > 0  && 
-          <TextHolder>
-              <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
-        <QuickActionBlockFlex>
+                </IntroHolder>
+                {techniques.length > 0 &&
+                  <TextHolder>
+                    <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
+                    <QuickActionBlockFlex>
 
-          {techniques?.map((t,index)=>{
-            return(
-             
-              <QuickActionBlock key={index}> 
-              {t?.Technique_Name == "Main-Lining" && 
-             <> <QuickActionBlockIcon src={Mainline}/>{t?.Technique_Name}</>
-            }
-              {t?.Technique_Name == "Topping" && 
-             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
-            }
-              {t?.Technique_Name == "LST" && 
-             <> <QuickActionBlockIcon src={LST}/>{t?.Technique_Name}</>
-            }
-              {t?.Technique_Name == "HST" && 
-             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
-            }
-                {t?.Technique_Name == "Defoliation" && 
-             <> <QuickActionBlockIcon src={Defoliation}/>{t?.Technique_Name}</>
-            }
-                {t?.Technique_Name == "Feeding" && 
-             <> <QuickActionBlockIcon src={Topping}/>{t?.Technique_Name}</>
-            }
-              </QuickActionBlock>
-              
-            )
-          })}
+                      {techniques?.map((t, index) => {
+                        return (
 
-        </QuickActionBlockFlex>
+                          <QuickActionBlock key={index}>
+                            {t?.Technique_Name == "Main-Lining" &&
+                              <> <QuickActionBlockIcon src={Mainline} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Topping" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "LST" &&
+                              <> <QuickActionBlockIcon src={LST} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "HST" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Defoliation" &&
+                              <> <QuickActionBlockIcon src={Defoliation} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Feeding" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                          </QuickActionBlock>
 
-          </TextHolder>
-          }
+                        )
+                      })}
 
+                    </QuickActionBlockFlex>
 
-{dayId !== null && 
-          <TextHolder>
-           
-            <HeadingCta>
-              <TextHolderHeading>Notes</TextHolderHeading>
-              {userId?.UserId == activeDiary?.UserId && 
-                  <HeadingCtaButton
-                  onClick={() => {
-                    handleNotes();
-                  }}
-                >
-       
-                  {daysNotes?.Notes == '' || undefined ? "Add Notes" : "Edit Notes"}
-                </HeadingCtaButton>}
-          
-            </HeadingCta>
-            <Notes>{daysNotes?.Notes ? daysNotes?.Notes : daysNotes}</Notes>
+                  </TextHolder>
+                }
 
 
-          </TextHolder>
-          }
+                {dayId !== null &&
+                  <TextHolder>
 
-          </RightFlexInner>
-          </RightFlex>
-       </RightFlexHolder>
+                    <HeadingCta>
+                      <TextHolderHeading>Notes</TextHolderHeading>
+                      {userId?.UserId == activeDiary?.UserId &&
+                        <HeadingCtaButton
+                          onClick={() => {
+                            handleNotes();
+                          }}
+                        >
+
+                          {daysNotes?.Notes == '' || undefined ? "Add Notes" : "Edit Notes"}
+                        </HeadingCtaButton>}
+
+                    </HeadingCta>
+                    <Notes>{daysNotes?.Notes ? daysNotes?.Notes : daysNotes}</Notes>
+
+
+                  </TextHolder>
+                }
+
+              </RightFlexInner>
+            </RightFlex>
+          </RightFlexHolder>
         </FlexTop>
-    
+
         {addNotes && (
           <NotesPopUp
             setAddNotes={setAddNotes}
@@ -1853,7 +1912,7 @@ if(activeDiaryData?.Image !== undefined){
             daysNotes={daysNotes?.Notes ? daysNotes?.Notes : daysNotes}
             diaryDatas={diaryData}
             keyNote={daysNotes?.KeyNote}
-       
+
           >
 
             {activeDiaryNotes}
@@ -1861,27 +1920,38 @@ if(activeDiaryData?.Image !== undefined){
         )}
 
 
-<Flex3B>
+        <Flex3B>
 
-  <Flex3BtnHolder>
+          <Flex3BtnHolder>
 
-{userId?.UserId == activeDiary?.UserId &&
-    
- <>
- 
- {activeWeek !== "" && <HelperBtnHolder onClick={() => {handleEditWeek()}}>
-    <HelperBtn >
-  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z"/></SvgB>
-    <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
-  
-  {activeWeek !== "" && <HelperBtnHolder  onClick={() => {handleDeleteWeek()}}><HelperBtn>
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"/></Svg>
-  <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+            {userId?.UserId == activeDiary?.UserId &&
 
-</>
-}
-</Flex3BtnHolder>
-{activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
+              <>
+
+                {activeWeek && userId?.UserId == activeDiary?.UserId &&
+                  <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
+                    <HelperBtn >
+                      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                      <HelperBtnText>Upload</HelperBtnText>
+
+                    </HelperBtn>
+                  </HelperBtnHolder>
+                }
+
+                {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleEditWeek() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z" /></SvgB>
+                    <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+
+                {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtn>
+                  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
+                  <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+
+
+              </>
+            }
+          </Flex3BtnHolder>
+          {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
 
 
@@ -1889,274 +1959,273 @@ if(activeDiaryData?.Image !== undefined){
 
 
           <WeekHolderInner>
-          <>
-                {activeDiaryWeeks.map((w, index) => {
-                  return (
-                    <div  key={index}>
-                    {activeWeek !== w ? 
-                    <WeekHolder
-                      onClick={() => {
-                        handelGetWeekData(w);
-                      }}
-                     
-                    >
-                      <WeekHolderText>
-                        
-                        <WeekHolderTextSub>Week</WeekHolderTextSub>
-                        <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
-                      </WeekHolderText>
+            <>
+              {activeDiaryWeeks.map((w, index) => {
+                return (
+                  <div key={index}>
+                    {activeWeek !== w ?
+                      <WeekHolder
+                        onClick={() => {
+                          handelGetWeekData(w);
+                        }}
 
-                    {w.Stage.toUpperCase() == "GER" &&
-                    <WeekHolderHeadingBlue>
-                   {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingBlue>
-                      }
+                      >
+                        <WeekHolderText>
 
-                    {w.Stage.toUpperCase() ==  "VEG"  &&
-                    <WeekHolderHeading>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeading>
-                      }
+                          <WeekHolderTextSub>Week</WeekHolderTextSub>
+                          <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
+                        </WeekHolderText>
 
-                    {w.Stage.toUpperCase() ==  "FLO"  &&
-                    <WeekHolderHeadingRed>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingRed>
-                      }
+                        {w.Stage.toUpperCase() == "GER" &&
+                          <WeekHolderHeadingBlue>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingBlue>
+                        }
 
-{w.Stage.toUpperCase() ==  "HAR"  &&
-                    <WeekHolderHeadingRedd>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingRedd>
-                      }
+                        {w.Stage.toUpperCase() == "VEG" &&
+                          <WeekHolderHeading>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeading>
+                        }
 
-                    </WeekHolder>:
-                    <WeekHolderActive
-                      onClick={() => {
-                        handelGetWeekData(w);
-                      }}
-                 
-                    >
-                          <WeekHolderText>
-                        
-                        <WeekHolderTextSub>Week</WeekHolderTextSub>
-                        <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
-                      </WeekHolderText>
+                        {w.Stage.toUpperCase() == "FLO" &&
+                          <WeekHolderHeadingRed>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRed>
+                        }
 
-                {w.Stage.toUpperCase() == "GER" &&
-                    <WeekHolderHeadingBlue>
-                   {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingBlue>
-                      }
+                        {w.Stage.toUpperCase() == "HAR" &&
+                          <WeekHolderHeadingRedd>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRedd>
+                        }
 
-                    {w.Stage.toUpperCase() ==  "VEG"  &&
-                    <WeekHolderHeading>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeading>
-                      }
+                      </WeekHolder> :
+                      <WeekHolderActive
+                        onClick={() => {
+                          handelGetWeekData(w);
+                        }}
 
-                    {w.Stage.toUpperCase() ==  "FLO"  &&
-                    <WeekHolderHeadingRed>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingRed>
-                      }
-                        {w.Stage.toUpperCase() ==  "HAR"  &&
-                    <WeekHolderHeadingRedd>
-                    {w.Stage.toUpperCase()}
-                  </WeekHolderHeadingRedd>
-                      }
-                         
-                     
-                    </WeekHolderActive>}
-                    </div>
-                  );
-                })}
-              </>
-              {userId?.UserId == activeDiary?.UserId && 
-          <AddWeek onClick={()=>{handleAddWeek()}}>
-              <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></AddWeekSvg>
-            </AddWeek>
-}
-  
+                      >
+                        <WeekHolderText>
 
-          
+                          <WeekHolderTextSub>Week</WeekHolderTextSub>
+                          <div>{w.Stage.toUpperCase() == "GER" ? "G" : w.Week}</div>
+                        </WeekHolderText>
+
+                        {w.Stage.toUpperCase() == "GER" &&
+                          <WeekHolderHeadingBlue>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingBlue>
+                        }
+
+                        {w.Stage.toUpperCase() == "VEG" &&
+                          <WeekHolderHeading>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeading>
+                        }
+
+                        {w.Stage.toUpperCase() == "FLO" &&
+                          <WeekHolderHeadingRed>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRed>
+                        }
+                        {w.Stage.toUpperCase() == "HAR" &&
+                          <WeekHolderHeadingRedd>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRedd>
+                        }
+
+
+                      </WeekHolderActive>}
+                  </div>
+                );
+              })}
+            </>
+            {userId?.UserId == activeDiary?.UserId &&
+              <AddWeek onClick={() => { handleAddWeek() }}>
+                <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></AddWeekSvg>
+              </AddWeek>
+            }
+
+
+
           </WeekHolderInner>
 
           {days.length > 0 && galleryData.length == 0 && <Helper>Please Select a Day</Helper>}
-{days.length > 0  &&
-          <DayDotHolder>
-            {days?.map((d, index) => {
-              return (
-           <DayDotInner   key={index}>
-                 {activeDay !== d ? 
-               <DayDotOutter
-               onClick={(e) => {
-                handleDay(days, d);
-                
-              }}
-               >
-                <DayDot
-                
-                
-                ></DayDot>
-                {d.Day.slice(0, 3)}
-               </DayDotOutter>
-                :
-                <DayDotOutter
-                onClick={(e) => {
-                  handleDay(days, d);
-                
-                }}
-                >
-                <DayDotActive
-                  key={index}
-                 
-                ></DayDotActive>
-                {d.Day.slice(0, 3)}
-               </DayDotOutter>}
-           </DayDotInner>
-              );
-            })}
-          </DayDotHolder>
+          {days.length > 0 &&
+            <DayDotHolder>
+              {days?.map((d, index) => {
+                return (
+                  <DayDotInner key={index}>
+                    {activeDay !== d ?
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleDay(days, d);
+
+                        }}
+                      >
+                        <DayDot
+
+
+                        ></DayDot>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>
+                      :
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleDay(days, d);
+
+                        }}
+                      >
+                        <DayDotActive
+                          key={index}
+
+                        ></DayDotActive>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>}
+                  </DayDotInner>
+                );
+              })}
+            </DayDotHolder>
           }
+
         </Flex3B>
-     
-      
+
+
 
         <Heading>GALLERY</Heading>
 
-  {activeWeek &&  userId?.UserId == activeDiary?.UserId &&
-  <ButtonUpload onClick={()=>{HandleImageUpload()}}>
-        <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></SvgB>
-        <HelperBtnText>Upload</HelperBtnText>
-        
-        </ButtonUpload>
-  }
-       <GalleryHolderInnerMain>
-    
-        <GalleryHolderOutter>
-        <GalleryHolderInner position={position}>
-          {
-            galleryData?.map((img, index) => {
-              if (img?.Image !== "") {
-                return (
-              <>
-                
-              <GalleryImageHolderFlex key={index} >
-              <SetImageHolder onClick={()=>{handleThumbnailUpdate(img.DiaryId,img?.Image)}}>
-              <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z"/></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
-              </SetImageHolder>
-                  <GalleryImageHolder  img={img?.Image}   onClick={() => {
-                    handleLightBox(img?.Image, img);
-                  }}>
-                    
-                    
-       
-                  </GalleryImageHolder>
-                  <GalleryImageOverlay>
-                
-                
-             
-                    <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
-                    <div> Date : {img?.Date} </div>
-              
-                
-                      </GalleryImageOverlay>
-              </GalleryImageHolderFlex>
-              </>
-                );
+
+        <GalleryHolderInnerMain>
+
+          <GalleryHolderOutter>
+            <GalleryHolderInner position={position}>
+              {
+                galleryData?.map((img, index) => {
+                  if (img?.Image !== "") {
+                    return (
+                      <>
+
+                        <GalleryImageHolderFlex key={index} >
+                          {activeDiary.UserId == userId?.UserId &&
+                            <SetImageHolder onClick={() => { handleThumbnailUpdate(img.DiaryId, img?.Image) }}>
+                              <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
+                            </SetImageHolder>
+                          }
+                          <GalleryImageHolder img={img?.Image} onClick={() => {
+                            handleLightBox(img?.Image, img);
+                          }}>
+
+
+
+                          </GalleryImageHolder>
+                          <GalleryImageOverlay>
+
+
+
+                            <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
+                            <div> Date : {img?.Date} </div>
+
+
+                          </GalleryImageOverlay>
+                        </GalleryImageHolderFlex>
+                      </>
+                    );
+                  }
+                })
               }
-            })
-          }
-       
 
 
-</GalleryHolderInner>
-{galleryData.length > 0 &&
-            <>
-            <GalleryNext onClick={()=>{HandleNext()}}>
-            <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></SvgB>
-            </GalleryNext>
-      <GalleryBack onClick={()=>{HandleBack()}}>
-      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></SvgB>
-      </GalleryBack>
-      </>
-      }
-        </GalleryHolderOutter>
-        {galleryData.length < 1 &&  activeDay.DayId == undefined &&
+
+            </GalleryHolderInner>
+            {galleryData.length > 0 &&
+              <>
+                <GalleryNext onClick={() => { HandleNext() }}>
+                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></SvgB>
+                </GalleryNext>
+                <GalleryBack onClick={() => { HandleBack() }}>
+                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></SvgB>
+                </GalleryBack>
+              </>
+            }
+          </GalleryHolderOutter>
+          {galleryData.length < 1 && activeDay.DayId == undefined &&
             <NoDataHolder>
-                        <NoData>No Data Available</NoData>
+              <NoData>No Data Available</NoData>
             </NoDataHolder>
           }
-              {galleryData.length < 1 &&  activeDay.DayId !== undefined &&
+          {galleryData.length < 1 && activeDay.DayId !== undefined &&
             <NoDataHolder>
               <NoData>
-              <InfinitySpin 
-  width='200'
-  color="#4fa94d"
-/>
+                <InfinitySpin
+                  width='200'
+                  color="#4fa94d"
+                />
               </NoData>
             </NoDataHolder>
           }
-        <DotHolder>
-        {galleryData?.map((v,index)=>{
-          if(index == positionIndex){
+          <DotHolder>
+            {galleryData?.map((v, index) => {
+              if (index == positionIndex) {
 
-          }
-          return(
-           
-            <Dot positionIndex={positionIndex} index={index} >
-           
-            </Dot>
-          
-          )
-        })}
-        </DotHolder>
+              }
+              return (
+
+                <Dot positionIndex={positionIndex} index={index} >
+
+                </Dot>
+
+              )
+            })}
+          </DotHolder>
         </GalleryHolderInnerMain>
 
-        <Heading>COMMENTS</Heading>
+        <HeadingC>COMMENTS</HeadingC>
 
         <ChatHolder>
-       {!token &&   <ChatHidden>
-        Sign In To Comment       <MenuLink to="/login"> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></SvgLogin>Login</MenuLink>
-       </ChatHidden> }
-    
-          <ChatHolderInner>
-            {commentList?.map((c)=>{
-             
-             return(
-              
-            <ChatMsgLeft>
-              <ChatMsgUser>
-            {c.userId}
-              </ChatMsgUser>
-              <ChatMsgCommentFlex>
-              <ChatMsgComment>
-             {c.comment}
-       
-              </ChatMsgComment>
-              <ChatMsgTime>13:00</ChatMsgTime>
-              </ChatMsgCommentFlex>
-            </ChatMsgLeft>
-           
-            )
-            
+          {!token && <ChatHidden>
+            <MenuLink to="/login" state={location.pathname}> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></SvgLogin>Sign In</MenuLink> To Comment
+          </ChatHidden>}
+
+          <ChatHolderInner className="chat" id="chat">
+            {commentList?.map((c, index) => {
+
+              return (
+
+                <ChatMsgLeft key={index}>
+                  <ChatMsgUser>
+                    {c.Sender_Id}
+                  </ChatMsgUser>
+                  <ChatMsgCommentFlex>
+                    <ChatMsgComment>
+                      {c.Comment}
+
+                    </ChatMsgComment>
+                    <ChatMsgTime>{c.Time}</ChatMsgTime>
+                  </ChatMsgCommentFlex>
+                </ChatMsgLeft>
+
+              )
+
             })}
           </ChatHolderInner>
 
           <ChatInputHolder>
-          
-        
-        <ChatInput value={comment} onChange={(e)=>{HandleComment(e)}}/>
-    
-        <ChatButton onClick={()=>{SendComment()}}>
-        <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"/></SvgB>
-        </ChatButton>
-        </ChatInputHolder>
+
+
+            <Form >
+              <ChatInput value={comment} onChange={(e) => { HandleComment(e) }} placeholder="Comment Here......." />
+
+              <ChatButton onClick={(e) => { SendComment(e) }}>
+                <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" /></SvgB>
+              </ChatButton>
+            </Form>
+          </ChatInputHolder>
         </ChatHolder>
       </Inner>
     </Root>
-   
+
   );
 };
 

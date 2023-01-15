@@ -1,8 +1,8 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Logo from "../assets/logoLogin.png";
-import { Formik, Field, Form,ErrorMessage } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios"
@@ -111,35 +111,35 @@ const MenuLink = styled(NavLink)`
 `;
 
 function Login() {
-  const {auth,setToken} = useContext(AuthContext)
-  const navigate = useNavigate ()
- const [errMsg, setErrMsg] = useState("")
+  const { auth, setToken } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const [errMsg, setErrMsg] = useState("")
 
 
- useEffect(() => {
+  useEffect(() => {
 
-  document.title = "Sweet Leaf - Login" 
-}, [])
+    document.title = "Sweet Leaf - Login"
+  }, [])
 
-  const handleLogin =(values) =>{
-    console.log("values",values);
-    
-    axios.post('https://api.sweetleaf.co.za/login',values)
-    .then(function (response) {
-      if(response.data == "Please Verify Your Account"){
-        setErrMsg(response.data )
-      }
-      if(response.data.token){
-        setToken(response.data)
-      }
-    
-  
-      console.log("response",response.data);
-    })
-    .catch(function (error) {
-  
-      console.log(error);
-    })
+  const handleLogin = (values) => {
+    console.log("values", values);
+
+    axios.post('https://api.sweetleaf.co.za/login', values)
+      .then(function (response) {
+        if (response.data == "Please Verify Your Account") {
+          setErrMsg(response.data)
+        }
+        if (response.data.token) {
+          setToken(response.data)
+        }
+
+
+        console.log("response", response.data);
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
 
 
   }
@@ -153,53 +153,53 @@ function Login() {
       .min(5, 'Too Short!')
       .required('Required'),
   });
-  
-  
+
+
   return (
     <Root>
-     <RootInner>
-     <Heading>
-     <img src={Logo} width="60%" />
-    </Heading>
+      <RootInner>
+        <Heading>
+          <img src={Logo} width="60%" />
+        </Heading>
 
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      
-      }}
-      validationSchema={SignupSchema}
-      onSubmit={async (values) => {
-        await new Promise((r) => setTimeout(r, 500));
-        handleLogin(values)
-      }}
-    >
-      {({ errors, touched }) => (
-      <Form>
-     <ErrMsg >{errMsg}</ErrMsg>
-      <InputGrp>
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" name="email" placeholder="Type Here" />
-        {errors.email && touched.email ? (<ErrorText>{errors.email}</ErrorText>) : null}
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
 
-        </InputGrp>
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={async (values) => {
+            await new Promise((r) => setTimeout(r, 500));
+            handleLogin(values)
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <ErrMsg >{errMsg}</ErrMsg>
+              <InputGrp>
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" name="email" placeholder="Type Here" />
+                {errors.email && touched.email ? (<ErrorText>{errors.email}</ErrorText>) : null}
 
-        <InputGrp>
-        <Label htmlFor="password">Password</Label>
-        <Input id="password" name="password" placeholder="Type Here" type="password"/>
-        {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
-      </InputGrp>
+              </InputGrp>
 
-      <Button>Login</Button>
+              <InputGrp>
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" name="password" placeholder="Type Here" type="password" />
+                {errors.password && touched.password ? (<ErrorText>{errors.password}</ErrorText>) : null}
+              </InputGrp>
 
-      <Help>Dont have an account?     <MenuLink to="/register">Sign Up Here</MenuLink> </Help>
-      </Form>
-        )}
-    </Formik>
+              <Button>Login</Button>
 
-    
-        
-     </RootInner>
+              <Help>Dont have an account?     <MenuLink to="/register">Sign Up Here</MenuLink> </Help>
+            </Form>
+          )}
+        </Formik>
+
+
+
+      </RootInner>
     </Root>
   )
 }

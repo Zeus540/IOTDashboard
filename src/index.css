@@ -161,7 +161,7 @@ input:checked + .slider:before {
 
 /* smartphones, touchscreens */
 @media (hover: none) and (pointer: coarse) {
-  form::-webkit-scrollbar-thumb {
+ form::-webkit-scrollbar-thumb {
     background: #275557b6;
     background: #ab5350 ;
   border-radius: 50px;
@@ -171,4 +171,38 @@ input:checked + .slider:before {
     width: 0px;
     height: 10px;
   }
+
+  .chat::-webkit-scrollbar-thumb {
+    background: #275557b6;
+    background: #ab5350 ;
+  border-radius: 50px;
+  }
+  
+  .chat::-webkit-scrollbar {
+    width: 0px;
+    height: 10px;
+  }
+}
+
+input:focus-within {
+  outline: none;
+}
+.chat::-webkit-scrollbar-thumb {
+
+  background: #8bab50 ;
+border-radius: 50px;
+}
+
+/* Handle on hover */
+.chat::-webkit-scrollbar-thumb:hover {
+  background: #596876;
+}
+.chat::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+.chat::-webkit-scrollbar-track {
+  background: whitesmoke;
 }
