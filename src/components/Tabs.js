@@ -76,6 +76,10 @@ const Tabs = () => {
         {
           tabName:'Journal',
           active:false
+        },
+        {
+          tabName:'Settings',
+          active:false
         }
       ]
 

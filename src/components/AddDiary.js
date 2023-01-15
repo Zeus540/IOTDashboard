@@ -148,8 +148,6 @@ useEffect(() => {
   const addDiary = (values) => {
 
 
-    values.userId = userId?.UserId
-    values.UserName = user?.User
     values.Type = type
 
     console.log("values", values);
@@ -195,10 +193,10 @@ useEffect(() => {
   return (
 
     <Formik
-      initialValues={{ title: "", roomType: roomType, userId: userId?.UserId }}
+      initialValues={{  }}
       
       onSubmit={(values, { setSubmitting }) => {
-        console.log("type",type)
+     
         setTimeout(() => {
        if(type == ""){
         setErrorType(true)

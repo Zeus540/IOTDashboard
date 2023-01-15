@@ -159,30 +159,7 @@ input:checked + .slider:before {
 
 
 
-/* smartphones, touchscreens */
-@media (hover: none) and (pointer: coarse) {
- form::-webkit-scrollbar-thumb {
-    background: #275557b6;
-    background: #ab5350 ;
-  border-radius: 50px;
-  }
-  
-  form::-webkit-scrollbar {
-    width: 0px;
-    height: 10px;
-  }
 
-  .chat::-webkit-scrollbar-thumb {
-    background: #275557b6;
-    background: #ab5350 ;
-  border-radius: 50px;
-  }
-  
-  .chat::-webkit-scrollbar {
-    width: 0px;
-    height: 10px;
-  }
-}
 
 input:focus-within {
   outline: none;
@@ -206,3 +183,28 @@ border-radius: 50px;
 .chat::-webkit-scrollbar-track {
   background: whitesmoke;
 }
+
+/* smartphones, touchscreens */
+@media (hover: none) and (pointer: coarse) {
+  form::-webkit-scrollbar-thumb {
+     background: #275557b6;
+     background: #ab5350 ;
+   border-radius: 50px;
+   }
+   
+   form::-webkit-scrollbar {
+     width: 0px;
+     height: 10px;
+   }
+ 
+   .chat::-webkit-scrollbar-thumb {
+     background: #275557b6;
+     background: #ab5350 ;
+   border-radius: 50px;
+   }
+   
+   .chat::-webkit-scrollbar {
+     width: 0px;
+     height: 10px;
+   }
+ }

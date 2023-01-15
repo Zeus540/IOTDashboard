@@ -210,6 +210,13 @@ fill: white;
 width: 24px;
 `;
 
+const WeekHolderHeadingRedd = styled.div`
+  background: #f44336;
+  border-radius: 0px 0px 5px 5px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+`;
 const Notes = () => {
  
 
@@ -365,6 +372,11 @@ const Notes = () => {
                     {w.Stage.toUpperCase()}
                   </WeekHolderHeadingRed>
                       }
+                       {w.Stage.toUpperCase() == "HAR" &&
+                          <WeekHolderHeadingRedd>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRedd>
+                        }
 
                     </WeekHolder>:
                     <WeekHolderActive
@@ -397,6 +409,11 @@ const Notes = () => {
                   </WeekHolderHeadingRed>
                       }
                         
+                        {w.Stage.toUpperCase() == "HAR" &&
+                          <WeekHolderHeadingRedd>
+                            {w.Stage.toUpperCase()}
+                          </WeekHolderHeadingRedd>
+                        }
                      
                     </WeekHolderActive>}</>
           )

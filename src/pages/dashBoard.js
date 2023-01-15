@@ -43,7 +43,7 @@ const MenuLink = styled(NavLink)`
 `;
 const ChatMsgLeftMenuLink = styled(NavLink)`
   margin: 0px 0px;
-  padding: 0px 10px;
+  padding: 0px 0px;
 
   color: #8bab50;
   align-items: center;
@@ -992,6 +992,7 @@ const ChatHolderInner = styled.div`
 max-height: 250px;
 padding: 10px;
 overflow: auto;
+background: #e7e7e7;
 `;
 
 
@@ -1009,13 +1010,16 @@ margin-bottom: 10px;
 const ChatMsgUser = styled.div`
 color: black;
 font-size: 12px;
+:hover{
+  color: #8bab50;
+}
 `;
 const ChatMsgComment = styled.p`
 margin: 0px;
 background: #596876;
-padding: 5px 15px;
+padding: 5px 10px;
 display: flex;
-border-radius: 50px;
+border-radius: 5px;
 line-height: 20px;
 `;
 const ChatMsgCommentFlex = styled.div`
@@ -1026,7 +1030,7 @@ align-items: end;
 const ChatMsgTime = styled.p`
 margin: 0px;
 margin-left: 10px;
-color: black;
+color: #8bab50;
 font-size: 12px;
 line-height: 10px;
 `;
@@ -1057,7 +1061,7 @@ border-left: 0px;
 
 
 const Form = styled.form`
-box-shadow: 0px -6px 7px #c7c7c7;
+box-shadow: 0px -6px 7px #00000012;
 width: 100%;
 display: flex;
 `;
@@ -1199,7 +1203,7 @@ const DashBoard = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [params])
+  }, [params,diaries])
 
   useEffect(() => {
 
@@ -1330,6 +1334,23 @@ const DashBoard = (props) => {
 
   };
 
+
+  useEffect(()=>{
+
+    console.log("activeWeek",activeWeek)
+    let weekData = {
+      WeekId: activeWeek.WeekId
+    }
+    axios
+      .post("https://api.sweetleaf.co.za/techniques/by_week_id", weekData)
+      .then(function (response) {
+
+        setTechniques(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },[diaries])
 
   const UpdateTech = (data) => {
     axios
@@ -1556,7 +1577,7 @@ const DashBoard = (props) => {
       Active: e.target.checked
     }
 
-    axios.post('https://api.sweetleaf.co.za/diaries/update/public', values, config,)
+    axios.post('https://api.sweetleaf.co.za/diaries/update_public', values, config,)
       .then(function (response) {
         if (response.data.insertId !== undefined) {
 
