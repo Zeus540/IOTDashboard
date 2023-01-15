@@ -1514,9 +1514,7 @@ const DashBoard = (props) => {
 
   const handleActiveToggle = (e, activeDiary) => {
 
-    if (userId?.UserId == activeDiary?.UserId) {
-      setActiveToggle(e.target.checked)
-    }
+ 
 
     let config = {
       headers: {
@@ -1529,10 +1527,10 @@ const DashBoard = (props) => {
       Active: e.target.checked
     }
 
-    axios.post('https://api.sweetleaf.co.za/diaries/update/active', values, config,)
+    axios.post('https://api.sweetleaf.co.za/diaries/update_active', values, config,)
       .then(function (response) {
-        if (response.data.insertId !== undefined) {
-
+        if (response.data.changedRows == 1) {
+          setActiveToggle(!e.target.checked)
         }
 
 
@@ -1548,9 +1546,7 @@ const DashBoard = (props) => {
 
   const handlePublicToggle = (e, activeDiary) => {
 
-    if (userId?.UserId == activeDiary?.UserId) {
-      setPublicToggle(e.target.checked)
-    }
+  
 
     let config = {
       headers: {
@@ -1565,8 +1561,8 @@ const DashBoard = (props) => {
 
     axios.post('https://api.sweetleaf.co.za/diaries/update_public', values, config,)
       .then(function (response) {
-        if (response.data.insertId !== undefined) {
-
+        if (response.data.changedRows == 1) {
+          setPublicToggle(!e.target.checked)
         }
 
 
@@ -1739,7 +1735,6 @@ const DashBoard = (props) => {
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
-      {console.log(activeDiary)}
       {popUpOffset !== -101 &&
         <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
       }
