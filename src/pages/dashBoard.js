@@ -386,13 +386,16 @@ margin-top: 0px;
 font-size: 16px;
 
 margin-bottom: 0px;
-padding: 0px 0px;
+padding: 0px 15px;
 padding-left: 0px;
 padding-top: 0px;
 height: fit-content;
 border-radius: 50px;
-
-width: calc(100% / 4 );
+margin-right: 10px;
+@media (max-width: 425px) {
+  width: calc(100% / 4 );
+  margin-right: 0px;
+}
 `;
 
 const DairyHeadingSmallAccent = styled.span`
