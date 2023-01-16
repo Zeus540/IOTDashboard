@@ -34,18 +34,7 @@ export const AuthProvider = ({ children }) => {
    
   }, [])
 
-  useEffect(() => {
 
-    console.log("token.UserId",)
-    if(auth){
-        socket.off('online').emit('online', { UserId:userId.UserId});
-
-
-    }
-
-
-    
-  })
   
 
     useEffect(() => {
@@ -73,9 +62,17 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
         localStorage.removeItem('RefreshToken');
         localStorage.removeItem('auth');
+
+        
+            socket.off('offline').emit('offline', { UserId:userId?.UserId});
+    
+
         setAuth(false)
+        
         navigate('/')
+
     }
+
     const token = localStorage.getItem('token');
     useEffect(() => {
       

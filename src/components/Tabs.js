@@ -36,8 +36,8 @@ z-index: 6;
 background: #8bab50;
 padding: 10px 15px;
 display: flex;
-margin-right: 20px;
-border-radius: 5px;
+
+border-radius: 5px 0px 5px 0px;
 `;
 const TabActive = styled.div`
 border-radius: 5px 0px 0px 0px;
@@ -45,12 +45,12 @@ border-radius: 5px 0px 0px 0px;
   padding: 10px 20px;
   background: #ffffff;
   font-weight: bold;
-  border-bottom: 4px solid #8bab50;
+  border-bottom: 4px solid white;
   text-align: center;
 
 
   @media (max-width: 425px) {
-    border-bottom: 4px solid #8bab50;
+    border-bottom: 4px solid white;
  
   }
 

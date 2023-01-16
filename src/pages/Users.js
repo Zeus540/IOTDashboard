@@ -127,6 +127,8 @@ border-radius: 5px;
 const DiaryTextHolder = styled.div`
 padding: 5px 0px;
 overflow: auto;
+display: flex;
+align-items: center;
 `;
 
 
@@ -156,6 +158,22 @@ const Tag = styled.sup`
   display: block;
 
 
+`;
+
+const Online = styled.div`
+margin-left: 10px;
+background: #8bab50;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+`;
+
+const Offline = styled.div`
+margin-left: 10px;
+background: #d32f2f;
+width: 10px;
+height: 10px;
+border-radius: 50%;
 `;
 
 const Svg = styled.svg`
@@ -262,6 +280,13 @@ const Users = () => {
     
                 <DiaryTextHolder>
                 <Tag> {d?.UserName}</Tag>
+                {d?.Online_Status == 1 && 
+                  <Online></Online>
+                }
+                  {d?.Online_Status == 0 && 
+                  <Offline></Offline>
+                }
+                
                 </DiaryTextHolder>
               <UserBtnHolder>
                 

@@ -386,12 +386,13 @@ margin-top: 0px;
 font-size: 16px;
 
 margin-bottom: 0px;
-padding: 0px 15px;
+padding: 0px 0px;
 padding-left: 0px;
 padding-top: 0px;
 height: fit-content;
 border-radius: 50px;
-margin-right: 10px;
+
+width: calc(100% / 4 );
 `;
 
 const DairyHeadingSmallAccent = styled.span`
@@ -1669,7 +1670,7 @@ const DashBoard = (props) => {
       console.log("data", data)
     });
   
-    socket.off('get_comments').emit('get_comments', { Diary_Id: activeDiary?.DiaryId});
+    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id});
 
   })
 
