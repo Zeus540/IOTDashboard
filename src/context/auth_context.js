@@ -1,17 +1,52 @@
 import React, { createContext, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom"
+import io from 'socket.io-client';
+
 export const AuthContext = createContext();
+
+
+const socket = io("https://api.sweetleaf.co.za");
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate ()
     const location = useLocation ()
-
+    const [isConnected, setIsConnected] = useState(socket.connected);
     const [auth, setAuth] = useState(false);
     const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
     const [userId, setUserId] = useState(JSON.parse(localStorage.getItem('auth')));
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
+
+     //Chat Config
+  useEffect(() => {
+
+
+    socket.off('connection').on('connection', () => {
+      setIsConnected(true);
+    });
+
+    socket.off('disconnect').on('disconnect', () => {
+      setIsConnected(false);
+    });
+
+
+   
+  }, [])
+
+  useEffect(() => {
+
+    console.log("token.UserId",)
+    if(auth){
+        socket.off('online').emit('online', { UserId:userId.UserId});
+
+
+    }
+
+
+    
+  })
+  
 
     useEffect(() => {
         setUserId(JSON.parse(localStorage.getItem('auth')))
@@ -51,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     }, [token])
     
     return (
-        <AuthContext.Provider value={{ auth, setToken,logOut,authToken,userId,user }}>
+        <AuthContext.Provider value={{ auth, setToken,logOut,authToken,userId,user,socket }}>
             {children}
         </AuthContext.Provider>
     )
