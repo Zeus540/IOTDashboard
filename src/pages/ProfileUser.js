@@ -91,7 +91,7 @@ padding: 20px;
 const BlockHolder = styled.div`
 display: flex;
 color: black;
-padding: 10px 20px;
+padding: 10px 10px;
 
 border-radius: 5px;
 @media (max-width: 425px) {
@@ -109,6 +109,11 @@ color: black;
 padding: 10px 20px;
 background: whitesmoke;
 border-radius: 5px;
+
+`;
+
+const BlockHolderFlex = styled.div`
+display: flex;
 
 `;
 
@@ -235,15 +240,30 @@ const ProfileUser = () => {
                 <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
 
 
-                <MainHeading>Stats</MainHeading>
+               
 
-
+                <BlockHolderFlex>
 <BlockHolder>
                <Block>
                <BlockHeading>Diaries</BlockHeading>
                 <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
                </Block>
                </BlockHolder>
+
+               <BlockHolder>
+               <Block>
+               <BlockHeading>Comments</BlockHeading>
+                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
+               </Block>
+               </BlockHolder>
+
+               <BlockHolder>
+               <Block>
+               <BlockHeading>Diaries</BlockHeading>
+                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
+               </Block>
+               </BlockHolder>
+               </BlockHolderFlex>
           </div>
                 </UserInfoTop>
         

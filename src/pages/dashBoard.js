@@ -378,6 +378,18 @@ color:black;
   }
 `;
 
+const DairyHeadingTitleC = styled.p`
+color:black;
+  margin-top: 0px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 0px;
+  @media (max-width: 425px) {
+    font-size: 14px;
+    padding-top: 0px;
+  }
+`;
+
 
 const DairyViewsSmall = styled.sup`
 display: flex;
@@ -1717,6 +1729,14 @@ const DashBoard = (props) => {
 
   }, [commentList])
 
+
+  const handleUserProfile =(activeDiary)=>{
+    if(auth){
+      navigate(`/profile/${activeDiary?.UserName}/${activeDiary?.UserId}`)
+    }
+  }
+
+
   return (
 
 
@@ -1852,7 +1872,7 @@ const DashBoard = (props) => {
 
                     <DairyHeading>{activeDiary?.Title} </DairyHeading>
 
-                    <DairyHeadingTitle>{activeDiary?.UserName}</DairyHeadingTitle>
+                    <DairyHeadingTitleC onClick={()=>{handleUserProfile(activeDiary)}}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
                   </div>
 

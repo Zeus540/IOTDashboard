@@ -11,7 +11,10 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Root = styled.div`
 
-
+position: sticky;
+    top: 0;
+    z-index:50;
+    box-shadow:  0px 0px 20px #00000012;
   @media (max-width: 425px) {
     margin: 0px 0px;
     margin-top: 0px;
@@ -93,6 +96,7 @@ const LinkHolderMobile = styled.div`
   justify-content: space-between;
   min-height: 100vh ;
   z-index: 50;
+  box-shadow:  0px 0px 20px #00000012;
   @media (min-width: 0px) and (max-width: 767px) {
     min-width: 50%;
   }
@@ -407,7 +411,7 @@ console.log()
             <MenuLinkMobile to="/public-diaries" onClick={() => {  props.setMobileMenu(false); }}>
               <FlexLink>
 
-                <div>Home</div>
+                <div>Public Diaries</div>
               </FlexLink>
             </MenuLinkMobile>
 
@@ -419,20 +423,23 @@ console.log()
                     <div>My Diaries</div>
                   </FlexLink>
                 </MenuLinkMobile>
-
+                {userId?.UserId == 1 && 
                 <MenuLinkMobile to="/my-devices" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>My Devices</div>
                   </FlexLink>
                 </MenuLinkMobile>
-
+   }
+         {userId?.UserId == 1 && 
                 <MenuLinkMobile to="/users" onClick={() => {  props.setMobileMenu(false); }}>
-                  <FlexLink>
+                <FlexLink>
 
-                    <div>Users</div>
-                  </FlexLink>
-                </MenuLinkMobile>
+                  <div>Users</div>
+                </FlexLink>
+              </MenuLinkMobile>
+
+         }
               </>
             }
           </LinkHolderM>

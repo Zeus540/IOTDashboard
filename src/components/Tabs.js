@@ -3,6 +3,9 @@ import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import {useNavigate} from 'react-router-dom'
 import { AuthContext } from "../context/auth_context";
+
+
+
 const TabsHolderOutter = styled.div`
 
 top: 70px;
@@ -27,7 +30,12 @@ align-items: end;
   max-width: 1770px;
   width: 100%;
   z-index: 5;
-
+  transition: 0.5s all ease-in;
+  overflow: auto;
+  @media (min-width: 426px) {
+    overflow: unset;
+  
+  }
 `;
 
 
@@ -38,21 +46,23 @@ padding: 10px 15px;
 display: flex;
 
 border-radius: 5px 0px 5px 0px;
+
+@media (max-width: 425px) {
+  display: none;
+
+}
 `;
 const TabActive = styled.div`
-border-radius: 5px 0px 0px 0px;
+
+text-align: center;
   cursor: pointer;
-  padding: 10px 20px;
-  background: #ffffff;
-  font-weight: bold;
-  border-bottom: 4px solid white;
-  text-align: center;
-
-
-  @media (max-width: 425px) {
-    border-bottom: 4px solid white;
  
-  }
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  height: fit-content;
+
+
 
 `;
 const TabInActive = styled.div`
@@ -65,11 +75,7 @@ text-align: center;
 
   padding: 10px 20px;
   height: fit-content;
-  border-bottom: 4px solid white;
-  @media (max-width: 425px) {
-    border-bottom: 4px solid white;
- 
-  }
+
 `;
 
 const TabActiveOutter = styled.div`
@@ -171,9 +177,8 @@ useEffect(() => {
 
 const handleNextTab =()=>{
   setTabListIndex(tabListIndex + 1)
-  console.log(tabListIndex)
-  console.log( tabList.length - 1)
-  if(tabListIndex == tabList.length - 1){
+
+  if(tabListIndex == tabList.length - 3){
     setTabListPositon(0)
     setTabListIndex(0)
   }else{
@@ -188,7 +193,7 @@ const handleNextTab =()=>{
         <TabsHolderNext onClick={()=>{handleNextTab()}}>
         <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></Svg>
     </TabsHolderNext>
-    <TabsHolder tabListPositon={tabListPositon}>
+    <TabsHolder tabListPositon={tabListPositon} className="TabsHolder">
   
 
     {tabList?.map((tab,index)=>{
