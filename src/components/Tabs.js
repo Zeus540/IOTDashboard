@@ -52,6 +52,20 @@ border-radius: 5px 0px 5px 0px;
 
 }
 `;
+
+const TabsHolderNextMobile = styled.div`
+z-index: 6;
+background: #8bab50;
+padding: 10px 15px;
+display: flex;
+
+border-radius: 5px 0px 5px 0px;
+
+@media (min-width: 426px) {
+  display: none;
+
+}
+`;
 const TabActive = styled.div`
 
 text-align: center;
@@ -193,6 +207,10 @@ const handleNextTab =()=>{
         <TabsHolderNext onClick={()=>{handleNextTab()}}>
         <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></Svg>
     </TabsHolderNext>
+    <TabsHolderNextMobile >
+        <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></Svg>
+    </TabsHolderNextMobile>
+    
     <TabsHolder tabListPositon={tabListPositon} className="TabsHolder">
   
 
