@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }) => {
           if(token){
             socket.off('liked_diary').on('liked_diary', (data) => {
         
-                if(data.UserId == userId?.UserId){
+                if(data.UserId !== userId?.UserId){
                     enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`)
                 }
                 console.log("liked_diary",  data)
