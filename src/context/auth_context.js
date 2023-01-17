@@ -2,13 +2,14 @@ import React, { createContext, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { useLocation } from "react-router-dom"
 import io from 'socket.io-client';
-
+import { useSnackbar} from 'notistack';
 export const AuthContext = createContext();
 
 
 const socket = io("https://api.sweetleaf.co.za");
 
 export const AuthProvider = ({ children }) => {
+    const {enqueueSnackbar} = useSnackbar()
     const navigate = useNavigate ()
     const location = useLocation ()
     const [isConnected, setIsConnected] = useState(socket.connected);
@@ -64,9 +65,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('auth');
 
         
-            socket.off('offline').emit('offline', { UserId:userId?.UserId});
-    
-
         setAuth(false)
         
         navigate('/')
@@ -79,8 +77,35 @@ export const AuthProvider = ({ children }) => {
         if(token){
             setAuthToken(token)
             setAuth(true)
+
+        
+
         }
     }, [token])
+    
+    useEffect(() => {
+        socket.off('diary_added').on('diary_added', (data) => {
+            if(data.UserId !== userId?.UserId){
+                enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`)
+            }
+
+  
+            console.log("diary_added",  data)
+          });
+
+          if(token){
+            socket.off('liked_diary').on('liked_diary', (data) => {
+        
+                if(data.UserId == userId?.UserId){
+                    enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`)
+                }
+                console.log("liked_diary",  data)
+              });
+        }
+   
+
+       
+    })
     
     return (
         <AuthContext.Provider value={{ auth, setToken,logOut,authToken,userId,user,socket }}>

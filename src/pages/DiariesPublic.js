@@ -227,7 +227,7 @@ margin: 0px;
 
 const Diaries = () => {
   const { diariesPublic, UpdatePublic, loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState(diariesPublic);
+  const [diaryList, setDiaryList] = useState([]);
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
   const [diaryMostViewedList, setDiaryMostViewedList] = useState([]);
@@ -235,25 +235,10 @@ const Diaries = () => {
   const [diaryActiveType, setDiaryActiveType] = useState("All");
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
-  const { auth, authToken, userId } = useContext(AuthContext);
+  const { auth, authToken,socket } = useContext(AuthContext);
 
 
 
-  useEffect(() => {
-    setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
-    setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
-    setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
-
-    let types = diariesPublic.filter((value, index, self) =>
-      index === self.findIndex((t) => (
-        t.Type === value.Type
-      ))
-    )
-    setDiaryTypes(types)
-
-
-
-  }, [diariesPublic])
 
 
   useEffect(() => {
@@ -264,30 +249,19 @@ const Diaries = () => {
 
 
 
-  const handleAddPopUp = (d) => {
-    if (popUpOffset == -100) {
-      setPopUpOffset(0);
-    } else {
-      setPopUpOffset(-100);
-    }
-  };
-
-
-
-
   const setFilter = (type) => {
 
 
     if (type == "All") {
 
       setDiaryActiveType(type)
-      setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
-      setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+      setDiaryHavestList(diaryList.filter((d) => d.HavestId !== null))
+      setDiaryOnGoingList(diaryList.filter((d) => d.HavestId == null))
+      setDiaryMostViewedList(diaryList.sort((a, b) => b.Views - a.Views))
 
     } else {
       setDiaryActiveType(type)
-      let list = diariesPublic.filter((d) => d.Type == type)
+      let list = diaryList.filter((d) => d.Type == type)
       setDiaryHavestList(list?.filter((d) => d.HavestId !== null))
       setDiaryOnGoingList(list.filter((d) => d.HavestId == null))
       setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
@@ -296,6 +270,37 @@ const Diaries = () => {
 
   }
 
+
+ useEffect(() => {
+  socket.off('get_public_diaries').emit('get_public_diaries');
+ }, [])
+ 
+
+    //Chat Listen
+    useEffect(() => {
+
+      socket.off('public_diaries').on('public_diaries', (data) => {
+        setDiaryList(data)
+
+        setDiaryHavestList(data.filter((d) => d.HavestId !== null))
+        setDiaryOnGoingList(data.filter((d) => d.HavestId == null))
+        setDiaryMostViewedList(data.sort((a, b) => b.Views - a.Views))
+    
+        let types = data.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t.Type === value.Type
+          ))
+        )
+        setDiaryTypes(types)
+    
+    
+
+        
+        console.log("public_diaries", data)
+      });
+  
+    
+    })
 
   return (
 

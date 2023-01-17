@@ -1239,12 +1239,20 @@ const DashBoard = (props) => {
   const handleLike = () => {
     if (activeDiary !== undefined) {
 
+
+      let config = {
+        headers: {
+          authorization: 'Bearer ' + token,
+        }
+      }
+  
       let datav = {
-        DiaryId: parseInt(params?.id)
+        DiaryId: parseInt(params?.id),
+
       }
 
       axios
-        .post("https://api.sweetleaf.co.za/diaries/update_likes", datav)
+        .post("https://api.sweetleaf.co.za/diaries/update_likes", datav,config)
         .then(function (response) {
           if (diaries.length > 0) {
 
@@ -1686,6 +1694,7 @@ const DashBoard = (props) => {
     });
   
     socket.off('get_comments').emit('get_comments', { Diary_Id: params.id});
+
 
   })
 
