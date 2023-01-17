@@ -66,7 +66,8 @@ const DeleteDiary = (props) => {
   const deleteDiary = () => {
 
     let data = {
-      DiaryId: props.Diary.DiaryId
+      DiaryId: props.Diary.DiaryId,
+      Privacy: props.Diary.Public
     }
 
     let config = {

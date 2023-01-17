@@ -238,15 +238,20 @@ const Diaries = () => {
   const { auth, authToken,socket } = useContext(AuthContext);
 
 
+useEffect(() => {
+  setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
+  setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
+  setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+
+  let types = diariesPublic.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+      t.Type === value.Type
+    ))
+  )
+  setDiaryTypes(types)
 
 
-
-  useEffect(() => {
-
-    UpdatePublic()
-  }, [])
-
-
+}, [diariesPublic])
 
 
   const setFilter = (type) => {
@@ -255,13 +260,13 @@ const Diaries = () => {
     if (type == "All") {
 
       setDiaryActiveType(type)
-      setDiaryHavestList(diaryList.filter((d) => d.HavestId !== null))
-      setDiaryOnGoingList(diaryList.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(diaryList.sort((a, b) => b.Views - a.Views))
+      setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
+      setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
+      setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
 
     } else {
       setDiaryActiveType(type)
-      let list = diaryList.filter((d) => d.Type == type)
+      let list = diariesPublic.filter((d) => d.Type == type)
       setDiaryHavestList(list?.filter((d) => d.HavestId !== null))
       setDiaryOnGoingList(list.filter((d) => d.HavestId == null))
       setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
@@ -269,38 +274,6 @@ const Diaries = () => {
     }
 
   }
-
-
- useEffect(() => {
-  socket.off('get_public_diaries').emit('get_public_diaries');
- }, [])
- 
-
-    //Chat Listen
-    useEffect(() => {
-
-      socket.off('public_diaries').on('public_diaries', (data) => {
-        setDiaryList(data)
-
-        setDiaryHavestList(data.filter((d) => d.HavestId !== null))
-        setDiaryOnGoingList(data.filter((d) => d.HavestId == null))
-        setDiaryMostViewedList(data.sort((a, b) => b.Views - a.Views))
-    
-        let types = data.filter((value, index, self) =>
-          index === self.findIndex((t) => (
-            t.Type === value.Type
-          ))
-        )
-        setDiaryTypes(types)
-    
-    
-
-        
-        console.log("public_diaries", data)
-      });
-  
-    
-    })
 
   return (
 

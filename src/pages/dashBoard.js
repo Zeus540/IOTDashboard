@@ -1572,7 +1572,6 @@ const DashBoard = (props) => {
   const handlePublicToggle = (e, activeDiary) => {
 
   
-
     let config = {
       headers: {
         authorization: 'Bearer ' + authToken,
