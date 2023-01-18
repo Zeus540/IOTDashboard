@@ -122,7 +122,11 @@ function Login() {
   const handleLogin = (values) => {
     console.log("values", values);
 
-    axios.post('https://api.sweetleaf.co.za/login', values)
+    let config ={
+      withCredentials: true
+    }
+    
+    axios.post('https://api.sweetleaf.co.za/login', values,config)
       .then(function (response) {
         if (response.data == "Please Verify Your Account") {
           setErrMsg(response.data)
