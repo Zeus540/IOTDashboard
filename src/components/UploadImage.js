@@ -9,7 +9,7 @@ import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { TailSpin } from  'react-loader-spinner'
 import { useSnackbar} from 'notistack';
 
@@ -136,13 +136,9 @@ if(props.DayId !== ''){
     }
 }
 
-  let config = {
-    headers: {
-      authorization: 'Bearer ' + authToken,
-    }
-  }
+
   
-  axios.post('https://api.sweetleaf.co.za/upload/image',values,config,)
+  axios.post('http://localhost:9954/upload/image',values)
   .then(function (response) {
     if(response.status == 200 ){
       props.setPopUpOffset(-101)

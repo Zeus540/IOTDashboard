@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
@@ -164,7 +164,7 @@ const Harvest = () => {
   useEffect(() => {
 
     axios
-    .get("https://api.sweetleaf.co.za/harvest")
+    .get("${BASE_URL_PROD}/harvest")
     .then(function (response) {
       console.log("before",response.data);
       console.log("after",response?.data?.filter((d) => d?.DiaryId == parseInt(params?.id)));

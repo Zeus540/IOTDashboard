@@ -53,7 +53,7 @@ const navigate = useNavigate()
         {console.log("params", params.token) }
 
         
-        axios.post('https://api.sweetleaf.co.za/verify',params)
+        axios.post('${BASE_URL_PROD}/verify',params)
         .then((response) => {
         if(response.data.url){
             setTimeout(() => {

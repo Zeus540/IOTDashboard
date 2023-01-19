@@ -10,7 +10,7 @@ import PlaceHolder from "../assets/placeholder.png";
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 
 const Input = styled(TextField)`
@@ -135,7 +135,7 @@ const AddDiary = (props) => {
 useEffect(() => {
 
   
-  axios.get('https://api.sweetleaf.co.za/diaries/types')
+  axios.get('http://localhost:9954/diaries/types')
   .then((response) => {
     setDiaryTypes(response.data)
     console.log(response.data);
@@ -152,14 +152,9 @@ useEffect(() => {
 
     values.Type = type
 
-    console.log("values", values);
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
+    
 
-    axios.post('https://api.sweetleaf.co.za/diaries/add', values, config,)
+    axios.post('http://localhost:9954/diaries/add', values, )
       .then(function (response) {
         if (response.data.insertId !== undefined) {
           Update()

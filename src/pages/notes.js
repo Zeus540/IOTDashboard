@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import { AuthContext } from "../context/auth_context";
 
@@ -251,17 +251,12 @@ const Notes = () => {
   useEffect(() => {
 
 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
     let dataSend = {
       DiaryId:parseInt(params?.id)
     }
     
     axios
-    .post("https://api.sweetleaf.co.za/notes/all",dataSend,config)
+    .post("${BASE_URL_PROD}/notes/all",dataSend)
     .then(function (response) {
       console.log(response.data)
       setActiveWeekCheck(noteData?.filter((n)=> n.WeekId == activeWeekId)[0]?.WeekId)
@@ -269,7 +264,7 @@ const Notes = () => {
  
     }).then(()=>{
       axios
-      .post("https://api.sweetleaf.co.za/weeks",dataSend,config)
+      .post("${BASE_URL_PROD}/weeks",dataSend)
       .then(function (response) {
         setWeeks(response?.data)
 
@@ -297,7 +292,7 @@ const Notes = () => {
         };
       
         axios
-          .post("https://api.sweetleaf.co.za/days", dataw)
+          .post("${BASE_URL_PROD}/days", dataw)
           .then(function (response) {
             console.log("days", response.data);
             setDays(response.data);

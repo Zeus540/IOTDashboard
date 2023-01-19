@@ -18,6 +18,7 @@ import ProfileUser from './pages/ProfileUser';
 
 import Login from './pages/login';
 import Devices from './pages/Devices';
+import  ProtectedRoutes  from './components/shared/PrivateRoute';
 
 const MainContainer = (props) => {
     const { auth, userId, setAuth } = useContext(AuthContext)
@@ -28,9 +29,8 @@ const MainContainer = (props) => {
     return (
         <div>
 
-            {!auth &&
 
-                <Routes>
+                    <Routes>
 
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<DiariesPublic />} />
@@ -44,32 +44,29 @@ const MainContainer = (props) => {
                     <Route path="/environment/:id" element={<Stats />} />
                     <Route path="/harvest/:id" element={<Harvest />} />
                     <Route path="/journal/:id" element={<Notes />} />
-                </Routes>
-            }
-
-            {auth &&
-                <Routes>
-                    <Route path="*" element={<NotFound />} />
-                    <Route path="/" element={<DiariesPublic />} />
-
-                    <Route path="/public-diaries" element={<DiariesPublic />} />
-                    <Route path="/users" element={<Users />} />
-
-                    <Route path="/profile/:username/:userId" element={<ProfileUser />} />
-
-                    <Route path="/diaries" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
-                    <Route path="/my-devices" element={<Devices />} />
-                    <Route path="/my-devices/link-device/:deviceId" element={<Devices />} />
 
 
-                    <Route path="/overview/:id" element={<DashBoard />} />
-                    <Route path="/environment/:id" element={<Stats />} />
-                    <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/journal/:id" element={<Notes />} />
+                    <Route element={<ProtectedRoutes/>}>
+                            <Route path="/diaries"   element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
+                            <Route path="/users"   element={<Users />} />
 
-                </Routes>
-            }
+                            <Route path="/profile/:username/:userId"   element={<ProfileUser />} />
 
+
+                                        
+                            <Route path="/profile/:username/:userId"   element={<ProfileUser />} />
+
+                                                    
+                            <Route path="/my-devices"   element={<Devices />} />
+
+                                                    
+                            <Route path="/my-devices/link-device/:deviceId"   element={<Devices />} />
+                    </Route>
+
+                    </Routes>
+       
+
+         
         </div>
     )
 }

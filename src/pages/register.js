@@ -117,7 +117,7 @@ function Register() {
   const handleLogin =(values) =>{
     
     
-    axios.post('https://api.sweetleaf.co.za/register',values)
+    axios.post('${BASE_URL_PROD}/register',values)
     .then(function (response) {
       console.log("response.data",response.data)
       if(response.data.userRegisterSucces == false){

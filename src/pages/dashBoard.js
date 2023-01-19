@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Image from "../assets/imagesrsadere.png";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
@@ -17,7 +17,7 @@ import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from 'react-loader-spinner'
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useSnackbar } from 'notistack';
@@ -1142,7 +1142,7 @@ const DashBoard = (props) => {
   const [likes, setLikes] = useState(0);
   const [commentAmount, setCommentAmount] = useState(0);
   
-  const { auth, authToken,socket } = useContext(AuthContext);
+  const { auth,user, authToken,socket } = useContext(AuthContext);
  
   let token = localStorage.getItem("token")
 
@@ -1179,18 +1179,14 @@ const DashBoard = (props) => {
 
   useEffect(() => {
 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + token,
-      }
-    }
+ 
 
     let data = {
       DiaryId: params?.id,
     };
 
     axios
-      .post("https://api.sweetleaf.co.za/weeks", data, config)
+      .post(`${BASE_URL_PROD}/weeks`, data)
       .then(function (response) {
         setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
       })
@@ -1199,7 +1195,7 @@ const DashBoard = (props) => {
       });
 
     axios
-      .post("https://api.sweetleaf.co.za/diaries/get_comments", data)
+      .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
       .then(function (response) {
         setCommentList(response.data)
       })
@@ -1208,31 +1204,7 @@ const DashBoard = (props) => {
       });
   }, [params, diaries])
 
-  useEffect(() => {
-
-    if (activeDiary !== undefined) {
-
-      let datav = {
-        DiaryId: parseInt(params?.id)
-      }
-
-      axios
-        .post("https://api.sweetleaf.co.za/diaries/update_view", datav)
-        .then(function (response) {
-          if (diaries.length > 0) {
-
-            Update()
-          }
-          else {
-            UpdatePublic()
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-
-  }, [])
+  
 
 
 
@@ -1252,7 +1224,7 @@ const DashBoard = (props) => {
       }
 
       axios
-        .post("https://api.sweetleaf.co.za/diaries/update_likes", datav,config)
+        .post(`${BASE_URL_PROD}/diaries/update_likes`, datav,config)
         .then(function (response) {
           if (diaries.length > 0) {
 
@@ -1295,7 +1267,7 @@ const DashBoard = (props) => {
       };
 
       axios
-        .post("https://api.sweetleaf.co.za/days", dataw)
+        .post(`${BASE_URL_PROD}/days`, dataw)
         .then(function (response) {
 
           setDays(response.data);
@@ -1309,13 +1281,13 @@ const DashBoard = (props) => {
         WeekId: w.WeekId,
       };
       axios
-        .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+        .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
         .then(function (response) {
 
           setActiveDiaryData(response.data.latest);
 
           axios
-            .post("https://api.sweetleaf.co.za/plant_data/by_Week", data)
+            .post(`${BASE_URL_PROD}/plant_data/by_Week`, data)
             .then(function (response) {
               setDaysNotes(response.data.Notes);
 
@@ -1333,7 +1305,7 @@ const DashBoard = (props) => {
         WeekId: w.WeekId
       }
       axios
-        .post("https://api.sweetleaf.co.za/techniques/by_week_id", weekData)
+        .post(`${BASE_URL_PROD}/techniques/by_week_id`, weekData)
         .then(function (response) {
 
           setTechniques(response.data)
@@ -1353,7 +1325,7 @@ const DashBoard = (props) => {
       WeekId: activeWeek.WeekId
     }
     axios
-      .post("https://api.sweetleaf.co.za/techniques/by_week_id", weekData)
+      .post(`${BASE_URL_PROD}/techniques/by_week_id`, weekData)
       .then(function (response) {
 
         setTechniques(response.data)
@@ -1365,7 +1337,7 @@ const DashBoard = (props) => {
 
   const UpdateTech = (data) => {
     axios
-      .post("https://api.sweetleaf.co.za/techniques/by_week_id", data)
+      .post(`${BASE_URL_PROD}/techniques/by_week_id`, data)
       .then(function (response) {
 
         setTechniques(response.data)
@@ -1394,14 +1366,14 @@ const DashBoard = (props) => {
         setDiaryData(data);
 
         axios
-          .post("https://api.sweetleaf.co.za/plant_data/lastest", data)
+          .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
           .then(function (response) {
 
             setActiveDiaryData(response.data.latest);
             setGalleryData(response.data.Day);
 
             axios
-              .post("https://api.sweetleaf.co.za/notes/today", data)
+              .post(`${BASE_URL_PROD}/notes/today`, data)
               .then(function (response) {
                 setDaysNotes(response.data);
               })
@@ -1541,18 +1513,14 @@ const DashBoard = (props) => {
 
  
 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
+ 
 
     let values = {
       DiaryId: activeDiary.DiaryId,
       Active: e.target.checked
     }
 
-    axios.post('https://api.sweetleaf.co.za/diaries/update_active', values, config,)
+    axios.post('${BASE_URL_PROD}/diaries/update_active', values)
       .then(function (response) {
         if (response.data.changedRows == 1) {
           setActiveToggle(!e.target.checked)
@@ -1572,18 +1540,13 @@ const DashBoard = (props) => {
   const handlePublicToggle = (e, activeDiary) => {
 
   
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
-
+  
     let values = {
       DiaryId: activeDiary.DiaryId,
       Active: e.target.checked
     }
 
-    axios.post('https://api.sweetleaf.co.za/diaries/update_public', values, config,)
+    axios.post('${BASE_URL_PROD}/diaries/update_public', values, )
       .then(function (response) {
         if (response.data.changedRows == 1) {
           setPublicToggle(!e.target.checked)
@@ -1647,18 +1610,14 @@ const DashBoard = (props) => {
   const handleThumbnailUpdate = (DiaryId, Image) => {
 
 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
+  
     let data = {
       DiaryId: DiaryId,
       Image: Image
     }
 
     axios
-      .post("https://api.sweetleaf.co.za/diaries/update_thumbnail", data, config)
+      .post("${BASE_URL_PROD}/diaries/update_thumbnail", data)
       .then(function (response) {
         if (response.status == 200) {
           enqueueSnackbar("Cover Successfully Updated", { variant: 'success' })
@@ -1718,9 +1677,9 @@ const DashBoard = (props) => {
 
     setComment("")
     if (comment !== "") {
-      if (userId?.UserId !== undefined) {
+      if (user?.UserId !== undefined) {
 
-        socket.off('comment').emit('comment', { Sender_Id: userId?.UserId, Diary_Id: activeDiary?.DiaryId, Comment: comment, Time: time, TimeZone: tz });
+        socket.off('comment').emit('comment', { Sender_Id: user?.UserId, Diary_Id: activeDiary?.DiaryId, Comment: comment, Time: time, TimeZone: tz });
         setComment("")
 
       }
@@ -1795,7 +1754,7 @@ const DashBoard = (props) => {
             <Tabs />
               <RightFlexInner>
            
-                {userId?.UserId == activeDiary?.UserId &&
+                {user?.UserId == activeDiary?.UserId &&
 
                   <ToggleHolder>
 
@@ -1844,7 +1803,7 @@ const DashBoard = (props) => {
 
                     <DeleteDiaryHolder>
 
-                      {userId?.UserId == activeDiary?.UserId &&
+                      {user?.UserId == activeDiary?.UserId &&
                         <DeleteDiary onClick={() => { handleDeleteDiary() }}>
 
 
@@ -1856,7 +1815,7 @@ const DashBoard = (props) => {
                 }
 
 <IntroHolderDay>
-{userId?.UserId !== activeDiary?.UserId &&
+{user?.UserId !== activeDiary?.UserId &&
                     <LikeButton onClick={() => { handleLike() }}>
                       <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgL><LikeButtonText>Like</LikeButtonText>
                     </LikeButton>
@@ -1930,7 +1889,7 @@ const DashBoard = (props) => {
 
                     <HeadingCta>
                       <TextHolderHeading>Notes</TextHolderHeading>
-                      {userId?.UserId == activeDiary?.UserId &&
+                      {user?.UserId == activeDiary?.UserId &&
                         <HeadingCtaButton
                           onClick={() => {
                             handleNotes();
@@ -1971,11 +1930,11 @@ const DashBoard = (props) => {
 
           <Flex3BtnHolder>
 
-            {userId?.UserId == activeDiary?.UserId &&
+            {user?.UserId == activeDiary?.UserId &&
 
               <>
 
-                {activeWeek && userId?.UserId == activeDiary?.UserId &&
+                {activeWeek && user?.UserId == activeDiary?.UserId &&
                   <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
                     <HelperBtn >
                       <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
@@ -2088,7 +2047,7 @@ const DashBoard = (props) => {
                 );
               })}
             </>
-            {userId?.UserId == activeDiary?.UserId &&
+            {user?.UserId == activeDiary?.UserId &&
               <AddWeek onClick={() => { handleAddWeek() }}>
                 <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></AddWeekSvg>
               </AddWeek>
@@ -2154,7 +2113,7 @@ const DashBoard = (props) => {
                       <>
 
                         <GalleryImageHolderFlex key={index} >
-                          {activeDiary.UserId == userId?.UserId &&
+                          {activeDiary.UserId == user?.UserId &&
                             <SetImageHolder onClick={() => { handleThumbnailUpdate(img.DiaryId, img?.Image) }}>
                               <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
                             </SetImageHolder>

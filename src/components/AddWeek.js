@@ -9,7 +9,7 @@ import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -97,13 +97,8 @@ const AddWeek = (props) => {
       
         console.log("values",values);
 
-        let config = {
-          headers: {
-            authorization: 'Bearer ' + authToken,
-          }
-        }
-        
-        axios.post('https://api.sweetleaf.co.za/weeks/add_week',values,config,)
+      
+        axios.post('http://localhost:9954/weeks/add_week',values)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()

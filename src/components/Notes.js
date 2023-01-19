@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../components/shared/axios";
 
 
 const NotesOutter = styled.div`
@@ -137,7 +137,7 @@ const NotesHolder = (props) => {
         }
 
         axios
-        .post("https://api.sweetleaf.co.za/notes", props.diaryDatas)
+        .post("http://localhost:9954/notes", props.diaryDatas)
         .then(function (response) {
           
        

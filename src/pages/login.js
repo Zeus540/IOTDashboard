@@ -112,7 +112,7 @@ const MenuLink = styled(NavLink)`
 `;
 
 function Login() {
-  const { auth, setToken } = useContext(AuthContext)
+  const { setAuthentication } = useContext(AuthContext)
   const navigate = useNavigate()
   const [errMsg, setErrMsg] = useState("")
 
@@ -126,13 +126,13 @@ function Login() {
       withCredentials: true
     }
     
-    axios.post('https://api.sweetleaf.co.za/login', values,config)
+    axios.post('http://localhost:9954/login', values,config)
       .then(function (response) {
         if (response.data == "Please Verify Your Account") {
           setErrMsg(response.data)
         }
-        if (response.data.token) {
-          setToken(response.data)
+        if (response.status == 200) {
+          setAuthentication(response.data)
         }
 
 

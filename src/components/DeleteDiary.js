@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { DiaryContext } from "../context/diary_context";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { useSnackbar } from 'notistack';
 
 
@@ -70,12 +70,8 @@ const DeleteDiary = (props) => {
       Privacy: props.Diary.Public
     }
 
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
-    axios.post('https://api.sweetleaf.co.za/diaries/delete', data, config)
+   
+    axios.post('http://localhost:9954/diaries/delete', data)
       .then(function (response) {
         if (response.data.affectedRows > 0) {
           navigate('/')

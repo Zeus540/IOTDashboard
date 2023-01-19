@@ -4,11 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
+import { AuthProvider } from '../src/context/auth_context';
+import { DiaryProvider } from '../src/context/diary_context';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
-    </BrowserRouter>,
+    <SnackbarProvider maxSnack={4} >
+      <AuthProvider>
+        <DiaryProvider>
+          <App />
+        </DiaryProvider>
+      </AuthProvider>
+    </SnackbarProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

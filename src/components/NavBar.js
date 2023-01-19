@@ -325,7 +325,7 @@ padding-left: 20px;
 const NavBar = (props) => {
   const { auth, logOut, user, userId } = useContext(AuthContext);
 
-
+  console.log("user",user)
   // Define what props.theme will look like
   const theme = {
     dark: "#275557"
@@ -333,7 +333,7 @@ const NavBar = (props) => {
 
 
 
-console.log()
+
   return (
 
     <Root onClick={() => {
@@ -375,13 +375,13 @@ console.log()
             )}
             {auth && (
               <>
-                <MenuLinkTop to={`/profile/${user?.User}/${userId?.UserId}`}>
+                <MenuLinkTop to={`/profile/${user?.UserName}/${user?.UserId}`}>
 
                   <UserInfoTop>
                     <UserAvatar>
-                      {user?.User?.charAt(0)}
+                      {user?.UserName?.charAt(0)}
                     </UserAvatar>
-                    {user?.User}
+                    {user?.UserName}
                   </UserInfoTop>
                 </MenuLinkTop>
 
@@ -423,7 +423,7 @@ console.log()
                     <div>My Diaries</div>
                   </FlexLink>
                 </MenuLinkMobile>
-                {userId?.UserId == 1 && 
+                {user?.UserId == 1 && 
                 <MenuLinkMobile to="/my-devices" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
@@ -431,7 +431,7 @@ console.log()
                   </FlexLink>
                 </MenuLinkMobile>
    }
-         {userId?.UserId == 1 && 
+         {user?.UserId == 1 && 
                 <MenuLinkMobile to="/users" onClick={() => {  props.setMobileMenu(false); }}>
                 <FlexLink>
 
@@ -474,9 +474,9 @@ console.log()
           <UserInfoHolder>
             <UserInfo>
               <UserAvatar>
-                {user?.User?.charAt(0)}
+                {user?.UserName?.charAt(0)}
               </UserAvatar>
-              {user?.User}
+              {user?.UserName}
             </UserInfo>
             <div onClick={() => { logOut() }}>
               <ButtonM >

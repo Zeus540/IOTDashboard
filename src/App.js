@@ -3,11 +3,10 @@ import Back from './assets/back3.jpg'
 import { ThemeProvider } from 'styled-components';
 import styled from "styled-components";
 import NavBar from './components/NavBar';
-import { AuthProvider } from '../src/context/auth_context';
-import { DiaryProvider } from '../src/context/diary_context';
+import { AuthContext } from './context/auth_context';
 import MainContainer from './MainContainer';
 import Footer from './components/Footer';
-import { SnackbarProvider,enqueueSnackbar} from 'notistack';
+
 const Root = styled.div`
 
 
@@ -38,6 +37,7 @@ z-index: 5;
 function App() {
 
   const [mobileMenu, setMobileMenu] = useState(false);
+const{logoutAllTabs,loginAllTabs} = useContext(AuthContext)
 
   const OffClick = () => {
     if (mobileMenu == true) {
@@ -45,20 +45,23 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    logoutAllTabs()
+    loginAllTabs()
+
+   }, [])
+
+   
   return (
     <Root onClick={()=>{OffClick()}}>
       <Image></Image>
       <Inner>
-       <SnackbarProvider maxSnack={4} >
-          <AuthProvider>
-            <DiaryProvider>
+
          
               <NavBar mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} OffClick={OffClick}/>
               <MainContainer />
               <Footer />
-            </DiaryProvider>
-          </AuthProvider>
-          </SnackbarProvider>
+       
       </Inner>
     </Root>
   )

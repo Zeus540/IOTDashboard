@@ -10,7 +10,7 @@ import  faTrash  from "../assets/trash-can-regular.svg";
 import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
@@ -181,13 +181,9 @@ const ProfileUser = () => {
 
   useEffect(() => {
   
-    let config = {
-      headers: {
-        authorization: 'Bearer ' + authToken,
-      }
-    }
+ 
 
-    axios.get('https://api.sweetleaf.co.za/users',config)
+    axios.get('${BASE_URL_PROD}/users')
       .then(function (response) {
 
         console.log(response.data.filter((u) => u.UserId == params.userId))

@@ -21,7 +21,7 @@ const Inner = styled.div`
 background-image: url(${Back2});
 
 background-size: cover;
-min-height: calc(100vh - 63px);
+min-height: calc(100vh - 198px);
 width: 100%;
 background-position: center;
 margin: 0 auto;
@@ -31,7 +31,7 @@ display: flex;
     background-color: #193637;
     background-blend-mode: overlay;
   @media (max-width: 425px) {
-    min-height: calc(100vh - 55px);
+    min-height: calc(100vh - 198px);
   }
   @media (min-width: 426px) and (max-width: 768px) {
     min-height: calc(100vh - 63px);

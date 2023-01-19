@@ -10,7 +10,7 @@ import  faTrash  from "../assets/trash-can-regular.svg";
 import { AuthContext } from "../context/auth_context";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import { useLocation, useParams } from "react-router-dom";
 import DeviceImg from "../assets/Planter.png"
 

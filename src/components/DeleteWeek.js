@@ -9,7 +9,7 @@ import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -82,13 +82,8 @@ const DeleteWeek = (props) => {
         WeekId:props.week.WeekId
       }
 
-        let config = {
-          headers: {
-            authorization: 'Bearer ' + authToken,
-          }
-        }
         
-        axios.post('https://api.sweetleaf.co.za/weeks/delete_week',data,config,)
+        axios.post('http://localhost:9954/weeks/delete_week',data)
         .then(function (response) {
           if(response.data.affectedRows == 1){
             enqueueSnackbar("Week Successfully Deleted",{variant:'success'})

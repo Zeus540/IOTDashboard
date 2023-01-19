@@ -9,7 +9,7 @@ import { DiaryContext } from "../context/diary_context";
 import PlaceHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios";
+import axios from "../components/shared/axios";
 import Mainline from '../assets/mainline.svg'
 import LST from '../assets/lst.svg'
 
@@ -138,14 +138,9 @@ const EditWeek = (props) => {
          
            console.log("values",values);
    
-           let config = {
-             headers: {
-               authorization: 'Bearer ' + authToken,
-             }
-
-        }
+       
         
-        axios.post('https://api.sweetleaf.co.za/weeks/edit_week',values,config)
+        axios.post('http://localhost:9954/weeks/edit_week',values)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             console.log("response.data",response.data);
@@ -171,17 +166,13 @@ const EditWeek = (props) => {
   
 const addTech = (t)=>{
 
-  let config = {
-    headers: {
-      authorization: 'Bearer ' + authToken,
-    }
-  }
+
      let data = {
            WeekId:props.week.WeekId,
            Technique_Name:t.Grow_Techniques_Option_Name,
          }
 
-          axios.post('https://api.sweetleaf.co.za/techniques/add',data,config)
+          axios.post('http://localhost:9954/techniques/add',data)
            .then(function (response) {
              if(response.data.insertId !== undefined){
               Update()
@@ -202,7 +193,7 @@ const addTech = (t)=>{
 
 
     useEffect(() => {
-      axios.get('https://api.sweetleaf.co.za/techniques')
+      axios.get('http://localhost:9954/techniques')
       .then(function (response) {
         setTechniques(response.data)
         
