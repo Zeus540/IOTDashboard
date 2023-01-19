@@ -12,7 +12,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import MenuItem from '@mui/material/MenuItem';
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 
 
@@ -98,7 +98,7 @@ const AddWeek = (props) => {
         console.log("values",values);
 
       
-        axios.post('http://localhost:9954/weeks/add_week',values)
+        axios.post(`${BASE_URL_PROD}/weeks/add_week`,values)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             Update()

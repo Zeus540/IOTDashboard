@@ -17,7 +17,7 @@ import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 import { useSnackbar} from 'notistack';
 
 const Input = styled(TextField)`
@@ -140,7 +140,7 @@ const EditWeek = (props) => {
    
        
         
-        axios.post('http://localhost:9954/weeks/edit_week',values)
+        axios.post(`${BASE_URL_PROD}/weeks/edit_week`,values)
         .then(function (response) {
           if(response.data.insertId !== undefined){
             console.log("response.data",response.data);
@@ -172,7 +172,7 @@ const addTech = (t)=>{
            Technique_Name:t.Grow_Techniques_Option_Name,
          }
 
-          axios.post('http://localhost:9954/techniques/add',data)
+          axios.post(`${BASE_URL_PROD}/techniques/add`,data)
            .then(function (response) {
              if(response.data.insertId !== undefined){
               Update()
@@ -193,7 +193,7 @@ const addTech = (t)=>{
 
 
     useEffect(() => {
-      axios.get('http://localhost:9954/techniques')
+      axios.get(`${BASE_URL_PROD}/techniques`)
       .then(function (response) {
         setTechniques(response.data)
         

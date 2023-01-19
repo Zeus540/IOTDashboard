@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -135,7 +136,7 @@ const AddDiary = (props) => {
 useEffect(() => {
 
   
-  axios.get('http://localhost:9954/diaries/types')
+  axios.get(`${BASE_URL_PROD}/diaries/types`)
   .then((response) => {
     setDiaryTypes(response.data)
     console.log(response.data);
@@ -154,7 +155,7 @@ useEffect(() => {
 
     
 
-    axios.post('http://localhost:9954/diaries/add', values, )
+    axios.post(`${BASE_URL_PROD}/diaries/add`, values, )
       .then(function (response) {
         if (response.data.insertId !== undefined) {
           Update()

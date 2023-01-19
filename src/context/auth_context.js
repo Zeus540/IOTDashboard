@@ -5,12 +5,12 @@ import io from 'socket.io-client';
 import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie'
 import { BroadcastChannel } from 'broadcast-channel';
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 export const AuthContext = createContext();
 
 
 
-const socket = io("http://localhost:9954");
+const socket = io(`${BASE_URL_PROD}:9954`);
 
 export const AuthProvider = ({ children }) => {
     const { enqueueSnackbar } = useSnackbar()

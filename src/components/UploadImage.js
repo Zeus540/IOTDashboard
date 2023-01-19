@@ -12,6 +12,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { TailSpin } from  'react-loader-spinner'
 import { useSnackbar} from 'notistack';
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -138,7 +139,7 @@ if(props.DayId !== ''){
 
 
   
-  axios.post('http://localhost:9954/upload/image',values)
+  axios.post(`${BASE_URL_PROD}/upload/image`,values)
   .then(function (response) {
     if(response.status == 200 ){
       props.setPopUpOffset(-101)

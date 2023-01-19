@@ -5,9 +5,10 @@ import Logo from "../assets/logoLogin.png";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
-import axios from "axios"
+import axios from "../components/shared/axios"
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
@@ -122,11 +123,8 @@ function Login() {
   const handleLogin = (values) => {
     console.log("values", values);
 
-    let config ={
-      withCredentials: true
-    }
     
-    axios.post('http://localhost:9954/login', values,config)
+    axios.post(`${BASE_URL_PROD}/login`, values)
       .then(function (response) {
         if (response.data == "Please Verify Your Account") {
           setErrMsg(response.data)

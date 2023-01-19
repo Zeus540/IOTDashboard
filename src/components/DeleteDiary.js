@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar } from 'notistack';
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Inner = styled.div`
 
@@ -71,7 +71,7 @@ const DeleteDiary = (props) => {
     }
 
    
-    axios.post('http://localhost:9954/diaries/delete', data)
+    axios.post(`${BASE_URL_PROD}/diaries/delete`, data)
       .then(function (response) {
         if (response.data.affectedRows > 0) {
           navigate('/')

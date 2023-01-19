@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import styled from "styled-components";
 import axios from "../components/shared/axios";
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const NotesOutter = styled.div`
 display: flex;
@@ -137,7 +137,7 @@ const NotesHolder = (props) => {
         }
 
         axios
-        .post("http://localhost:9954/notes", props.diaryDatas)
+        .post(`${BASE_URL_PROD}/notes`, props.diaryDatas)
         .then(function (response) {
           
        

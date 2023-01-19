@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useSnackbar} from 'notistack';
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Inner = styled.div`
 
@@ -83,7 +83,7 @@ const DeleteWeek = (props) => {
       }
 
         
-        axios.post('http://localhost:9954/weeks/delete_week',data)
+        axios.post(`${BASE_URL_PROD}/weeks/delete_week`,data)
         .then(function (response) {
           if(response.data.affectedRows == 1){
             enqueueSnackbar("Week Successfully Deleted",{variant:'success'})
