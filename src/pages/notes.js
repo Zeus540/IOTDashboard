@@ -8,7 +8,7 @@ import { AuthContext } from "../context/auth_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
 import {useNavigate} from 'react-router-dom'
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
@@ -256,7 +256,7 @@ const Notes = () => {
     }
     
     axios
-    .post("${BASE_URL_PROD}/notes/all",dataSend)
+    .post(`${BASE_URL_PROD}/notes/all`,dataSend)
     .then(function (response) {
       console.log(response.data)
       setActiveWeekCheck(noteData?.filter((n)=> n.WeekId == activeWeekId)[0]?.WeekId)
@@ -264,7 +264,7 @@ const Notes = () => {
  
     }).then(()=>{
       axios
-      .post("${BASE_URL_PROD}/weeks",dataSend)
+      .post(`${BASE_URL_PROD}/weeks`,dataSend)
       .then(function (response) {
         setWeeks(response?.data)
 
@@ -292,7 +292,7 @@ const Notes = () => {
         };
       
         axios
-          .post("${BASE_URL_PROD}/days", dataw)
+          .post(`${BASE_URL_PROD}/days`, dataw)
           .then(function (response) {
             console.log("days", response.data);
             setDays(response.data);

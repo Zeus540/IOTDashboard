@@ -1617,7 +1617,7 @@ const DashBoard = (props) => {
     }
 
     axios
-      .post("${BASE_URL_PROD}/diaries/update_thumbnail", data)
+      .post(`${BASE_URL_PROD}/diaries/update_thumbnail`, data)
       .then(function (response) {
         if (response.status == 200) {
           enqueueSnackbar("Cover Successfully Updated", { variant: 'success' })
@@ -1900,7 +1900,8 @@ const DashBoard = (props) => {
                         </HeadingCtaButton>}
 
                     </HeadingCta>
-                    <Notes>{daysNotes?.Notes ? daysNotes?.Notes : daysNotes}</Notes>
+                    {console.log("daysNotes",daysNotes)}
+                    <Notes>{daysNotes?.Notes}</Notes>
 
 
                   </TextHolder>

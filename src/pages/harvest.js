@@ -6,7 +6,7 @@ import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import Tabs from "../components/Tabs";
 import {useNavigate} from 'react-router-dom'
-
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
@@ -164,7 +164,7 @@ const Harvest = () => {
   useEffect(() => {
 
     axios
-    .get("${BASE_URL_PROD}/harvest")
+    .get(`${BASE_URL_PROD}/harvest`)
     .then(function (response) {
       console.log("before",response.data);
       console.log("after",response?.data?.filter((d) => d?.DiaryId == parseInt(params?.id)));
