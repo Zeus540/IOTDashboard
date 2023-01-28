@@ -13,6 +13,7 @@ import { TextField } from "@mui/material";
 import axios from "../components/shared/axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
@@ -220,7 +221,7 @@ const Users = () => {
   
 
 
-    axios.get('${BASE_URL_PROD}/users')
+    axios.get(`${BASE_URL_PROD}/users`)
       .then(function (response) {
         setUserList(response.data)
         console.log("response", response.data);

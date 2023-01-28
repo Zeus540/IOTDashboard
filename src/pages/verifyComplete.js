@@ -3,6 +3,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import Logo from "../assets/logoLogin.png";
 import axios from "axios"
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
@@ -53,7 +54,7 @@ const navigate = useNavigate()
         {console.log("params", params.token) }
 
         
-        axios.post('${BASE_URL_PROD}/verify',params)
+        axios.post(`${BASE_URL_PROD}/verify`,params)
         .then((response) => {
         if(response.data.url){
             setTimeout(() => {

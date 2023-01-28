@@ -1520,7 +1520,7 @@ const DashBoard = (props) => {
       Active: e.target.checked
     }
 
-    axios.post('${BASE_URL_PROD}/diaries/update_active', values)
+    axios.post(`${BASE_URL_PROD}/diaries/update_active`, values)
       .then(function (response) {
         if (response.data.changedRows == 1) {
           setActiveToggle(!e.target.checked)
@@ -1546,7 +1546,7 @@ const DashBoard = (props) => {
       Active: e.target.checked
     }
 
-    axios.post('${BASE_URL_PROD}/diaries/update_public', values, )
+    axios.post(`${BASE_URL_PROD}/diaries/update_public`, values, )
       .then(function (response) {
         if (response.data.changedRows == 1) {
           setPublicToggle(!e.target.checked)

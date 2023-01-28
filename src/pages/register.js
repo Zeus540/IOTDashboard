@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { AuthContext } from "../context/auth_context";
 import axios from "axios"
 import { Helmet } from "react-helmet";
+import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 //background:#27555726;
@@ -117,7 +118,7 @@ function Register() {
   const handleLogin =(values) =>{
     
     
-    axios.post('${BASE_URL_PROD}/register',values)
+    axios.post(`${BASE_URL_PROD}/register`,values)
     .then(function (response) {
       console.log("response.data",response.data)
       if(response.data.userRegisterSucces == false){
