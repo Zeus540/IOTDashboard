@@ -21,8 +21,10 @@ import {BASE_URL_PROD} from '../components/shared/Constants'
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useSnackbar } from 'notistack';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
 
-
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const MenuLink = styled(NavLink)`
@@ -65,7 +67,7 @@ const Inner = styled.div`
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
-    margin: 80px;
+    margin: 80px 350px;
   @media (max-width: 425px) {
     margin: 0px;
     padding-top: 0px;
@@ -478,6 +480,48 @@ overflow:hidden;
 position: relative;
 width: 100%;
 `;
+
+const ChartHolderInnerMain = styled.div`
+overflow:hidden;
+position: relative;
+width: 100%;
+display: flex;
+justify-content: center;
+max-width: 40%;
+margin: 0 auto;
+@media (max-width: 600px) {
+  flex-direction: column;
+  max-width: 70%;
+}
+`;
+const ChartHolder = styled.div`
+
+
+width: calc(100% / 2);
+@media (max-width: 600px) {
+  width: unset;
+}
+`;
+const ChartHolderText = styled.div`
+padding: 20px;
+width: calc(100% / 2);
+@media (max-width: 600px) {
+  width: unset;
+}
+
+`;
+
+const ChartTextGroup = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+const ChartTextSpan = styled.span`
+display: flex;
+justify-content: space-between;
+`;
+
+
 const GalleryNext = styled.div`
 right: 10px;
 cursor: pointer;
@@ -584,8 +628,8 @@ const HeadingC = styled.h4`
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-bottom: 80px;
-  margin-top: 80px;
+  margin-bottom: 40px;
+  margin-top: 40px;
   align-items: center;
   color: black;
   @media (min-width: 0px) and (max-width: 768px) {
@@ -1117,7 +1161,9 @@ const DashBoard = (props) => {
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
   const [techniques, setTechniques] = useState([]);
-
+  const [scheduleData, setScheduleData] = useState([]);
+  const [colourData, setColourData] = useState([]);
+  
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
   const { diaries, diariesPublic, Update, UpdatePublic } = useContext(DiaryContext);
@@ -1131,6 +1177,8 @@ const DashBoard = (props) => {
   const [assignDevice, setAssignDevice] = useState(false);
 
   const [popUpOffset, setPopUpOffset] = useState(-101);
+  const [popUpOffsetFeeding, setPopUpOffsetFeeding] = useState(-101);
+  
   const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-101);
   const [popUpDeleteWeekOffset, setPopUpDeleteWeekOffset] = useState(-101);
   const [popUpDeleteDiaryOffset, setPopUpDeleteDiaryOffset] = useState(-101);
@@ -1173,6 +1221,20 @@ const DashBoard = (props) => {
 
     setActiveDiary(filtered);
 
+
+  
+    let weekData = {
+      WeekId: activeWeek.WeekId
+    }
+    axios
+      .post(`${BASE_URL_PROD}/techniques/by_week_id`, weekData)
+      .then(function (response) {
+
+        setTechniques(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
 
   }, [diaries, diariesPublic])
@@ -1313,27 +1375,27 @@ const DashBoard = (props) => {
         .catch(function (error) {
           console.log(error);
         });
+
+        let nutrientData = {
+          DiaryId: activeDiary.DiaryId,
+          WeekId:w.WeekId
+        }
+        axios
+        .post(`${BASE_URL_PROD}/nutrients/feeding_schedule`, nutrientData)
+        .then(function (response) {
+    
+          setScheduleData(response.data)
+
+       
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
   };
 
 
-  useEffect(() => {
-
-    console.log("activeWeek", activeWeek)
-    let weekData = {
-      WeekId: activeWeek.WeekId
-    }
-    axios
-      .post(`${BASE_URL_PROD}/techniques/by_week_id`, weekData)
-      .then(function (response) {
-
-        setTechniques(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [diaries])
 
   const UpdateTech = (data) => {
     axios
@@ -1563,6 +1625,13 @@ const DashBoard = (props) => {
   }
 
 
+  const HandleFeedingUpload = () => {
+    if (popUpOffsetFeeding == -101) {
+      setPopUpOffsetFeeding(0);
+    } else {
+      setPopUpOffsetFeeding(-101);
+    }
+  }
 
 
   const HandleImageUpload = () => {
@@ -1572,7 +1641,7 @@ const DashBoard = (props) => {
       setPopUpOffset(-101);
     }
   }
-
+  
 
   const handleAddWeek = () => {
     if (popUpAddWeekOffset == -101) {
@@ -1704,6 +1773,42 @@ const DashBoard = (props) => {
   }
 
 
+ 
+  const data = {
+
+    labels: scheduleData.map((l)=> l.Nutrient_Name ),
+    datasets: [
+      {
+        label: ['ml', 'ml'],
+        data: scheduleData.map((l)=> l.Nutrient_Amount ),
+        backgroundColor: colourData.map((l)=> l ),
+      
+        borderWidth: 0,
+      },
+    ],
+
+  };
+
+  
+  useEffect(() => {
+    let colors = []
+    let index = 0 
+  
+  while (index < 10 ) {
+    const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+    const randomByte = () => randomNumber(0, 255)
+    const randomPercent = () => (0.8)
+
+    colors.push(`rgba(${[randomByte(), randomByte(), randomByte(), randomPercent()].join(',')})`)
+
+  
+    index = index + 1
+  }
+ 
+  setColourData(colors)
+  }, [])
+  
+
   return (
 
 
@@ -1716,25 +1821,27 @@ const DashBoard = (props) => {
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
-      {popUpOffset !== -101 &&
-        <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
-      }
+  
+      <PopUp popUpOffset={popUpOffsetFeeding} setPopUpOffset={setPopUpOffsetFeeding} type="uploadFeeding" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
+      
+      <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
+   
 
-      {popUpAddWeekOffset !== -101 &&
+  
         <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
-      }
+     
 
-      {popUpEditWeekOffset !== -101 &&
+     
         <PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech} />
-      }
+    
 
-      {popUpDeleteWeekOffset !== -101 &&
+    
         <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
-      }
+     
 
-      {popUpDeleteDiaryOffset !== -101 &&
+    
         <PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
-      }
+      
 
       {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
@@ -1746,12 +1853,14 @@ const DashBoard = (props) => {
 
         <FlexTop>
           <ImgHolder img={mainImage} onClick={() => { handleLightBox(mainImage) }}>
-
+       
           </ImgHolder>
 
           <RightFlexHolder>
             <RightFlex>
-            <Tabs />
+            {user?.UserId == activeDiary?.UserId &&
+              <Tabs />
+            }
               <RightFlexInner>
            
                 {user?.UserId == activeDiary?.UserId &&
@@ -1900,7 +2009,7 @@ const DashBoard = (props) => {
                         </HeadingCtaButton>}
 
                     </HeadingCta>
-                    {console.log("daysNotes",daysNotes)}
+               
                     <Notes>{daysNotes?.Notes}</Notes>
 
 
@@ -1940,6 +2049,16 @@ const DashBoard = (props) => {
                     <HelperBtn >
                       <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
                       <HelperBtnText>Upload</HelperBtnText>
+
+                    </HelperBtn>
+                  </HelperBtnHolder>
+                }
+
+                {activeWeek && user?.UserId == activeDiary?.UserId &&
+                  <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
+                    <HelperBtn >
+                      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                      <HelperBtnText>Nutrients</HelperBtnText>
 
                     </HelperBtn>
                   </HelperBtnHolder>
@@ -2099,7 +2218,6 @@ const DashBoard = (props) => {
         </Flex3B>
 
 
-
         <Heading>GALLERY</Heading>
 
 
@@ -2187,10 +2305,36 @@ const DashBoard = (props) => {
           </DotHolder>
         </GalleryHolderInnerMain>
 
+
+
+
+        <Heading>NUTRIENTS</Heading>
+
+{scheduleData.length > 0 ?
+        <ChartHolderInnerMain>
+          <ChartHolder>
+          <Doughnut data={data}  updateMode ="resize" />
+          </ChartHolder>
+          <ChartHolderText>
+
+{scheduleData.map((d)=>{
+  return(
+<ChartTextGroup><ChartTextSpan>{d?.Nutrient_Name}</ChartTextSpan> <ChartTextSpan>{d?.Nutrient_Amount}ml/L</ChartTextSpan></ChartTextGroup>
+  )
+})}
+
+          </ChartHolderText>
+        </ChartHolderInnerMain>:
+              <NoDataHolder>
+        <NoData>No Data Available</NoData>
+        </NoDataHolder>
+      }
+        
         <HeadingC>COMMENTS</HeadingC>
 
         <ChatHolder>
-          {!token && <ChatHidden>
+
+          {!user && <ChatHidden>
             <MenuLink to="/sign-in" state={location.pathname}> <SvgLogin xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></SvgLogin>Sign In</MenuLink> To Comment
           </ChatHidden>}
 

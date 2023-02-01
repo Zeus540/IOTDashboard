@@ -24,7 +24,7 @@ position: sticky;
 
 const Inner = styled.div`
 
-padding:0px 80px ;
+padding:0px 350px ;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -11,6 +11,8 @@ import EditWeek from './EditWeek';
 import DeleteWeek from './DeleteWeek';
 import DeleteDiary from './DeleteDiary';
 
+import UploadFeeding from './UploadFeeding';
+
 import UploadImage from './UploadImage';
 
 const PopUpHolder = styled.div`
@@ -87,7 +89,7 @@ const PopUp = (props) => {
     <AddDiary setPopUpOffset={props.setPopUpOffset}/>
 }
 {props.type == "uploadImage" && 
-    <UploadImage setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
+    <UploadImage  setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
 }
 
 {props.type == "addWeek" && 
@@ -104,6 +106,10 @@ const PopUp = (props) => {
 
 {props.type == "deleteDiary" && 
     <DeleteDiary setPopUpOffset={props.setPopUpOffset} Diary={props.Diary} week={props.week} />
+}
+
+{props.type == "uploadFeeding" && 
+    <UploadFeeding popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
 }
 
     </PopUpHolderInner>

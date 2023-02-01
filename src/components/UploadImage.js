@@ -51,7 +51,7 @@ overflow:auto;
 }
 `;
 const InputHolder = styled.div`
-padding: 20px;
+padding: 15px;
 
 `;
 
@@ -73,6 +73,7 @@ height: ${(props) => props.img !== "" ? `200px` : `0px`};
 background-size: cover;
 margin-bottom: 20px;
 background-position: center center;
+border-radius: 5px;
 `;
 
 const UploadImage = (props) => {
@@ -173,9 +174,11 @@ if(props.DayId !== ''){
      
         </FormHeadingGroup>
         <InputHolder>
+        {img !== '' && 
         <ImgHolder img={img}>
-{/* <img src={img} width="100%"/> */}
+
   </ImgHolder>
+  }
          <Input type="file" name="" id="fileId" 
         onChange={()=>{imageUploaded()}}/>
 
