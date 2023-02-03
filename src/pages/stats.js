@@ -22,6 +22,7 @@ const Root = styled.div`
 const Flex2 = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Heading = styled.h4`
@@ -31,7 +32,7 @@ const Heading = styled.h4`
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
   &::before {
@@ -61,7 +62,7 @@ const Inner = styled.div`
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
-  margin: 80px auto;
+  margin: 0px auto;
   @media (max-width: 425px) {
     margin: 0px auto;
   }
@@ -104,85 +105,27 @@ const TextHolderGroup2Inner = styled.div`
 
 `;
 
-const PlantContainer = styled.div`
-  width: calc(100% / 1 - 20px);
-  margin: 10px;
-  background: #a7a7a7;
-  height: 150px;
-  border-radius: 62%;
-  min-width: 150px;
+const NoData = styled.div`
+  padding: 15px 0px;
+  font-size: 20px;
 `;
-
-const PlantContainerHolder = styled.div`
-
-  padding:10px;
-  display: grid;
-  grid-template-columns: repeat(${props => props.columns}, 1fr) ;
-  grid-template-rows:repeat(${props => props.rows}, 1fr);
-  border: 5px solid #536262;
-  margin: 0px 20px;
-  background: #536262;
-  border-radius: 5px;
-  width: fit-content;
-  @media (max-width: 425px) {
-    width: unset;
-  }
-
+const NoDataHolder = styled.div`
+  width: 100%;
+  text-align: center;
 `;
-
-
-const PlantContainerNumber = styled.div`
-background: white;
-padding: 10px;
-width: 20px;
-height: 20px;
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-
-`;
-
-const Button = styled.button`
-padding: 5px 25px;
-background: #596876;
-color: white;
-border: none;
-border-radius: 50px;
-cursor: pointer;
-align-self: self-start;
-
-margin-top: 20px;
-`;
-
-
-const InnerButtonHolder = styled.div`
-max-width: 1770px;
-border-radius: 0px 5px 5px 5px;
-width: 100%;
-
-padding: 20px 0px;
-padding-top:0px;
-@media (max-width: 425px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-@media (min-width: 426px) and (max-width: 768px) {
-  margin: 0px;
-  padding-top: 0px;
-}
-`;
-
-const Stats = () => {
+const Stats = (props) => {
  
 
 
   const { diaries,diariesPublic } = useContext(DiaryContext);
   const [activeDiary, setActiveDiary] = useState([]);
-  const [activeDiaryData, setActiveDiaryData] = useState([]);
-  const [layout, setLayout] = useState({});
-  const [amountOfPlants, setAmountOfPlants] = useState([1,2,1,2]);
-
+  const [activeDiaryData, setActiveDiaryData] = useState(undefined);
+  const [ph, setPh] = useState(null);
+  const [temp, setTemp] = useState(null);
+  const [moisture, setMoisture] = useState(null);
+  const [co2, setCo2] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+  
   const params = useParams();
   const navigate = useNavigate ()
 
@@ -197,9 +140,24 @@ const Stats = () => {
 
     document.title = "Sweet Leaf - " + filtered?.Title + "  Environment" ;
     setActiveDiary(filtered);
+
+    
   }, [diaries,diariesPublic])
 
-
+  useEffect(() => {
+ 
+    let arr = []
+    let data = props.data
+  
+    setPh(props?.dataAll?.filter((d)=> d.Ph !== null)[0]?.Ph)
+    setTemp(props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
+    setMoisture(props?.dataAll?.filter((d)=> d.Moisture   !== 0)[0]?.Moisture)
+    setCo2(props?.dataAll?.filter((d)=> d.Co2  !== 0)[0].Co2)
+    setHumidity(props?.dataAll?.filter((d)=> d.Humidity   !== 0)[0]?.Humidity)
+console.log("sdsa",props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
+    setActiveDiaryData(data)
+    
+  }, [props])
 
 
   return (
@@ -211,25 +169,13 @@ const Stats = () => {
       </InnerButtonHolder> */}
 
       <Inner>
-      <Tabs/>
-           
-           {/* <PlantContainerHolder layout={layout} columns={layout.columns} rows={layout.rows}>
 
-            {amountOfPlants.map((v,index)=>{
-              return(
-                <PlantContainer key={index}>
-           <PlantContainerNumber>
-           {v}
-           </PlantContainerNumber>
-                </PlantContainer>
-              )
-            })}
       
-          
-           </PlantContainerHolder> */}
 
       <Heading> Grow environment </Heading>
         <Flex2>
+          
+        
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
     
@@ -271,55 +217,79 @@ const Stats = () => {
             {activeDiary?.Pot_Size}
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
-          <TextHolderGroup2>
+       
+
+
+    {activeDiaryData !== undefined && 
+    <>
+       <TextHolderGroup2>
           <TextHolderGroup2Inner>
-          <TextHeading>Co2</TextHeading>
-            {activeDiaryData?.Co2 == 0 ? (
+          <TextHeading>Ph</TextHeading>
+            {ph == null ? (
               "N/A"
             ) : (
-              <>{activeDiaryData?.Co2} PPM</>
+              <>{ph}</>
+            )}
+                  
+                </TextHolderGroup2Inner>
+          </TextHolderGroup2>
+
+
+          <TextHolderGroup2>
+          <TextHolderGroup2Inner>
+          <TextHeading>Moisture</TextHeading>
+            {moisture == 0 ? (
+              "N/A"
+            ) : (
+              <>{moisture}%</>
             )}
               
                 </TextHolderGroup2Inner>
           </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>Moisture</TextHeading>
-            {activeDiaryData?.Moisture == 0 ? (
-              "N/A"
-            ) : (
-              <>{activeDiaryData?.Moisture} %</>
-            )}
-             
-              </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
+
+    <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Temperature</TextHeading>
-            {activeDiaryData?.Temperature == 0 ? (
+            {temp == 0 ? (
               "N/A"
             ) : (
-              <>{activeDiaryData?.Temperature} &#8451;</>
+              <>{temp} &#8451;</>
             )}
                   
                 </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Humidity</TextHeading>
-            {activeDiaryData?.Humidity == 0 ? (
+            {humidity == 0 ? (
               "N/A"
             ) : (
-              <>{activeDiaryData?.Humidity} %</>
+              <>{humidity} </>
             )}
-             
-                  </TextHolderGroup2Inner>
-                  
+              
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
+
+          <TextHolderGroup2>
+          <TextHolderGroup2Inner>
+          <TextHeading>Co2</TextHeading>
+            {co2 == 0 ? (
+              "N/A"
+            ) : (
+              <>{co2} PPM</>
+            )}
+              
+                </TextHolderGroup2Inner>
+          </TextHolderGroup2>
+    </>
+    }
+
+          
 
         
 
-          
         </Flex2>
 
       </Inner>

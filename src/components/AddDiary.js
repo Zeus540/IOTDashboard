@@ -71,6 +71,7 @@ const InputHolderType = styled.div`
 display: flex;
 flex-wrap: wrap;
 margin-bottom: 10px;
+justify-content: space-between;
 `;
 const Error = styled.p`
 margin: 0px;
@@ -80,7 +81,8 @@ color: red;
 
 const TypeBlock = styled.div`
 padding: 10px;
-margin: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
 border: 2px white solid;
 background: #859ea34f;
 border-radius: 5px;
@@ -88,11 +90,13 @@ margin-left: 0px;
 display: flex;
 align-items: center;
 flex-direction: column;
+width: calc(100% /2 - 30px);
 `;
 
 const TypeBlockActive = styled.div`
 padding: 10px;
-margin: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
 border: 2px #8bab50 solid;
 background: #859ea34f;
 border-radius: 5px;
@@ -100,6 +104,7 @@ margin-left: 0px;
 display: flex;
 align-items: center;
 flex-direction: column;
+width: calc(100% /2 - 30px);
 `;
 
 const TypeBlockImg = styled.img`

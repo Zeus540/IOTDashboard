@@ -23,6 +23,7 @@ import { Helmet } from "react-helmet";
 import { useSnackbar } from 'notistack';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import Stats from "./stats"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -479,6 +480,7 @@ const GalleryHolderInnerMain = styled.div`
 overflow:hidden;
 position: relative;
 width: 100%;
+padding: 20px 0px;
 `;
 
 const ChartHolderInnerMain = styled.div`
@@ -1156,7 +1158,8 @@ const DashBoard = (props) => {
   const [galleryData, setGalleryData] = useState([]);
   const [days, setDays] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
-  const [activeDiaryData, setActiveDiaryData] = useState([]);
+  const [activeDiaryData, setActiveDiaryData] = useState(undefined);
+  const [activeDiaryDataAll, setActiveDiaryDataAll] = useState(undefined);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
@@ -1346,8 +1349,9 @@ const DashBoard = (props) => {
         .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
         .then(function (response) {
 
+      
           setActiveDiaryData(response.data.latest);
-
+          
           axios
             .post(`${BASE_URL_PROD}/plant_data/by_Week`, data)
             .then(function (response) {
@@ -1432,6 +1436,7 @@ const DashBoard = (props) => {
           .then(function (response) {
 
             setActiveDiaryData(response.data.latest);
+            setActiveDiaryDataAll(response.data);
             setGalleryData(response.data.Day);
 
             axios
@@ -2078,12 +2083,12 @@ const DashBoard = (props) => {
               </>
             }
           </Flex3BtnHolder>
-          {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
+    
 
 
 
           <Heading>WEEKS</Heading>
-
+          {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
           <WeekHolderInner>
             <>
@@ -2217,6 +2222,13 @@ const DashBoard = (props) => {
           }
 
         </Flex3B>
+
+
+
+    
+          <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day}/>
+
+    
 
 
         <Heading>GALLERY</Heading>
