@@ -34,7 +34,7 @@ padding: 5px 25px;
 margin: 10px 20px;
 background: #8bab50;
 border: none;
-color: black;
+color: white;
 border-radius: 50px;
 cursor: pointer;
 `;

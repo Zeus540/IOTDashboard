@@ -241,7 +241,7 @@ const Diaries = () => {
 useEffect(() => {
   setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
   setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
-  setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+  setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.HavestId == null))
 
   let types = diariesPublic.filter((value, index, self) =>
     index === self.findIndex((t) => (
@@ -262,14 +262,14 @@ useEffect(() => {
       setDiaryActiveType(type)
       setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
       setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(diariesPublic.sort((a, b) => b.Views - a.Views))
+      setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.HavestId == null))
 
     } else {
       setDiaryActiveType(type)
       let list = diariesPublic.filter((d) => d.Type == type)
       setDiaryHavestList(list?.filter((d) => d.HavestId !== null))
       setDiaryOnGoingList(list.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(list.sort((a, b) => b.Views - a.Views))
+      setDiaryMostViewedList(list.filter((d) => d.HavestId == null).sort((a, b) => b.Start_Date - a.Start_Date))
 
     }
 
@@ -326,7 +326,7 @@ useEffect(() => {
           {diaryMostViewedList.length > 0 &&
             <>
               <Add>
-                <MainHeading>Most Viewed</MainHeading>
+                <MainHeading>New Diaries</MainHeading>
 
 
               </Add>
@@ -361,44 +361,7 @@ useEffect(() => {
 
             </>
           }
-          {diaryOnGoingList.length > 0 &&
-            <>
-              <Add>
-                <MainHeading>On-Going Diaries</MainHeading>
-
-
-              </Add>
-
-              <DiaryHolder>
-                {diaryOnGoingList?.map((d) => {
-                  return (
-                    <Diary
-                      to={`/overview/${d.DiaryId}`}
-                    >
-                      <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
-
-
-                      </DiaryImageHolder>
-
-                      <DiaryTextHolder>
-
-                        <DiaryText>{d?.Title} </DiaryText>
-                        <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain}</Tag>
-
-
-
-                        {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-
-                      </DiaryTextHolder>
-
-                    </Diary>
-                  );
-                })}
-              </DiaryHolder>
-
-            </>
-          }
+         
           {diaryHavestList.length > 0 &&
             <>
 

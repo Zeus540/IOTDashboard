@@ -45,7 +45,7 @@ justify-content: center;
 const Button = styled.button`
   padding: 5px 25px;
   background: #8bab50;
-  color: black;
+  color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -89,6 +89,8 @@ const DeleteWeek = (props) => {
             enqueueSnackbar("Week Successfully Deleted",{variant:'success'})
             Update()
             props.setPopUpOffset(-101);
+            props.setDays([])
+            props.setGalleryData([])
           }else{
             enqueueSnackbar(response.status,{variant:'error'})
           }

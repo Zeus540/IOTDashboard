@@ -1836,7 +1836,7 @@ const DashBoard = (props) => {
     
 
     
-        <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} />
+        <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} setDays={setDays} setGalleryData={setGalleryData}/>
      
 
     
@@ -1950,6 +1950,7 @@ const DashBoard = (props) => {
 
                     <DairyHeadingTitleC onClick={()=>{handleUserProfile(activeDiary)}}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
+                    {console.log("activeDiary?.Strain",activeDiary?.Strain)}
                   </div>
 
                   {/* <TextHeading>Start Date </TextHeading>
@@ -2274,21 +2275,12 @@ const DashBoard = (props) => {
               </>
             }
           </GalleryHolderOutter>
-          {galleryData.length < 1 && activeDay.DayId == undefined &&
+          {galleryData.length < 1  &&
             <NoDataHolder>
               <NoData>No Data Available</NoData>
             </NoDataHolder>
           }
-          {galleryData.length < 1 && activeDay.DayId !== undefined &&
-            <NoDataHolder>
-              <NoData>
-                <InfinitySpin
-                  width='200'
-                  color="#4fa94d"
-                />
-              </NoData>
-            </NoDataHolder>
-          }
+     
           <DotHolder>
             {galleryData?.map((v, index) => {
               if (index == positionIndex) {

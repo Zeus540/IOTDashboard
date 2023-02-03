@@ -101,7 +101,7 @@ const PopUp = (props) => {
 }
 
 {props.type == "deleteWeek" && 
-    <DeleteWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} />
+    <DeleteWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} setDays={props.setDays} setGalleryData={props.setGalleryData}/>
 }
 
 {props.type == "deleteDiary" && 
