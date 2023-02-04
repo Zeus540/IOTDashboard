@@ -91,7 +91,7 @@ code {
 *::-webkit-scrollbar-thumb {
   background: #275557b6;
   background: #8bab50 ;
-border-radius: 50px;
+border-radius: 5px;
 }
 
 /* Handle on hover */
@@ -167,7 +167,7 @@ input:focus-within {
 .chat::-webkit-scrollbar-thumb {
 
   background: #8bab50 ;
-border-radius: 50px;
+border-radius: 5px;
 }
 
 /* Handle on hover */
@@ -189,7 +189,7 @@ border-radius: 50px;
   form::-webkit-scrollbar-thumb {
      background: #275557b6;
      background: #ab5350 ;
-   border-radius: 50px;
+   border-radius: 5px;
    }
    
    form::-webkit-scrollbar {
@@ -200,7 +200,7 @@ border-radius: 50px;
    .chat::-webkit-scrollbar-thumb {
      background: #275557b6;
      background: #ab5350 ;
-   border-radius: 50px;
+   border-radius: 5px;
    }
    
    .chat::-webkit-scrollbar {

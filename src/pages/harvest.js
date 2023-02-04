@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
-import Tabs from "../components/Tabs";
+
 import {useNavigate} from 'react-router-dom'
 import {BASE_URL_PROD} from '../components/shared/Constants'
 
@@ -111,7 +111,7 @@ padding: 5px 25px;
 background: #596876;
 color: white;
 border: none;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 align-self: self-start;
 
@@ -189,7 +189,7 @@ const Harvest = () => {
       </InnerButtonHolder> */}
 
       <Inner>
-      <Tabs/>
+ 
            
       <Heading>OUTCOME </Heading>
         <Flex2>

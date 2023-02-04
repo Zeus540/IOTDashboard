@@ -16,9 +16,6 @@ export const DiaryProvider = ({ children }) => {
 
   const Update = () => {
 
-
-    
-
        axios.get(`${BASE_URL_PROD}/diaries`)
         .then((response) => {
           if (response.data == "Forbiden") {
@@ -60,7 +57,7 @@ export const DiaryProvider = ({ children }) => {
       Update()
     }
       
-  }, [])
+  }, [user])
 
 
   return (

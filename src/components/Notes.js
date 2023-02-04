@@ -35,7 +35,7 @@ margin: 10px 20px;
 background: #8bab50;
 border: none;
 color: white;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 `;
 
@@ -45,7 +45,7 @@ margin: 10px 20px;
 background: #f2f2f2;
 border: none;
 color: #596876;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 `;
 

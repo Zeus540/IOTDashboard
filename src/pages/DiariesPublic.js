@@ -208,7 +208,7 @@ padding: 8px 20px;
   background: #596876;
   color: white;
   border: none;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
 `;
 

@@ -84,7 +84,7 @@ const Button = styled.button`
   background: #8bab50;
   color: black;
   border: none;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
 
 `;
@@ -94,7 +94,7 @@ const ButtonA = styled.button`
   margin-right: 0px;
   color: black;
   border: none;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
   margin: 0px 20px;
   @media (max-width: 425px) {

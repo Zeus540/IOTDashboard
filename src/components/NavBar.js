@@ -15,6 +15,7 @@ position: sticky;
     top: 0;
     z-index:50;
     box-shadow:  0px 0px 20px #00000012;
+    background: #ffffff;
   @media (max-width: 425px) {
     margin: 0px 0px;
     margin-top: 0px;
@@ -24,11 +25,13 @@ position: sticky;
 
 const Inner = styled.div`
 
-padding:0px 350px ;
+margin: 0px auto;
+max-width: 1770px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #ffffff;
+ 
   @media (max-width: 768px) {
     padding:0px 20px ;
   }

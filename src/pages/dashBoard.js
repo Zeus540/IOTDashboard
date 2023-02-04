@@ -8,7 +8,7 @@ import LightBox from "../components/LightBox";
 import PlaceHolder from "../assets/placeholder.png";
 import NotesPopUp from "../components/Notes";
 import { useNavigate } from 'react-router-dom'
-import Tabs from "../components/Tabs";
+
 import { AuthContext } from "../context/auth_context";
 import PopUp from "../components/PopUp";
 import Mainline from '../assets/mainline.svg'
@@ -17,13 +17,15 @@ import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import useMediaQuery from "../components/shared/useMediaQuery";
 import { InfinitySpin } from 'react-loader-spinner'
-import {BASE_URL_PROD} from '../components/shared/Constants'
+import { BASE_URL_PROD } from '../components/shared/Constants'
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useSnackbar } from 'notistack';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import Stats from "./stats"
+import Cog from '../assets/svg/cog'
+import Bin from "../assets/svg/cog copy";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -68,7 +70,8 @@ const Inner = styled.div`
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
-    margin: 80px 350px;
+  margin: 80px auto;
+  max-width: 1770px;
   @media (max-width: 425px) {
     margin: 0px;
     padding-top: 0px;
@@ -140,7 +143,7 @@ width: 100%;
   margin: 0px auto;
   padding: 0px 0px;
   width: 90%;
-  margin-top: -70px;
+  margin-top: -40px;
   border-radius: 5px;
   max-width: unset;
 }
@@ -148,7 +151,7 @@ width: 100%;
   margin: 0px auto;
   padding: 0px 0px;
   width: 90%;
-  margin-top: -70px;
+  margin-top: -40px;
   border-radius: 5px;
   max-width: unset;
 }
@@ -168,11 +171,6 @@ align-items: center;
 
 }
 
-`
-const ToggleHolderLabel = styled.div`
-color:black;
-padding: 0px 10px;
-display: flex;
 `
 
 const FlexTop = styled.div`
@@ -194,12 +192,12 @@ const FlexTop = styled.div`
 const Flex3B = styled.div`
 // background: #596876;
 color:white;
-padding: 40px 0px;
+
 padding-bottom: 0px;
 @media (max-width: 425px) {
   // background: #596876;
   color: white;
-  padding-bottom: 20px;
+
 }
 `;
 const Flex3BtnHolder = styled.div`
@@ -405,7 +403,7 @@ padding: 0px 15px;
 padding-left: 0px;
 padding-top: 0px;
 height: fit-content;
-border-radius: 50px;
+border-radius: 5px;
 margin-right: 10px;
 @media (max-width: 425px) {
   width: calc(100% / 4 );
@@ -671,7 +669,7 @@ padding: 5px 25px;
 background: #8bab50;
 border: none;
 color: white;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 `;
 
@@ -776,7 +774,7 @@ text-align: center;
     background: #8bab50;
     border: none;
     color: white;
-    border-radius: 50px;
+    border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
 
@@ -810,22 +808,7 @@ display: none;
 `;
 
 
-const AssignButton = styled.button`
-padding: 5px 20px;
 
-width: fit-content;
-border: none;
-background: #8bab50;
-color: white;
-border-radius: 50px;
-cursor: pointer;
-
-margin:0px 10px;
-@media (max-width: 425px) {
-  margin: 10px 10px;
- 
-}
-`;
 
 const LikeButton = styled.button`
 display: flex;
@@ -834,12 +817,13 @@ display: flex;
 align-items: center;
 background: #8bab50;
 padding: 5px 20px;
+padding-top: 0px;
 
 width: fit-content;
 border: none;
 
 color: #596876;
-border-radius: 50px;
+border-radius: 5px;
 cursor: pointer;
 
 
@@ -853,47 +837,16 @@ const LikeButtonText = styled.p`
 margin: 0px;
 padding: 0px 10px;
 color: #ffffff;
-
+padding-top: 0px;
 `;
 
 
-const ButtonUpload = styled.button`
-padding: 2px 20px;
-background:#8bab50;
-color: white;
-border: none;
-border-radius: 50px;
-cursor: pointer;
-margin: 0px 17px;
-margin-bottom : 17px;
-float: right;
-display: flex;
-align-items: center;
-`;
-
-
-const QuickActionHeading = styled.h2`
-color: black;
-margin: 10px 0px;
-font-weight: bold;
-margin-bottom: 10px;
-font-size: 18px;
-
-`;
 const QuickActionBlockFlex = styled.div`
 display: flex;
 flex-wrap: wrap;
 padding-top: 15px;
 `;
-const CheckFlex = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-@media (max-width: 425px) {
-  margin: 5px 0px;
-}
 
-`;
 
 const QuickActionBlockIcon = styled.img`
 width: 40px;
@@ -901,7 +854,7 @@ margin-right:10px;
 `;
 
 const QuickActionBlock = styled.div`
-padding: 5px 10px;
+padding: 10px 20px;
 background: #d9e1e2;
 
 margin: 0px 10px;
@@ -919,66 +872,19 @@ align-items: center;
   margin-bottom:20px
 }
 `
-const Input = styled.input`
 
-background: transparent;
-border: none;
-border-bottom: 2px solid #8bab50;
-padding: ${(props) => !props.assignDevice ? "0px" : "5px 5px"};
-width: ${(props) => !props.assignDevice ? "0px" : "unset"};
-color: black;
-transition: 0.5s all ease;
-@media (max-width: 425px) {
-  width: ${(props) => !props.assignDevice ? "0px" : "100%"};
-}
-
-`
-
-  ;
-
-const InputHolder = styled.div`
-padding: 20px 0px;
-
-width: ${(props) => !props.assignDevice ? "0px" : "unset"};
-
-
-display: ${(props) => !props.assignDevice ? "none" : "flex"};
-transition: 0.5s all ease;
-@media (max-width: 425px) {
-  width: ${(props) => !props.assignDevice ? "0px" : "100%"};
-}
-
-`
-
-  ;
-
-const InputHolderSubmit = styled.button`
-display: ${(props) => !props.assignDevice ? "none" : "block"};
-padding: 5px 20px;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    border: none;
-    background: #8bab50;
-    color: white;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 0px 10px;
-    transition: 0.5s all ease;
-`
-
-  ;
 
 const DeleteDiaryHolder = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: center; 
-padding: 10px 10px; 
+
 padding-bottom: 0px;
 `;
 
-const DeleteDiary = styled.div`
+const SvgHolder = styled.div`
 cursor:pointer;
+margin-left:10px;
 `;
 
 const Svg = styled.svg`
@@ -1166,7 +1072,7 @@ const DashBoard = (props) => {
   const [techniques, setTechniques] = useState([]);
   const [scheduleData, setScheduleData] = useState([]);
   const [colourData, setColourData] = useState([]);
-  
+
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
   const { diaries, diariesPublic, Update, UpdatePublic } = useContext(DiaryContext);
@@ -1175,16 +1081,15 @@ const DashBoard = (props) => {
   const location = useLocation()
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
-  const [activeToggle, setActiveToggle] = useState(false);
-  const [publicToggle, setPublicToggle] = useState(false);
-  const [assignDevice, setAssignDevice] = useState(false);
+
 
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const [popUpOffsetFeeding, setPopUpOffsetFeeding] = useState(-101);
-  
+
   const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-101);
   const [popUpDeleteWeekOffset, setPopUpDeleteWeekOffset] = useState(-101);
   const [popUpDeleteDiaryOffset, setPopUpDeleteDiaryOffset] = useState(-101);
+  const [popUpDiarySettingsOffset, setPopUpDiarySettingsOffset] = useState(-101);
 
   const [popUpAddWeekOffset, setPopUpAddWeekOffset] = useState(-101);
   const [comment, setComment] = useState('');
@@ -1192,12 +1097,8 @@ const DashBoard = (props) => {
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
   const [commentAmount, setCommentAmount] = useState(0);
-  
-  const { auth,user, authToken,socket } = useContext(AuthContext);
- 
-  let token = localStorage.getItem("token")
 
-  let userId = JSON.parse(localStorage.getItem("auth"))
+  const { auth, user, authToken, socket } = useContext(AuthContext);
 
 
   const navigate = useNavigate()
@@ -1225,7 +1126,7 @@ const DashBoard = (props) => {
     setActiveDiary(filtered);
 
 
-  
+
     let weekData = {
       WeekId: activeWeek.WeekId
     }
@@ -1244,7 +1145,7 @@ const DashBoard = (props) => {
 
   useEffect(() => {
 
- 
+
 
     let data = {
       DiaryId: params?.id,
@@ -1269,7 +1170,7 @@ const DashBoard = (props) => {
       });
   }, [params, diaries])
 
-  
+
 
 
 
@@ -1277,19 +1178,14 @@ const DashBoard = (props) => {
     if (activeDiary !== undefined) {
 
 
-      let config = {
-        headers: {
-          authorization: 'Bearer ' + token,
-        }
-      }
-  
+
       let datav = {
         DiaryId: parseInt(params?.id),
 
       }
 
       axios
-        .post(`${BASE_URL_PROD}/diaries/update_likes`, datav,config)
+        .post(`${BASE_URL_PROD}/diaries/update_likes`, datav)
         .then(function (response) {
           if (diaries.length > 0) {
 
@@ -1349,9 +1245,9 @@ const DashBoard = (props) => {
         .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
         .then(function (response) {
 
-      
+
           setActiveDiaryData(response.data.latest);
-          
+
           axios
             .post(`${BASE_URL_PROD}/plant_data/by_Week`, data)
             .then(function (response) {
@@ -1380,17 +1276,17 @@ const DashBoard = (props) => {
           console.log(error);
         });
 
-        let nutrientData = {
-          DiaryId: activeDiary.DiaryId,
-          WeekId:w.WeekId
-        }
-        axios
+      let nutrientData = {
+        DiaryId: activeDiary.DiaryId,
+        WeekId: w.WeekId
+      }
+      axios
         .post(`${BASE_URL_PROD}/nutrients/feeding_schedule`, nutrientData)
         .then(function (response) {
-    
+
           setScheduleData(response.data)
 
-       
+
         })
         .catch(function (error) {
           console.log(error);
@@ -1472,20 +1368,6 @@ const DashBoard = (props) => {
 
   useEffect(() => {
     imageCheck()
-
-    if (activeDiary?.Active == 1) {
-      setActiveToggle(true)
-    }
-    if (activeDiary?.Public == 1) {
-      setPublicToggle(true)
-    }
-
-    if (activeDiary?.Active == 1) {
-      setActiveToggle(true)
-    }
-    if (activeDiary?.Public == 1) {
-      setPublicToggle(true)
-    }
 
   }, [activeDiary, activeDiaryData])
 
@@ -1576,60 +1458,6 @@ const DashBoard = (props) => {
 
 
 
-  const handleActiveToggle = (e, activeDiary) => {
-
- 
-
- 
-
-    let values = {
-      DiaryId: activeDiary.DiaryId,
-      Active: e.target.checked
-    }
-
-    axios.post(`${BASE_URL_PROD}/diaries/update_active`, values)
-      .then(function (response) {
-        if (response.data.changedRows == 1) {
-          setActiveToggle(!e.target.checked)
-        }
-
-
-      })
-      .catch(function (error) {
-
-        console.log(error);
-      })
-
-
-  }
-
-
-  const handlePublicToggle = (e, activeDiary) => {
-
-  
-  
-    let values = {
-      DiaryId: activeDiary.DiaryId,
-      Active: e.target.checked
-    }
-
-    axios.post(`${BASE_URL_PROD}/diaries/update_public`, values, )
-      .then(function (response) {
-        if (response.data.changedRows == 1) {
-          setPublicToggle(!e.target.checked)
-        }
-
-
-      })
-      .catch(function (error) {
-
-        console.log(error);
-      })
-
-
-  }
-
-
   const HandleFeedingUpload = () => {
     if (popUpOffsetFeeding == -101) {
       setPopUpOffsetFeeding(0);
@@ -1646,7 +1474,7 @@ const DashBoard = (props) => {
       setPopUpOffset(-101);
     }
   }
-  
+
 
   const handleAddWeek = () => {
     if (popUpAddWeekOffset == -101) {
@@ -1681,10 +1509,18 @@ const DashBoard = (props) => {
     }
   }
 
+  const handleDiarySettings = () => {
+    if (popUpDiarySettingsOffset == -101) {
+      setPopUpDiarySettingsOffset(0);
+    } else {
+      setPopUpDiarySettingsOffset(-101);
+    }
+  }
+
   const handleThumbnailUpdate = (DiaryId, Image) => {
 
 
-  
+
     let data = {
       DiaryId: DiaryId,
       Image: Image
@@ -1708,7 +1544,7 @@ const DashBoard = (props) => {
 
 
 
- 
+
 
 
 
@@ -1721,11 +1557,11 @@ const DashBoard = (props) => {
     });
 
     socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
-    setCommentAmount(data)
+      setCommentAmount(data)
       console.log("data", data)
     });
-  
-    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id});
+
+    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
 
 
   })
@@ -1771,48 +1607,48 @@ const DashBoard = (props) => {
   }, [commentList])
 
 
-  const handleUserProfile =(activeDiary)=>{
-    if(auth){
+  const handleUserProfile = (activeDiary) => {
+    if (auth) {
       navigate(`/profile/${activeDiary?.UserName}/${activeDiary?.UserId}`)
     }
   }
 
 
- 
+
   const data = {
 
-    labels: scheduleData.map((l)=> l.Nutrient_Name ),
+    labels: scheduleData.map((l) => l.Nutrient_Name),
     datasets: [
       {
         label: ['ml', 'ml'],
-        data: scheduleData.map((l)=> l.Nutrient_Amount ),
-        backgroundColor: colourData.map((l)=> l ),
-      
+        data: scheduleData.map((l) => l.Nutrient_Amount),
+        backgroundColor: colourData.map((l) => l),
+
         borderWidth: 0,
       },
     ],
 
   };
 
-  
+
   useEffect(() => {
     let colors = []
-    let index = 0 
-  
-  while (index < 10 ) {
-    const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-    const randomByte = () => randomNumber(0, 255)
-    const randomPercent = () => (0.8)
+    let index = 0
 
-    colors.push(`rgba(${[randomByte(), randomByte(), randomByte(), randomPercent()].join(',')})`)
+    while (index < 10) {
+      const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+      const randomByte = () => randomNumber(0, 255)
+      const randomPercent = () => (0.8)
 
-  
-    index = index + 1
-  }
- 
-  setColourData(colors)
+      colors.push(`rgba(${[randomByte(), randomByte(), randomByte(), randomPercent()].join(',')})`)
+
+
+      index = index + 1
+    }
+
+    setColourData(colors)
   }, [])
-  
+
 
   return (
 
@@ -1826,27 +1662,29 @@ const DashBoard = (props) => {
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
-  
+
       <PopUp popUpOffset={popUpOffsetFeeding} setPopUpOffset={setPopUpOffsetFeeding} type="uploadFeeding" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
-      
+
       <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
-   
 
-  
-        <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
-     
 
-     
-        <PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech} />
-    
 
-    
-        <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} setDays={setDays} setGalleryData={setGalleryData}/>
-     
+      <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
 
-    
-        <PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
-      
+
+
+      <PopUp popUpOffset={popUpEditWeekOffset} setPopUpOffset={setPopUpEditWeekOffset} type="editWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} updateTech={UpdateTech} />
+
+
+
+      <PopUp popUpOffset={popUpDeleteWeekOffset} setPopUpOffset={setPopUpDeleteWeekOffset} type="deleteWeek" DiaryId={activeDiary?.DiaryId} week={activeWeek} setDays={setDays} setGalleryData={setGalleryData} />
+
+
+
+      <PopUp popUpOffset={popUpDeleteDiaryOffset} setPopUpOffset={setPopUpDeleteDiaryOffset} type="deleteDiary" Diary={activeDiary} week={activeWeek} />
+
+      <PopUp popUpOffset={popUpDiarySettingsOffset} setPopUpOffset={setPopUpDiarySettingsOffset} type="diarySettings" Diary={activeDiary} />
+
 
       {lightBox && (
         <LightBox data={lightBoxData} close={setLightBox} image={lightBoxImg} />
@@ -1858,94 +1696,57 @@ const DashBoard = (props) => {
 
         <FlexTop>
           <ImgHolder img={mainImage} onClick={() => { handleLightBox(mainImage) }}>
-       
+
           </ImgHolder>
 
           <RightFlexHolder>
             <RightFlex>
-            {user?.UserId == activeDiary?.UserId &&
-              <Tabs />
-            }
-              <RightFlexInner>
-           
-                {user?.UserId == activeDiary?.UserId &&
 
+              <RightFlexInner>
+
+
+                {user?.UserId == activeDiary?.UserId &&
                   <ToggleHolder>
 
-                    {activeToggle &&
-                      <>
-
-                        <>
-
-
-
-                          <AssignButton onClick={() => { setAssignDevice(!assignDevice) }}>Assign Device +</AssignButton>
-
-                          <InputHolder assignDevice={assignDevice}>
-                            <Input text placeholder="Enter Device Id" assignDevice={assignDevice}></Input>
-                            <InputHolderSubmit assignDevice={assignDevice} onClick={() => { setAssignDevice(false) }}>Submit</InputHolderSubmit>
-                          </InputHolder>
-
-                        </>
-                      </>
-                    }
-
-                    <CheckFlex>
-
-                      <ToggleHolderLabel>In-Active</ToggleHolderLabel><label className="switch">
-                        <input type="checkbox" checked={activeToggle} onChange={(e) => { handleActiveToggle(e, activeDiary) }} />
-                        <span className="slider round"></span>
-
-                      </label>    <ToggleHolderLabel>Active</ToggleHolderLabel>
-
-                    </CheckFlex>
-
-                    <CheckFlex>
-
-                      <ToggleHolderLabel>
-                        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z" /></SvgW>
-                      </ToggleHolderLabel><label className="switch">
-                        <input type="checkbox" checked={publicToggle} onChange={(e) => { handlePublicToggle(e, activeDiary) }} />
-                        <span className="slider round"></span>
-
-                      </label>
-                      <ToggleHolderLabel>
-                        <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z" /></SvgW>
-                      </ToggleHolderLabel>
-
-                    </CheckFlex>
 
                     <DeleteDiaryHolder>
 
-                      {user?.UserId == activeDiary?.UserId &&
-                        <DeleteDiary onClick={() => { handleDeleteDiary() }}>
 
+                      <>
+                        <SvgHolder onClick={() => { handleDiarySettings() }}>
+                          <Cog fill="#183153" />
+                        </SvgHolder>
 
-                          <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
-                        </DeleteDiary>
-                      }
+                        <SvgHolder onClick={() => { handleDeleteDiary() }}>
+                          <Bin fill="#f44336" />
+                        </SvgHolder>
+                      </>
+
                     </DeleteDiaryHolder>
-                  </ToggleHolder>
-                }
 
-<IntroHolderDay>
-{user?.UserId !== activeDiary?.UserId &&
+                  </ToggleHolder>
+
+                }
+                {user?.UserId !== activeDiary?.UserId &&
+                  <IntroHolderDay>
+
                     <LikeButton onClick={() => { handleLike() }}>
                       <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgL><LikeButtonText>Like</LikeButtonText>
                     </LikeButton>
-                  }
-                </IntroHolderDay>
+
+                  </IntroHolderDay>
+                }
                 <IntroHolderDay>
 
-              
+
 
                   <Flex>
                     <DairyViewsSmall><SvgVS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M152 64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0C141.3 0 152 10.75 152 24V64zM48 248H128V192H48V248zM48 296V360H128V296H48zM176 296V360H272V296H176zM320 296V360H400V296H320zM400 192H320V248H400V192zM400 408H320V464H384C392.8 464 400 456.8 400 448V408zM272 408H176V464H272V408zM128 408H48V448C48 456.8 55.16 464 64 464H128V408zM272 192H176V248H272V192z" /></SvgVS> <DairyHeadingSmallAccent>{activeDiary?.Days_From_Start}</DairyHeadingSmallAccent> </DairyViewsSmall>
                     <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z" /></SvgV><DairyHeadingSmallAccent>{views}</DairyHeadingSmallAccent> </DairyViewsSmall>
                     <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgV><DairyHeadingSmallAccent>{likes}</DairyHeadingSmallAccent></DairyViewsSmall>
-                    <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"/></SvgV><DairyHeadingSmallAccent>{commentAmount}</DairyHeadingSmallAccent></DairyViewsSmall>
+                    <DairyViewsSmall><SvgV xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z" /></SvgV><DairyHeadingSmallAccent>{commentAmount}</DairyHeadingSmallAccent></DairyViewsSmall>
 
-                    
+
                   </Flex>
                 </IntroHolderDay>
                 <IntroHolder>
@@ -1953,9 +1754,9 @@ const DashBoard = (props) => {
 
                     <DairyHeading>{activeDiary?.Title} </DairyHeading>
 
-                    <DairyHeadingTitleC onClick={()=>{handleUserProfile(activeDiary)}}>{activeDiary?.UserName}</DairyHeadingTitleC>
+                    <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
-                    {console.log("activeDiary?.Strain",activeDiary?.Strain)}
+                    {console.log("activeDiary?.Strain", activeDiary?.Strain)}
                   </div>
 
                   {/* <TextHeading>Start Date </TextHeading>
@@ -2015,7 +1816,7 @@ const DashBoard = (props) => {
                         </HeadingCtaButton>}
 
                     </HeadingCta>
-               
+
                     <Notes>{daysNotes?.Notes}</Notes>
 
 
@@ -2042,52 +1843,55 @@ const DashBoard = (props) => {
         )}
 
 
+        <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day} />
+
         <Flex3B>
 
-          <Flex3BtnHolder>
-
-            {user?.UserId == activeDiary?.UserId &&
-
-              <>
-
-                {activeWeek && user?.UserId == activeDiary?.UserId &&
-                  <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
-                    <HelperBtn >
-                      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                      <HelperBtnText>Upload</HelperBtnText>
-
-                    </HelperBtn>
-                  </HelperBtnHolder>
-                }
-
-                {activeWeek && user?.UserId == activeDiary?.UserId &&
-                  <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
-                    <HelperBtn >
-                      <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                      <HelperBtnText>Nutrients</HelperBtnText>
-
-                    </HelperBtn>
-                  </HelperBtnHolder>
-                }
-
-                {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleEditWeek() }}>
-                  <HelperBtn >
-                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z" /></SvgB>
-                    <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
-
-                {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtn>
-                  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
-                  <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
-
-
-              </>
-            }
-          </Flex3BtnHolder>
-    
 
 
 
           <Heading>WEEKS</Heading>
+          {user?.UserId == activeDiary?.UserId &&
+            <Flex3BtnHolder>
+
+
+
+
+
+              {activeWeek && user?.UserId == activeDiary?.UserId &&
+                <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                    <HelperBtnText>Upload</HelperBtnText>
+
+                  </HelperBtn>
+                </HelperBtnHolder>
+              }
+
+              {activeWeek && user?.UserId == activeDiary?.UserId &&
+                <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                    <HelperBtnText>Nutrients</HelperBtnText>
+
+                  </HelperBtn>
+                </HelperBtnHolder>
+              }
+
+              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleEditWeek() }}>
+                <HelperBtn >
+                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z" /></SvgB>
+                  <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+
+              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtn>
+                <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
+                <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+
+
+
+
+            </Flex3BtnHolder>
+          }
           {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
           <WeekHolderInner>
@@ -2173,13 +1977,12 @@ const DashBoard = (props) => {
                 );
               })}
             </>
+
             {user?.UserId == activeDiary?.UserId &&
               <AddWeek onClick={() => { handleAddWeek() }}>
                 <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></AddWeekSvg>
               </AddWeek>
             }
-
-
 
           </WeekHolderInner>
 
@@ -2225,10 +2028,10 @@ const DashBoard = (props) => {
 
 
 
-    
-          <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day}/>
 
-    
+
+
+
 
 
         <Heading>GALLERY</Heading>
@@ -2287,12 +2090,12 @@ const DashBoard = (props) => {
               </>
             }
           </GalleryHolderOutter>
-          {galleryData.length < 1  &&
+          {galleryData.length < 1 &&
             <NoDataHolder>
               <NoData>No Data Available</NoData>
             </NoDataHolder>
           }
-     
+
           <DotHolder>
             {galleryData?.map((v, index) => {
               if (index == positionIndex) {
@@ -2314,26 +2117,26 @@ const DashBoard = (props) => {
 
         <Heading>NUTRIENTS</Heading>
 
-{scheduleData.length > 0 ?
-        <ChartHolderInnerMain>
-          <ChartHolder>
-          <Doughnut data={data}  updateMode ="resize" />
-          </ChartHolder>
-          <ChartHolderText>
+        {scheduleData.length > 0 ?
+          <ChartHolderInnerMain>
+            <ChartHolder>
+              <Doughnut data={data} updateMode="resize" />
+            </ChartHolder>
+            <ChartHolderText>
 
-{scheduleData.map((d)=>{
-  return(
-<ChartTextGroup><ChartTextSpan>{d?.Nutrient_Name}</ChartTextSpan> <ChartTextSpan>{d?.Nutrient_Amount}ml/L</ChartTextSpan></ChartTextGroup>
-  )
-})}
+              {scheduleData.map((d) => {
+                return (
+                  <ChartTextGroup><ChartTextSpan>{d?.Nutrient_Name}</ChartTextSpan> <ChartTextSpan>{d?.Nutrient_Amount}ml/L</ChartTextSpan></ChartTextGroup>
+                )
+              })}
 
-          </ChartHolderText>
-        </ChartHolderInnerMain>:
-              <NoDataHolder>
-        <NoData>No Data Available</NoData>
-        </NoDataHolder>
-      }
-        
+            </ChartHolderText>
+          </ChartHolderInnerMain> :
+          <NoDataHolder>
+            <NoData>No Data Available</NoData>
+          </NoDataHolder>
+        }
+
         <HeadingC>COMMENTS</HeadingC>
 
         <ChatHolder>
@@ -2358,7 +2161,7 @@ const DashBoard = (props) => {
                       {c.Comment}
 
                     </ChatMsgComment>
-                    <ChatMsgTime>{c.Time}</ChatMsgTime>
+                    <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
                   </ChatMsgCommentFlex>
                 </ChatMsgLeft>
 

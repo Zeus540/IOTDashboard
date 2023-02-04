@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
-import Tabs from "../components/Tabs";
+
 import {useNavigate} from 'react-router-dom'
 
 const Root = styled.div`
@@ -23,6 +23,10 @@ const Flex2 = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0px 10px;
+  @media (max-width: 425px) {
+    padding: 0px ;
+  }
 `;
 
 const Heading = styled.h4`
@@ -60,7 +64,7 @@ const Inner = styled.div`
   border-radius: 5px 5px 5px 5px;
   width: 100%;
   background: #ffffff;
-  padding: 20px 0px;
+  padding: 0px 0px;
   padding-top:0px;
   margin: 0px auto;
   @media (max-width: 425px) {
@@ -90,11 +94,11 @@ const TextHolderGroup2 = styled.div`
   border-radius: 5px;
   min-width: calc(100% / 5 - 40px);
   max-width: calc(100% / 5 - 40px);
-  @media (max-width: 425px) {
+  @media (max-width: 600px) {
     min-width: calc(100% / 2 - 50px);
     padding: 10px;
   }
-  @media (min-width: 426px) and (max-width: 768px) {
+  @media (min-width: 601px) and (max-width: 768px) {
     max-width: unset;
   }
 `;

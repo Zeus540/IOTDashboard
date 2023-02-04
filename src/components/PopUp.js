@@ -12,6 +12,8 @@ import DeleteWeek from './DeleteWeek';
 import DeleteDiary from './DeleteDiary';
 
 import UploadFeeding from './UploadFeeding';
+import DiarySettings from './DiarySettings';
+
 
 import UploadImage from './UploadImage';
 
@@ -110,6 +112,10 @@ const PopUp = (props) => {
 
 {props.type == "uploadFeeding" && 
     <UploadFeeding popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
+}
+
+{props.type == "diarySettings" && 
+    <DiarySettings popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} Diary={props.Diary}/>
 }
 
     </PopUpHolderInner>

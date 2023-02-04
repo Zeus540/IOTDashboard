@@ -6,7 +6,7 @@ import { DiaryContext } from "../context/diary_context";
 import { AuthContext } from "../context/auth_context";
 
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
-import Tabs from "../components/Tabs";
+
 import {useNavigate} from 'react-router-dom'
 import {BASE_URL_PROD} from '../components/shared/Constants'
 
@@ -180,7 +180,7 @@ const NoteDay = styled.div`
 background: #8bab50;
 width: fit-content;
 padding: 2px 15px;
-border-radius: 50px;
+border-radius: 5px;
 color: white;
 font-size: 14px;
 `;
@@ -188,7 +188,7 @@ font-size: 14px;
 const KeyNote = styled.div`
 background: #ff4949;
 margin-bottom: 15px;
-border-radius: 50px;
+border-radius: 5px;
 padding: 0px 0px;
 text-transform: uppercase;
 color: white;
@@ -328,7 +328,7 @@ const Notes = () => {
       </InnerButtonHolder> */}
 
       <Inner>
-      <Tabs/>
+ 
       {activeWeek.length == 0 && <Helper>Select a Week</Helper>}
       <Heading>Journal</Heading>
         <Flex2>

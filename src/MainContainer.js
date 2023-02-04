@@ -41,7 +41,7 @@ const MainContainer = (props) => {
                     <Route path="/public-diaries" element={<DiariesPublic />} />
 
                     <Route path="/overview/:id" element={<DashBoard />} />
-                    <Route path="/environment/:id" element={<Stats />} />
+              
                     <Route path="/harvest/:id" element={<Harvest />} />
                     <Route path="/journal/:id" element={<Notes />} />
 

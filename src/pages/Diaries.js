@@ -157,7 +157,7 @@ padding: 8px 20px;
   background: #8bab50;
   color: white;
   border: none;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
   margin: 0px 20px;
   @media (max-width: 425px) {
@@ -190,7 +190,7 @@ color: white;
     font-size: 11px;
     background: #8bab50;
     margin-right: 10px;
-    border-radius: 50px;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
