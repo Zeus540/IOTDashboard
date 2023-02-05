@@ -3,7 +3,7 @@ import axios from '../components/shared/axios';
 import {BASE_URL_LOCAL,BASE_URL_PROD} from '../components/shared/Constants'
 
 import { AuthContext } from './auth_context';
-
+import Cookies from 'js-cookie'
 export const DiaryContext = createContext();
 
 export const DiaryProvider = ({ children }) => {
@@ -53,11 +53,12 @@ export const DiaryProvider = ({ children }) => {
 
 
   useEffect(() => {
-    if(user){
+
+    if(user !== undefined){
       Update()
     }
       
-  }, [user])
+  }, [])
 
 
   return (

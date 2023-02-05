@@ -10,6 +10,8 @@ import UploadImage from './pages/UploadImage';
 import RegistrationComplete from './pages/registrationComplete';
 import VerifyComplete from './pages/verifyComplete';
 import DashBoard from './pages/dashBoard';
+import DashBoardPublic from './pages/dashBoardPublic';
+
 import Diaries from './pages/Diaries';
 import DiariesPublic from './pages/DiariesPublic';
 import Users from './pages/Users';
@@ -39,15 +41,16 @@ const MainContainer = (props) => {
                     <Route path="/sign-up/:name:surname/:email" element={<RegistrationComplete />} />
                     <Route path="/verify/:token" element={<VerifyComplete />} />
                     <Route path="/public-diaries" element={<DiariesPublic />} />
-
-                    <Route path="/overview/:id" element={<DashBoard />} />
+                    <Route path="/public-diaries/overview/:id" element={<DashBoardPublic />} />
+             
               
                     <Route path="/harvest/:id" element={<Harvest />} />
                     <Route path="/journal/:id" element={<Notes />} />
 
 
                     <Route element={<ProtectedRoutes/>}>
-                            <Route path="/diaries"   element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
+                            <Route path="/my-diaries"   element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
+                            <Route path="/my-diaries/overview/:id" element={<DashBoard />} />
                             <Route path="/users"   element={<Users />} />
 
                             <Route path="/profile/:username/:userId"   element={<ProfileUser />} />

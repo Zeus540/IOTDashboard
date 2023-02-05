@@ -158,7 +158,7 @@ const Stats = (props) => {
     setMoisture(props?.dataAll?.filter((d)=> d.Moisture   !== 0)[0]?.Moisture)
     setCo2(props?.dataAll?.filter((d)=> d.Co2  !== 0)[0].Co2)
     setHumidity(props?.dataAll?.filter((d)=> d.Humidity   !== 0)[0]?.Humidity)
-console.log("sdsa",props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
+// console.log("sdsa",props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
     setActiveDiaryData(data)
     
   }, [props])

@@ -30,7 +30,10 @@ border-radius: 5px;
 background: #ffffff;
 
 padding: 20px 0px;
-margin: 80px 350px;
+
+margin: 80px auto;
+max-width: 1770px;
+
   @media (max-width: 425px) {
     margin: 20px;
     padding: 0px;
@@ -247,7 +250,7 @@ const Diaries = () => {
 <Helmet>
         <meta charSet="utf-8" />
         <title>{`Sweet Leaf - My Diaries`}</title>
-        <link rel="canonical" href={`https://sweetleaf.co.za/diaries`} />
+        <link rel="canonical" href={`https://sweetleaf.co.za/my-diaries`} />
       </Helmet>
 
 <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
@@ -272,7 +275,7 @@ const Diaries = () => {
           {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d,index) => {
             return (
               <Diary
-          to={`/overview/${d.DiaryId}`}
+          to={`/my-diaries/overview/${d.DiaryId}`}
           key={index}
               >
         <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>

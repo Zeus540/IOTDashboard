@@ -882,7 +882,7 @@ margin-left:10px;
 
 const Svg = styled.svg`
 width: 20px;
-fill: white;
+fill: #f44336;
 `;
 
 const SvgV = styled.svg`
@@ -1045,7 +1045,7 @@ width: 20px;
 
 `;
 
-const DashBoard = (props) => {
+const DashBoardPublic = (props) => {
 
   const { enqueueSnackbar } = useSnackbar()
   const [lightBox, setLightBox] = useState(false);
@@ -1092,14 +1092,20 @@ const DashBoard = (props) => {
   const [likes, setLikes] = useState(0);
   const [commentList, setCommentList] = useState([]);
 
+  
+useEffect(() => {
+
+
+ 
+
+}, )
+
+
   useEffect(() => {
-    let filtered = ""
-    if (diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
-      filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    }
-    if (diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
-      filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    }
+    if(diariesPublic.length > 0){
+      let filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+
+ 
 
     setViews(filtered?.Views)
     setLikes(filtered?.Likes)
@@ -1109,6 +1115,12 @@ const DashBoard = (props) => {
 
     setActiveDiary(filtered);
 
+
+    console.log("filteredfiltered",filtered)
+    if (filtered == undefined) {
+      navigate('/')
+    }
+  }
      //Get Diary Weeks
     let data = {
       DiaryId: params?.id,
@@ -1620,29 +1632,16 @@ const DashBoard = (props) => {
               <RightFlexInner>
 
 
-                {user?.UserId == activeDiary?.UserId &&
-                  <ToggleHolder>
-
-
-                    <DeleteDiaryHolder>
-
-
-                      <>
-                        <SvgHolder onClick={() => { handleDiarySettings() }}>
-                          <Cog fill="#183153" />
-                        </SvgHolder>
-
-                        <SvgHolder onClick={() => { handleDeleteDiary() }}>
-                          <Bin fill="#f44336" />
-                        </SvgHolder>
-                      </>
-
-                    </DeleteDiaryHolder>
-
-                  </ToggleHolder>
-
-                }
+           
             
+                  <IntroHolderDay>
+
+                    <LikeButton onClick={() => { handleLike() }}>
+                      <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z" /></SvgL><LikeButtonText>Like</LikeButtonText>
+                    </LikeButton>
+
+                  </IntroHolderDay>
+              
 
                 <IntroHolderDay>
                   <Flex>
@@ -1660,7 +1659,7 @@ const DashBoard = (props) => {
 
                     <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
-                    {console.log("activeDiary?.Strain", activeDiary?.Strain)}
+                 
                   </div>
 
                   {/* <TextHeading>Start Date </TextHeading>
@@ -1710,15 +1709,7 @@ const DashBoard = (props) => {
 
                     <HeadingCta>
                       <TextHolderHeading>Notes</TextHolderHeading>
-                      {user?.UserId == activeDiary?.UserId &&
-                        <HeadingCtaButton
-                          onClick={() => {
-                            handleNotes();
-                          }}
-                        >
-
-                          {daysNotes?.Notes == '' || undefined ? "Add Notes" : "Edit Notes"}
-                        </HeadingCtaButton>}
+                     
 
                     </HeadingCta>
 
@@ -1756,47 +1747,7 @@ const DashBoard = (props) => {
 
 
           <Heading>WEEKS</Heading>
-          {user?.UserId == activeDiary?.UserId &&
-            <Flex3BtnHolder>
-
-
-
-
-
-              {activeWeek && user?.UserId == activeDiary?.UserId &&
-                <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
-                  <HelperBtn >
-                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                    <HelperBtnText>Upload Data</HelperBtnText>
-
-                  </HelperBtn>
-                </HelperBtnHolder>
-              }
-
-              {activeWeek && user?.UserId == activeDiary?.UserId &&
-                <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
-                  <HelperBtn >
-                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                    <HelperBtnText>Nutrients</HelperBtnText>
-
-                  </HelperBtn>
-                </HelperBtnHolder>
-              }
-
-              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleEditWeek() }}>
-                <HelperBtn >
-                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z" /></SvgB>
-                  <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
-
-              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtn>
-                <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
-                <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
-
-
-
-
-            </Flex3BtnHolder>
-          }
+     
           {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
           <WeekHolderInner>
@@ -1883,11 +1834,7 @@ const DashBoard = (props) => {
               })}
             </>
 
-            {user?.UserId == activeDiary?.UserId &&
-              <AddWeek onClick={() => { handleAddWeek() }}>
-                <AddWeekSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></AddWeekSvg>
-              </AddWeek>
-            }
+      
 
           </WeekHolderInner>
 
@@ -1953,11 +1900,7 @@ const DashBoard = (props) => {
                       <>
 
                         <GalleryImageHolderFlex key={index} >
-                          {activeDiary.UserId == user?.UserId &&
-                            <SetImageHolder onClick={() => { handleThumbnailUpdate(img.DiaryId, img?.Image) }}>
-                              <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
-                            </SetImageHolder>
-                          }
+                    
                           <GalleryImageHolder img={img?.Image} onClick={() => {
                             handleLightBox(img?.Image, img);
                           }}>
@@ -2093,6 +2036,6 @@ const DashBoard = (props) => {
   );
 };
 
-export default DashBoard;
+export default DashBoardPublic;
 
 // python esptool.py --chip esp32 --port COM3 --baud 921600 --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m  --flash_size detect 0x1000 bootloader.bin 0x8000 partitions_espruino.bin 0x10000 espruino_esp32.bin

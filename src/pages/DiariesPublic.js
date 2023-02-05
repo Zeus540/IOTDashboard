@@ -32,7 +32,10 @@ border-radius: 5px;
 background: #ffffff;
 
 padding: 0px 0px;
-margin: 80px 350px;
+
+margin: 80px auto;
+max-width: 1770px;
+
   @media (max-width: 425px) {
     margin: 20px;
     padding: 0px;
@@ -335,7 +338,7 @@ useEffect(() => {
                 {diaryMostViewedList?.map((d) => {
                   return (
                     <Diary
-                      to={`/overview/${d.DiaryId}`}
+                      to={`/public-diaries/overview/${d.DiaryId}`}
                     >
                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
 
@@ -374,7 +377,7 @@ useEffect(() => {
                 {diaryHavestList?.map((d) => {
                   return (
                     <Diary
-                      to={`/overview/${d.DiaryId}`}
+                      to={`/public-diaries/overview/${d.DiaryId}`}
                     >
                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
 

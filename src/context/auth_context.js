@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie'
 import { BroadcastChannel } from 'broadcast-channel';
 import {BASE_URL_PROD,BASE_URL_PROD_SOCKET} from '../components/shared/Constants'
+import axios from '../components/shared/axios';
 export const AuthContext = createContext();
 
 
@@ -23,27 +24,28 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    const checkAuthentication = async () => {
-        console.log("checkAuthentication")
-        let user =  JSON.parse(localStorage.getItem("user"))
-        if (user) {
-            setUser(user)
-            setAuth(true)
-        }
-    }
+
 
     //Check Authentication
     useEffect(() => {
      
-        checkAuthentication()
+        console.log("session",Cookies.get('session'))
+        console.log("checkAuthentication",Cookies.get('session_refresh'))
+        let User = Cookies.get('user')
+        
+        if (User !== undefined) {
+            setUser(JSON.parse(User))
+            setAuth(true)
+        }
+        
     }, [])
 
-    const loginChannel = new BroadcastChannel('login');
+
 
     const setAuthentication = async (user) => {
-        loginChannel.postMessage("login")
-        localStorage.setItem("user", JSON.stringify(user))
-        setUser(await user)
+       let User = JSON.parse(Cookies.get('user'))
+    
+        setUser(await User)
         setAuth(true)
         navigate('/')
     }
@@ -53,9 +55,13 @@ export const AuthProvider = ({ children }) => {
 
     const logOut = () => {
      
-        logoutChannel.postMessage("logout")
-        localStorage.removeItem("user")
+        axios.post(`${BASE_URL_PROD}/logout`).then((results)=>{
+
+        })
+        //logoutChannel.postMessage("logout")
+
         setAuth(false)
+        navigate('/')
         alert("You have Been Logged Out")
     }
 
@@ -71,17 +77,6 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-
-    const loginAllTabs = () => {
-        loginChannel.onmessage = () => {
-            checkAuthentication(true);
-            loginChannel.close();
-    
-    
-        }
-    }
-
-  
 
     //Chat Config
     useEffect(() => {
@@ -125,7 +120,7 @@ export const AuthProvider = ({ children }) => {
     })
 
     return (
-        <AuthContext.Provider value={{ auth, logOut, user, socket,logoutAllTabs,loginAllTabs, setAuthentication }}>
+        <AuthContext.Provider value={{ auth, logOut, user, socket,logoutAllTabs, setAuthentication }}>
             {children}
         </AuthContext.Provider>
     )

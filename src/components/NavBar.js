@@ -328,7 +328,7 @@ padding-left: 20px;
 const NavBar = (props) => {
   const { auth, logOut, user, userId } = useContext(AuthContext);
 
-  console.log("user",user)
+
   // Define what props.theme will look like
   const theme = {
     dark: "#275557"
@@ -420,7 +420,7 @@ const NavBar = (props) => {
 
             {auth &&
               <>
-                <MenuLinkMobile to="/diaries" onClick={() => {  props.setMobileMenu(false); }}>
+                <MenuLinkMobile to="/my-diaries" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>My Diaries</div>

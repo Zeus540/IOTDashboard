@@ -1,14 +1,16 @@
 import React from 'react';
-
+import Cookies from 'js-cookie'
 import {Navigate, Outlet} from 'react-router-dom'
 
 const useAuth=()=>{
-  const user=localStorage.getItem('user')
-  if(user){
+  let User = Cookies.get('user')
+
+  if (User !== undefined) {
     return true
-  } else {
-    return false
-  }
+}else {
+  return false
+}
+ 
 }
 
 const  ProtectedRoutes=(props) =>{

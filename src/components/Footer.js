@@ -90,7 +90,7 @@ const Footer = () => {
                    {auth && 
                    
                    <>
-                      <MenuLinkMobile to="/diaries" >
+                      <MenuLinkMobile to="/my-diaries" >
                      <FlexLink>
                      
                        <div>My Diaries</div>
