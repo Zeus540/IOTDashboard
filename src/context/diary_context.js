@@ -20,7 +20,7 @@ export const DiaryProvider = ({ children }) => {
         .then((response) => {
           console.log("data",response.data)
           if(response.data.length > 0 ){
-            setDiaries(response.data)
+            setDiaries(response.data?.sort((a,b)=> b.DiaryId - a.DiaryId))
           }else{
             setDiaries([])
           }
