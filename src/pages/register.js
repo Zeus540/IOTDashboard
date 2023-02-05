@@ -85,7 +85,7 @@ width: fit-content;
 border:none;
 background:#8bab50;
 color:white;
-border-radius:50px;
+border-radius:5px;
 cursor:pointer;
 margin: 15px ;
 `;

@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     
         setUser(await User)
         setAuth(true)
-        navigate('/')
+        navigate('/my-diaries')
     }
 
 
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
         setAuth(false)
         navigate('/')
-        alert("You have Been Logged Out")
+        //alert("You have Been Logged Out")
     }
 
   

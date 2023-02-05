@@ -43,7 +43,7 @@ export const DiaryProvider = ({ children }) => {
   useEffect(() => {
 
     socket.off('public_diaries').on('public_diaries', (data) => {
-      setDiariesPublic(data)
+      setDiariesPublic(data.filter((d) => d.UserId !== user.UserId))
       console.log("public_diaries", data)
     });
 
@@ -55,7 +55,7 @@ export const DiaryProvider = ({ children }) => {
 
 
   useEffect(() => {
-
+console.log(user)
     if(user !== undefined){
       Update()
     }

@@ -213,10 +213,7 @@ const Diaries = () => {
     document.title = "Sweet Leaf - My Diaries" 
   }, [])
 
-  useEffect(() => {
-  
-    Update()
-  }, [])
+ 
   
   useEffect(() => {
     console.log("loading",loading)
@@ -272,7 +269,7 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.sort((a,b)=> b.DiaryId - a.DiaryId)?.map((d,index) => {
+          {diaries?.map((d,index) => {
             return (
               <Diary
           to={`/my-diaries/overview/${d.DiaryId}`}
