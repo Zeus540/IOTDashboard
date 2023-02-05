@@ -43,8 +43,14 @@ export const DiaryProvider = ({ children }) => {
   useEffect(() => {
 
     socket.off('public_diaries').on('public_diaries', (data) => {
-      setDiariesPublic(data.filter((d) => d.UserId !== user.UserId))
-      console.log("public_diaries", data)
+      console.log("user.UserId",user?.UserId)
+      if(user?.UserId !== undefined){
+        setDiariesPublic(data.filter((d) => d.UserId !== user.UserId))
+        console.log("public_diaries", data)
+      }else{
+        setDiariesPublic(data)
+      }
+    
     });
 
     socket.off('public_diary_delete').on('public_diary_delete', (data) => {

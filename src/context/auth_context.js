@@ -56,12 +56,15 @@ export const AuthProvider = ({ children }) => {
     const logOut = () => {
      
         axios.post(`${BASE_URL_PROD}/logout`).then((results)=>{
-
+        if(results.status == 200){
+            setAuth(false)
+            navigate('/')
+            Cookies.remove("user")
+        }
         })
         //logoutChannel.postMessage("logout")
 
-        setAuth(false)
-        navigate('/')
+      
         //alert("You have Been Logged Out")
     }
 
