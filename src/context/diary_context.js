@@ -58,7 +58,7 @@ export const DiaryProvider = ({ children }) => {
       Update()
     }
       
-  }, [])
+  }, [user])
 
 
   return (
