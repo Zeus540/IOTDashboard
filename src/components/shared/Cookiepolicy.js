@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Root = styled.div`
 box-shadow: 0px 0px 20px #00000012;
-background: #8bab50;
+background: #344e41;
 position: fixed;
 right:0px;
 left:0px;
@@ -36,10 +36,13 @@ padding: 5px 20px;
 border-radius: 5px;
 border: none;
 cursor: pointer;
+background: #8bab50;
+color: white;
 `;
 
 const Text = styled.p`
 margin-top: 0;
+color: white;
 `;
 
 const Cookiepolicy = (props) => {
