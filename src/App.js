@@ -40,7 +40,7 @@ function App() {
 
   const [mobileMenu, setMobileMenu] = useState(false);
   const [acceptCookies, setAcceptCookies] = useState(false);
-const{logoutAllTabs,loginAllTabs} = useContext(AuthContext)
+const{loginAllTabs} = useContext(AuthContext)
 
   const OffClick = () => {
     if (mobileMenu == true) {

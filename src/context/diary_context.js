@@ -18,11 +18,13 @@ export const DiaryProvider = ({ children }) => {
 
        axios.get(`${BASE_URL_PROD}/diaries`)
         .then((response) => {
-          if (response.data == "Forbiden") {
-            logOut()
-          } else {
+          console.log("data",response.data)
+          if(response.data.length > 0 ){
             setDiaries(response.data)
+          }else{
+            setDiaries([])
           }
+      
         })
         .catch((error) => {
 

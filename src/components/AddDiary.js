@@ -253,20 +253,20 @@ useEffect(() => {
             <InputHolderType>
 
 
-              {diaryTypes?.map((t) => {
+              {diaryTypes?.map((t,index) => {
                 return (
-                  <>
+                  <div key={index}>
                     {type == t.Diary_Types_Name ?
                       <TypeBlockActive >
                         <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
                         <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
                       </TypeBlockActive> :
-                      <TypeBlock onClick={() => { handleType(t.Diary_Types_Name) }}>
+                      <TypeBlock  onClick={() => { handleType(t.Diary_Types_Name) }}>
                         <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
                         <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
                       </TypeBlock>
                     }
-                  </>
+                  </div>
 
                 )
               })}

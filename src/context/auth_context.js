@@ -67,14 +67,7 @@ export const AuthProvider = ({ children }) => {
 
   
 
-    const logoutAllTabs = () => {
-        logoutChannel.onmessage = () => {
-            logOut();
-            logoutChannel.close();
-    
-    
-        }
-    }
+
 
 
 
@@ -120,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     })
 
     return (
-        <AuthContext.Provider value={{ auth, logOut, user, socket,logoutAllTabs, setAuthentication }}>
+        <AuthContext.Provider value={{ auth, logOut, user, socket, setAuthentication }}>
             {children}
         </AuthContext.Provider>
     )
