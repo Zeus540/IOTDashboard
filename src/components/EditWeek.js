@@ -251,7 +251,7 @@ setStage(e.target.value)
         <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
       <GrowTechniques>      
       
-        {techniques.map((t)=>{
+        {techniques?.map((t)=>{
           return(
             <GrowTechniquesBlock onClick={()=>{addTech(t)}}>
               <GrowTechniquesBlockIcon>

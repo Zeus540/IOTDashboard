@@ -36,6 +36,9 @@ export const AuthProvider = ({ children }) => {
         if (User !== undefined) {
             setUser(JSON.parse(User))
             setAuth(true)
+        }else{
+            setUser(undefined)
+            setAuth(false)
         }
         
     }, [])
@@ -51,13 +54,14 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const logoutChannel = new BroadcastChannel('logout');
+    //const logoutChannel = new BroadcastChannel('logout');
 
     const logOut = () => {
      
         axios.post(`${BASE_URL_PROD}/logout`).then((results)=>{
         if(results.status == 200){
             setAuth(false)
+            setUser(undefined)
             navigate('/')
             // Cookies.remove("user")
         }
