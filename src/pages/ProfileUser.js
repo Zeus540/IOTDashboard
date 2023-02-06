@@ -100,6 +100,7 @@ border-radius: 5px;
 width: calc(100% / 3 - 40px);
 background: whitesmoke;
 margin: 10px 10px;
+justify-content: center;
 @media (max-width: 425px) {
 
   padding: 10px 0px;
@@ -110,7 +111,7 @@ margin: 10px 10px;
 
 @media (min-width: 426px) and (max-width: 768px) {
   padding: 10px 0px;
-  min-width: calc(100% / 2 - 40px);
+  min-width: calc(100% / 2 - 20px);
 }
 
 
@@ -159,7 +160,9 @@ margin: 0px 0px;
 font-size: 16px;
 margin-top: 0px;
 width: 80%;
-
+@media (max-width: 425px) {
+  width: 100%;
+}
 
 `;
 
