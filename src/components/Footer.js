@@ -77,12 +77,18 @@ const FlexLink = styled.div`
 
 const SectionHolder = styled.div`
 display: flex;
-
+@media (max-width: 768px) {
+  flex-wrap: wrap;
+}
 `;
 
 const Section = styled.div`
 width: calc(100% /3);
-
+padding-bottom: 10px;
+@media (max-width: 768px) {
+  width: calc(100% /1);
+  padding-bottom: 10px;
+}
 `;
 
 
@@ -159,6 +165,7 @@ const Footer = () => {
                      </FlexLink>
                    </MenuLinkMobile>
       </Section>
+      
   
       </SectionHolder>     
         <LegalText>&copy; {new Date().getFullYear()} Copyright - SweetLeaf 	&#174;</LegalText>
