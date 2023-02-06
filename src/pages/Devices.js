@@ -82,7 +82,7 @@ const Add = styled.div`
 const Button = styled.button`
   padding: 5px 25px;
   background: #8bab50;
-  color: black;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -92,7 +92,7 @@ const ButtonA = styled.button`
   padding: 5px 25px;
   background: #8bab50;
   margin-right: 0px;
-  color: black;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;

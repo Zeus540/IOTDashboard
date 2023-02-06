@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-
+import { NavLink } from "react-router-dom";
 const Root = styled.div`
 box-shadow: 0px 0px 20px #00000012;
 background: #344e41;
@@ -45,16 +45,32 @@ margin-top: 0;
 color: white;
 `;
 
+
+const MenuLinkMobile = styled(NavLink)`
+display: inline;
+padding: 0px 5px;
+color: #8bab50;
+text-decoration: none;
+
+
+`;
+
+
 const Cookiepolicy = (props) => {
     console.log("props",props)
 
   return (
     <Root>
         <Inner>
-        <Text>This site uses cookies and related technologies for site operation, analytics and third party advertising purposes as described in our Privacy Policy. You may choose to consent to our use of these technologies. To opt-out of sharing with third parties information related to these technologies, click "Decline"</Text>
+        <Text>This site uses cookies and related technologies for site operation, analytics and third party advertising purposes as described in our    <MenuLinkMobile to="/public-diaries" >
+                   
+                     
+                      Privacy Policy.
+                     
+                   </MenuLinkMobile> You may choose to consent to our use of these technologies. To opt-out of sharing with third parties information related to these technologies, click "Decline"</Text>
 
     <BtnHolder>
-        <Button>Manage Cookies</Button> 
+        <Button >Manage Cookies</Button> 
         <Button onClick={()=>{props.SetCookie()}}>Accept</Button> 
     </BtnHolder>   
     </Inner> 

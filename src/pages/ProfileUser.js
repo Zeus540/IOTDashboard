@@ -33,7 +33,8 @@ border-radius: 5px;
 background: #ffffff;
 
 padding: 0px 0px;
-margin: 80px ;
+margin: 80px auto;
+max-width: 1770px ;
   @media (max-width: 425px) {
     margin: 20px;
     padding: 0px;
@@ -54,7 +55,7 @@ const MainHeadingSmall = styled.div`
   font-size: 18px;
   margin-top: 0px;
 
-  padding: 0px 20px;
+  padding: 0px 10px;
   @media (max-width: 425px) {
     padding: unset;
   }
@@ -94,29 +95,40 @@ const BlockHolder = styled.div`
 display: flex;
 color: black;
 padding: 10px 10px;
-
+flex-wrap: wrap;
 border-radius: 5px;
+width: calc(100% / 3 - 40px);
+background: whitesmoke;
+margin: 10px 10px;
 @media (max-width: 425px) {
+
   padding: 10px 0px;
+  min-width: calc(100% / 2 - 10px);
+  margin: 10px 0px;
 
 }
 
 @media (min-width: 426px) and (max-width: 768px) {
   padding: 10px 0px;
+  min-width: calc(100% / 2 - 40px);
 }
+
+
 `;
 const Block = styled.div`
 display: flex;
 color: black;
 padding: 10px 20px;
-background: whitesmoke;
+
 border-radius: 5px;
+
 
 `;
 
 const BlockHolderFlex = styled.div`
 display: flex;
-
+flex-wrap: wrap;
+justify-content: space-between;
 `;
 
 const BlockHeading = styled.div`
@@ -141,9 +153,20 @@ margin-top: 0px;
 padding-left: 10px ;
 
 `;
+
+const UserInfoTopRight = styled.div`
+margin: 0px 0px;
+font-size: 16px;
+margin-top: 0px;
+width: 80%;
+
+
+`;
+
 const UserAvatar = styled.div`
 width: 300px;
 height: 300px;
+min-width: 20%;
 color: white;
 background-size: cover!important;
     padding: 10px;
@@ -234,7 +257,8 @@ const ProfileUser = () => {
                   <UserAvatar style={{backgroundImage:`url(${userList?.User_Img})`}}>
                   
                   </UserAvatar>
-                <div>
+
+                <UserInfoTopRight>
                 <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
 
 
@@ -262,7 +286,7 @@ const ProfileUser = () => {
                </Block>
                </BlockHolder>
                </BlockHolderFlex>
-          </div>
+          </UserInfoTopRight>
                 </UserInfoTop>
         
       </Inner>

@@ -6,7 +6,7 @@ import NavBar from './components/NavBar';
 import { AuthContext } from './context/auth_context';
 import MainContainer from './MainContainer';
 import Footer from './components/Footer';
-import Cookiepolicy from './components/shared/Cookiepolicy';
+import Cookiepolicy from './components/shared/CookieBanner';
 import Cookies from 'js-cookie';
 
 const Root = styled.div`
@@ -73,7 +73,7 @@ const{loginAllTabs} = useContext(AuthContext)
               <MainContainer />
               <Footer />
               {!acceptCookies && 
-       <Cookiepolicy SetCookie={SetCookie}/>
+       <Cookiepolicy SetCookie={SetCookie} />
       }
       </Inner>
     </Root>

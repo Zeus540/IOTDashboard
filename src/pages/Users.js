@@ -32,7 +32,8 @@ border-radius: 5px;
 background: #ffffff;
 
 padding: 20px 0px;
-margin: 80px ;
+margin: 80px auto;
+max-width: 1770px;
   @media (max-width: 425px) {
     margin: 20px;
     padding: 0px;

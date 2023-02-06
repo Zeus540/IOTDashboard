@@ -21,6 +21,9 @@ import ProfileUser from './pages/ProfileUser';
 import Login from './pages/login';
 import Devices from './pages/Devices';
 import  ProtectedRoutes  from './components/shared/PrivateRoute';
+import Terms from './components/Terms';
+import CookiePolicy from './components/CookiePolicy';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 const MainContainer = (props) => {
     const { auth, userId, setAuth } = useContext(AuthContext)
@@ -43,7 +46,10 @@ const MainContainer = (props) => {
                     <Route path="/public-diaries" element={<DiariesPublic />} />
                     <Route path="/public-diaries/overview/:id" element={<DashBoardPublic />} />
              
-              
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/cookie-policy" element={<CookiePolicy />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+             
                     <Route path="/harvest/:id" element={<Harvest />} />
                     <Route path="/journal/:id" element={<Notes />} />
 

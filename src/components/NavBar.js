@@ -64,6 +64,7 @@ const Img = styled.img`
 
 const Div = styled.div`
 width: calc(100% / 3);
+
 `;
 
 
