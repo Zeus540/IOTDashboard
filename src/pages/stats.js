@@ -160,6 +160,7 @@ const Stats = (props) => {
     let temp = 0
 
     let co2Arr = props?.dataAll?.filter((d)=> d.Co2 !== null).map((d) => d.Co2 )
+  
     let co2 = 0
 
     let humidityArr = props?.dataAll?.filter((d)=> d.Humidity !== null).map((d) => d.Humidity )
@@ -167,26 +168,28 @@ const Stats = (props) => {
 
     for (let index = 0; index < phArr?.length; index++) {
       const element = phArr[index];
-      ph =  (ph + element ) / phArr?.length
+      ph =  (ph + parseInt(element) ) / phArr?.length + 1 
+      console.log(phArr)
+      console.log(ph)
       setPh(Math.round(ph * 100) / 100)
     }
 
 
     for (let index = 0; index < tempArr?.length; index++) {
       const element = tempArr[index];
-      temp =  (temp + element ) / tempArr?.length
+      temp =  (temp + parseInt(element) ) / tempArr?.length  + 1 
       setTemp(Math.round(temp * 100) / 100)
     }
 
     for (let index = 0; index < co2Arr?.length; index++) {
       const element = co2Arr[index];
-      co2 =  (co2 + element ) / co2Arr?.length
+      co2 =  (co2 + parseInt(element) ) / co2Arr?.length  + 1 
       setCo2(Math.round(co2 * 100) / 100)
     }
 
     for (let index = 0; index < humidityArr?.length; index++) {
       const element = humidityArr[index];
-      humidity =  (humidity + element ) / humidityArr?.length
+      humidity =  (humidity + parseInt(element) ) / humidityArr?.length  + 1 
       setHumidity(Math.round(humidity * 100) / 100)
     }
 
