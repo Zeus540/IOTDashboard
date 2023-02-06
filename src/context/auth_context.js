@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         if(results.status == 200){
             setAuth(false)
             navigate('/')
-            Cookies.remove("user")
+            // Cookies.remove("user")
         }
         })
         //logoutChannel.postMessage("logout")
