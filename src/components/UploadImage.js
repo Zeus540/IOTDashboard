@@ -15,10 +15,18 @@ import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Input = styled(TextField)`
-margin-bottom: 20px;
-width: 100%;
 
+margin: 10px;
+width: 100%;
+margin-bottom: 0px;
 `;
+
+const InputG = styled(TextField)`
+margin: 0px 10px;
+width: 100%;
+min-width: calc(100%  / 2 - 20px);
+`;
+
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 20px;
@@ -29,6 +37,7 @@ const FormHeadingGroup = styled.div`
 margin: 0px;
 padding: 10px 15px;
 padding-bottom: 0px;
+
 `;
 
 const FormSub = styled.p`
@@ -51,7 +60,7 @@ overflow:auto;
 }
 `;
 const InputHolder = styled.div`
-padding: 15px;
+
 
 `;
 
@@ -63,6 +72,8 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 15px;
+  margin-top: 0px;
 `;
 
 
@@ -74,13 +85,26 @@ background-size: cover;
 margin-bottom: 20px;
 background-position: center center;
 border-radius: 5px;
+margin: 0px 15px;
+margin-top: 5px;
 `;
+
+const InputGroup = styled.div`
+display:flex;
+margin: 15px 5px;
+`;
+
 
 const UploadImage = (props) => {
   const {enqueueSnackbar} = useSnackbar()
   const [img, setImg] = useState('');
   const [loading, setLoading] = useState(false);
   
+  const [ph, setPh] = useState('');
+  const [temp, setTemp] = useState('');
+  const [humidity, setHumidity] = useState('');
+  const [co2, setCo2] = useState('');
+
   const [imgName, setImgName] = useState('');
   const [imgBase64, setImgBase64] = useState("");
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -120,7 +144,7 @@ function imageUploaded() {
 
 
 function displayString(e) {
-  console.log(imgBase64)
+  //console.log(imgBase64)
   e.preventDefault()
  if(imgBase64 !== ""){
  
@@ -133,7 +157,11 @@ if(props.DayId !== ''){
     DiaryId:props.DiaryId,
     WeekId:props.WeekId,
     DayId:props.DayId,
-    name:imgName
+    name:imgName,
+    ph:parseFloat(ph),
+    temp:parseFloat(temp),
+    humidity:parseFloat(humidity),
+    co2:parseFloat(co2),
     }
 }else{
   values = {
@@ -141,32 +169,36 @@ if(props.DayId !== ''){
     DiaryId:props.DiaryId,
     WeekId:props.WeekId,
     DayId:null,
-    name:imgName
+    name:imgName,
+    ph:parseFloat(ph),
+    temp:parseFloat(temp),
+    humidity:parseFloat(humidity),
+    co2:parseFloat(co2),
     }
 }
 
-
+console.log("values",values)
   
-  axios.post(`${BASE_URL_PROD}/upload/image`,values)
-  .then(function (response) {
-    if(response.status == 200 ){
-      props.setPopUpOffset(-101)
-      setImg("");
-      setImgName("")
-      setImgBase64(base64String)
-      setLoading(false)
-      props.update()
-      enqueueSnackbar("Image Successfully Uploaded",{variant:'success'})
-    }else{
-      enqueueSnackbar(response.status,{variant:'error'})
-    }
+   axios.post(`${BASE_URL_PROD}/upload/image`,values)
+   .then(function (response) {
+     if(response.status == 200 ){
+       props.setPopUpOffset(-101)
+       setImg("");
+       setImgName("")
+       setImgBase64(base64String)
+       setLoading(false)
+       props.update()
+       enqueueSnackbar("Image Successfully Uploaded",{variant:'success'})
+     }else{
+       enqueueSnackbar(response.status,{variant:'error'})
+     }
 
    
-  })
-  .catch(function (error) {
+   })
+   .catch(function (error) {
 
-    console.log(error);
-  })
+     console.log(error);
+   })
 
 
   
@@ -178,7 +210,7 @@ if(props.DayId !== ''){
       <Form  encType="multipart/form-data">
          
          <FormHeadingGroup>
-      <FormHeading>Image Upload</FormHeading>
+      <FormHeading>Upload Data</FormHeading>
      
         </FormHeadingGroup>
         <InputHolder>
@@ -187,13 +219,35 @@ if(props.DayId !== ''){
 
   </ImgHolder>
   }
+  <InputGroup>
          <Input type="file" name="" id="fileId" 
         onChange={()=>{imageUploaded()}}/>
+</InputGroup>
+<InputGroup>
 
+<InputG type="number"  id="fileId"  label='Ph'
+        onChange={(e)=>{setPh(e.target.value)}}/>
+
+        <InputG type="number"  id="fileId" label='Co2'
+           onChange={(e)=>{setCo2(e.target.value)}}/>
+
+
+</InputGroup>
   
+<InputGroup>
+
+<InputG type="number"  id="fileId"  label='Temperature'
+           onChange={(e)=>{setTemp(e.target.value)}}/>
+
+        <InputG type="number"  id="fileId" label='Humidity'
+         onChange={(e)=>{setHumidity(e.target.value)}}/>
+
+
+</InputGroup>
+
   {!loading ?
     <Button onClick={(e)=>{displayString(e)}}>
-        Upload
+        Upload Data
     </Button>
 :
 <TailSpin

@@ -26,7 +26,7 @@ import CookiePolicy from './components/CookiePolicy';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
 const MainContainer = (props) => {
-    const { auth, userId, setAuth } = useContext(AuthContext)
+    const { auth, userId, setAuth,user } = useContext(AuthContext)
 
 
     const [hidden, setHidden] = useState(true)
@@ -37,8 +37,13 @@ const MainContainer = (props) => {
 
                     <Routes>
 
+{!user ?
+                        <Route path="/" element={<DiariesPublic />} />:
+                        <Route path="/" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
+
+}
                     <Route path="*" element={<NotFound />} />
-                    <Route path="/" element={<DiariesPublic />} />
+
                     <Route path="/sign-in" element={<Login />} />
                     <Route path="/sign-up" element={<Register />} />
                     <Route path="/sign-up/:name:surname/:email" element={<RegistrationComplete />} />

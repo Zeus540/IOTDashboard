@@ -153,12 +153,46 @@ const Stats = (props) => {
     let arr = []
     let data = props.data
   
-    setPh(props?.dataAll?.filter((d)=> d.Ph !== null)[0]?.Ph)
-    setTemp(props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
-    setMoisture(props?.dataAll?.filter((d)=> d.Moisture   !== 0)[0]?.Moisture)
-    setCo2(props?.dataAll?.filter((d)=> d.Co2  !== 0)[0].Co2)
-    setHumidity(props?.dataAll?.filter((d)=> d.Humidity   !== 0)[0]?.Humidity)
-// console.log("sdsa",props?.dataAll?.filter((d)=> d.Temperature !== 0)[0]?.Temperature)
+    let phArr = props?.dataAll?.filter((d)=> d.Ph !== null).map((d) => d.Ph )
+    let ph = 0
+
+    let tempArr = props?.dataAll?.filter((d)=> d.Temperature !== null).map((d) => d.Temperature )
+    let temp = 0
+
+    let co2Arr = props?.dataAll?.filter((d)=> d.Co2 !== null).map((d) => d.Co2 )
+    let co2 = 0
+
+    let humidityArr = props?.dataAll?.filter((d)=> d.Humidity !== null).map((d) => d.Humidity )
+    let humidity = 0
+
+    for (let index = 0; index < phArr?.length; index++) {
+      const element = phArr[index];
+      ph =  (ph + element ) / phArr?.length
+      setPh(Math.round(ph * 100) / 100)
+    }
+
+
+    for (let index = 0; index < tempArr?.length; index++) {
+      const element = tempArr[index];
+      temp =  (temp + element ) / tempArr?.length
+      setTemp(Math.round(temp * 100) / 100)
+    }
+
+    for (let index = 0; index < co2Arr?.length; index++) {
+      const element = co2Arr[index];
+      co2 =  (co2 + element ) / co2Arr?.length
+      setCo2(Math.round(co2 * 100) / 100)
+    }
+
+    for (let index = 0; index < humidityArr?.length; index++) {
+      const element = humidityArr[index];
+      humidity =  (humidity + element ) / humidityArr?.length
+      setHumidity(Math.round(humidity * 100) / 100)
+    }
+
+
+   
+
     setActiveDiaryData(data)
     
   }, [props])
@@ -239,7 +273,7 @@ const Stats = (props) => {
           </TextHolderGroup2>
 
 
-          <TextHolderGroup2>
+          {/* <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Moisture</TextHeading>
             {moisture == 0 ? (
@@ -249,7 +283,7 @@ const Stats = (props) => {
             )}
               
                 </TextHolderGroup2Inner>
-          </TextHolderGroup2>
+          </TextHolderGroup2> */}
 
     <TextHolderGroup2>
           <TextHolderGroup2Inner>
