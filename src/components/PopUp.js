@@ -88,7 +88,7 @@ const PopUp = (props) => {
     </ClosePopUpHolder>
       
       {props.type == "addD" && 
-    <AddDiary setPopUpOffset={props.setPopUpOffset}/>
+    <AddDiary setPopUpOffset={props.setPopUpOffset} popUpOffset={props.popUpOffset}/>
 }
 {props.type == "uploadImage" && 
     <UploadImage popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
@@ -99,7 +99,7 @@ const PopUp = (props) => {
 }
 
 {props.type == "editWeek" && 
-    <EditWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} updateTech={props.updateTech}/>
+    <EditWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} week={props.week} updateTech={props.updateTech} />
 }
 
 {props.type == "deleteWeek" && 

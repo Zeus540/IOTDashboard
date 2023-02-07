@@ -151,7 +151,7 @@ const NotesHolder = (props) => {
     }
     
     const handleActiveToggle = (e)=>{
-      console.log(keyNote );
+
   
       setKeyNote(!keyNote)
     }

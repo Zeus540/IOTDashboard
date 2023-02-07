@@ -1092,11 +1092,12 @@ const DashBoard = (props) => {
   const [likes, setLikes] = useState(0);
   const [commentList, setCommentList] = useState([]);
 
+
+
+  
   useEffect(() => {
     let filtered = ""
-    if (diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
-      filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
-    }
+ 
     if (diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
       filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
@@ -1109,50 +1110,58 @@ const DashBoard = (props) => {
 
     setActiveDiary(filtered);
 
-     //Get Diary Weeks
-    let data = {
-      DiaryId: params?.id,
-    };
-
-    axios
-      .post(`${BASE_URL_PROD}/weeks`, data)
-      .then(function (response) {
-        setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    //Get Diary Comments
-    axios
-      .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
-      .then(function (response) {
-        setCommentList(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-  }, [diaries, diariesPublic])
+  
+  }, [diaries])
 
   useEffect(() => {
     imageCheck()
 
-  }, [activeDiary, activeDiaryData])
+    if(activeDiary.length < 1){
 
+  //Get Diary Weeks
+  let data = {
+    DiaryId: params?.id,
+  };
+
+  axios
+    .post(`${BASE_URL_PROD}/weeks`, data)
+    .then(function (response) {
+      setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  //Get Diary Comments
+  axios
+    .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
+    .then(function (response) {
+      setCommentList(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    }
+
+  }, [activeDiary])
+
+  useEffect(() => {
+    console.log("weekId ",weekId )
+  }, [weekId ])
   
+
   //Chat Listen
   useEffect(() => {
 
     socket.off('broadcast').on('broadcast', (data) => {
       setCommentList([...commentList, data])
-      console.log("data", data)
+
     });
 
     socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
       setCommentAmount(data)
-      console.log("data", data)
+
     });
 
     socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
@@ -1185,34 +1194,7 @@ const DashBoard = (props) => {
 
     setColourData(colors)
   }, [])
-  
-  const handleLike = () => {
-    if (activeDiary !== undefined) {
 
-
-
-      let datav = {
-        DiaryId: parseInt(params?.id),
-
-      }
-
-      axios
-        .post(`${BASE_URL_PROD}/diaries/update_likes`, datav)
-        .then(function (response) {
-          if (diaries.length > 0) {
-
-            Update()
-          }
-          else {
-            UpdatePublic()
-          }
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  }
 
 
   const handleLightBox = (img, data) => {
@@ -1229,6 +1211,7 @@ const DashBoard = (props) => {
     setPositionIndex(0)
     setPosition(0)
     setWeekId(w.WeekId)
+    setDayId(undefined)
     if (activeWeek !== w) {
       setGalleryData([]);
       setDiaryData('');
@@ -1488,7 +1471,7 @@ const DashBoard = (props) => {
   }
 
   const handleThumbnailUpdate = (DiaryId, Image) => {
-
+    socket.off('get_public_diaries').emit('get_public_diaries');
     let data = {
       DiaryId: DiaryId,
       Image: Image
@@ -1498,6 +1481,7 @@ const DashBoard = (props) => {
       .post(`${BASE_URL_PROD}/diaries/update_thumbnail`, data)
       .then(function (response) {
         if (response.status == 200) {
+          setMainImage(Image)
           enqueueSnackbar("Cover Successfully Updated", { variant: 'success' })
         } else {
           enqueueSnackbar(response.status, { variant: 'error' })
@@ -1546,6 +1530,19 @@ const DashBoard = (props) => {
       navigate(`/profile/${activeDiary?.UserName}/${activeDiary?.UserId}`)
     }
   }
+
+
+useEffect(() => {
+  let data = activeDiaryWeeks
+
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index];
+    if(element.WeekId == weekId){
+      setActiveWeek(element)
+    }
+  }
+
+}, [activeDiaryWeeks])
 
 
 
@@ -1660,7 +1657,7 @@ const DashBoard = (props) => {
 
                     <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
-                    {console.log("activeDiary?.Strain", activeDiary?.Strain)}
+        
                   </div>
 
                   {/* <TextHeading>Start Date </TextHeading>
@@ -1748,6 +1745,7 @@ const DashBoard = (props) => {
         )}
 
 
+
         <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day} />
 
         <Flex3B>
@@ -1801,7 +1799,7 @@ const DashBoard = (props) => {
 
           <WeekHolderInner>
             <>
-              {activeDiaryWeeks.map((w, index) => {
+              {activeDiaryWeeks?.map((w, index) => {
                 return (
                   <div key={index}>
                     {activeWeek !== w ?

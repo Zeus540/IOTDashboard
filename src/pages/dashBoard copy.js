@@ -1147,12 +1147,12 @@ const DashBoard = (props) => {
 
     socket.off('broadcast').on('broadcast', (data) => {
       setCommentList([...commentList, data])
-      console.log("data", data)
+  
     });
 
     socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
       setCommentAmount(data)
-      console.log("data", data)
+  
     });
 
     socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });

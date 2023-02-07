@@ -140,17 +140,21 @@ const AddDiary = (props) => {
 
 useEffect(() => {
 
-  
-  axios.get(`${BASE_URL_PROD}/diaries/types`)
-  .then((response) => {
-    setDiaryTypes(response.data)
-    console.log(response.data);
-  })
-  .catch((error) => {
 
-    console.log(error);
-  })
-}, [])
+  if(props.popUpOffset == 0){
+    axios.get(`${BASE_URL_PROD}/diaries/types`)
+    .then((response) => {
+      setDiaryTypes(response.data)
+  
+    })
+    .catch((error) => {
+  
+      console.log(error);
+    })
+  }
+  
+
+}, [props])
 
 
   const addDiary = (values) => {

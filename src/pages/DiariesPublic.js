@@ -288,7 +288,7 @@ useEffect(() => {
         <link rel="canonical" href={`https://sweetleaf.co.za/public-diaries`} />
       </Helmet>
 
-      <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD" />
+      
       <Root>
 
 

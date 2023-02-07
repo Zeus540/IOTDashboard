@@ -109,7 +109,7 @@ const UploadImage = (props) => {
   const [imgBase64, setImgBase64] = useState("");
   const { auth,authToken,userId } = useContext(AuthContext);
 
-  console.log("asdsad")
+
   useEffect(() => {
     setImgBase64("")
     setImgName("")
@@ -177,7 +177,6 @@ if(props.DayId !== ''){
     }
 }
 
-console.log("values",values)
   
    axios.post(`${BASE_URL_PROD}/upload/image`,values)
    .then(function (response) {

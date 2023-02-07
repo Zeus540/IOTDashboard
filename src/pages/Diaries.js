@@ -202,7 +202,9 @@ color: white;
 
 const Diaries = () => {
   const { diaries,Update,loading } = useContext(DiaryContext);
-  const [diaryList, setDiaryList] = useState([]);
+  const [diaryPublicList, setDiaryPublicList] = useState([]);
+  const [diaryPrivateList, setDiaryPrivateList] = useState([]);
+  
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -216,13 +218,10 @@ const Diaries = () => {
  
   
   useEffect(() => {
-    console.log("loading",loading)
-    if(!loading){
-
-      setDiaryList(diaries)
-    }
-
-  }, [diaries,userId])
+    setDiaryPublicList(diaries?.filter((d)=> d.Public == 1))
+    setDiaryPrivateList(diaries?.filter((d)=> d.Public == 0))
+   console.log("asdasd",diaries)
+  }, [diaries])
   
 
 
@@ -256,7 +255,7 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>My Diaries</MainHeading>
+          <MainHeading>Public Diaries</MainHeading>
           {auth &&   
           <Button
             onClick={() => {
@@ -269,7 +268,44 @@ const Diaries = () => {
         </Add>
 
         <DiaryHolder>
-          {diaries?.map((d,index) => {
+          {diaryPublicList?.map((d,index) => {
+            return (
+              <Diary
+          to={`/my-diaries/overview/${d.DiaryId}`}
+          key={index}
+              >
+        <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
+                 
+              
+                 </DiaryImageHolder>
+ 
+
+                <DiaryTextHolder>
+      
+                  <DiaryText>{d?.Title} </DiaryText>
+                  <Tag> {d?.UserName}</Tag>
+                    <Tag> {d?.Strain}</Tag>
+                    <UserAvatarHolder>
+                    {/* <UserAvatar>
+                  {d?.UserName.charAt(0)}
+                  </UserAvatar> */}
+                  
+                    
+                    </UserAvatarHolder>
+                 
+                  {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+            
+                </DiaryTextHolder>
+              
+              </Diary>
+            );
+          })}
+        </DiaryHolder>
+
+
+        <MainHeading>Private Diaries</MainHeading>
+        <DiaryHolder>
+          {diaryPrivateList?.map((d,index) => {
             return (
               <Diary
           to={`/my-diaries/overview/${d.DiaryId}`}

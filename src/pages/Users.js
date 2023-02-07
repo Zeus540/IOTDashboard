@@ -258,7 +258,7 @@ const Users = () => {
     <>
 
 
-<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
+
     <Root>
     
 

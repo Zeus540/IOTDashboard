@@ -95,7 +95,7 @@ const AddWeek = (props) => {
       values.weekType = stage
       values.Week = parseInt(week)
       
-        console.log("values",values);
+
 
       
         axios.post(`${BASE_URL_PROD}/weeks/add_week`,values)
@@ -120,7 +120,7 @@ const AddWeek = (props) => {
       }
 
       const handleStageChange =(e,child)=>{
-console.log("child",child)
+
         setStage(e.target.value)
             }
             const handleWeekChange =(e)=>{

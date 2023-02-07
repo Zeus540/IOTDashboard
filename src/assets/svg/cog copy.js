@@ -7,7 +7,7 @@ fill: ${props => props.data.fill};
 `;
 
 const Bin = (props) => {
-    console.log(props.fill)
+
   return (
     <div>
       

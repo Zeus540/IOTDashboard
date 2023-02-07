@@ -51,7 +51,7 @@ const{loginAllTabs} = useContext(AuthContext)
   useEffect(() => {
     let cookie = Cookies.get('cookies')
 
- console.log("cookiecookie",cookie)
+
     if(cookie !== undefined){
       setAcceptCookies(true)
     }

@@ -177,6 +177,7 @@ const addTech = (t)=>{
              if(response.data.insertId !== undefined){
               Update()
               enqueueSnackbar("Grow Technique Successfully Added",{variant:'success'})
+      
               props.setPopUpOffset(-101);
              }else{
               enqueueSnackbar(response.status,{variant:'error'})
@@ -193,6 +194,7 @@ const addTech = (t)=>{
 
 
     useEffect(() => {
+      if(props.popUpOffset == 0){
       axios.get(`${BASE_URL_PROD}/techniques`)
       .then(function (response) {
         setTechniques(response.data)
@@ -202,6 +204,7 @@ const addTech = (t)=>{
     
         console.log(error);
       })
+    }
     }, [])
     
   

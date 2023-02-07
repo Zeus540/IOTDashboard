@@ -168,28 +168,28 @@ const Stats = (props) => {
 
     for (let index = 0; index < phArr?.length; index++) {
       const element = phArr[index];
-      ph =  (ph + parseInt(element) ) / phArr?.length + 1 
-      console.log(phArr)
-      console.log(ph)
+      ph =  (ph + parseFloat(element) / phArr?.length   ) 
       setPh(Math.round(ph * 100) / 100)
     }
 
 
     for (let index = 0; index < tempArr?.length; index++) {
       const element = tempArr[index];
-      temp =  (temp + parseInt(element) ) / tempArr?.length  + 1 
+      temp =  (temp + parseFloat(element) / tempArr?.length   ) 
+      console.log("tempArr",tempArr)
+      console.log("temp",temp)
       setTemp(Math.round(temp * 100) / 100)
     }
 
     for (let index = 0; index < co2Arr?.length; index++) {
       const element = co2Arr[index];
-      co2 =  (co2 + parseInt(element) ) / co2Arr?.length  + 1 
+      co2 =  (co2 + parseFloat(element)  / co2Arr?.length   )
       setCo2(Math.round(co2 * 100) / 100)
     }
 
     for (let index = 0; index < humidityArr?.length; index++) {
       const element = humidityArr[index];
-      humidity =  (humidity + parseInt(element) ) / humidityArr?.length  + 1 
+      humidity =  (humidity + parseFloat(element)  / humidityArr?.length   )
       setHumidity(Math.round(humidity * 100) / 100)
     }
 
@@ -198,7 +198,7 @@ const Stats = (props) => {
 
     setActiveDiaryData(data)
     
-  }, [props])
+  }, [])
 
 
   return (
@@ -261,7 +261,7 @@ const Stats = (props) => {
        
 
 
-    {activeDiaryData !== undefined && 
+    {activeDiaryData !== undefined && props.dayId !== undefined &&
     <>
        <TextHolderGroup2>
           <TextHolderGroup2Inner>

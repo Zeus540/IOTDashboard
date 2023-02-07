@@ -202,6 +202,7 @@ const DiarySettings = (props) => {
       .then(function (response) {
         if (response.data.affectedRows == 1) {
           setActiveToggle(!e.target.checked)
+      
         }
 
 
@@ -228,6 +229,7 @@ const DiarySettings = (props) => {
       .then(function (response) {
         if (response.data.affectedRows == 1) {
           setPublicToggle(!e.target.checked)
+          Update()
         }
 
 

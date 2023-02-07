@@ -1116,7 +1116,7 @@ useEffect(() => {
     setActiveDiary(filtered);
 
 
-    console.log("filteredfiltered",filtered)
+
     if (filtered == undefined) {
       navigate('/')
     }
@@ -1159,12 +1159,12 @@ useEffect(() => {
 
     socket.off('broadcast').on('broadcast', (data) => {
       setCommentList([...commentList, data])
-      console.log("data", data)
+
     });
 
     socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
       setCommentAmount(data)
-      console.log("data", data)
+
     });
 
     socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
@@ -1233,9 +1233,6 @@ useEffect(() => {
     setLightBoxData(data);
   };
 
-  const handleNotes = () => {
-    setAddNotes(!addNotes);
-  };
 
   const handleGetWeekData = (w) => {
     setPositionIndex(0)
@@ -1439,88 +1436,6 @@ useEffect(() => {
 
   }
 
-
-
-  const HandleFeedingUpload = () => {
-    if (popUpOffsetFeeding == -101) {
-      setPopUpOffsetFeeding(0);
-    } else {
-      setPopUpOffsetFeeding(-101);
-    }
-  }
-
-
-  const HandleImageUpload = () => {
-    if (popUpOffset == -101) {
-      setPopUpOffset(0);
-    } else {
-      setPopUpOffset(-101);
-    }
-  }
-
-  const handleAddWeek = () => {
-    if (popUpAddWeekOffset == -101) {
-      setPopUpAddWeekOffset(0);
-    } else {
-      setPopUpAddWeekOffset(-101);
-    }
-  }
-
-  const handleEditWeek = () => {
-    if (popUpEditWeekOffset == -101) {
-      setPopUpEditWeekOffset(0);
-    } else {
-      setPopUpEditWeekOffset(-101);
-    }
-  }
-
-  const handleDeleteWeek = () => {
-    if (popUpEditWeekOffset == -101) {
-      setPopUpDeleteWeekOffset(0);
-    } else {
-      setPopUpDeleteWeekOffset(-101);
-    }
-  }
-
-
-  const handleDeleteDiary = () => {
-    if (popUpDeleteDiaryOffset == -101) {
-      setPopUpDeleteDiaryOffset(0);
-    } else {
-      setPopUpDeleteDiaryOffset(-101);
-    }
-  }
-
-  const handleDiarySettings = () => {
-    if (popUpDiarySettingsOffset == -101) {
-      setPopUpDiarySettingsOffset(0);
-    } else {
-      setPopUpDiarySettingsOffset(-101);
-    }
-  }
-
-  const handleThumbnailUpdate = (DiaryId, Image) => {
-
-    let data = {
-      DiaryId: DiaryId,
-      Image: Image
-    }
-
-    axios
-      .post(`${BASE_URL_PROD}/diaries/update_thumbnail`, data)
-      .then(function (response) {
-        if (response.status == 200) {
-          enqueueSnackbar("Cover Successfully Updated", { variant: 'success' })
-        } else {
-          enqueueSnackbar(response.status, { variant: 'error' })
-        }
-
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
 
   const HandleComment = (e) => {

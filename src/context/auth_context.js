@@ -28,9 +28,7 @@ export const AuthProvider = ({ children }) => {
 
     //Check Authentication
     useEffect(() => {
-     
-        console.log("session",Cookies.get('session'))
-        console.log("checkAuthentication",Cookies.get('session_refresh'))
+   
         let User = Cookies.get('user')
         
         if (User !== undefined) {
@@ -102,7 +100,7 @@ export const AuthProvider = ({ children }) => {
             }
 
 
-            console.log("diary_added", data)
+
         });
 
         if (true) {
@@ -111,7 +109,7 @@ export const AuthProvider = ({ children }) => {
                 if (data.UserId !== user?.UserId) {
                     enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`)
                 }
-                console.log("liked_diary", data)
+              
             });
         }
 

@@ -249,7 +249,7 @@ const ProfileUser = () => {
     <>
 
 
-<PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
+
     <Root>
     
 

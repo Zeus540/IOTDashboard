@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+
 const Root = styled.div`
 box-shadow: 0px 0px 20px #00000012;
 background: #344e41;
@@ -10,6 +11,7 @@ left:0px;
 bottom: 0;
 padding: 20px;
 text-align: center;
+z-index: 3;
 `;
 
 
@@ -57,7 +59,7 @@ text-decoration: none;
 
 
 const Cookiepolicy = (props) => {
-    console.log("props",props)
+
 
   return (
     <Root>
