@@ -51,7 +51,7 @@ max-width: 1770px;
 const MainHeading = styled.div`
   margin: 0px 0px;
   font-size: 24px;
-  margin-top: 0px;
+
   font-weight: bolder;
   padding: 0px 20px;
   @media (max-width: 425px) {
@@ -62,10 +62,20 @@ const MainHeading = styled.div`
   }
 `;
 
+const MainHeading2 = styled.h2`
+  margin: 0px 0px;
+  font-size: 18px;
+  margin-top: 0px;
+  font-weight: bolder;
+  padding: 0px 20px;
+
+`;
 const DiaryHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding:10px;
+
+  padding: 0px 10px;
+
   @media (max-width: 619px) {
     padding:0px 10px;
   }
@@ -144,7 +154,7 @@ const Add = styled.div`
 
   justify-content: space-between;
   align-items: center;
-
+  margin-bottom: 20px;
   @media (max-width: 425px) {
     padding: 20px;
     padding: 20px;
@@ -255,7 +265,7 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>Public Diaries</MainHeading>
+          <MainHeading>My Diaries</MainHeading>
           {auth &&   
           <Button
             onClick={() => {
@@ -267,6 +277,8 @@ const Diaries = () => {
         
         </Add>
 
+
+        <MainHeading2>Public Diaries</MainHeading2>
         <DiaryHolder>
           {diaryPublicList?.map((d,index) => {
             return (
@@ -303,7 +315,7 @@ const Diaries = () => {
         </DiaryHolder>
 
 
-        <MainHeading>Private Diaries</MainHeading>
+        <MainHeading2>Private Diaries</MainHeading2>
         <DiaryHolder>
           {diaryPrivateList?.map((d,index) => {
             return (
