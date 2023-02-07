@@ -198,7 +198,7 @@ const Add = styled.div`
     padding: 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 5px 25px;
+    padding: 8px 25px;
     padding: 20px;
   }
 `;

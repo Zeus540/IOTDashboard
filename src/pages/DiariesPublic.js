@@ -28,26 +28,25 @@ const Root = styled.div`
 
 const Inner = styled.div`
 
-border-radius: 5px;
-background: #ffffff;
+  border-radius: 5px 5px 5px 5px;
 
-padding: 0px 0px;
+  background: #ffffff;
+  padding: 0px 0px;
 
-margin: 80px auto;
-max-width: 1770px;
-
+  margin: 40px auto;
+  max-width: 1770px;
   @media (max-width: 425px) {
     margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 90%;
+    padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 95%;
+    padding-top: 0px;
   }
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
+
 `;
 
 
@@ -207,7 +206,7 @@ background:#8bab50;
 `;
 
 const Button = styled.button`
-padding: 8px 20px;
+padding: 8px 25px;
   background: #596876;
   color: white;
   border: none;

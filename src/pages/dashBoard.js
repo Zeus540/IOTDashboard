@@ -23,6 +23,8 @@ import { useSnackbar } from 'notistack';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import Stats from "./stats"
+import StatsLower from "./statsLower"
+
 import Cog from '../assets/svg/cog'
 import Bin from "../assets/svg/cog copy";
 
@@ -40,6 +42,19 @@ const MenuLink = styled(NavLink)`
  
 
 `;
+
+const MenuLinkB = styled(NavLink)`
+  margin: 0px 0px;
+  padding: 16px 10px;
+
+  color: #8bab50;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+ 
+
+`;
+
 
 const ChatMsgLeftMenuLink = styled(NavLink)`
   margin: 0px 0px;
@@ -70,7 +85,7 @@ const Inner = styled.div`
   background: #ffffff;
   padding: 20px 0px;
   padding-top:0px;
-  margin: 80px auto;
+  margin: 40px auto;
   max-width: 1770px;
   @media (max-width: 425px) {
     margin: 0px;
@@ -80,8 +95,11 @@ const Inner = styled.div`
     margin: 0px;
     padding-top: 0px;
   }
-`;
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
 
+`;
 const IntroHolder = styled.div`
   margin-bottom: 0px;
   padding: 0px 0px;
@@ -662,7 +680,7 @@ const HeadingCta = styled.div`
 `;
 
 const HeadingCtaButton = styled.button`
-padding: 5px 25px;
+padding: 8px 25px;
 background: #8bab50;
 border: none;
 color: white;
@@ -672,7 +690,7 @@ cursor: pointer;
 
 const NoData = styled.div`
   padding: 15px 0px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const NoDataHolder = styled.div`
@@ -754,6 +772,8 @@ const DayDotOutter = styled.div`
 const Helper = styled.p`
 text-align:center;
 color: black;
+margin-top: 0;
+
 `;
 
 const HelperBtnHolder = styled.div`
@@ -878,6 +898,8 @@ padding-bottom: 0px;
 const SvgHolder = styled.div`
 cursor:pointer;
 margin-left:10px;
+display: flex;
+
 `;
 
 const Svg = styled.svg`
@@ -892,8 +914,8 @@ margin-right: 10px;
 `;
 
 const SvgL = styled.svg`
-width: 25px;
-fill:white;
+width: 20px;
+fill:#8bab50;
 margin-right: 10px;
 `;
 
@@ -1045,15 +1067,29 @@ width: 20px;
 
 `;
 
+const NotePopUpHolder = styled.div`
+background: #121b1cc4 ;
+top: 0;
+position: fixed;
+z-index: 999;
+min-height: 100vh;
+right: 0px;
+overflow: hidden;
+height: calc(100vh - 74px);
+left: 0px;
+transform: translateY(${(props) => props.addNotes}%);
+transition: all 0.2s ease;
+`;
+
 const DashBoard = (props) => {
 
   const { enqueueSnackbar } = useSnackbar()
   const [lightBox, setLightBox] = useState(false);
-  const [addNotes, setAddNotes] = useState(false);
+  const [addNotes, setAddNotes] = useState(-101);
   const [daysNotes, setDaysNotes] = useState("");
   const [diaryData, setDiaryData] = useState("");
-  const [dayId, setDayId] = useState(null);
-  const [weekId, setWeekId] = useState("");
+  const [dayId, setDayId] = useState(undefined);
+  const [weekId, setWeekId] = useState(undefined);
   const [lightBoxImg, setLightBoxImg] = useState(Image);
   const [lightBoxData, setLightBoxData] = useState([]);
   const [galleryData, setGalleryData] = useState([]);
@@ -1093,11 +1129,17 @@ const DashBoard = (props) => {
   const [commentList, setCommentList] = useState([]);
 
 
-
-  
   useEffect(() => {
+    if (diaries.length < 1) {
+      Update()
+    }
+  }, [])
+
+
+  useEffect(() => {
+
     let filtered = ""
- 
+
     if (diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]) {
       filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
@@ -1110,46 +1152,48 @@ const DashBoard = (props) => {
 
     setActiveDiary(filtered);
 
-  
+
+
   }, [diaries])
 
   useEffect(() => {
     imageCheck()
 
-    if(activeDiary.length < 1){
-
-  //Get Diary Weeks
-  let data = {
-    DiaryId: params?.id,
-  };
-
-  axios
-    .post(`${BASE_URL_PROD}/weeks`, data)
-    .then(function (response) {
-      setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  //Get Diary Comments
-  axios
-    .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
-    .then(function (response) {
-      setCommentList(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    }
 
   }, [activeDiary])
 
   useEffect(() => {
-    console.log("weekId ",weekId )
-  }, [weekId ])
-  
+
+    if (diaries.length > 0) {
+      //Get Diary Weeks
+      let data = {
+        DiaryId: params?.id,
+      };
+
+      axios
+        .post(`${BASE_URL_PROD}/weeks`, data)
+        .then(function (response) {
+          setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      //Get Diary Comments
+      axios
+        .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
+        .then(function (response) {
+          setCommentList(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+  }, [diaries])
+
+
+
 
   //Chat Listen
   useEffect(() => {
@@ -1204,7 +1248,7 @@ const DashBoard = (props) => {
   };
 
   const handleNotes = () => {
-    setAddNotes(!addNotes);
+    setAddNotes(0);
   };
 
   const handleGetWeekData = (w) => {
@@ -1224,7 +1268,7 @@ const DashBoard = (props) => {
       axios
         .post(`${BASE_URL_PROD}/techniques/by_week_id`, dataw)
         .then(function (response) {
-  
+
           setTechniques(response.data)
         })
         .catch(function (error) {
@@ -1241,10 +1285,10 @@ const DashBoard = (props) => {
           console.log(error);
         });
 
-    
+
       setActiveWeek(w)
 
- 
+
 
       let nutrientData = {
         DiaryId: activeDiary.DiaryId,
@@ -1532,17 +1576,17 @@ const DashBoard = (props) => {
   }
 
 
-useEffect(() => {
-  let data = activeDiaryWeeks
+  useEffect(() => {
+    let data = activeDiaryWeeks
 
-  for (let index = 0; index < data.length; index++) {
-    const element = data[index];
-    if(element.WeekId == weekId){
-      setActiveWeek(element)
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      if (element.WeekId == weekId) {
+        setActiveWeek(element)
+      }
     }
-  }
 
-}, [activeDiaryWeeks])
+  }, [activeDiaryWeeks])
 
 
 
@@ -1625,6 +1669,15 @@ useEffect(() => {
 
 
                       <>
+                  
+
+                      <SvgHolder onClick={() => { handleDiarySettings() }}>
+                        <MenuLinkB to={`/my-diaries/journal/${activeDiary.DiaryId}`}>
+                      <SvgL xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></SvgL>
+                      Journal
+                      </MenuLinkB>
+                        </SvgHolder>
+
                         <SvgHolder onClick={() => { handleDiarySettings() }}>
                           <Cog fill="#183153" />
                         </SvgHolder>
@@ -1639,7 +1692,7 @@ useEffect(() => {
                   </ToggleHolder>
 
                 }
-            
+
 
                 <IntroHolderDay>
                   <Flex>
@@ -1657,13 +1710,13 @@ useEffect(() => {
 
                     <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
                     <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
-        
+
                   </div>
 
                   {/* <TextHeading>Start Date </TextHeading>
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
                 </IntroHolder>
-                
+
                 {techniques.length > 0 &&
                   <TextHolder>
                     <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
@@ -1730,7 +1783,7 @@ useEffect(() => {
           </RightFlexHolder>
         </FlexTop>
 
-        {addNotes && (
+       <NotePopUpHolder addNotes={addNotes}>
           <NotesPopUp
             setAddNotes={setAddNotes}
             setDaysNotes={setDaysNotes}
@@ -1742,11 +1795,13 @@ useEffect(() => {
 
             {activeDiaryNotes}
           </NotesPopUp>
-        )}
+          </NotePopUpHolder>
 
 
 
-        <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day} />
+        <Stats />
+
+
 
         <Flex3B>
 
@@ -1795,7 +1850,7 @@ useEffect(() => {
 
             </Flex3BtnHolder>
           }
-          {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
+          {activeWeek.WeekId == undefined && <Helper>Select a Week Below</Helper>}
 
           <WeekHolderInner>
             <>
@@ -1887,9 +1942,10 @@ useEffect(() => {
               </AddWeek>
             }
 
+
           </WeekHolderInner>
 
-          {days.length > 0 && galleryData.length == 0 && <Helper>Please Select a Day</Helper>}
+          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
           {days.length > 0 &&
             <DayDotHolder>
               {days?.map((d, index) => {
@@ -1926,7 +1982,7 @@ useEffect(() => {
               })}
             </DayDotHolder>
           }
-
+          <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />
         </Flex3B>
 
 

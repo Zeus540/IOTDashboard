@@ -66,7 +66,7 @@ color: #f44336;
 `;
 
 const Button = styled.button`
-padding: 5px 25px;
+padding: 8px 25px;
 width: fit-content;
 
 border:none;

@@ -3,11 +3,16 @@ import styled from "styled-components";
 import axios from "../components/shared/axios";
 import {BASE_URL_PROD} from '../components/shared/Constants'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
 const NotesOutter = styled.div`
 display: flex;
     justify-content: center;
     align-items: center;
-background: #000000a1;
+    flex-direction: column;
+
 position: fixed;
 width: 100%;
 top: 0;
@@ -30,8 +35,9 @@ border-radius: 5px;
 `;
 
 const Button = styled.button`
-padding: 5px 25px;
-margin: 10px 20px;
+padding: 8px 20px;
+margin: 15px;
+margin-top: 0px;
 background: #8bab50;
 border: none;
 color: white;
@@ -40,7 +46,7 @@ cursor: pointer;
 `;
 
 const Input = styled.input`
-padding: 5px 25px;
+padding: 8px 20px;
 margin: 10px 20px;
 background: #f2f2f2;
 border: none;
@@ -77,7 +83,7 @@ text-align: end;
 const NotesHeadingHolder = styled.div`
 display: flex;
 align-items: center;
-padding: 5px 25px;
+padding: 5px 15px;
 border-radius: 5px 5px 0px 0px;
 justify-content: space-between;
 background: #ffffff;
@@ -86,7 +92,7 @@ background: #ffffff;
 
 const InputGrp = styled.div`
 min-width: calc(100% /2 - 20px);
-margin: 10px 20px;
+margin: 15px 15px;
 align-items: center;
 padding-top: 0px;
 color:white;
@@ -112,6 +118,37 @@ justify-content: space-between;
   margin: 5px 0px;
 }
 
+`;
+
+const Heading = styled.h2`
+text-align: center;
+font-size: 20px;
+margin: 0px;
+`;
+
+const ClosePopUpHolder = styled.div`
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+  color: #b62a2a;
+  cursor: pointer;
+`;
+
+const ClosePopUpHolderText = styled.p`
+  text-align: center;
+
+  font-size: 30px;
+  margin: 0 auto;
+  cursor: pointer;
+
+  left: 0;
+  color: #a5a5a5;
+  width: 100%;
+  transition: all 0.2s ease;
+  &:hover {
+    transform: scale(1.2);
+    color: #b62a2a;
+  }
 `;
 const NotesHolder = (props) => {
 
@@ -142,7 +179,7 @@ const NotesHolder = (props) => {
           
        
             props.setDaysNotes(notes)
-            props.setAddNotes(false)
+            props.setAddNotes(-101)
             
         })
         .catch(function (error) {
@@ -158,10 +195,23 @@ const NotesHolder = (props) => {
 
   return (
   <NotesOutter>
+     <ClosePopUpHolder
+      onClick={() => {
+        props.setAddNotes(-101);
+      }}
+    >
+      <ClosePopUpHolderText>
+      
+        <FontAwesomeIcon icon={faTimesCircle} />
+
+      </ClosePopUpHolderText>
+    </ClosePopUpHolder>
     <Notes>
       <NotesHeadingHolder>
+        <Heading>
       Add Notes
-      <NotesClose onClick={()=>{props.setAddNotes(false)}}>X</NotesClose>
+      </Heading>
+  
       </NotesHeadingHolder>
         <TextArea value={notes} onChange={(e)=>{setNotes(e.target.value)}}>
 

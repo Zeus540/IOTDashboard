@@ -12,16 +12,13 @@ import {BASE_URL_PROD} from '../components/shared/Constants'
 
 const Root = styled.div`
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
   @media (max-width: 425px) {
     margin: 0px 0px;
     margin-top: 0px;
     padding-bottom: 0px;
   }
 `;
-
 const Flex2 = styled.div`
 padding:20px;
 `;
@@ -33,8 +30,8 @@ const Heading = styled.h4`
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-bottom: 10px;
-  margin-top: 30px;
+  margin: 0px;
+  padding-top: 20px;
   align-items: center;
   &::before {
   content: "";
@@ -56,27 +53,31 @@ const Heading = styled.h4`
 `;
 
 
+
 const Inner = styled.div`
 
-  max-width: 1770px;
   border-radius: 5px 5px 5px 5px;
-  width: 100%;
+
   background: #ffffff;
   padding: 20px 0px;
-  padding-top:0px;
-  margin: 80px auto;
+  padding-bottom: 0px;
+  margin: 40px auto;
+  max-width: 1770px;
   @media (max-width: 425px) {
-    margin: 0px auto;
+    margin: 20px;
+    padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px auto;
+    margin: 20px;
+    padding-top: 0px;
   }
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
+
 `;
-
-
-
 const NoteHolderOutter = styled.div`
-padding: 10px;
+padding: 10px 0px;
 
 
 `;
@@ -89,7 +90,8 @@ border-radius: 5px;
 `;
 
 const NoteHolderText = styled.div`
-padding: 20px 15px;
+padding: 15px 0px;
+padding-bottom: 0px;
 
 `;
 
@@ -173,7 +175,12 @@ const WeekHolderHeadingBlue = styled.div`
 `;
 
 const Helper = styled.p`
-text-align:center
+text-align:center;
+margin: 0px;
+padding: 16px;
+
+padding-top: 0;
+
 `;
 
 const NoteDay = styled.div`
@@ -323,16 +330,16 @@ const Notes = () => {
 
   
     <Root>
-      {/* <InnerButtonHolder>
-      <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
-      </InnerButtonHolder> */}
+    
 
       <Inner>
  
-      {activeWeek.length == 0 && <Helper>Select a Week</Helper>}
+
       <Heading>Journal</Heading>
-        <Flex2>
+
       
+        <Flex2>
+        {activeWeek.length == 0 && <Helper>Select a Week</Helper>}
           <WeekHolderInner>
         {weeks?.map((w,index)=>{
           return(

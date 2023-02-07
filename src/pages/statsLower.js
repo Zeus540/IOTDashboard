@@ -30,6 +30,7 @@ const Flex2 = styled.div`
 `;
 
 const Heading = styled.h4`
+color: black;
   text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
@@ -112,12 +113,14 @@ const TextHolderGroup2Inner = styled.div`
 const NoData = styled.div`
   padding: 15px 0px;
   font-size: 18px;
+  color: black;
 `;
 const NoDataHolder = styled.div`
   width: 100%;
   text-align: center;
 `;
-const Stats = (props) => {
+
+const StatsLower = (props) => {
  
 
 
@@ -133,22 +136,55 @@ const Stats = (props) => {
   const params = useParams();
   const navigate = useNavigate ()
 
+
+
   useEffect(() => {
-    let filtered = ""
-    if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
-      filtered =  diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+ 
+  
+    if(props.data !== undefined){
+  
+  
+    let phArr = props?.data?.filter((d)=> d.Ph !== null).map((d) => d.Ph )
+    let ph = 0
+
+    let tempArr = props?.data?.filter((d)=> d.Temperature !== null).map((d) => d.Temperature )
+    let temp = 0
+
+    let co2Arr = props?.data?.filter((d)=> d.Co2 !== null).map((d) => d.Co2 )
+  
+    let co2 = 0
+
+    let humidityArr = props?.data?.filter((d)=> d.Humidity !== null).map((d) => d.Humidity )
+    let humidity = 0
+
+    for (let index = 0; index < phArr?.length; index++) {
+      const element = phArr[index];
+      ph =  (ph + parseFloat(element) / phArr?.length   ) 
+      setPh(Math.round(ph * 100) / 100)
     }
-    if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
-      filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
+
+
+    for (let index = 0; index < tempArr?.length; index++) {
+      const element = tempArr[index];
+      temp =  (temp + parseFloat(element) / tempArr?.length   ) 
+      setTemp(Math.round(temp * 100) / 100)
     }
 
-    document.title = "Sweet Leaf - " + filtered?.Title + "  Environment" ;
-    setActiveDiary(filtered);
+    for (let index = 0; index < co2Arr?.length; index++) {
+      const element = co2Arr[index];
+      co2 =  (co2 + parseFloat(element)  / co2Arr?.length   )
+      setCo2(Math.round(co2 * 100) / 100)
+    }
 
-    
-  }, [diaries,diariesPublic])
+    for (let index = 0; index < humidityArr?.length; index++) {
+      const element = humidityArr[index];
+      humidity =  (humidity + parseFloat(element)  / humidityArr?.length   )
+      setHumidity(Math.round(humidity * 100) / 100)
+    }
+  }
 
-
+    console.log("called",props)
+  }, [props.data])
 
 
   
@@ -158,59 +194,73 @@ const Stats = (props) => {
 
   
     <Root>
-         {/* <InnerButtonHolder>
-      <Button onClick={()=>HandleBackToPreviousPage()}>Back</Button>
-      </InnerButtonHolder> */}
+
 
       <Inner>
 
       
 
-      <Heading> Grow environment </Heading>
+      <Heading> Grow conditions </Heading>
         <Flex2>
-          
-        
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-    
-            <TextHeading>Strain</TextHeading>
-               
-            {activeDiary?.Strain}
-            </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-       
 
-            <TextHeading>Light Schedule</TextHeading>
-            {activeDiary?.Light_Schedule}
-            </TextHolderGroup2Inner>
+    {(props.weekId !== undefined && props.dayId !== undefined) ?
+    <>
+       <TextHolderGroup2>
+          <TextHolderGroup2Inner>
+          <TextHeading>Ph</TextHeading>
+            {ph == null ? (
+              "N/A"
+            ) : (
+              <>{ph}</>
+            )}
+                  
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
+
+    <TextHolderGroup2>
+          <TextHolderGroup2Inner>
+          <TextHeading>Temperature</TextHeading>
+            {temp == 0 ? (
+              "N/A"
+            ) : (
+              <>{temp} &#8451;</>
+            )}
+                  
+                </TextHolderGroup2Inner>
+          </TextHolderGroup2>
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-           
-   
-            <TextHeading>Light Type</TextHeading>
-            {activeDiary?.Light_Type}
-            </TextHolderGroup2Inner>
+          <TextHeading>Humidity</TextHeading>
+            {humidity == 0 ? (
+              "N/A"
+            ) : (
+              <>{humidity} </>
+            )}
+              
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
-          <TextHolderGroup2>
-          {/* <img src={IndoorIcon} width='50px'/> */}
-          <TextHolderGroup2Inner>
-       
-      
-            <TextHeading>Room Type</TextHeading>
-            {activeDiary?.Room_Type}
-          </TextHolderGroup2Inner>
-          </TextHolderGroup2>
+
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-         
-       
-            <TextHeading>Pot Size</TextHeading>
-            {activeDiary?.Pot_Size}
-            </TextHolderGroup2Inner>
+          <TextHeading>Co2</TextHeading>
+            {co2 == 0 ? (
+              "N/A"
+            ) : (
+              <>{co2} PPM</>
+            )}
+              
+                </TextHolderGroup2Inner>
           </TextHolderGroup2>
+    </>:
+    <NoDataHolder>
+         <NoData>No Data Available</NoData>
+    </NoDataHolder>
+    }
+
+          
 
         
 
@@ -222,6 +272,6 @@ const Stats = (props) => {
   );
 };
 
-export default Stats;
+export default StatsLower;
 
 

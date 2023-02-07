@@ -26,34 +26,33 @@ const Root = styled.div`
 
 const Inner = styled.div`
 
-border-radius: 5px;
-background: #ffffff;
+  border-radius: 5px 5px 5px 5px;
 
-padding: 20px 0px;
-
-margin: 80px auto;
-max-width: 1770px;
-
+  background: #ffffff;
+  padding: 20px 0px;
+  padding-bottom: 0px;
+  margin: 40px auto;
+  max-width: 1770px;
   @media (max-width: 425px) {
     margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 90%;
+    padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 95%;
+    padding-top: 0px;
   }
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
+
 `;
 
 const MainHeading = styled.div`
-  margin: 0px 0px;
-  font-size: 24px;
+margin: 0px 0px;
+font-size: 24px;
+font-weight: bolder;
+padding: 0px 0px;
 
-  font-weight: bolder;
-  padding: 0px 20px;
   @media (max-width: 425px) {
     padding: unset;
   }
@@ -62,13 +61,23 @@ const MainHeading = styled.div`
   }
 `;
 
+
+
 const MainHeading2 = styled.h2`
   margin: 0px 0px;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 0px;
   font-weight: bolder;
-  padding: 0px 20px;
-
+  margin: 0px 20px;
+  width: max-content;
+  border-bottom: 2px solid #8bab50;
+  @media (max-width: 425px) {
+    margin: 0px 20px;
+    
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin: 0px 20px;
+  }
 `;
 const DiaryHolder = styled.div`
   display: flex;
@@ -154,25 +163,26 @@ const Add = styled.div`
 
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+
+  padding: 0px 20px;
   @media (max-width: 425px) {
-    padding: 20px;
-    padding: 20px;
+    padding:20px;
+ 
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 5px 25px;
+    padding: 8px 25px;
     padding: 20px;
   }
 `;
 
 const Button = styled.button`
-padding: 8px 20px;
+padding: 8px 25px;
   background: #8bab50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0px 20px;
+
   @media (max-width: 425px) {
     margin: 0px 0px;
   }
@@ -195,18 +205,10 @@ align-items: center;
 }
 `
 
-const UserAvatar = styled.div`
-width: 5px;
-height: 5px;
-color: white;
-    padding: 10px;
-    font-size: 11px;
-    background: #8bab50;
-    margin-right: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+const Holder = styled.div`
+
+    padding: 10px 0px;
+  
 
 `;
 
@@ -221,7 +223,9 @@ const Diaries = () => {
 
 
   useEffect(() => {
-
+  if(diaries.length < 1){
+    Update()
+  }
     document.title = "Sweet Leaf - My Diaries" 
   }, [])
 
@@ -277,8 +281,9 @@ const Diaries = () => {
         
         </Add>
 
+<Holder>
 
-        <MainHeading2>Public Diaries</MainHeading2>
+        <MainHeading2>Public</MainHeading2>
         <DiaryHolder>
           {diaryPublicList?.map((d,index) => {
             return (
@@ -313,9 +318,10 @@ const Diaries = () => {
             );
           })}
         </DiaryHolder>
+        </Holder>
 
-
-        <MainHeading2>Private Diaries</MainHeading2>
+        <Holder>
+        <MainHeading2>Private</MainHeading2>
         <DiaryHolder>
           {diaryPrivateList?.map((d,index) => {
             return (
@@ -350,6 +356,7 @@ const Diaries = () => {
             );
           })}
         </DiaryHolder>
+        </Holder>
       </Inner>
     </Root>
     </>

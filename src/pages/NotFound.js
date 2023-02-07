@@ -69,7 +69,7 @@ text-align: center;
 font-size: 1em;
     display: block;
     border: none;
-    padding: 5px 25px;
+    padding: 8px 25px;
     border-radius: 5px;
     margin: 40px auto;
     cursor: pointer;

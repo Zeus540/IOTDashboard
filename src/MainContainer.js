@@ -56,12 +56,13 @@ const MainContainer = (props) => {
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
              
                     <Route path="/harvest/:id" element={<Harvest />} />
-                    <Route path="/journal/:id" element={<Notes />} />
+               
 
 
                     <Route element={<ProtectedRoutes/>}>
                             <Route path="/my-diaries"   element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick}/>} />
                             <Route path="/my-diaries/overview/:id" element={<DashBoard />} />
+                            <Route path="/my-diaries/journal/:id" element={<Notes />} />
                             <Route path="/users"   element={<Users />} />
 
                             <Route path="/profile/:username/:userId"   element={<ProfileUser />} />

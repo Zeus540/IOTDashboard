@@ -662,7 +662,7 @@ const HeadingCta = styled.div`
 `;
 
 const HeadingCtaButton = styled.button`
-padding: 5px 25px;
+padding: 8px 25px;
 background: #8bab50;
 border: none;
 color: white;
@@ -672,7 +672,7 @@ cursor: pointer;
 
 const NoData = styled.div`
   padding: 15px 0px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const NoDataHolder = styled.div`

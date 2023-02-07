@@ -24,23 +24,10 @@ const Inner = styled.div`
 
 border-radius: 5px;
 background: #ffffff;
-padding: 20px 0px;
+padding: 20px;
 max-width: 1770px;
 margin: 0 auto;
-  @media (max-width: 425px) {
-    margin: 0px 20px;
-    padding: 10px 0px;
-    border-radius: 5px;
-    width: 90%;
-    margin-bottom: 0px;
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    margin: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 95%;
-    margin-bottom: 0px;
-  }
+
 `;
 const LegalText = styled.p`
 margin: 5px 0px;

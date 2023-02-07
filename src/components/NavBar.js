@@ -33,7 +33,7 @@ max-width: 1770px;
   justify-content: space-between;
  
   @media (max-width: 768px) {
-    padding:0px 20px ;
+   
   }
 `;
 
@@ -66,7 +66,13 @@ const Div = styled.div`
 width: calc(100% / 3);
 
 `;
-
+const DivMenu = styled.div`
+width: calc(100% / 3 - 20px);
+padding-left: 20px;
+@media (min-width: 1770px) {
+  padding-left: 0px;
+}
+`;
 
 const LogoHolderText = styled.span`
 
@@ -344,7 +350,7 @@ const NavBar = (props) => {
       props.OffClick();
     }}>
       <Inner>
-        <Div>
+        <DivMenu>
           <BurgerMenuHolder onClick={() => {
             props.setMobileMenu(!props.mobileMenu);
           }}>
@@ -357,7 +363,7 @@ const NavBar = (props) => {
 
 
           </BurgerMenuHolder>
-        </Div>
+        </DivMenu>
 
         <Div>
           <MenuLinklogo to="/">

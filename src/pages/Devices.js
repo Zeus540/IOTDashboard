@@ -80,7 +80,7 @@ const Add = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 5px 25px;
+  padding: 8px 25px;
   background: #8bab50;
   color: white;
   border: none;
@@ -89,7 +89,7 @@ const Button = styled.button`
 
 `;
 const ButtonA = styled.button`
-  padding: 5px 25px;
+  padding: 8px 25px;
   background: #8bab50;
   margin-right: 0px;
   color: white;

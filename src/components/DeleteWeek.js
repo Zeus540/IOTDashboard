@@ -43,7 +43,7 @@ justify-content: center;
 
 
 const Button = styled.button`
-  padding: 5px 25px;
+  padding: 8px 25px;
   background: #8bab50;
   color: white;
   border: none;
@@ -54,7 +54,7 @@ const Button = styled.button`
 
 const Heading = styled.h2`
 text-align: center;
-font-size: 21px;
+font-size: 20px;
 margin-top: 0px;
 `;
 const Text = styled.p`

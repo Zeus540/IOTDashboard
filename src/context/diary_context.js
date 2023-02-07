@@ -60,7 +60,7 @@ export const DiaryProvider = ({ children }) => {
 
     if (user !== undefined) {
       
-      Update()
+  
     }
 
   }, [user])

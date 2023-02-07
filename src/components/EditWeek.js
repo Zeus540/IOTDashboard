@@ -102,7 +102,7 @@ display: flex;
 `;
 
 const Button = styled.button`
-  padding: 5px 25px;
+  padding: 8px 25px;
   background: #8bab50;
   color: white;
   border: none;
@@ -146,6 +146,7 @@ const EditWeek = (props) => {
             console.log("response.data",response.data);
             enqueueSnackbar("Week Successfully Edited",{variant:'success'})
             Update()
+        
             props.setPopUpOffset(-101);
           
           }else{
