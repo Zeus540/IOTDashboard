@@ -129,7 +129,7 @@ border-radius: 5px;
 const BlockHolderFlex = styled.div`
 display: flex;
 flex-wrap: wrap;
-justify-content: space-between;
+
 `;
 
 const BlockHeading = styled.div`
@@ -196,7 +196,9 @@ background-size: cover!important;
 
 const ProfileUser = () => {
 
-  const [userList, setUser] = useState([]);
+  const [user, setUser] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
+  
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth,authToken,userId } = useContext(AuthContext);
@@ -209,9 +211,7 @@ const ProfileUser = () => {
 
   useEffect(() => {
   
- 
-
-    axios.get(`${BASE_URL_PROD}/users`)
+    axios.post(`${BASE_URL_PROD}/users/by_id`,{userId:params.userId})
       .then(function (response) {
 
         console.log(response.data.filter((u) => u.UserId == params.userId))
@@ -223,6 +223,19 @@ const ProfileUser = () => {
         console.log(error);
       })
 
+      axios.post(`${BASE_URL_PROD}/users/user_info`,{userId:params.userId})
+      .then(function (response) {
+
+    
+        setUserInfo([response.data])
+   
+      })
+      .catch(function (error) {
+
+        console.log(error);
+      })
+  
+
   
   }, [])
   
@@ -230,20 +243,7 @@ const ProfileUser = () => {
   
 
 
-  const handleAddPopUp = (d) => {
-    if (popUpOffset == -101) {
-      setPopUpOffset(0);
-    } else {
-      setPopUpOffset(-101);
-    }
-  };
 
-
-  
-
-
-
-  
   return (
 
     <>
@@ -257,37 +257,39 @@ const ProfileUser = () => {
       
 
           <UserInfoTop>
-                  <UserAvatar style={{backgroundImage:`url(${userList?.User_Img})`}}>
+                  <UserAvatar style={{backgroundImage:`url(${user?.User_Img})`}}>
                   
                   </UserAvatar>
 
                 <UserInfoTopRight>
-                <MainHeadingSmall>{userList.UserName}</MainHeadingSmall>
+                <MainHeadingSmall>{user.UserName}</MainHeadingSmall>
 
 
                
 
                 <BlockHolderFlex>
-<BlockHolder>
-               <Block>
-               <BlockHeading>Diaries</BlockHeading>
-                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
-               </Block>
-               </BlockHolder>
+                  {userInfo?.map((info) =>{
+                    return(
+                  <>
+                      <BlockHolder>
+                      <Block>
+                      <BlockHeading>Diaries</BlockHeading>
+                        <BlockNum>{info.Amount_Of_Diaries}</BlockNum>
+                      </Block>
+                    </BlockHolder>
+                    <BlockHolder>
+                    <Block>
+                    <BlockHeading>Comments</BlockHeading>
+                      <BlockNum>{info.Amount_Of_Comments}</BlockNum>
+                    </Block>
+                  </BlockHolder>
+                  </>
+                    )
+                  })}
 
-               <BlockHolder>
-               <Block>
-               <BlockHeading>Comments</BlockHeading>
-                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
-               </Block>
-               </BlockHolder>
+            
 
-               <BlockHolder>
-               <Block>
-               <BlockHeading>Diaries</BlockHeading>
-                <BlockNum>{userList.Amount_of_Diaries}</BlockNum>
-               </Block>
-               </BlockHolder>
+             
                </BlockHolderFlex>
           </UserInfoTopRight>
                 </UserInfoTop>
