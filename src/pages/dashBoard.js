@@ -112,14 +112,11 @@ const IntroHolder = styled.div`
 const IntroHolderDay = styled.div`
   margin-bottom: 0px;
   padding: 10px 0px;
-
+  padding-top: 15px;
   display: flex;
   justify-content: end;
   flex-direction: row-reverse;
   justify-content: space-between;
-
-
-
 `;
 
 const Flex = styled.div`
