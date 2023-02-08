@@ -1311,7 +1311,7 @@ const DashBoard = (props) => {
 
   const UpdateTech = (data) => {
     axios
-      .post(`${BASE_URL_PROD}/techniques/by_week_id`, data)
+      .post(`${BASE_URL_PROD}/techniques/by_week_id`, {WeekId:weekId})
       .then(function (response) {
 
         setTechniques(response.data)
