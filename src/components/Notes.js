@@ -161,7 +161,9 @@ const NotesHolder = (props) => {
  }else{
   setKeyNote(false)
  }
-  }, [])
+
+ setNotes(props.daysNotes)
+  }, [props])
   
   
     const handleSubmit = ()=>{
@@ -178,7 +180,7 @@ const NotesHolder = (props) => {
         .then(function (response) {
           
        
-            props.setDaysNotes(notes)
+            props.setDaysNotes({Notes:notes})
             props.setAddNotes(-101)
             
         })

@@ -1616,6 +1616,10 @@ const DashBoard = (props) => {
   };
 
 
+  const setNotes =(note)=>{
+    setDaysNotes(note)
+  }
+
   return (
 
 
@@ -1764,8 +1768,8 @@ const DashBoard = (props) => {
                   </TextHolder>
                 }
 
-
-                {dayId !== null &&
+{console.log("daysNotes",daysNotes)}
+{(weekId !== undefined && dayId !== undefined) && 
                   <TextHolder>
 
                     <HeadingCta>
@@ -1793,19 +1797,21 @@ const DashBoard = (props) => {
           </RightFlexHolder>
         </FlexTop>
 
-       <NotePopUpHolder addNotes={addNotes}>
-          <NotesPopUp
-            setAddNotes={setAddNotes}
-            setDaysNotes={setDaysNotes}
-            daysNotes={daysNotes?.Notes ? daysNotes?.Notes : daysNotes}
-            diaryDatas={diaryData}
-            keyNote={daysNotes?.KeyNote}
 
-          >
+         <NotePopUpHolder addNotes={addNotes}>
+         <NotesPopUp
+           setAddNotes={setAddNotes}
+           setDaysNotes={setNotes}
+           daysNotes={daysNotes?.Notes ? daysNotes?.Notes : daysNotes}
+           diaryDatas={diaryData}
+           keyNote={daysNotes?.KeyNote}
 
-            {activeDiaryNotes}
-          </NotesPopUp>
-          </NotePopUpHolder>
+         >
+
+           {activeDiaryNotes}
+         </NotesPopUp>
+         </NotePopUpHolder>
+   
 
 
 
