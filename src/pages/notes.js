@@ -100,7 +100,8 @@ width: fit-content;
 text-align: center;
 border-radius: 5px;
 margin: 10px 10px;
-min-width: 70px;
+max-width: 70px;
+width: calc(100% / 4 - 20px);
 background: #c5c5c5;
 cursor: pointer;
 opacity:0.5;
@@ -111,6 +112,9 @@ justify-content: space-between;
   opacity: 1;
 
 }
+@media (min-width: 0px) and (max-width: 375px) {
+  width: calc(100% / 3 - 20px);
+}
 `;
 
 const WeekHolderActive = styled.div`
@@ -118,7 +122,8 @@ const WeekHolderActive = styled.div`
   text-align: center;
   border-radius: 5px;
   margin: 10px 10px;
-  min-width: 70px;
+  max-width: 70px;
+  width: calc(100% / 4 - 20px);
   background: #c5c5c5;
   cursor: pointer;
   
@@ -126,16 +131,29 @@ const WeekHolderActive = styled.div`
   display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media (min-width: 0px) and (max-width: 375px) {
+      width: calc(100% / 3 - 20px);
+    }
+
 `;
 
 const WeekHolderInner = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap:wrap;
-  width: 40%;
+  width: 60%;
   margin: 0 auto;
-  @media (min-width: 0px) and (max-width: 1220px) {
+  @media (min-width: 0px) and (max-width: 375px) {
     width: 100%;
+  }
+  @media (min-width: 376px) and (max-width: 610px) {
+    width: 100%;
+  }
+  @media (min-width: 611px) and (max-width: 768px) {
+    width: 70%;
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    width: 60%;
   }
 `;
 
