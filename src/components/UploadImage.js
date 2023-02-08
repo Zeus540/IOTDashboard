@@ -186,6 +186,7 @@ if(props.DayId !== ''){
        setImgName("")
        setImgBase64(base64String)
        setLoading(false)
+       props.updateDays()
        props.update()
        enqueueSnackbar("Image Successfully Uploaded",{variant:'success'})
      }else{

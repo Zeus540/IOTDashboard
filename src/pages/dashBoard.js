@@ -45,7 +45,7 @@ const MenuLink = styled(NavLink)`
 
 const MenuLinkB = styled(NavLink)`
   margin: 0px 0px;
-  padding: 16px 10px;
+  padding: 0px 10px;
 
   color: #8bab50;
   align-items: center;
@@ -112,7 +112,7 @@ const IntroHolder = styled.div`
 const IntroHolderDay = styled.div`
   margin-bottom: 0px;
   padding: 10px 0px;
-  padding-top: 0px;
+
   display: flex;
   justify-content: end;
   flex-direction: row-reverse;
@@ -377,7 +377,7 @@ const TextHolder = styled.div`
 `;
 
 const TextHolderHeading = styled.h3`
-  margin-bottom: 0px;
+  margin: 0px;
   color:black;
 `;
 const DairyHeading = styled.h3`
@@ -676,7 +676,7 @@ const HeadingCta = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 0px;
-  margin-top:0px;
+
 `;
 
 const HeadingCtaButton = styled.button`
@@ -1321,6 +1321,19 @@ const DashBoard = (props) => {
       });
   }
 
+  const UpdateDays = (data) => {
+    axios
+    .post(`${BASE_URL_PROD}/days`, {WeekId:weekId})
+    .then(function (response) {
+  
+      setDays(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+ 
   const handleGetDayData = (days, day) => {
     setPositionIndex(0)
     setPosition(0)
@@ -1621,7 +1634,7 @@ const DashBoard = (props) => {
 
       <PopUp popUpOffset={popUpOffsetFeeding} setPopUpOffset={setPopUpOffsetFeeding} type="uploadFeeding" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
 
-      <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} />
+      <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} updateDays={UpdateDays}/>
 
 
 

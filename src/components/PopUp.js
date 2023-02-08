@@ -91,7 +91,7 @@ const PopUp = (props) => {
     <AddDiary setPopUpOffset={props.setPopUpOffset} popUpOffset={props.popUpOffset}/>
 }
 {props.type == "uploadImage" && 
-    <UploadImage popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update}/>
+    <UploadImage popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update} updateDays={props.updateDays}/>
 }
 
 {props.type == "addWeek" && 

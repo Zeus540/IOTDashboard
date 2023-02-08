@@ -223,9 +223,9 @@ const Diaries = () => {
 
 
   useEffect(() => {
-  if(diaries.length < 1){
+
     Update()
-  }
+  
     document.title = "Sweet Leaf - My Diaries" 
   }, [])
 
