@@ -49,7 +49,7 @@ flex-direction: column;
 
 `
 const ToggleHolderLabel = styled.div`
-color:black;
+color:#596876;
 padding: 0px 10px;
 display: flex;
 
@@ -57,7 +57,7 @@ display: flex;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: black;
+fill: #596876;
 `;
 
 const CheckFlex = styled.div`
@@ -117,7 +117,7 @@ border: none;
 border-bottom: 2px solid #8bab50;
 padding: ${(props) => !props.assignDevice ? "0px" : "5px 5px"};
 width: ${(props) => !props.assignDevice ? "0px" : "unset"};
-color: black;
+color: #596876;
 transition: 0.5s all ease;
 @media (max-width: 425px) {
   width: ${(props) => !props.assignDevice ? "0px" : "100%"};

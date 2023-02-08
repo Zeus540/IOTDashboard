@@ -76,7 +76,7 @@ padding-left: 20px;
 
 const LogoHolderText = styled.span`
 
-color: black;
+color: #596876;
 font-size: 12px;
 margin-top: -16px;
 display: block;
@@ -115,7 +115,7 @@ const MenuLink = styled(NavLink)`
   margin: 0px 0px;
   padding: 16px 10px;
 
-  color: black;
+  color: #596876;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -127,7 +127,7 @@ const MenuLinkTop = styled(NavLink)`
   margin: 0px 0px;
   padding: 0px 10px;
 
-  color: black;
+  color: #596876;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -154,7 +154,7 @@ const MenuLinkMobile = styled(NavLink)`
   margin: 0px 0px;
   padding: 15px 15px;
   text-align: center;
-  color: black;
+  color: #596876;
   text-decoration: none;
   background:transparent
 
@@ -272,7 +272,7 @@ align-items: center;
 
 const UserInfoTop = styled.div`
 display: flex;
-color: black;
+color: #596876;
 padding: 0px 10px;
 align-items: center;
 `;
@@ -310,7 +310,7 @@ padding-top: 20px;
 `;
 const SvgWMenu = styled.svg`
 
-fill: #929292;
+fill: #596876;
 width: 20px;
 
 
@@ -323,7 +323,7 @@ width: 20px;
 
 const SvgWMenuDraw = styled.svg`
 
-fill: #929292;
+fill: #596876;
 width: 20px;
 padding-left: 20px;
 

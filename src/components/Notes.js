@@ -87,7 +87,7 @@ padding: 5px 15px;
 border-radius: 5px 5px 0px 0px;
 justify-content: space-between;
 background: #ffffff;
-    color: black;
+    color: #596876;
 `;
 
 const InputGrp = styled.div`
@@ -105,7 +105,7 @@ font-weight:bold;
 `;
 
 const ToggleHolderLabel = styled.label`
-color:black;
+color:#596876;
 
 margin-left: 10px;
 `;

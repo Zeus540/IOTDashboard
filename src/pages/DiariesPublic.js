@@ -50,7 +50,7 @@ const Inner = styled.div`
 `;
 
 
-const MainHeading = styled.div`
+const MainHeading = styled.h1`
   margin: 0px 0px;
   font-size: 20px;
   margin-top: 0px;
@@ -82,7 +82,7 @@ margin: 10px;
 border-radius: 5px;
 
 text-decoration: none;
-color: black;
+color: #596876;
 @media (max-width: 425px) {
   max-width: calc(100% / 1 - 20px);
   width: 100%;

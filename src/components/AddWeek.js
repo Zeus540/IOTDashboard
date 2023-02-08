@@ -59,12 +59,12 @@ padding: 20px 15px;
 
 
 const Button = styled.button`
-  padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+padding: 8px 25px;
+background: #ffffff00;
+color: #8bab50;
+border-radius: 5px;
+cursor: pointer;
+border: 1px solid #8bab50;
 `;
 
 const AddWeek = (props) => {

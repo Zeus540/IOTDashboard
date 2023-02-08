@@ -40,7 +40,8 @@ const Heading = styled.h4`
   content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -48,7 +49,8 @@ const Heading = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   },
@@ -76,7 +78,7 @@ const Inner = styled.div`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: black;
+  color: #596876;
 `;
 
 const TextHolderGroup2 = styled.div`

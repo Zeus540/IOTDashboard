@@ -215,11 +215,11 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
 
   display: flex;
-  color: black;
+  color: #596876;
   opacity: 0.5;
   flex-direction: column;
   justify-content: space-between;
@@ -234,7 +234,7 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: #d9e1e2;
+background: #f8f8ff;
 cursor: pointer;
 opacity: 0.5;
 display: flex;
@@ -253,9 +253,9 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
-  color: black;
+  color: #596876;
 
   transition: all 0.2s ease;
   display: flex;
@@ -361,10 +361,10 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin: 0px;
-  color:black;
+  color:#596876;
 `;
 const DairyHeading = styled.h3`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -373,7 +373,7 @@ color:black;
   }
 `;
 const DairyHeadingTitle = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -384,7 +384,7 @@ color:black;
 `;
 
 const DairyHeadingTitleC = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   cursor: pointer;
   font-size: 16px;
@@ -464,16 +464,24 @@ const GalleryImageOverlay = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   flex-direction: row-reverse;
-}
+
   top: 0;
   z-index: 40;
-  color: black;
+  color: #596876;
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #d9e1e2;
+  background: #8bab50;
 `;
+
+const GalleryImageOverlayText = styled.p`
+  
+  color: white!important;
+ 
+`;
+
 
 const GalleryHolderInnerMain = styled.div`
 overflow:hidden;
@@ -600,7 +608,7 @@ const Heading = styled.h4`
   margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
-  color: black;
+  color: #596876;
   &::before {
     content: "";
     display: block;
@@ -630,7 +638,7 @@ const HeadingC = styled.h4`
   margin-bottom: 40px;
   margin-top: 40px;
   align-items: center;
-  color: black;
+  color: #596876;
   @media (min-width: 0px) and (max-width: 768px) {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -671,7 +679,7 @@ border-radius: 5px;
 cursor: pointer;
 `;
 
-const NoData = styled.div`
+const NoData = styled.p`
   padding: 15px 0px;
   font-size: 18px;
 `;
@@ -693,7 +701,7 @@ const DayDotInner = styled.div`
   margin: 15px 10px;
   flex-direction: column;
   align-items: center;
-color:black
+color:#596876
 `;
 
 const DayDot = styled.div`
@@ -701,11 +709,11 @@ const DayDot = styled.div`
   height: 10px;
 
   border-radius: 50%;
-  margin: 0px 5px;
+  margin: 5px 5px;
   cursor: pointer;
   opacity: 0.5;
  
-  background: #d9e1e2;
+  background: #f8f8ff;
   &:hover {
     opacity: 1;
  
@@ -727,7 +735,7 @@ const DayDotActive = styled.div`
   height: 10px;
   background: #8bab50;
   border-radius: 50%;
-  margin: 0px 5px;
+  margin: 5px 5px;
   cursor: pointer;
   transform: scale(1.4);
  
@@ -737,7 +745,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #859ea34f;
+  background: #f8f8ff;
 
   border-radius: 5px;
 `;
@@ -754,7 +762,7 @@ const DayDotOutter = styled.div`
 
 const Helper = styled.p`
 text-align:center;
-color: black;
+color: #596876;
 margin-top: 0;
 
 `;
@@ -816,18 +824,15 @@ display: flex;
 align-items: center;
 display: flex;
 align-items: center;
-background: #8bab50;
+background: #ffffff;
 padding: 5px 20px;
 
-
+border: 1px solid #8bab50;
 width: fit-content;
-border: none;
 
 color: #596876;
 border-radius: 5px;
 cursor: pointer;
-
-
 @media (max-width: 425px) {
 
  
@@ -837,7 +842,7 @@ cursor: pointer;
 const LikeButtonText = styled.p`
 margin: 0px;
 padding: 0px 10px;
-color: #ffffff;
+color: #8bab50!important;
 padding-top: 0px;
 `;
 
@@ -861,7 +866,7 @@ margin-right:10px;
 
 const QuickActionBlock = styled.div`
 padding: 10px 20px;
-background: #d9e1e2;
+background: #f8f8ff;
 margin: 0px 10px;
 color: #596876;
 margin-left: 0px;
@@ -904,7 +909,7 @@ margin-right: 10px;
 
 const SvgL = styled.svg`
 width: 25px;
-fill:white;
+fill:#8bab50;
 margin-right: 10px;
 `;
 
@@ -916,7 +921,7 @@ margin-right: 10px;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: black;
+fill: #596876;
 `;
 
 const SvgB = styled.svg`
@@ -932,7 +937,7 @@ fill: white;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: black;
+color: #596876;
 padding: 0px 0px;
 padding-top: 20px;
 `;
@@ -941,7 +946,7 @@ const SetImageHolder = styled.div`
 position: absolute;
 z-index: 50;
 background: #8bab50;
-color: black;
+color: #596876;
 padding-left: 10px;
 border-radius: 5px 0px 5px 0px;
 display: flex;
@@ -949,7 +954,7 @@ display: flex;
 
 const ChatHolder = styled.div`
 position: relative;
-color: black;
+color: #596876;
 min-height: 200px;
 background: #e7e7e7;
 // border: 1px solid #b1b1b1;
@@ -975,7 +980,7 @@ margin-bottom: 10px;
 `;
 
 const ChatMsgUser = styled.div`
-color: black;
+color: #596876;
 font-size: 12px;
 :hover{
   color: #8bab50;
@@ -1584,7 +1589,7 @@ const DashBoardPublic = (props) => {
                     <DairyHeading>{activeDiary?.Title} </DairyHeading>
 
                     <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
-                    <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
+               
 
                   </div>
 
@@ -1838,8 +1843,8 @@ const DashBoardPublic = (props) => {
 
 
 
-                            <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
-                            <div> Date : {img?.Date} </div>
+                            <GalleryImageOverlayText> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </GalleryImageOverlayText>
+                            <GalleryImageOverlayText> Date : {img?.Date} </GalleryImageOverlayText>
 
 
                           </GalleryImageOverlay>

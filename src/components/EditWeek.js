@@ -91,7 +91,7 @@ padding: 5px 20px;
 margin-bottom: 20px;
 margin-right: 20px;
 display: flex;
-background: #859ea34f;
+background: #f8f8ff;
 border-radius: 5px;
 align-items: center;
 `;
@@ -102,14 +102,13 @@ display: flex;
 `;
 
 const Button = styled.button`
-  padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+padding: 8px 25px;
+background: #ffffff00;
+color: #8bab50;
+border-radius: 5px;
+cursor: pointer;
+border: 1px solid #8bab50;
 `;
-
 const EditWeek = (props) => {
   const {enqueueSnackbar} = useSnackbar()
     const { diaries,Update,loading } = useContext(DiaryContext);

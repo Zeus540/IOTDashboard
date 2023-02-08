@@ -71,7 +71,7 @@ const TabActive = styled.div`
 text-align: center;
   cursor: pointer;
  
-  color: black;
+  color: #596876;
   font-weight: bold;
   padding: 10px 20px;
   height: fit-content;
@@ -85,7 +85,7 @@ const TabInActive = styled.div`
 text-align: center;
   cursor: pointer;
  
-  color: black;
+  color: #596876;
 
   padding: 10px 20px;
   height: fit-content;

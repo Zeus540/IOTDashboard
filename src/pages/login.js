@@ -70,10 +70,11 @@ padding: 8px 25px;
 width: fit-content;
 
 border:none;
-background:#8bab50;
-color:white;
+background: #ffffff;
+color:#8bab50;
 border-radius:5px;
 cursor:pointer;
+border: 1px #8bab50 solid;
 `;
 
 const Heading = styled.h1`

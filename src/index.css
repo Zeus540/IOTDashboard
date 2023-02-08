@@ -9,9 +9,15 @@
 
 h1,h3,h2,h4,h6{
   font-family: baloonB!important;
+  color: #596876!important;
 }
 p{
   font-family: baloonR!important;
+  color: #596876!important;
+  margin: 0px;
+}
+li{
+  color: #596876!important;
 }
 body,button {
   margin: 0;

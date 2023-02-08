@@ -81,10 +81,10 @@ color: #f44336;
 const Button = styled.button`
 padding: 8px 25px;
 width: fit-content;
+border: 1px #8bab50 solid;
 
-border:none;
-background:#8bab50;
-color:white;
+background: #ffffff;
+color:#8bab50;
 border-radius:5px;
 cursor:pointer;
 margin: 15px ;

@@ -47,7 +47,7 @@ const MenuLinkB = styled(NavLink)`
   margin: 0px 0px;
   padding: 0px 10px;
 
-  color: #8bab50;
+  color: #596876;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -229,11 +229,11 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
 
   display: flex;
-  color: black;
+  color: #596876;
   opacity: 0.5;
   flex-direction: column;
   justify-content: space-between;
@@ -248,12 +248,12 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: #d9e1e2;
+background: #f8f8ff00;
 cursor: pointer;
 opacity: 0.5;
 display: flex;
-height: 88px;
-
+height: 84px;
+border: 1px solid #8bab50;
 justify-content: center;
   &:hover {
     opacity: 1;
@@ -267,9 +267,9 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
-  color: black;
+  color: #596876;
 
   transition: all 0.2s ease;
   display: flex;
@@ -375,10 +375,10 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin: 0px;
-  color:black;
+  color:#596876;
 `;
 const DairyHeading = styled.h3`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -387,7 +387,7 @@ color:black;
   }
 `;
 const DairyHeadingTitle = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -398,7 +398,7 @@ color:black;
 `;
 
 const DairyHeadingTitleC = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   cursor: pointer;
   font-size: 16px;
@@ -478,16 +478,24 @@ const GalleryImageOverlay = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   flex-direction: row-reverse;
-}
+
   top: 0;
   z-index: 40;
-  color: black;
+  color: #596876;
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #d9e1e2;
+  background: #8bab50;
 `;
+
+const GalleryImageOverlayText = styled.p`
+  
+  color: white!important;
+ 
+`;
+
 
 const GalleryHolderInnerMain = styled.div`
 overflow:hidden;
@@ -614,12 +622,14 @@ const Heading = styled.h4`
   margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
-  color: black;
+  color: #596876;
   &::before {
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
+
     width: 15%;
     margin: 0px 20px;
   }
@@ -627,7 +637,9 @@ const Heading = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
+
     width: 15%;
     margin: 0px 20px;
   },
@@ -644,7 +656,7 @@ const HeadingC = styled.h4`
   margin-bottom: 40px;
   margin-top: 40px;
   align-items: center;
-  color: black;
+  color: #596876;
   @media (min-width: 0px) and (max-width: 768px) {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -653,7 +665,8 @@ const HeadingC = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -661,7 +674,8 @@ const HeadingC = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   },
@@ -678,14 +692,15 @@ const HeadingCta = styled.div`
 
 const HeadingCtaButton = styled.button`
 padding: 8px 25px;
-background: #8bab50;
+background:#f8f8ff00 ;
 border: none;
-color: white;
+color: #8bab50;
 border-radius: 5px;
 cursor: pointer;
+border: 1px solid #8bab50;
 `;
 
-const NoData = styled.div`
+const NoData = styled.p`
   padding: 15px 0px;
   font-size: 18px;
 `;
@@ -707,7 +722,7 @@ const DayDotInner = styled.div`
   margin: 15px 10px;
   flex-direction: column;
   align-items: center;
-color:black
+color:#596876
 `;
 
 const DayDot = styled.div`
@@ -715,11 +730,11 @@ const DayDot = styled.div`
   height: 10px;
 
   border-radius: 50%;
-  margin: 0px 5px;
+  margin: 5px 5px;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 1;
  
-  background: #d9e1e2;
+  background: #e3e3f3;
   &:hover {
     opacity: 1;
  
@@ -741,7 +756,7 @@ const DayDotActive = styled.div`
   height: 10px;
   background: #8bab50;
   border-radius: 50%;
-  margin: 0px 5px;
+  margin: 5px 5px;
   cursor: pointer;
   transform: scale(1.4);
  
@@ -751,7 +766,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #859ea34f;
+  background: #f8f8ff;
 
   border-radius: 5px;
 `;
@@ -768,7 +783,7 @@ const DayDotOutter = styled.div`
 
 const Helper = styled.p`
 text-align:center;
-color: black;
+color: #596876;
 margin-top: 0;
 
 `;
@@ -782,22 +797,52 @@ justify-content: end;
    
 `;
 
-const HelperBtn = styled.button`
+const HelperBtnR = styled.button`
 display: flex;
 align-items: center;
 text-align: center;
     padding: 2px 20px;
-    background: #8bab50;
+    background: #f8f8ff00;
+
+
     border: none;
     color: white;
     border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
+    border: 1px solid #f44336;
+`;
 
+const HelperBtn = styled.button`
+display: flex;
+align-items: center;
+text-align: center;
+    padding: 2px 20px;
+    background: #f8f8ff00;
+
+
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 1px solid #8bab50;
 `;
 
 const HelperBtnText = styled.p`
-color: white;
+color: #8bab50!important;
+padding: 5px 10px;
+margin: 0;
+`;
+
+const HelperBtnTextW = styled.p`
+color: white!important;
+padding: 5px 10px;
+margin: 0;
+`;
+
+const HelperBtnTextR = styled.p`
+color: #f44336!important;
 padding: 5px 10px;
 margin: 0;
 `;
@@ -867,7 +912,7 @@ margin-right:10px;
 
 const QuickActionBlock = styled.div`
 padding: 10px 20px;
-background: #d9e1e2;
+background: #f8f8ff;
 margin: 0px 10px;
 color: #596876;
 margin-left: 0px;
@@ -912,7 +957,7 @@ margin-right: 10px;
 
 const SvgL = styled.svg`
 width: 20px;
-fill:#8bab50;
+fill:#596876;
 margin-right: 10px;
 `;
 
@@ -924,23 +969,27 @@ margin-right: 10px;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: black;
+fill: #f44336;
+`;
+const SvgS = styled.svg`
+width: 20px;
+fill: white;
 `;
 
 const SvgB = styled.svg`
 width: 20px;
-fill: white;
+fill: #8bab50;
 `;
 
 const AddWeekSvg = styled.svg`
 width: 20px;
-fill: white;
+fill: #8bab50;
 `;
 
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: black;
+color: #596876;
 padding: 0px 0px;
 padding-top: 20px;
 `;
@@ -949,7 +998,7 @@ const SetImageHolder = styled.div`
 position: absolute;
 z-index: 50;
 background: #8bab50;
-color: black;
+color: #596876;
 padding-left: 10px;
 border-radius: 5px 0px 5px 0px;
 display: flex;
@@ -957,7 +1006,7 @@ display: flex;
 
 const ChatHolder = styled.div`
 position: relative;
-color: black;
+color: #596876;
 min-height: 200px;
 background: #e7e7e7;
 // border: 1px solid #b1b1b1;
@@ -983,7 +1032,7 @@ margin-bottom: 10px;
 `;
 
 const ChatMsgUser = styled.div`
-color: black;
+color: #596876;
 font-size: 12px;
 :hover{
   color: #8bab50;
@@ -997,6 +1046,7 @@ padding: 5px 10px;
 display: flex;
 border-radius: 5px;
 line-height: 20px;
+color:white!important;
 `;
 
 const ChatMsgCommentFlex = styled.div`
@@ -1693,7 +1743,7 @@ const DashBoard = (props) => {
                         </SvgHolder>
 
                         <SvgHolder onClick={() => { handleDiarySettings() }}>
-                          <Cog fill="#183153" />
+                          <Cog fill="#596876" />
                         </SvgHolder>
 
                         <SvgHolder onClick={() => { handleDeleteDiary() }}>
@@ -1723,7 +1773,7 @@ const DashBoard = (props) => {
                     <DairyHeading>{activeDiary?.Title} </DairyHeading>
 
                     <DairyHeadingTitleC onClick={() => { handleUserProfile(activeDiary) }}>{activeDiary?.UserName}</DairyHeadingTitleC>
-                    <DairyHeadingTitle>Strain : {activeDiary?.Strain}</DairyHeadingTitle>
+                 
 
                   </div>
 
@@ -1857,9 +1907,9 @@ const DashBoard = (props) => {
                   <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M373.1 24.97C401.2-3.147 446.8-3.147 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97zM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91zM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6zM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200z" /></SvgB>
                   <HelperBtnText>Edit Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
 
-              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtn>
-                <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></Svg>
-                <HelperBtnText>  Delete Week</HelperBtnText></HelperBtn></HelperBtnHolder>}
+              {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleDeleteWeek() }}><HelperBtnR>
+                <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></SvgW>
+                <HelperBtnTextR>  Delete Week</HelperBtnTextR></HelperBtnR></HelperBtnHolder>}
 
 
 
@@ -2025,7 +2075,7 @@ const DashBoard = (props) => {
                         <GalleryImageHolderFlex key={index} >
                           {activeDiary.UserId == user?.UserId &&
                             <SetImageHolder onClick={() => { handleThumbnailUpdate(img.DiaryId, img?.Image) }}>
-                              <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgB>   <HelperBtnText>Set Cover</HelperBtnText>
+                              <SvgS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgS>   <HelperBtnTextW>Set Cover</HelperBtnTextW>
                             </SetImageHolder>
                           }
                           <GalleryImageHolder img={img?.Image} onClick={() => {
@@ -2039,8 +2089,8 @@ const DashBoard = (props) => {
 
 
 
-                            <div> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </div>
-                            <div> Date : {img?.Date} </div>
+                            <GalleryImageOverlayText> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </GalleryImageOverlayText>
+                            <GalleryImageOverlayText> Date : {img?.Date} </GalleryImageOverlayText>
 
 
                           </GalleryImageOverlay>
@@ -2057,10 +2107,10 @@ const DashBoard = (props) => {
             {galleryData.length > 0 &&
               <>
                 <GalleryNext onClick={() => { HandleNext() }}>
-                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></SvgB>
+                  <SvgS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></SvgS>
                 </GalleryNext>
                 <GalleryBack onClick={() => { HandleBack() }}>
-                  <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></SvgB>
+                  <SvgS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></SvgS>
                 </GalleryBack>
               </>
             }
@@ -2152,7 +2202,7 @@ const DashBoard = (props) => {
               <ChatInput value={comment} onChange={(e) => { HandleComment(e) }} placeholder="Comment Here......." />
 
               <ChatButton onClick={(e) => { SendComment(e) }}>
-                <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" /></SvgB>
+                <SvgS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" /></SvgS>
               </ChatButton>
             </Form>
           </ChatInputHolder>

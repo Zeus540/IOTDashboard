@@ -82,7 +82,7 @@ display: flex;
     justify-content: space-between;
 text-decoration: none;
 align-items: center;
-color: black;
+color: #596876;
 
 &:hover {
   background: ghostwhite;

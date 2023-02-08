@@ -30,7 +30,7 @@ const Flex2 = styled.div`
 `;
 
 const Heading = styled.h4`
-color: black;
+color: #596876;
   text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
@@ -44,7 +44,8 @@ color: black;
   content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -52,7 +53,8 @@ color: black;
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   },
@@ -77,11 +79,20 @@ const Inner = styled.div`
 `;
 
 const TextHeading = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
+font-size: 18px;
+color: #ffffff;
+padding: 10px;
+background: #8bab50;
+border-radius: 5px 5px 0px 0px;
 `;
 
+
+const TextHeadingInfo = styled.p`
+
+padding: 10px;
+
+border-radius: 5px 5px 0px 0px;
+`;
 const TextHolderGroup2 = styled.div`
 
   display: flex;
@@ -89,15 +100,15 @@ const TextHolderGroup2 = styled.div`
   justify-content: center;
   color: #8bab50;
   background: ghostwhite;
-  padding: 10px ;
+
   line-height: 20px;
   margin: 10px;
   border-radius: 5px;
-  min-width: calc(100% / 5 - 40px);
-  max-width: calc(100% / 5 - 40px);
+  min-width: calc(100% / 5 - 20px);
+  max-width: calc(100% / 5 - 20px);
   @media (max-width: 600px) {
-    min-width: calc(100% / 2 - 50px);
-    padding: 10px;
+    min-width: calc(100% / 2 - 30px);
+
   }
   @media (min-width: 601px) and (max-width: 768px) {
     max-width: unset;
@@ -107,13 +118,16 @@ const TextHolderGroup2 = styled.div`
 
 const TextHolderGroup2Inner = styled.div`
   width: 100%;
+  display: flex;
 
+  height: 100%;
+  flex-direction: column;
 `;
 
 const NoData = styled.div`
   padding: 15px 0px;
   font-size: 18px;
-  color: black;
+  color: #596876;
 `;
 const NoDataHolder = styled.div`
   width: 100%;
@@ -209,9 +223,9 @@ const StatsLower = (props) => {
           <TextHolderGroup2Inner>
           <TextHeading>Ph</TextHeading>
             {ph == null ? (
-              "N/A"
+               <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <>{ph}</>
+              <TextHeadingInfo>{ph}</TextHeadingInfo>
             )}
                   
                 </TextHolderGroup2Inner>
@@ -222,9 +236,9 @@ const StatsLower = (props) => {
           <TextHolderGroup2Inner>
           <TextHeading>Temperature</TextHeading>
             {temp == 0 ? (
-              "N/A"
+              <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <>{temp} &#8451;</>
+              <TextHeadingInfo>{temp} &#8451; </TextHeadingInfo>
             )}
                   
                 </TextHolderGroup2Inner>
@@ -234,9 +248,9 @@ const StatsLower = (props) => {
           <TextHolderGroup2Inner>
           <TextHeading>Humidity</TextHeading>
             {humidity == 0 ? (
-              "N/A"
+            <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <>{humidity} </>
+              <TextHeadingInfo>{humidity}  %  </TextHeadingInfo>
             )}
               
                 </TextHolderGroup2Inner>
@@ -247,9 +261,9 @@ const StatsLower = (props) => {
           <TextHolderGroup2Inner>
           <TextHeading>Co2</TextHeading>
             {co2 == 0 ? (
-              "N/A"
+                <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <>{co2} PPM</>
+              <TextHeadingInfo>{co2} PPM</TextHeadingInfo>
             )}
               
                 </TextHolderGroup2Inner>

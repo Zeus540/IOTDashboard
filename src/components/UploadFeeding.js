@@ -93,7 +93,7 @@ const TypeBlock = styled.div`
 padding: 10px;
 margin: 10px;
 border: 2px white solid;
-background: #859ea34f;
+background: #f8f8ff;
 border-radius: 5px;
 margin-left: 0px;
 display: flex;
@@ -105,7 +105,7 @@ const TypeBlockActive = styled.div`
 padding: 10px;
 margin: 10px;
 border: 2px #8bab50 solid;
-background: #859ea34f;
+background: #f8f8ff;
 border-radius: 5px;
 margin-left: 0px;
 display: flex;
@@ -133,15 +133,13 @@ cursor:pointer;
 `;
 
 const Button = styled.button`
-  padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
+padding: 8px 25px;
+background: #ffffff00;
+color: #8bab50;
+border-radius: 5px;
+cursor: pointer;
+border: 1px solid #8bab50;
 `;
-
 
 const UploadFeeding = (props) => {
 

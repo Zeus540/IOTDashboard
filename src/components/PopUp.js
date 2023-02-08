@@ -20,6 +20,9 @@ import UploadImage from './UploadImage';
 const PopUpHolder = styled.div`
   background: #121b1cc4 ;
   top: 0;
+  //background: rgb(5 11 36 / 75%);
+  top: 0px;
+  backdrop-filter: blur(5px);
   position: fixed;
   z-index: 999;
   min-height: 100vh;
@@ -48,7 +51,7 @@ const ClosePopUpHolder = styled.div`
 `;
 
 
-const ClosePopUpHolderText = styled.p`
+const ClosePopUpHolderText = styled.div`
   text-align: center;
 
   font-size: 30px;
@@ -56,12 +59,12 @@ const ClosePopUpHolderText = styled.p`
   cursor: pointer;
 
   left: 0;
-  color: #a5a5a5;
+  color: #f44336;
   width: 100%;
   transition: all 0.2s ease;
   &:hover {
-    transform: scale(1.2);
-    color: #b62a2a;
+    transform: scale(1.05);
+    color: #f44336;
   }
 `;
 

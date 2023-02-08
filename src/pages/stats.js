@@ -43,7 +43,8 @@ const Heading = styled.h4`
   content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -51,7 +52,8 @@ const Heading = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
+    border-radius: 50px;
     width: 15%;
     margin: 0px 20px;
   },
@@ -76,11 +78,19 @@ const Inner = styled.div`
 `;
 
 const TextHeading = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
+font-size: 18px;
+color: #ffffff;
+padding: 10px;
+background: #8bab50;
+border-radius: 5px 5px 0px 0px;
 `;
 
+const TextHeadingInfo = styled.p`
+
+padding: 10px;
+
+border-radius: 5px 5px 0px 0px;
+`;
 const TextHolderGroup2 = styled.div`
 
   display: flex;
@@ -88,15 +98,15 @@ const TextHolderGroup2 = styled.div`
   justify-content: center;
   color: #8bab50;
   background: ghostwhite;
-  padding: 10px ;
+
   line-height: 20px;
   margin: 10px;
   border-radius: 5px;
-  min-width: calc(100% / 5 - 40px);
-  max-width: calc(100% / 5 - 40px);
+  min-width: calc(100% / 5 - 20px);
+  max-width: calc(100% / 5 - 20px);
   @media (max-width: 600px) {
-    min-width: calc(100% / 2 - 50px);
-    padding: 10px;
+    min-width: calc(100% / 2 - 30px);
+
   }
   @media (min-width: 601px) and (max-width: 768px) {
     max-width: unset;
@@ -106,7 +116,10 @@ const TextHolderGroup2 = styled.div`
 
 const TextHolderGroup2Inner = styled.div`
   width: 100%;
+  display: flex;
 
+  height: 100%;
+  flex-direction: column;
 `;
 
 const NoData = styled.div`
@@ -175,15 +188,16 @@ const Stats = (props) => {
     
             <TextHeading>Strain</TextHeading>
                
-            {activeDiary?.Strain}
+          <TextHeadingInfo>  {activeDiary?.Strain}</TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
        
 
             <TextHeading>Light Schedule</TextHeading>
-            {activeDiary?.Light_Schedule}
+            <TextHeadingInfo> {activeDiary?.Light_Schedule}</TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -191,7 +205,7 @@ const Stats = (props) => {
            
    
             <TextHeading>Light Type</TextHeading>
-            {activeDiary?.Light_Type}
+            <TextHeadingInfo>{activeDiary?.Light_Type}</TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -200,7 +214,7 @@ const Stats = (props) => {
        
       
             <TextHeading>Room Type</TextHeading>
-            {activeDiary?.Room_Type}
+                 <TextHeadingInfo>{activeDiary?.Room_Type}</TextHeadingInfo>
           </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -208,7 +222,7 @@ const Stats = (props) => {
          
        
             <TextHeading>Pot Size</TextHeading>
-            {activeDiary?.Pot_Size}
+                 <TextHeadingInfo>{activeDiary?.Pot_Size}</TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 

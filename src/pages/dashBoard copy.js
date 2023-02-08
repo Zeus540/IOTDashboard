@@ -214,11 +214,11 @@ const WeekHolder = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
 
   display: flex;
-  color: black;
+  color: #596876;
   opacity: 0.5;
   flex-direction: column;
   justify-content: space-between;
@@ -233,7 +233,7 @@ width: fit-content;
 border-radius: 5px;
 margin: 10px 10px;
 min-width: 70px;
-background: #d9e1e2;
+background: #f8f8ff;
 cursor: pointer;
 opacity: 0.5;
 display: flex;
@@ -252,9 +252,9 @@ const WeekHolderActive = styled.div`
   border-radius: 5px;
   margin: 10px 10px;
   min-width: 70px;
-  background: #d9e1e2;
+  background: #f8f8ff;
   cursor: pointer;
-  color: black;
+  color: #596876;
 
   transition: all 0.2s ease;
   display: flex;
@@ -360,10 +360,10 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin-bottom: 0px;
-  color:black;
+  color:#596876;
 `;
 const DairyHeading = styled.h3`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -372,7 +372,7 @@ color:black;
   }
 `;
 const DairyHeadingTitle = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -383,7 +383,7 @@ color:black;
 `;
 
 const DairyHeadingTitleC = styled.p`
-color:black;
+color:#596876;
   margin-top: 0px;
   cursor: pointer;
   font-size: 16px;
@@ -467,11 +467,11 @@ const GalleryImageOverlay = styled.div`
 }
   top: 0;
   z-index: 40;
-  color: black;
+  color: #596876;
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
-  background: #d9e1e2;
+  background: #f8f8ff;
 `;
 
 const GalleryHolderInnerMain = styled.div`
@@ -599,7 +599,7 @@ const Heading = styled.h4`
   margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
-  color: black;
+  color: #596876;
   &::before {
     content: "";
     display: block;
@@ -629,7 +629,7 @@ const HeadingC = styled.h4`
   margin-bottom: 40px;
   margin-top: 40px;
   align-items: center;
-  color: black;
+  color: #596876;
   @media (min-width: 0px) and (max-width: 768px) {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -692,7 +692,7 @@ const DayDotInner = styled.div`
   margin: 15px 10px;
   flex-direction: column;
   align-items: center;
-color:black
+color:#596876
 `;
 
 const DayDot = styled.div`
@@ -704,7 +704,7 @@ const DayDot = styled.div`
   cursor: pointer;
   opacity: 0.5;
  
-  background: #d9e1e2;
+  background: #f8f8ff;
   &:hover {
     opacity: 1;
  
@@ -736,7 +736,7 @@ const DayDotActive = styled.div`
 const Notes = styled.div`
   padding: 20px;
   height: 100%;
-  background: #859ea34f;
+  background: #f8f8ff;
 
   border-radius: 5px;
 `;
@@ -753,7 +753,7 @@ const DayDotOutter = styled.div`
 
 const Helper = styled.p`
 text-align:center;
-color: black;
+color: #596876;
 `;
 
 const HelperBtnHolder = styled.div`
@@ -850,7 +850,7 @@ margin-right:10px;
 
 const QuickActionBlock = styled.div`
 padding: 10px 20px;
-background: #d9e1e2;
+background: #f8f8ff;
 margin: 0px 10px;
 color: #596876;
 margin-left: 0px;
@@ -905,7 +905,7 @@ margin-right: 10px;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: black;
+fill: #596876;
 `;
 
 const SvgB = styled.svg`
@@ -921,7 +921,7 @@ fill: white;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: black;
+color: #596876;
 padding: 0px 0px;
 padding-top: 20px;
 `;
@@ -930,7 +930,7 @@ const SetImageHolder = styled.div`
 position: absolute;
 z-index: 50;
 background: #8bab50;
-color: black;
+color: #596876;
 padding-left: 10px;
 border-radius: 5px 0px 5px 0px;
 display: flex;
@@ -938,7 +938,7 @@ display: flex;
 
 const ChatHolder = styled.div`
 position: relative;
-color: black;
+color: #596876;
 min-height: 200px;
 background: #e7e7e7;
 // border: 1px solid #b1b1b1;
@@ -964,7 +964,7 @@ margin-bottom: 10px;
 `;
 
 const ChatMsgUser = styled.div`
-color: black;
+color: #596876;
 font-size: 12px;
 :hover{
   color: #8bab50;
@@ -1629,7 +1629,7 @@ const DashBoard = (props) => {
 
                       <>
                         <SvgHolder onClick={() => { handleDiarySettings() }}>
-                          <Cog fill="#183153" />
+                          <Cog fill="#596876" />
                         </SvgHolder>
 
                         <SvgHolder onClick={() => { handleDeleteDiary() }}>

@@ -8,7 +8,7 @@ const Root = styled.div`
 box-shadow:  0px 0px 20px #00000012;
 margin: 0px;
     background: #ffffff;
-    color: black;
+    color: #596876;
     padding: 0px 0px;
     box-shadow:  0px 0px 20px #00000012;
 
@@ -43,8 +43,9 @@ width: fit-content;
 const MenuLinkMobile = styled(NavLink)`
   margin: 0px 0px;
   padding: 5px 0px;
+
   text-align: center;
-  color: black;
+  color: #596876;
   text-decoration: none;
   background:transparent
   display: block;
@@ -92,7 +93,7 @@ const Footer = () => {
         <MenuLinkMobile to="/public-diaries" >
                      <FlexLink>
                      
-                       <div>Public Diaries</div>
+                       Public Diaries
                      </FlexLink>
                    </MenuLinkMobile>
 
@@ -102,19 +103,19 @@ const Footer = () => {
                       <MenuLinkMobile to="/my-diaries" >
                      <FlexLink>
                      
-                       <div>My Diaries</div>
+                      My Diaries
                      </FlexLink>
                    </MenuLinkMobile>
                    <MenuLinkMobile to="/my-devices" >
                      <FlexLink>
                      
-                       <div>My Devices</div>
+                      My Devices
                      </FlexLink>
                    </MenuLinkMobile>
                    <MenuLinkMobile to="/users" >
                      <FlexLink>
                      
-                       <div>Users</div>
+                      Users
                      </FlexLink>
                    </MenuLinkMobile>
                    </>
@@ -127,28 +128,28 @@ const Footer = () => {
         <MenuLinkMobile to="/terms" >
                      <FlexLink>
                      
-                       <div>Terms & Conditions</div>
+                       Terms & Conditions
                      </FlexLink>
                    </MenuLinkMobile>
 
                    <MenuLinkMobile to="/privacy-policy" >
                      <FlexLink>
                      
-                       <div>Privacy Policy</div>
+                       Privacy Policy
                      </FlexLink>
                    </MenuLinkMobile>
 
                    <MenuLinkMobile to="/cookie-policy" >
                      <FlexLink>
                      
-                       <div>Cookie Policy</div>
+                       Cookie Policy
                      </FlexLink>
                    </MenuLinkMobile>
 
                    <MenuLinkMobile to="/cookie-policy" >
                      <FlexLink>
                      
-                       <div>Popi</div>
+                       Popi
                      </FlexLink>
                    </MenuLinkMobile>
       </Section>
