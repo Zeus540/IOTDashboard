@@ -67,9 +67,9 @@ const InputHolder = styled.div`
 
 const Button = styled.button`
   padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
+  background: #f0f8ff00;
+  color: #8bab50;
+  border: 1px  #8bab50 solid;
   border-radius: 5px;
   cursor: pointer;
   margin: 15px;

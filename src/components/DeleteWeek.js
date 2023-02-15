@@ -36,6 +36,8 @@ flex-direction: column;
 const InnerHolder = styled.div`
 
 
+margin-top: 15px;
+
 display: flex;
 justify-content: center;
 
@@ -44,9 +46,9 @@ justify-content: center;
 
 const Button = styled.button`
   padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
+  background: #f0f8ff00;
+  color: #8bab50;
+  border: 1px  #8bab50 solid;
   border-radius: 5px;
   cursor: pointer;
   margin: 0px 20px;
@@ -59,7 +61,7 @@ margin-top: 0px;
 `;
 const Text = styled.p`
 text-align: center;
-color:#f44336;
+color:#f44336!important;
 margin-top: 0px;
 `;
 

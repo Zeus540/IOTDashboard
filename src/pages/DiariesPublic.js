@@ -14,7 +14,7 @@ import axios from "../components/shared/axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
+import { useLocation, useParams } from "react-router-dom";
 const Root = styled.div`
 
 
@@ -238,7 +238,7 @@ const Diaries = () => {
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
   const { auth, authToken,socket } = useContext(AuthContext);
-
+  const params = useParams();
 
 useEffect(() => {
   setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
@@ -251,6 +251,8 @@ useEffect(() => {
     ))
   )
   setDiaryTypes(types)
+
+
 
 
 }, [diariesPublic])

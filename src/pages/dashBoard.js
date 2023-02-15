@@ -1182,6 +1182,12 @@ const DashBoard = (props) => {
     }
   }, [])
 
+  useEffect(() => {
+    //join_room
+
+       socket.off('join_room').emit('join_room', { Diary_Id: params.id });
+       socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
+     },[])
 
   useEffect(() => {
 
@@ -1191,9 +1197,8 @@ const DashBoard = (props) => {
       filtered = diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
 
-    setViews(filtered?.Views)
     setLikes(filtered?.Likes)
-
+    setViews(filtered?.Views)
     setPositionIndex(0)
     setPosition(0)
 
@@ -1245,18 +1250,37 @@ const DashBoard = (props) => {
   //Chat Listen
   useEffect(() => {
 
-    socket.off('broadcast').on('broadcast', (data) => {
+    socket.off(`broadcast${params.id}`).on(`broadcast${params.id}`, (data) => {
       setCommentList([...commentList, data])
 
     });
 
-    socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
+    socket.off(`recieved_comments_amont${params.id}`).on(`recieved_comments_amont${params.id}`, (data) => {
+    
       setCommentAmount(data)
 
     });
 
-    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
 
+
+    socket.off(`view_updated${params.id}`).on(`view_updated${params.id}`, (data) => {
+      setViews(data)
+
+    });
+
+    socket.off('joined_room').on('joined_room', (data) => {
+
+    });
+
+    socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
+     
+      setLikes(data)
+    });
+
+     socket.off(`likes_updated${params.id}`).on(`likes_updated${params.id}`, (data) => {
+      console.log("likes_updated",data)
+       setLikes(data)
+     });
 
   })
 

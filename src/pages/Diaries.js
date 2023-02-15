@@ -177,9 +177,9 @@ const Add = styled.div`
 
 const Button = styled.button`
 padding: 8px 25px;
-  background: #8bab50;
-  color: white;
-  border: none;
+  border: 1px  #8bab50 solid;
+  color: #8bab50;
+  background: #f0f8ff00;
   border-radius: 5px;
   cursor: pointer;
 

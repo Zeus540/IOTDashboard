@@ -711,9 +711,9 @@ const DayDot = styled.div`
   border-radius: 50%;
   margin: 5px 5px;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 1;
  
-  background: #f8f8ff;
+  background: #e3e3f3;
   &:hover {
     opacity: 1;
  
@@ -721,7 +721,6 @@ const DayDot = styled.div`
 
  
 `;
-
 const fadeIn = keyframes`
   0% {
     transform: scale(1);
@@ -994,6 +993,7 @@ padding: 5px 10px;
 display: flex;
 border-radius: 5px;
 line-height: 20px;
+color: white!important;
 `;
 
 const ChatMsgCommentFlex = styled.div`
@@ -1110,21 +1110,21 @@ const DashBoardPublic = (props) => {
 
 
   useEffect(() => {
-
-
-
-
-  },)
+ //Update Views
+    socket.off('update_view').emit('update_view', { Diary_Id: params.id });
+    socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
+    socket.off('join_room').emit('join_room', { Diary_Id: params.id });
+    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
+    
+  },[])
 
 
   useEffect(() => {
     if (diariesPublic.length > 0) {
       let filtered = diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
 
+  
 
-
-      setViews(filtered?.Views)
-      setLikes(filtered?.Likes)
 
       setPositionIndex(0)
       setPosition(0)
@@ -1173,18 +1173,37 @@ const DashBoardPublic = (props) => {
   //Chat Listen
   useEffect(() => {
 
-    socket.off('broadcast').on('broadcast', (data) => {
+    socket.off(`broadcast${params.id}`).on(`broadcast${params.id}`, (data) => {
       setCommentList([...commentList, data])
 
     });
 
-    socket.off('recieved_comments_amont').on('recieved_comments_amont', (data) => {
+    socket.off(`recieved_comments_amont${params.id}`).on(`recieved_comments_amont${params.id}`, (data) => {
+    
       setCommentAmount(data)
 
     });
 
-    socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
 
+
+    socket.off(`view_updated${params.id}`).on(`view_updated${params.id}`, (data) => {
+      setViews(data)
+
+    });
+
+    socket.off('joined_room').on('joined_room', (data) => {
+
+    });
+
+    socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
+     
+      setLikes(data)
+    });
+
+     socket.off(`likes_updated${params.id}`).on(`likes_updated${params.id}`, (data) => {
+      console.log("likes_updated",data)
+       setLikes(data)
+     });
 
   })
 
@@ -1217,28 +1236,8 @@ const DashBoardPublic = (props) => {
   const handleLike = () => {
     if (activeDiary !== undefined) {
 
+      socket.off('update_likes').emit('update_likes', { Diary_Id: params.id });
 
-
-      let datav = {
-        DiaryId: parseInt(params?.id),
-
-      }
-
-      axios
-        .post(`${BASE_URL_PROD}/diaries/update_likes`, datav)
-        .then(function (response) {
-          if (diaries.length > 0) {
-
-            Update()
-          }
-          else {
-            UpdatePublic()
-          }
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     }
   }
 

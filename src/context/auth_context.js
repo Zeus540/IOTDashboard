@@ -84,9 +84,7 @@ export const AuthProvider = ({ children }) => {
             setIsConnected(true);
         });
 
-        socket.off('disconnect').on('disconnect', () => {
-            setIsConnected(false);
-        });
+    
 
 
 

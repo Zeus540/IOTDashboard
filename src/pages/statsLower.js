@@ -161,14 +161,15 @@ const StatsLower = (props) => {
     let phArr = props?.data?.filter((d)=> d.Ph !== null).map((d) => d.Ph )
     let ph = 0
 
-    let tempArr = props?.data?.filter((d)=> d.Temperature !== null).map((d) => d.Temperature )
+    let tempArr = props?.data?.filter((d)=> d.Temperature !== (null || 0)).map((d) => d.Temperature )
     let temp = 0
 
-    let co2Arr = props?.data?.filter((d)=> d.Co2 !== null).map((d) => d.Co2 )
+    
+    let co2Arr = props?.data?.filter((d)=> d.Co2 !== (null || 0)).map((d) => d.Co2 )
   
     let co2 = 0
 
-    let humidityArr = props?.data?.filter((d)=> d.Humidity !== null).map((d) => d.Humidity )
+    let humidityArr = props?.data?.filter((d)=> d.Humidity !== (null || 0)).map((d) => d.Humidity )
     let humidity = 0
 
     for (let index = 0; index < phArr?.length; index++) {
