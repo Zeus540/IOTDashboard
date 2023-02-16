@@ -188,7 +188,7 @@ const Stats = (props) => {
     
             <TextHeading>Strain</TextHeading>
                
-          <TextHeadingInfo>  {activeDiary?.Strain}</TextHeadingInfo>
+          <TextHeadingInfo>{activeDiary?.Strain ==  "" || null ? "N/A":activeDiary?.Strain}   </TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 
@@ -197,15 +197,16 @@ const Stats = (props) => {
        
 
             <TextHeading>Light Schedule</TextHeading>
-            <TextHeadingInfo> {activeDiary?.Light_Schedule}</TextHeadingInfo>
+            <TextHeadingInfo>{activeDiary?.Light_Schedule ==  "" || null ? "N/A":activeDiary?.Light_Schedule} </TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
            
-   
+ 
+
             <TextHeading>Light Type</TextHeading>
-            <TextHeadingInfo>{activeDiary?.Light_Type}</TextHeadingInfo>
+            <TextHeadingInfo>{activeDiary?.Light_Type ==  "" || null ? "N/A":activeDiary?.Light_Type}</TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -214,7 +215,7 @@ const Stats = (props) => {
        
       
             <TextHeading>Room Type</TextHeading>
-                 <TextHeadingInfo>{activeDiary?.Room_Type}</TextHeadingInfo>
+                 <TextHeadingInfo>{activeDiary?.Room_Type ==  "" || null ? "N/A":activeDiary?.Room_Type} </TextHeadingInfo>
           </TextHolderGroup2Inner>
           </TextHolderGroup2>
           <TextHolderGroup2>
@@ -222,7 +223,7 @@ const Stats = (props) => {
          
        
             <TextHeading>Pot Size</TextHeading>
-                 <TextHeadingInfo>{activeDiary?.Pot_Size}</TextHeadingInfo>
+                 <TextHeadingInfo>{activeDiary?.Pot_Size ==  "" || null ? "N/A":activeDiary?.Pot_Size} </TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 

@@ -156,49 +156,74 @@ const StatsLower = (props) => {
  
   
     if(props.data !== undefined){
-  
+   
   
     let phArr = props?.data?.filter((d)=> d.Ph !== null).map((d) => d.Ph )
     let ph = 0
-
+  
     let tempArr = props?.data?.filter((d)=> d.Temperature !== (null || 0)).map((d) => d.Temperature )
     let temp = 0
 
-    
+ 
     let co2Arr = props?.data?.filter((d)=> d.Co2 !== (null || 0)).map((d) => d.Co2 )
-  
+   
     let co2 = 0
 
     let humidityArr = props?.data?.filter((d)=> d.Humidity !== (null || 0)).map((d) => d.Humidity )
     let humidity = 0
 
+  if(phArr.length > 0){
     for (let index = 0; index < phArr?.length; index++) {
       const element = phArr[index];
       ph =  (ph + parseFloat(element) / phArr?.length   ) 
       setPh(Math.round(ph * 100) / 100)
     }
+  }else{
+    setPh(null)
+  }
 
-
+  if(tempArr.length > 0){
     for (let index = 0; index < tempArr?.length; index++) {
       const element = tempArr[index];
       temp =  (temp + parseFloat(element) / tempArr?.length   ) 
       setTemp(Math.round(temp * 100) / 100)
     }
+  }else{
+    setTemp(null)
+  }
 
+   
+  if(co2Arr.length > 0 ){
     for (let index = 0; index < co2Arr?.length; index++) {
       const element = co2Arr[index];
       co2 =  (co2 + parseFloat(element)  / co2Arr?.length   )
-      setCo2(Math.round(co2 * 100) / 100)
+      if(co2 !== NaN){
+        setCo2(Math.round(co2 * 100) / 100)
+      }else{
+        setCo2(null)
+      }
     }
 
+  }else{
+    setCo2(null)
+  }
+
+  if(humidityArr.length > 0){
     for (let index = 0; index < humidityArr?.length; index++) {
       const element = humidityArr[index];
       humidity =  (humidity + parseFloat(element)  / humidityArr?.length   )
       setHumidity(Math.round(humidity * 100) / 100)
     }
+  }else{
+    setHumidity(null)
   }
 
-    console.log("called",props)
+    
+
+  
+  }
+
+  
   }, [props.data])
 
 
@@ -223,7 +248,7 @@ const StatsLower = (props) => {
        <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Ph</TextHeading>
-            {ph == null ? (
+            {ph == (0 || null) ? (
                <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{ph}</TextHeadingInfo>
@@ -236,7 +261,7 @@ const StatsLower = (props) => {
     <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Temperature</TextHeading>
-            {temp == 0 ? (
+            {temp == (0 || null) ? (
               <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{temp} &#8451; </TextHeadingInfo>
@@ -248,7 +273,7 @@ const StatsLower = (props) => {
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Humidity</TextHeading>
-            {humidity == 0 ? (
+            {humidity == (0 || null) ? (
             <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{humidity}  %  </TextHeadingInfo>
@@ -261,7 +286,8 @@ const StatsLower = (props) => {
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Co2</TextHeading>
-            {co2 == 0 ? (
+
+            {co2 == 0 || null ? (
                 <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{co2} PPM</TextHeadingInfo>

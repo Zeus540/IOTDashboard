@@ -1183,12 +1183,14 @@ const DashBoard = (props) => {
   }, [])
 
   useEffect(() => {
-    //join_room
-
+    //Update Views
        socket.off('join_room').emit('join_room', { Diary_Id: params.id });
        socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
+       socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
+       
      },[])
 
+     
   useEffect(() => {
 
     let filtered = ""

@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react'
+import React,{ useEffect,useState } from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import Logo from "../assets/logoLogin.png";
@@ -17,7 +17,7 @@ const Root = styled.div`
 const Inner = styled.div`
   max-width: 480px;
   width: 100%;
-  background-color: #dadada;
+  background-color: #ffffff;
   text-align: center;
   padding: 20px;
   align-items: center;
@@ -27,13 +27,13 @@ const Inner = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 300px;
+    width: 200px;
     margin:0 auto
 `;
 
 const Text = styled.p`
     font-size: 30px;
-    padding: 10px 0px;
+    padding-bottom: 15px;
     font-weight: bold;
     margin: 0;
 
@@ -50,6 +50,8 @@ font-weight: unset;
 const VerifyComplete = () => {
 const navigate = useNavigate()
 
+const [msg, setMsg] = useState()
+
     useEffect(() => {
         {console.log("params", params.token) }
 
@@ -57,13 +59,18 @@ const navigate = useNavigate()
         axios.post(`${BASE_URL_PROD}/verify`,params)
         .then((response) => {
         if(response.data.url){
+            setMsg(" Verification Successful")
             setTimeout(() => {
                 navigate(response.data.url)
-              }, 2500);
-        }else{
-            navigate('/')
+              }, 4500);
         }
-        console.log(response.data.url);
+        if(response.data.err){
+            setMsg(response.data.err)
+            setTimeout(() => {
+                navigate('/')
+              }, 4500);
+        }
+        console.log(response.data.err);
         })
         .catch((error)=> {
       
@@ -81,7 +88,7 @@ const navigate = useNavigate()
                
                
                 <Text>
-                    Verification Successful
+                   {msg}
                 </Text>
                 <TextSmall>
                     You will be redirected shortly

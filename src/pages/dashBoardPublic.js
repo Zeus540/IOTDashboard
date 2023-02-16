@@ -1107,7 +1107,8 @@ const DashBoardPublic = (props) => {
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);
   const [commentList, setCommentList] = useState([]);
-
+  const [statsLowerHide, setStatsLowerHide] = useState(true);
+  
 
   useEffect(() => {
  //Update Views
@@ -1319,6 +1320,7 @@ const DashBoardPublic = (props) => {
   }
 
   const handleGetDayData = (days, day) => {
+    setStatsLowerHide(true)
     setPositionIndex(0)
     setPosition(0)
     if (activeDay !== day) {
@@ -1360,6 +1362,7 @@ const DashBoardPublic = (props) => {
         day.active = true;
       }
       setActiveDay(day)
+      setStatsLowerHide(false)
     }
   };
 
@@ -1805,7 +1808,8 @@ const DashBoardPublic = (props) => {
               })}
             </DayDotHolder>
           }
-          <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />
+          {!statsLowerHide && <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />}
+          
         </Flex3B>
 
 

@@ -64,7 +64,7 @@ const Cookiepolicy = (props) => {
   return (
     <Root>
         <Inner>
-        <Text>This site uses cookies and related technologies for site operation, analytics and third party advertising purposes as described in our    <MenuLinkMobile to="/public-diaries" >
+        <Text>This site uses cookies and related technologies for site operation, analytics and third party advertising purposes as described in our    <MenuLinkMobile to="/privacy-policy" >
                    
                      
                       Privacy Policy.

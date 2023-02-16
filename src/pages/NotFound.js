@@ -46,7 +46,7 @@ const TextHolder = styled.div`
 const Heading = styled.h1`
 font-size: 15em;
 text-align: center;
-color: white;
+color: white!important;
 margin: 20px 0px;
 line-height: 0.8em;
 @media (max-width: 425px) {
@@ -56,7 +56,7 @@ line-height: 0.8em;
 const HeadingSmall = styled.p`
 font-size: 2.5em;
 text-align: center;
-color: white;
+color: white!important;
 margin: 0px;
 @media (max-width: 425px) {
   font-size: 2em;
