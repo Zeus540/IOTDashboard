@@ -45,7 +45,10 @@ export const AuthProvider = ({ children }) => {
 
     const setAuthentication = async (user) => {
        let User = JSON.parse(Cookies.get('user'))
-    
+    console.log("User",User.UserId)
+    socket.off('user_login').emit('user_login', { UserId: User.UserId });
+   
+
         setUser(await User)
         setAuth(true)
         navigate('/my-diaries')
@@ -56,6 +59,11 @@ export const AuthProvider = ({ children }) => {
 
     const logOut = () => {
      
+        
+        let User = JSON.parse(Cookies.get('user'))
+        console.log("User",User.UserId)
+        socket.off('user_logout').emit('user_logout', { UserId: User.UserId });
+
         axios.post(`${BASE_URL_PROD}/logout`).then((results)=>{
         if(results.status == 200){
             setAuth(false)
@@ -94,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         socket.off('diary_added').on('diary_added', (data) => {
             if (data.UserId !== user?.UserId) {
-                enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`)
+                enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`, { variant: 'info' })
             }
 
 
@@ -105,7 +113,7 @@ export const AuthProvider = ({ children }) => {
             socket.off('liked_diary').on('liked_diary', (data) => {
 
                 if (data.UserId !== user?.UserId) {
-                    enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`)
+                    enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`, { variant: 'info' })
                 }
               
             });

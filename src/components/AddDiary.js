@@ -13,7 +13,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { TailSpin } from  'react-loader-spinner'
 const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
@@ -125,7 +125,7 @@ border: 1px solid #8bab50;
 const AddDiary = (props) => {
 
   const {enqueueSnackbar} = useSnackbar()
-  const { diaries, Update, loading } = useContext(DiaryContext);
+  const { diaries, Update } = useContext(DiaryContext);
   const [diaryTypes, setDiaryTypes] = useState([]);
   const [type, setType] = useState("");
   
@@ -135,20 +135,22 @@ const AddDiary = (props) => {
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth, authToken, userId, user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false)
 
-  let token = localStorage.getItem("token")
 
 useEffect(() => {
-
-
+  setType("")
+  setRoomType("")
+  setErrorType(false)
   if(props.popUpOffset == 0){
     axios.get(`${BASE_URL_PROD}/diaries/types`)
     .then((response) => {
       setDiaryTypes(response.data)
-  
+ 
     })
     .catch((error) => {
-  
+
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
       console.log(error);
     })
   }
@@ -158,27 +160,31 @@ useEffect(() => {
 
 
   const addDiary = (values) => {
+    setLoading(true)
 
 
     values.Type = type
-
+    values.roomType = roomType
+    console.log(values)
     
 
-    axios.post(`${BASE_URL_PROD}/diaries/add`, values, )
-      .then(function (response) {
-        if (response.data.insertId !== undefined) {
-          Update()
-          enqueueSnackbar("Diary Successfully Added ",{variant:'success'})
-          props.setPopUpOffset(-101);
-        }else{
-          enqueueSnackbar(response.status,{variant:'error'})
-        }
+     axios.post(`${BASE_URL_PROD}/diaries/add`, values, )
+       .then(function (response) {
+         if (response.data.insertId !== undefined) {
+           Update()
+           enqueueSnackbar("Diary Successfully Added ",{variant:'success'})
+           props.setPopUpOffset(-101);
+           setLoading(false)
+         }else{
+       
+         }
 
-      })
-      .catch(function (error) {
-
-        console.log(error);
-      })
+       })
+       .catch(function (error) {
+        setLoading(false)
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+         console.log(error.response.statusText);
+       })
 
   }
 
@@ -234,6 +240,8 @@ useEffect(() => {
 
           <FormHeadingGroup>
             <FormHeading>New Diary</FormHeading>
+
+            {props.popUpOffset == 0 && 
             <InputHolderTop>
               <div>
                 <InputTop
@@ -250,6 +258,7 @@ useEffect(() => {
 
         
             </InputHolderTop>
+            }
           </FormHeadingGroup>
           <InputHolder>
             <FormHeading>Type of Diary</FormHeading>
@@ -365,10 +374,24 @@ useEffect(() => {
 
 
 
-
-            <Button type="submit" >
-              Submit
-            </Button>
+  
+{!loading ?
+       <Button type="submit" >
+       Submit
+     </Button>
+:
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+     }
+      
           </InputHolder>
         </Form>
       )}

@@ -15,7 +15,7 @@ import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import useMediaQuery from "../components/shared/useMediaQuery";
-import { InfinitySpin } from 'react-loader-spinner'
+
 import { BASE_URL_PROD } from '../components/shared/Constants'
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -613,7 +613,7 @@ const Heading = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -621,7 +621,7 @@ const Heading = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
     width: 15%;
     margin: 0px 20px;
   },
@@ -647,7 +647,7 @@ const HeadingC = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
     width: 15%;
     margin: 0px 20px;
   }
@@ -655,7 +655,7 @@ const HeadingC = styled.h4`
     content: "";
     display: block;
     background: #8bab50;
-    height: 2px;
+    height: 4px;
     width: 15%;
     margin: 0px 20px;
   },

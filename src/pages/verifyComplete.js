@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Logo from "../assets/logoLogin.png";
 import axios from "axios"
 import {BASE_URL_PROD} from '../components/shared/Constants'
+import { useSnackbar } from 'notistack';
 
 const Root = styled.div`
 
@@ -49,7 +50,7 @@ font-weight: unset;
 
 const VerifyComplete = () => {
 const navigate = useNavigate()
-
+const {enqueueSnackbar} = useSnackbar()
 const [msg, setMsg] = useState()
 
     useEffect(() => {
@@ -73,7 +74,7 @@ const [msg, setMsg] = useState()
         console.log(response.data.err);
         })
         .catch((error)=> {
-      
+            enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         })
 

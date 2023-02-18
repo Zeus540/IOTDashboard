@@ -39,11 +39,12 @@ const MainContainer = (props) => {
 
             <Routes>
 
-                {!user ?
-                    <Route path="/" element={<DiariesPublic />} /> :
+                {/* {!user ?
+                     :
                     <Route path="/" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
 
-                }
+                } */}
+                <Route path="/" element={<DiariesPublic />} />
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="/sign-in" element={<Login />} />

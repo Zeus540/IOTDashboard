@@ -196,7 +196,7 @@ if(props.DayId !== ''){
    
    })
    .catch(function (error) {
-
+    enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
      console.log(error);
    })
 

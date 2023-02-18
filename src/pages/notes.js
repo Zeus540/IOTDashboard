@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import { AuthContext } from "../context/auth_context";
-
+import { useSnackbar} from 'notistack';
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 
 import {useNavigate} from 'react-router-dom'
@@ -261,7 +261,7 @@ const Notes = () => {
   const params = useParams();
   const navigate = useNavigate ()
   const { auth,authToken,userId } = useContext(AuthContext);
-
+  const { enqueueSnackbar } = useSnackbar()
   useEffect(() => {
     let filtered = ""
     if( diariesPublic?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
@@ -300,7 +300,7 @@ const Notes = () => {
      
     })
     .catch(function (error) {
-      
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
     });
 
  
@@ -325,6 +325,7 @@ const Notes = () => {
             setDays(response.data);
           })
           .catch(function (error) {
+            enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
             console.log(error);
           });
       

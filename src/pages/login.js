@@ -9,7 +9,7 @@ import axios from "../components/shared/axios"
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { useSnackbar} from 'notistack';
 const Root = styled.div`
 
 
@@ -117,7 +117,7 @@ function Login() {
   const { setAuthentication } = useContext(AuthContext)
   const navigate = useNavigate()
   const [errMsg, setErrMsg] = useState("")
-
+  const { enqueueSnackbar } = useSnackbar()
 
 
 
@@ -138,7 +138,7 @@ function Login() {
         console.log("response", response.data);
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from '../components/shared/axios';
 import { BASE_URL_LOCAL, BASE_URL_PROD } from '../components/shared/Constants'
-
+import { useSnackbar} from 'notistack';
 import { AuthContext } from './auth_context';
 import Cookies from 'js-cookie'
 export const DiaryContext = createContext();
@@ -12,7 +12,7 @@ export const DiaryProvider = ({ children }) => {
   const [diariesPublic, setDiariesPublic] = useState([]);
   const [loading, setLoading] = useState(true);
   const { auth, user, logOut, socket } = useContext(AuthContext)
-
+  const { enqueueSnackbar } = useSnackbar()
 
   const Update = () => {
 
@@ -27,7 +27,7 @@ export const DiaryProvider = ({ children }) => {
 
       })
       .catch((error) => {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
   }

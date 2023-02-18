@@ -15,7 +15,7 @@ import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { useSnackbar} from 'notistack';
 const Root = styled.div`
 
 
@@ -195,7 +195,7 @@ background-size: cover!important;
 `;
 
 const ProfileUser = () => {
-
+  const { enqueueSnackbar } = useSnackbar()
   const [user, setUser] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   
@@ -213,25 +213,22 @@ const ProfileUser = () => {
   
     axios.post(`${BASE_URL_PROD}/users/by_id`,{userId:params.userId})
       .then(function (response) {
-
-        console.log(response.data.filter((u) => u.UserId == params.userId))
-        setUser(response.data.filter((u) => u.UserId == params.userId)[0])
-   
+        console.log("filter",response.data);
+        console.log("filter",params.userId);
+        setUser(response.data)
+     
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 
       axios.post(`${BASE_URL_PROD}/users/user_info`,{userId:params.userId})
       .then(function (response) {
-
-    
         setUserInfo([response.data])
-   
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
   
@@ -258,7 +255,7 @@ const ProfileUser = () => {
 
           <UserInfoTop>
                   <UserAvatar style={{backgroundImage:`url(${user?.User_Img})`}}>
-                  
+                  {console.log("user",user)}
                   </UserAvatar>
 
                 <UserInfoTopRight>

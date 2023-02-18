@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar } from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { TailSpin } from  'react-loader-spinner'
 const Inner = styled.div`
 
 width: 20%;
@@ -56,15 +56,15 @@ margin-top: 0px;
 
 const DeleteDiary = (props) => {
   const { enqueueSnackbar } = useSnackbar()
-  const { diaries, Update, loading } = useContext(DiaryContext);
+  const { diaries, Update } = useContext(DiaryContext);
 
   const navigate = useNavigate();
   const { auth, authToken, userId } = useContext(AuthContext);
-
+const [loading, setLoading] = useState(false)
 
 
   const deleteDiary = () => {
-
+    setLoading(true)
     let data = {
       DiaryId: props.Diary.DiaryId,
       Privacy: props.Diary.Public
@@ -74,17 +74,20 @@ const DeleteDiary = (props) => {
     axios.post(`${BASE_URL_PROD}/diaries/delete`, data)
       .then(function (response) {
         if (response.data.affectedRows > 0) {
-          navigate('/')
+          navigate('/my-diaries')
           enqueueSnackbar("Diary Successfully Deleted", { variant: 'success' })
           props.setPopUpOffset(-101);
+          setLoading(false)
         } else {
+          setLoading(false)
           enqueueSnackbar(response.status, { variant: 'error' })
         }
 
 
       })
       .catch(function (error) {
-
+        setLoading(false)
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 
@@ -101,14 +104,31 @@ const DeleteDiary = (props) => {
           Warning this action will delete all information relating to {props.Diary.Title} <br /> this action is irreversible !
         </Text>
 
-        <InnerHolder>
-          <Button onClick={() => { deleteDiary() }}>
-            Yes
-          </Button>
-          <Button onClick={() => { props.setPopUpOffset(-101) }}>
-            Cancel
-          </Button>
-        </InnerHolder>
+    
+
+        {!loading ?
+    <InnerHolder>
+    <Button onClick={() => { deleteDiary() }}>
+      Yes
+    </Button>
+    <Button onClick={() => { props.setPopUpOffset(-101) }}>
+      Cancel
+    </Button>
+  </InnerHolder>
+:
+<InnerHolder>
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+</InnerHolder>
+     }
       </Inner>
     </>
   )

@@ -281,6 +281,7 @@ const Diaries = () => {
         
         </Add>
 
+        {diaryPublicList.length > 0 &&
 <Holder>
 
         <MainHeading2>Public</MainHeading2>
@@ -319,7 +320,9 @@ const Diaries = () => {
           })}
         </DiaryHolder>
         </Holder>
+}
 
+{diaryPrivateList.length > 0 &&
         <Holder>
         <MainHeading2>Private</MainHeading2>
         <DiaryHolder>
@@ -357,6 +360,7 @@ const Diaries = () => {
           })}
         </DiaryHolder>
         </Holder>
+        }
       </Inner>
     </Root>
     </>

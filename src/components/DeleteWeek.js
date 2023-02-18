@@ -16,7 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { TailSpin } from  'react-loader-spinner'
 const Inner = styled.div`
 
 width: 20%;
@@ -68,8 +68,8 @@ margin-top: 0px;
 
 const DeleteWeek = (props) => {
   const {enqueueSnackbar} = useSnackbar()
-    const { diaries,Update,loading } = useContext(DiaryContext);
-  
+    const { diaries,Update } = useContext(DiaryContext);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     
@@ -78,7 +78,7 @@ const DeleteWeek = (props) => {
     const deleteWeek = ()=>{
    
     
-
+      setLoading(true)
     
       let data = {
         WeekId:props.week.WeekId
@@ -93,14 +93,18 @@ const DeleteWeek = (props) => {
             props.setPopUpOffset(-101);
             props.setDays([])
             props.setGalleryData([])
+                
+      setLoading(false)
           }else{
             enqueueSnackbar(response.status,{variant:'error'})
+            setLoading(false)
           }
        
           console.log("response",response.data.insertId);
         })
         .catch(function (error) {
-      
+          setLoading(false)
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         })
      
@@ -118,14 +122,31 @@ const DeleteWeek = (props) => {
         Warning this action will deleted all information relating to week {props.week.Week} and is irreversible !
       </Text>
       
-      <InnerHolder>
-  <Button onClick={()=>{deleteWeek()}}>
-          Yes
-        </Button>
-        <Button onClick={()=>{props.setPopUpOffset(-101)}}>
-          Cancel
-        </Button>
-        </InnerHolder>
+      {!loading ?
+   <InnerHolder>
+   <Button onClick={()=>{deleteWeek()}}>
+           Yes
+         </Button>
+         <Button onClick={()=>{props.setPopUpOffset(-101)}}>
+           Cancel
+         </Button>
+         </InnerHolder>
+:
+<InnerHolder>
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+</InnerHolder>
+     }
+
+   
         </Inner>  
   </>
   )

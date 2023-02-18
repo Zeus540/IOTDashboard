@@ -8,7 +8,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "axios"
 import { Helmet } from "react-helmet";
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { useSnackbar} from 'notistack';
 const Root = styled.div`
 //background:#27555726;
 
@@ -107,6 +107,7 @@ font-size: 14px;
 
 
 function Register() {
+  const { enqueueSnackbar } = useSnackbar()
   const {auth,setAuth} = useContext(AuthContext)
   const navigate = useNavigate ()
  const [age, setAge] = useState("")
@@ -130,7 +131,7 @@ function Register() {
       
     })
     .catch(function (error) {
-  
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
       console.log(error);
     })
    

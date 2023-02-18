@@ -14,7 +14,7 @@ import axios from "../components/shared/axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { useSnackbar} from 'notistack';
 const Root = styled.div`
 
 
@@ -28,24 +28,25 @@ const Root = styled.div`
 
 const Inner = styled.div`
 
-border-radius: 5px;
-background: #ffffff;
+  border-radius: 5px 5px 5px 5px;
 
-padding: 20px 0px;
-margin: 80px auto;
-max-width: 1770px;
+  background: #ffffff;
+  padding: 20px 0px;
+  padding-top:0px;
+  margin: 40px auto;
+  max-width: 1770px;
   @media (max-width: 425px) {
-    margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 90%;
+    margin: 0px;
+    padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 20px;
-    padding: 0px;
-    border-radius: 5px;
-    width: 95%;
+    margin: 0px;
+    padding-top: 0px;
   }
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
+
 `;
 
 const MainHeading = styled.div`
@@ -53,7 +54,8 @@ const MainHeading = styled.div`
   font-size: 24px;
   margin-top: 0px;
   font-weight: bolder;
-  padding: 0px 20px;
+  padding: 20px;
+  padding-bottom: 0px;
   @media (max-width: 425px) {
     padding: unset;
   }
@@ -206,7 +208,7 @@ const Add = styled.div`
 
 
 const Users = () => {
-
+  const { enqueueSnackbar } = useSnackbar()
   const [userList, setUserList] = useState([]);
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
@@ -228,7 +230,7 @@ const Users = () => {
         console.log("response", response.data);
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 

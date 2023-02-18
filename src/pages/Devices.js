@@ -26,27 +26,26 @@ const Root = styled.div`
 
 
 const Inner = styled.div`
-max-width: 1770px;
-border-radius: 5px;
-background: #ffffff;
-padding-bottom: 20px;
-padding: 20px 0px;
-margin: 80px auto;
-width: 100%;
-@media (max-width: 425px) {
-  margin: 20px;
+
+  border-radius: 5px 5px 5px 5px;
+
+  background: #ffffff;
   padding: 20px 0px;
-  border-radius: 5px;
-  width: unset;
-  padding-top: 0px;
-}
-@media (min-width: 426px) and (max-width: 768px) {
-  margin: 20px;
-  padding: 20px 0px;
-  border-radius: 5px;
-  width: unset;
-  padding-top: 0px;
-}
+  padding-top:0px;
+  margin: 40px auto;
+  max-width: 1770px;
+  @media (max-width: 425px) {
+    margin: 0px;
+    padding-top: 0px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin: 0px;
+    padding-top: 0px;
+  }
+  @media (min-width: 769px) and (max-width: 1770px) {
+    margin: 40px 40px;
+  }
+
 `;
 
 const MainHeading = styled.div`
@@ -54,8 +53,8 @@ const MainHeading = styled.div`
   font-size: 24px;
   margin-top: 0px;
   font-weight: bolder;
-  padding: 0px 20px;
-  padding-bottom: 20px;
+  padding: 20px;
+
   @media (max-width: 425px) {
     padding: unset;
   }

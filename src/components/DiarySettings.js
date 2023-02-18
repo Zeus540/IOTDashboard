@@ -54,6 +54,12 @@ padding: 0px 10px;
 display: flex;
 
 `
+const ToggleHolderLabelLeft = styled.div`
+color:#596876;
+padding: 0px 10px;
+display: flex;
+padding-left: 0px;
+`
 
 const SvgW = styled.svg`
 width: 20px;
@@ -208,7 +214,7 @@ const DiarySettings = (props) => {
 
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 
@@ -235,7 +241,7 @@ const DiarySettings = (props) => {
 
       })
       .catch(function (error) {
-
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
 
@@ -269,7 +275,7 @@ const DiarySettings = (props) => {
                 </>
               </>
             }
-   <CheckFlexHeading>
+   {/* <CheckFlexHeading>
    Set Diary as Active or In-active
    </CheckFlexHeading>
 
@@ -285,11 +291,11 @@ const DiarySettings = (props) => {
 
             <CheckFlexHeading>
    Set Diary as Public or Private
-   </CheckFlexHeading>
+   </CheckFlexHeading> */}
 
    <CheckFlex>
 
-<ToggleHolderLabel>Private</ToggleHolderLabel><label className="switch">
+<ToggleHolderLabelLeft>Private</ToggleHolderLabelLeft><label className="switch">
   <input type="checkbox" checked={publicToggle} onChange={(e) => { handlePublicToggle(e, activeDiary) }} />
   <span className="slider round"></span>
 

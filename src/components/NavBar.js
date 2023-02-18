@@ -441,7 +441,7 @@ const NavBar = (props) => {
                   </FlexLink>
                 </MenuLinkMobile>
    }
-         {user?.UserId == 1 && 
+    
                 <MenuLinkMobile to="/users" onClick={() => {  props.setMobileMenu(false); }}>
                 <FlexLink>
 
@@ -449,7 +449,7 @@ const NavBar = (props) => {
                 </FlexLink>
               </MenuLinkMobile>
 
-         }
+       
               </>
             }
           </LinkHolderM>

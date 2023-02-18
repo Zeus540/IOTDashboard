@@ -13,6 +13,7 @@ import { AuthContext } from "../context/auth_context";
 import axios from "../components/shared/axios";
 import { useSnackbar } from 'notistack';
 import { BASE_URL_PROD } from '../components/shared/Constants'
+import { TailSpin } from  'react-loader-spinner'
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -120,7 +121,7 @@ const Close = styled.p`
 margin: 0px;
 display: inline-block;
 margin-right: 10px;
-color: #fbfbfb;
+color: white!important;
 background: red;
 width: 25px;
 height: 25px;
@@ -141,17 +142,25 @@ cursor: pointer;
 border: 1px solid #8bab50;
 `;
 
+const ErrMsg = styled.div`
+padding: 8px 0px;
+color:#f44336;
+padding-top: 0px;
+cursor: pointer;
+
+`;
+
 const UploadFeeding = (props) => {
 
   const { enqueueSnackbar } = useSnackbar()
-  const { diaries, Update, loading } = useContext(DiaryContext);
+  const { diaries, Update } = useContext(DiaryContext);
   const [nutrientsTypes, setNutrientsTypes] = useState([]);
   const [nutrientsList, setNutrientsList] = useState([]);
   const [nutrientsListData, setNutrientsListData] = useState([]);
   const [type, setType] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [roomType, setRoomType] = useState("");
-  const [errorType, setErrorType] = useState(false);
+  const [error, setError] = useState(false);
 
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
@@ -160,7 +169,7 @@ const UploadFeeding = (props) => {
   let token = localStorage.getItem("token")
 
   useEffect(() => {
-
+    setError(false)
     if (props.popUpOffset == 0) {
       axios.get(`${BASE_URL_PROD}/nutrients`)
         .then((response) => {
@@ -168,7 +177,7 @@ const UploadFeeding = (props) => {
           console.log("nutrients", response.data);
         })
         .catch((error) => {
-
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         })
     }
@@ -178,12 +187,16 @@ const UploadFeeding = (props) => {
 
   const addDiary = () => {
 
+    if(nutrientsListData.length > 0 ){
+      setError(false)
+  
+    setLoading(true)
 
     console.log("sending",nutrientsListData)
      axios.post(`${BASE_URL_PROD}/nutrients/nutrient_feeding`, nutrientsListData,)
        .then(function (response) {
          if (response.status == 200 ) {
- 
+          setLoading(false)
            enqueueSnackbar("Feeding Schedule Successfully Added ", { variant: 'success' })
            props.setPopUpOffset(-101);
          } else {
@@ -192,24 +205,22 @@ const UploadFeeding = (props) => {
 
        })
        .catch(function (error) {
-
+        setLoading(false)
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
-
-  }
-
-  const handleType = (type) => {
-    if (errorType == true) {
-      setErrorType(false)
+    }else{
+      setError(true)
     }
-    setType(type)
-
   }
 
 
 
 
-  const handleRoomTypeChange = (e, child) => {
+
+
+  const handleAdd = (e, child) => {
+    setError(false)
     console.log("map",nutrientsListData.map((n) =>  n.Nutrient_Id )  )
     if(nutrientsListData.map((n) =>  n.Nutrient_Id ).includes(e.target.value.Nutrient_Id)){
       console.log("e", e.target.value)
@@ -283,7 +294,7 @@ const UploadFeeding = (props) => {
               <FormHeading>Nutrient Schedule</FormHeading>
               <InputHolderTop>
                 <div>
-
+                {error && <ErrMsg>Select Nutrients</ErrMsg>}
 
                   <Input
                     id="NUTRIENTS"
@@ -291,7 +302,7 @@ const UploadFeeding = (props) => {
                     value={roomType}
                     variant="outlined"
            
-                    onChange={(e, child) => { handleRoomTypeChange(e, child) }}
+                    onChange={(e, child) => { handleAdd(e, child) }}
                     select>
                     {nutrientsTypes?.map((n) => {
                       return (
@@ -301,7 +312,7 @@ const UploadFeeding = (props) => {
 
 
                   </Input>
-
+           
                 </div>
 
 
@@ -331,10 +342,23 @@ const UploadFeeding = (props) => {
               })}
 
 
-
-              <Button type="submit" >
-                Submit
-              </Button>
+{!loading ?
+     <Button type="submit" >
+     Submit
+   </Button>
+:
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+     }
+            
             </InputHolder>
           </Form>
         )}

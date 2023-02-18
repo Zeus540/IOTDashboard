@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
-
+import { useSnackbar} from 'notistack';
 import {useNavigate} from 'react-router-dom'
 import {BASE_URL_PROD} from '../components/shared/Constants'
 
@@ -147,7 +147,7 @@ const Harvest = () => {
   const [activeDiaryData, setActiveDiaryData] = useState([]);
   const params = useParams();
   const navigate = useNavigate ()
-
+  const { enqueueSnackbar } = useSnackbar()
 
 
   useEffect(() => {
@@ -174,7 +174,7 @@ const Harvest = () => {
       setHarvestData(response.data.filter((d)=> d?.DiaryId ==  parseInt(params?.id))[0])
     })
     .catch(function (error) {
-      
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
     });
 
   }, []);

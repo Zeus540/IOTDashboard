@@ -6,7 +6,7 @@ import {BASE_URL_PROD} from '../components/shared/Constants'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-
+import { useSnackbar} from 'notistack';
 const NotesOutter = styled.div`
 display: flex;
     justify-content: center;
@@ -151,7 +151,7 @@ const ClosePopUpHolderText = styled.p`
   }
 `;
 const NotesHolder = (props) => {
-
+  const {enqueueSnackbar} = useSnackbar()
   const [notes, setNotes] = useState(props.daysNotes)
   const [keyNote, setKeyNote] = useState(false);
 
@@ -185,6 +185,7 @@ const NotesHolder = (props) => {
             
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
     }

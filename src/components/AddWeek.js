@@ -13,7 +13,7 @@ import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import MenuItem from '@mui/material/MenuItem';
 import {BASE_URL_PROD} from '../components/shared/Constants'
-
+import { TailSpin } from  'react-loader-spinner'
 
 
 const Input = styled(TextField)`
@@ -69,17 +69,18 @@ border: 1px solid #8bab50;
 
 const AddWeek = (props) => {
   const {enqueueSnackbar} = useSnackbar()
-    const { diaries,Update,loading } = useContext(DiaryContext);
+    const { diaries,Update } = useContext(DiaryContext);
   
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     let token = localStorage.getItem("token")
     const [stage, setStage] = useState("")
     const [week, setWeek] = useState("")
-  
+    const [loading, setLoading] = useState(false);
 
     const addWeek = (values)=>{
-   
+                
+      setLoading(true)
     
    var dateobj = new Date();
  
@@ -105,15 +106,19 @@ const AddWeek = (props) => {
             enqueueSnackbar("Week Successfully Added",{variant:'success'})
             props.setPopUpOffset(-101);
             setWeek("")
-            setStage("")
+            setStage("")  
+      setLoading(false)
+
           }else{
             enqueueSnackbar(response.status,{variant:'error'})
+            setLoading(false)
           }
          
          
         })
         .catch(function (error) {
-      
+          setLoading(false)
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         })
      
@@ -177,6 +182,7 @@ const AddWeek = (props) => {
         <Input 
         id="Week" 
         label="Week" 
+        required
         value={week}
         onChange={(e)=>{handleWeekChange(e)}}
         type="number"
@@ -187,6 +193,7 @@ const AddWeek = (props) => {
         <Input 
         id="weekType" 
         label="Stage" 
+        required
         value={stage}
         variant="outlined" 
         onChange={(e,child)=>{handleStageChange(e,child)}}
@@ -200,9 +207,24 @@ const AddWeek = (props) => {
      
  
       
-        <Button type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
+        {!loading ?
+     <Button type="submit" disabled={isSubmitting}>
+     Submit
+   </Button>
+:
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+     }
+
+   
         </InputHolder>
 
    

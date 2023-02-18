@@ -19,7 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import {BASE_URL_PROD} from '../components/shared/Constants'
 import { useSnackbar} from 'notistack';
-
+import { TailSpin } from  'react-loader-spinner'
 const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
@@ -111,21 +111,21 @@ border: 1px solid #8bab50;
 `;
 const EditWeek = (props) => {
   const {enqueueSnackbar} = useSnackbar()
-    const { diaries,Update,loading } = useContext(DiaryContext);
+    const { diaries,Update } = useContext(DiaryContext);
   const [technique_Name, setTechnique_Name] = useState("Topping")
     const navigate = useNavigate();
     const { auth,authToken,userId } = useContext(AuthContext);
     const [stage, setStage] = useState("")
     const [week, setWeek] = useState("")
     const [techniques, setTechniques] = useState([])
-    
+    const [loading, setLoading] = useState(false);
     
 
 
 
     const editWeek = (values)=>{
    
-  
+      setLoading(true)
       var dateobj = new Date();
  
 
@@ -145,17 +145,19 @@ const EditWeek = (props) => {
             console.log("response.data",response.data);
             enqueueSnackbar("Week Successfully Edited",{variant:'success'})
             Update()
-        
+    
             props.setPopUpOffset(-101);
-          
+            setLoading(false)
           }else{
+            setLoading(false)
             enqueueSnackbar(response.status,{variant:'error'})
           }
   
 
         })
         .catch(function (error) {
-      
+                  setLoading(false)
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         })
      
@@ -187,7 +189,7 @@ const addTech = (t)=>{
         
            })
            .catch(function (error) {
-        
+            enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
              console.log(error);
            })
     
@@ -203,7 +205,7 @@ const addTech = (t)=>{
         
       })
       .catch(function (error) {
-    
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       })
     }
@@ -338,9 +340,23 @@ onSubmit={(values, { setSubmitting }) => {
      
  
       
-        <Button type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
+     
+        {!loading ?
+   <Button type="submit" disabled={isSubmitting}>
+   Submit
+ </Button>
+:
+<TailSpin
+  height="40"
+  width="40"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+     }
         </InputHolder>
       </Form>
     )}

@@ -15,7 +15,6 @@ import LST from '../assets/lst.svg'
 import Topping from '../assets/topping.svg'
 import Defoliation from '../assets/defoil.svg'
 import useMediaQuery from "../components/shared/useMediaQuery";
-import { InfinitySpin } from 'react-loader-spinner'
 import { BASE_URL_PROD } from '../components/shared/Constants'
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -1120,6 +1119,7 @@ const DashBoard = (props) => {
         setActiveDiaryWeeks(response.data.sort((a, b) => a.Week - b.Week));
       })
       .catch(function (error) {
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       });
 
@@ -1130,6 +1130,7 @@ const DashBoard = (props) => {
         setCommentList(response.data)
       })
       .catch(function (error) {
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       });
 
@@ -1209,6 +1210,7 @@ const DashBoard = (props) => {
 
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
     }
@@ -1245,6 +1247,7 @@ const DashBoard = (props) => {
           setTechniques(response.data)
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
 
@@ -1255,6 +1258,7 @@ const DashBoard = (props) => {
           setDays(response.data);
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
 
@@ -1276,6 +1280,7 @@ const DashBoard = (props) => {
 
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
     }
@@ -1290,6 +1295,7 @@ const DashBoard = (props) => {
         setTechniques(response.data)
       })
       .catch(function (error) {
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       });
   }
@@ -1326,10 +1332,12 @@ const DashBoard = (props) => {
                 setDaysNotes(response.data);
               })
               .catch(function (error) {
+                enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
                 console.log(error);
               });
           })
           .catch(function (error) {
+            enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
             console.log(error);
           });
         preDay = "";
@@ -1506,6 +1514,7 @@ const DashBoard = (props) => {
 
       })
       .catch(function (error) {
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
         console.log(error);
       });
   }
