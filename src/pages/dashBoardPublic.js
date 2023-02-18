@@ -1477,6 +1477,7 @@ const DashBoardPublic = (props) => {
       if (user?.UserId !== undefined) {
 
         socket.off('comment').emit('comment', { Sender_Id: user?.UserId, Diary_Id: activeDiary?.DiaryId, Comment: comment, Time: time, TimeZone: tz });
+        socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
         setComment("")
 
       }
