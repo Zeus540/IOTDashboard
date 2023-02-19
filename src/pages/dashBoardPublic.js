@@ -1188,6 +1188,8 @@ const DashBoardPublic = (props) => {
 
 
     socket.off(`view_updated${params.id}`).on(`view_updated${params.id}`, (data) => {
+
+      console.log(`view_updated${params.id}`,data)
       setViews(data)
 
     });

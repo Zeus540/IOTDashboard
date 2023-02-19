@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom"
 import io from 'socket.io-client';
 import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie'
-import { BroadcastChannel } from 'broadcast-channel';
 import {BASE_URL_PROD,BASE_URL_PROD_SOCKET} from '../components/shared/Constants'
 import axios from '../components/shared/axios';
 export const AuthContext = createContext();

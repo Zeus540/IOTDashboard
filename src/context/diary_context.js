@@ -58,12 +58,9 @@ export const DiaryProvider = ({ children }) => {
 
     socket.off('get_public_diaries').emit('get_public_diaries');
 
-    if (user !== undefined) {
-      
-  
-    }
+    
 
-  }, [user])
+  }, [])
 
 
   return (

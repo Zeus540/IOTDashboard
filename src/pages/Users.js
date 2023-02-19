@@ -228,23 +228,7 @@ const Users = () => {
   }, [])
   
 
-  
 
-
-  const handleAddPopUp = (d) => {
-    if (popUpOffset == -101) {
-      setPopUpOffset(0);
-    } else {
-      setPopUpOffset(-101);
-    }
-  };
-
-
-  
-
-
-
-  
   return (
 
     <>
