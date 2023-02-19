@@ -109,11 +109,19 @@ export const AuthProvider = ({ children }) => {
 
         });
 
-        if (true) {
-            socket.off('liked_diary').on('liked_diary', (data) => {
+     
+        
 
-                if (data.UserId !== user?.UserId) {
-                    enqueueSnackbar(`${data.UserName} Liked ${data.Diary}`, { variant: 'info' })
+        if (auth) {
+            socket.off('liked_diary').on('liked_diary', (data) => {
+                 console.log("liked_diary",data)
+                // console.log("data.user.UserId",data.user.UserId)
+                // console.log("data.user.UserId",user?.UserId)
+                if (data.user.UserId !== user?.UserId) {
+                    if (data.DiaryUserId == user?.UserId) {
+                        enqueueSnackbar(`${data.user.UserName} Liked Your ${data.Diary}`, { variant: 'info' })
+                    }
+                   
                 }
               
             });
