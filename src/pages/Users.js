@@ -15,6 +15,7 @@ import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import {BASE_URL_PROD} from '../components/shared/Constants'
 import { useSnackbar} from 'notistack';
+import Cookies from 'js-cookie'
 const Root = styled.div`
 
 
@@ -209,10 +210,10 @@ const Add = styled.div`
 
 const Users = () => {
   const { enqueueSnackbar } = useSnackbar()
-  const [userList, setUserList] = useState([]);
+
   const [popUpOffset, setPopUpOffset] = useState(-101);
   const navigate = useNavigate();
-  const { auth,authToken,userId } = useContext(AuthContext);
+  const { socket,auth,authToken,userList } = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -221,20 +222,9 @@ const Users = () => {
   }, [])
 
   useEffect(() => {
-  
 
+    socket.off('get_users').emit('get_users');
 
-    axios.get(`${BASE_URL_PROD}/users`)
-      .then(function (response) {
-        setUserList(response.data)
-        console.log("response", response.data);
-      })
-      .catch(function (error) {
-        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
-        console.log(error);
-      })
-
-  
   }, [])
   
 

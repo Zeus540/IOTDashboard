@@ -27,8 +27,8 @@ export const DiaryProvider = ({ children }) => {
 
       })
       .catch((error) => {
-        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
-        console.log(error);
+        enqueueSnackbar(`${error?.response?.status} ${error?.response?.statusText}`,{variant:'error'})
+
       })
   }
 

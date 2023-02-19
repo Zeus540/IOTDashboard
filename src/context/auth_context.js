@@ -20,7 +20,8 @@ export const AuthProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [auth, setAuth] = useState(false);
     const [user, setUser] = useState();
-
+    const [userList, setUserList] = useState();
+    
 
 
 
@@ -90,6 +91,8 @@ export const AuthProvider = ({ children }) => {
 
         socket.off('connection').on('connection', () => {
             setIsConnected(true);
+            
+      
         });
 
     
@@ -100,31 +103,35 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
+        
         socket.off('diary_added').on('diary_added', (data) => {
             if (data.UserId !== user?.UserId) {
                 enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`, { variant: 'info' })
             }
-
-
-
         });
 
      
         
+        
 
         if (auth) {
             socket.off('liked_diary').on('liked_diary', (data) => {
-                 console.log("liked_diary",data)
-                // console.log("data.user.UserId",data.user.UserId)
-                // console.log("data.user.UserId",user?.UserId)
+             
                 if (data.user.UserId !== user?.UserId) {
                     if (data.DiaryUserId == user?.UserId) {
                         enqueueSnackbar(`${data.user.UserName} Liked Your ${data.Diary}`, { variant: 'info' })
                     }
-                   
                 }
-              
             });
+
+
+            socket.off('users').on('users', (data) => {
+                console.log("users",data)
+                setUserList(data.filter((r)=> r.UserId !== user.UserId))
+            });
+
+         
+            
         }
 
 
@@ -132,7 +139,7 @@ export const AuthProvider = ({ children }) => {
     })
 
     return (
-        <AuthContext.Provider value={{ auth, logOut, user, socket, setAuthentication }}>
+        <AuthContext.Provider value={{ auth, logOut, user, socket, setAuthentication,userList }}>
             {children}
         </AuthContext.Provider>
     )
