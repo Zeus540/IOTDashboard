@@ -1,11 +1,11 @@
 import Axios from "axios";
 
-import io from 'socket.io-client';
+
 import {BASE_URL_PROD,BASE_URL_PROD_SOCKET} from '../../components/shared/Constants'
 
 
 let axios = Axios.create()
-const socket = io(`${BASE_URL_PROD_SOCKET}`);
+
 
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(

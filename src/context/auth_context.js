@@ -6,11 +6,12 @@ import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie'
 import {BASE_URL_PROD,BASE_URL_PROD_SOCKET} from '../components/shared/Constants'
 import axios from '../components/shared/axios';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 export const AuthContext = createContext();
 
 
 
-
+const socket = io(`${BASE_URL_PROD_SOCKET}`);
 
 export const AuthProvider = ({ children }) => {
     const { enqueueSnackbar } = useSnackbar()
@@ -19,23 +20,9 @@ export const AuthProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [auth, setAuth] = useState(false);
     const [user, setUser] = useState();
-    const [socket, setSocket] = useState();
     const [userList, setUserList] = useState();
     
 
-   //Chat Config
-   useEffect(() => {
-
-    const newSocket = io(`${BASE_URL_PROD_SOCKET}`);
-    setSocket(newSocket)
-
-    newSocket.on('connection', () => {
-        setIsConnected(true);
-        console.log("connceting")
-  
-    });
-  
-}, [])
 
 
 
@@ -95,13 +82,31 @@ export const AuthProvider = ({ children }) => {
   
 
 
+    console.log("socket",)
+
+    //Chat Config
+    useEffect(() => {
+
+     
+        socket.on('connect', () => {
+            setIsConnected(socket.connected);
+      
+            console.log("connceting")
+        });
+      
+    
+     
+      
+
+    }, [])
 
 
-
- 
 
     useEffect(() => {
         
+        if(isConnected){
+
+       
         socket.off('diary_added').on('diary_added', (data) => {
             if (data.UserId !== user?.UserId) {
                 enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`, { variant: 'info' })
@@ -132,7 +137,7 @@ export const AuthProvider = ({ children }) => {
             
         }
 
-
+ }
 
     })
 
