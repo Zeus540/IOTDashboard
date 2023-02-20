@@ -1113,7 +1113,7 @@ const DashBoardPublic = (props) => {
   useEffect(() => {
  //Update Views
  
- //socket.off('get_views').emit('get_views', { Diary_Id: params.id });
+ socket.off('get_views').emit('get_views', { Diary_Id: params.id });
      socket.off('update_view').emit('update_view', { Diary_Id: params.id });
    
     socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
@@ -1187,8 +1187,16 @@ const DashBoardPublic = (props) => {
       setCommentAmount(data)
 
     });
+    socket.off('joined_room').on('joined_room', (data) => {
+
+    });
 
 
+
+    socket.on(`room_views${params.id}`, (data) => {
+      console.log(`room_views${params.id}`,data)
+      setViews(data)
+    });
 
     socket.off(`view_updated${params.id}`).on(`view_updated${params.id}`, (data) => {
 
@@ -1197,14 +1205,9 @@ const DashBoardPublic = (props) => {
 
     });
 
-    // socket.on(`room_views${params.id}`, (data) => {
-    //   console.log(`room_views${params.id}`,data)
-    //   setViews(data)
-    // });
+ 
 
-    socket.off('joined_room').on('joined_room', (data) => {
-
-    });
+ 
 
     socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
       console.log("room_likes",data)
