@@ -228,7 +228,7 @@ margin: 0px;
 
 
 const Diaries = () => {
-  const { diariesPublic, UpdatePublic, loading } = useContext(DiaryContext);
+  const { diariesPublic, getPublic, loading } = useContext(DiaryContext);
   const [diaryList, setDiaryList] = useState([]);
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);

@@ -1085,7 +1085,7 @@ const DashBoardPublic = (props) => {
   const [colourData, setColourData] = useState([]);
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
-  const { diaries, diariesPublic, Update, UpdatePublic } = useContext(DiaryContext);
+  const { diaries, diariesPublic, Update, getPublic } = useContext(DiaryContext);
   const params = useParams();
   const location = useLocation()
   const [position, setPosition] = useState(0);
@@ -1113,10 +1113,11 @@ const DashBoardPublic = (props) => {
   useEffect(() => {
  //Update Views
     socket.off('update_view').emit('update_view', { Diary_Id: params.id });
+    console.log(`update_view`)
     socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
     socket.off('join_room').emit('join_room', { Diary_Id: params.id });
     socket.off('get_comments').emit('get_comments', { Diary_Id: params.id });
-    
+   
   },[])
 
 

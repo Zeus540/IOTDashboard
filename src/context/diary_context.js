@@ -54,17 +54,22 @@ export const DiaryProvider = ({ children }) => {
   })
 
 
-  useEffect(() => {
+  const getPublic = () => {
 
     socket.off('get_public_diaries').emit('get_public_diaries');
+  }
+  
+  useEffect(() => {
 
-    
+  
+console.log("updating public")
+    getPublic()
 
   }, [])
 
 
   return (
-    <DiaryContext.Provider value={{ diaries, setDiaries, Update, loading, diariesPublic }}>
+    <DiaryContext.Provider value={{ diaries, setDiaries, Update, loading, diariesPublic,getPublic }}>
       {children}
     </DiaryContext.Provider>
   )

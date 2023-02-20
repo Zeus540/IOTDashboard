@@ -90,10 +90,10 @@ export const AuthProvider = ({ children }) => {
 
         socket.off('connection').on('connection', () => {
             setIsConnected(true);
-            
+      
       
         });
-
+        console.log("connceting")
     
 
 
