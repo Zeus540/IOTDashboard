@@ -1112,6 +1112,8 @@ const DashBoardPublic = (props) => {
 
   useEffect(() => {
  //Update Views
+ 
+ socket.off('get_views').emit('get_views', { Diary_Id: params.id });
     socket.off('update_view').emit('update_view', { Diary_Id: params.id });
     console.log(`update_view`,params.id)
     socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
@@ -1202,6 +1204,12 @@ const DashBoardPublic = (props) => {
     socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
      
       setLikes(data)
+    });
+
+    socket.off(`room_views${params.id}`).on(`room_views${params.id}`, (data) => {
+     
+      console.log(`view_updated${params.id}`,data)
+      setViews(data)
     });
 
      socket.off(`likes_updated${params.id}`).on(`likes_updated${params.id}`, (data) => {
