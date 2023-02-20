@@ -10,7 +10,7 @@ export const AuthContext = createContext();
 
 
 
-const socket = io(`${BASE_URL_PROD_SOCKET}`);
+
 
 export const AuthProvider = ({ children }) => {
     const { enqueueSnackbar } = useSnackbar()
@@ -19,9 +19,23 @@ export const AuthProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [auth, setAuth] = useState(false);
     const [user, setUser] = useState();
+    const [socket, setSocket] = useState();
     const [userList, setUserList] = useState();
     
 
+   //Chat Config
+   useEffect(() => {
+
+    const newSocket = io(`${BASE_URL_PROD_SOCKET}`);
+    setSocket(newSocket)
+
+    newSocket.on('connection', () => {
+        setIsConnected(true);
+        console.log("connceting")
+  
+    });
+  
+}, [])
 
 
 
@@ -84,22 +98,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    //Chat Config
-    useEffect(() => {
-
-
-        socket.off('connection').on('connection', () => {
-            setIsConnected(true);
-      
-      
-        });
-        console.log("connceting")
-    
-
-
-
-    }, [])
-
+ 
 
     useEffect(() => {
         
