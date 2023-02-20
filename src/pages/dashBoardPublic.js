@@ -1113,7 +1113,7 @@ const DashBoardPublic = (props) => {
   useEffect(() => {
  //Update Views
  
- socket.emit('get_views', { Diary_Id: params.id });
+ //socket.emit('get_views', { Diary_Id: params.id });
      socket.off('update_view').emit('update_view', { Diary_Id: params.id });
    
     socket.off('get_likes').emit('get_likes', { Diary_Id: params.id });
