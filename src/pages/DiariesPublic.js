@@ -57,22 +57,22 @@ const MainHeading = styled.h1`
   font-weight: bolder;
   margin: 0px 20px;
   border-bottom: 2px solid #8bab50;
+  margin-bottom: 5px;
   @media (max-width: 425px) {
     margin: unset;
-    
+    margin-bottom: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: unset;
+    margin-bottom: 0px;
   }
 `;
 
 const DiaryHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding:10px;
-  @media (max-width: 619px) {
-    padding:0px 10px;
-  }
+  padding:0px 10px;
+
 `;
 
 const Diary = styled(NavLink)`
@@ -148,12 +148,12 @@ const Add = styled.div`
   align-items: center;
 
   @media (max-width: 425px) {
-    padding:20px;
-   
+    padding:15px 20px;
+    padding-bottom: 5px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 20px;
-  
+    padding:15px 20px;
+    padding-bottom: 5px;
   }
 `;
 const SearchType = styled.div`
@@ -165,11 +165,11 @@ const SearchType = styled.div`
   padding-top: 20px;
   align-items: center;
   @media (max-width: 425px) {
-    padding:0px;
+    padding-top: 20px;
     margin-bottom: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 0px;
+    padding-top: 20px;
     margin-bottom: 0px;
   }
 `;
@@ -187,11 +187,11 @@ cursor: pointer;
   margin-left: 20px;
 }
   @media (max-width: 425px) {
-    padding:10px;
+    padding: 5px 20px;
    
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 10px;
+    padding: 5px 20px;
   
   }
 `;
@@ -211,11 +211,11 @@ font-size: 14px;
   margin-left: 20px;
 }
 @media (max-width: 425px) {
-  padding:10px;
+  padding: 5px 20px;
  
 }
 @media (min-width: 426px) and (max-width: 768px) {
-  padding: 10px;
+  padding: 5px 20px;
 
 `;
 
