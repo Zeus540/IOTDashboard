@@ -159,10 +159,11 @@ const Add = styled.div`
 const SearchType = styled.div`
   display: flex;
   margin: 0px 0px;
-  box-shadow: 0px 0px 20px #00000012;
-  margin-bottom: 20px;
+  //box-shadow: 0px 0px 20px #00000012;
+  margin-bottom: 15px;
   border-radius: 5px 5px 0px 0px;
-  cursor: pointer;
+  padding-top: 20px;
+  align-items: center;
   @media (max-width: 425px) {
     padding:0px;
     margin-bottom: 0px;
@@ -172,12 +173,18 @@ const SearchType = styled.div`
     margin-bottom: 0px;
   }
 `;
-const SearchTypeBlock = styled.div`
-padding: 10px 20px;
-
-
+const SearchTypeBlock = styled.p`
+padding: 5px 20px;
+border: 1px solid #596876;
+color:#596876;
+margin-right: 10px;
+border-radius: 50px;
+font-size: 14px;
+cursor: pointer;
 :nth-child(1){
-  border-radius: 5px 0px 0px 0px;
+  border-radius: 50px;
+  padding: 5px 20px;
+  margin-left: 20px;
 }
   @media (max-width: 425px) {
     padding:10px;
@@ -189,12 +196,19 @@ padding: 10px 20px;
   }
 `;
 
-const SearchTypeBlockActive = styled.div`
-padding: 10px 20px;  
-color: white;
+const SearchTypeBlockActive = styled.p`
+padding: 5px 20px;
+border: 1px solid #596876;
+margin-right: 10px;
+border-radius: 50px;
+color:white!important;
 background:#8bab50;
+cursor: pointer;
+font-size: 14px;
 :nth-child(1){
-  border-radius: 5px 0px 0px 0px;
+  border-radius: 50px;
+  padding: 5px 20px;
+  margin-left: 20px;
 }
 @media (max-width: 425px) {
   padding:10px;
