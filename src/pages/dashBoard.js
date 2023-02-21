@@ -1276,13 +1276,28 @@ const DashBoard = (props) => {
 
     });
 
+    
+    socket.off(`week_delete${params.id}`).on(`week_delete${params.id}`, (data) => {
+      if(data.length > 0){
+       setActiveDiaryWeeks(data)
+      }else{
+       setActiveDiaryWeeks([])
+      }
+    
+       });
+
+    socket.off(`week_added${params.id}`).on(`week_added${params.id}`, (data) => {
+      //console.log("week_added",data)
+    setActiveDiaryWeeks(data)
+    });
+
     socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
      
       setLikes(data)
     });
 
      socket.off(`likes_updated${params.id}`).on(`likes_updated${params.id}`, (data) => {
-      console.log("likes_updated",data)
+      //console.log("likes_updated",data)
        setLikes(data)
      });
 
@@ -1856,7 +1871,7 @@ const DashBoard = (props) => {
                   </TextHolder>
                 }
 
-{console.log("daysNotes",daysNotes)}
+
 {(weekId !== undefined && dayId !== undefined) && 
                   <TextHolder>
 

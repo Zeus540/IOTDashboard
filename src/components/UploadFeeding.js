@@ -221,10 +221,9 @@ const UploadFeeding = (props) => {
 
   const handleAdd = (e, child) => {
     setError(false)
-    console.log("map",nutrientsListData.map((n) =>  n.Nutrient_Id )  )
+
     if(nutrientsListData.map((n) =>  n.Nutrient_Id ).includes(e.target.value.Nutrient_Id)){
-      console.log("e", e.target.value)
-      console.log("filter", nutrientsListData.filter((n) => n == n)[0] == e.target.value)
+
   
 
     }else{
@@ -258,9 +257,7 @@ const UploadFeeding = (props) => {
   }
 
   
-  useEffect(() => {
-    console.log("nutrientsListData", nutrientsListData)
-  }, [nutrientsListData])
+
   
   return (
     <>

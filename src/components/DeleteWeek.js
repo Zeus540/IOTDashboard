@@ -80,8 +80,10 @@ const DeleteWeek = (props) => {
     
       setLoading(true)
     
+      console.log(props.DiaryId)
       let data = {
-        WeekId:props.week.WeekId
+        WeekId:props.week.WeekId,
+        DiaryId:props.DiaryId
       }
 
         
@@ -89,7 +91,7 @@ const DeleteWeek = (props) => {
         .then(function (response) {
           if(response.data.affectedRows == 1){
             enqueueSnackbar("Week Successfully Deleted",{variant:'success'})
-            Update()
+            //Update()
             props.setPopUpOffset(-101);
             props.setDays([])
             props.setGalleryData([])

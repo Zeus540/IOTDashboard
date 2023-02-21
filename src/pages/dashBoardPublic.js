@@ -1112,7 +1112,6 @@ const DashBoardPublic = (props) => {
 
   useEffect(() => {
  //Update Views
- 
     //socket.off('get_views').emit('get_views', { Diary_Id: params.id });
     socket.off('update_view').emit('update_view', { Diary_Id: params.id });
    
@@ -1194,20 +1193,31 @@ const DashBoardPublic = (props) => {
 
 
     socket.on(`room_views${params.id}`, (data) => {
-      console.log(`room_views${params.id}`,data)
+      //console.log(`room_views${params.id}`,data)
       setViews(data)
     });
 
     socket.off(`view_updated${params.id}`).on(`view_updated${params.id}`, (data) => {
 
-      console.log(`view_updated${params.id}`,data)
+      //console.log(`view_updated${params.id}`,data)
       setViews(data)
 
     });
 
+    socket.off(`week_delete${params.id}`).on(`week_delete${params.id}`, (data) => {
+   if(data.length > 0){
+    setActiveDiaryWeeks(data)
+   }else{
+    setActiveDiaryWeeks([])
+   }
  
-
- 
+    });
+    
+  
+    socket.off(`week_added${params.id}`).on(`week_added${params.id}`, (data) => {
+      console.log("week_added",data)
+    setActiveDiaryWeeks(data)
+    });
 
     socket.off(`room_likes${params.id}`).on(`room_likes${params.id}`, (data) => {
       console.log("room_likes",data)
@@ -1701,7 +1711,8 @@ const DashBoardPublic = (props) => {
 
 
           <Heading>WEEKS</Heading>
-
+          {activeDiaryWeeks.length > 0 ?
+<>
           {activeWeek.WeekId == undefined && <Helper>Please Select a Week</Helper>}
 
           <WeekHolderInner>
@@ -1791,6 +1802,11 @@ const DashBoardPublic = (props) => {
 
 
           </WeekHolderInner>
+          </>:
+             <NoDataHolder>
+             <NoData>No Data Available</NoData>
+           </NoDataHolder>
+           }
 
           {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
           {days.length > 0 &&

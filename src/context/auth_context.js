@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
   
 
 
-    console.log("socket",)
+
 
     //Chat Config
     useEffect(() => {
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         socket.on('connect', () => {
             setIsConnected(socket.connected);
       
-            console.log("connceting")
+            console.log("connected")
         });
       
     
