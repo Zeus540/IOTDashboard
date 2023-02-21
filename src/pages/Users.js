@@ -41,7 +41,7 @@ const Inner = styled.div`
     padding-top: 0px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 0px;
+    margin: 20px;
     padding-top: 0px;
   }
   @media (min-width: 769px) and (max-width: 1770px) {
