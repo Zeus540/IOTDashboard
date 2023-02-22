@@ -24,7 +24,7 @@ transition: 0.5s all ease;
 const ToastInnerImg = styled.div`
 width: 150px;
 background:url(${PlaceHolder});
-height: 120px;
+
 background-size: cover;
 background-position: center;
 border-radius: 5px 0px 0px 5px;
@@ -41,14 +41,14 @@ border-radius: 0px 5px 5px 0px;
 const Toast = () => {
 
     const{newDiary,newDiaryData} = useContext(AuthContext)
-const [toastPostion, setToastPostion] = useState("-100%")
+const [toastPostion, setToastPostion] = useState("-200%")
 
  useEffect(() => {
 
      if(newDiary){
          setToastPostion("0%")
      }else{
-         setToastPostion("-100%")
+         setToastPostion("-200%")
      }
 
      console.log("newDiaryData",newDiaryData)
@@ -63,7 +63,7 @@ const [toastPostion, setToastPostion] = useState("-100%")
 
             </ToastInnerImg>
             <ToastInnerText>New {newDiaryData.Type} Journal has been added <br/>
-           {newDiaryData.Title} <br/> <br/>by {newDiaryData.UserName}</ToastInnerText>
+           {newDiaryData.Title} <br/> <br/> by {newDiaryData.UserName}</ToastInnerText>
          
           
          </ToastInner>
