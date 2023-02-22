@@ -14,6 +14,7 @@ import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
 import { TailSpin } from  'react-loader-spinner'
+
 const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
@@ -113,7 +114,23 @@ width: 55px;
 const TypeBlockText = styled.p`
 margin: 0px;
 `;
+const LimitReached = styled.p`
+margin: 0px;
+    color: red!important;
 
+    font-size: 18px;
+    text-align: center;
+
+`;
+const LimitReachedUpgrade = styled.p`
+margin: 0px;
+
+padding-bottom: 20px;
+font-size: 16px;
+text-align: center;
+
+
+`;
 const Button = styled.button`
 padding: 8px 25px;
 background: #ffffff00;
@@ -136,7 +153,8 @@ const AddDiary = (props) => {
   const navigate = useNavigate();
   const { auth, authToken, userId, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false)
-
+  const [limitedMsg, setLimitedMsg] = useState("")
+  const [limitedMsgUpgrade, setLimitedMsgUpgrade] = useState("")
 
 useEffect(() => {
   setType("")
@@ -177,6 +195,12 @@ useEffect(() => {
            setLoading(false)
          }else{
        
+          if(response.data.msg){
+            setLimitedMsg(response.data.msg)
+            setLimitedMsgUpgrade(response.data.msgUpgrade)
+            setLoading(false)
+          }
+          
          }
 
        })
@@ -376,9 +400,23 @@ useEffect(() => {
 
   
 {!loading ?
-       <Button type="submit" >
+
+<>
+{limitedMsg !== "" && 
+<>
+<LimitReached>
+  {limitedMsg}
+</LimitReached>
+<LimitReachedUpgrade>
+  {limitedMsgUpgrade}
+</LimitReachedUpgrade>
+</>
+}
+<Button type="submit" >
        Submit
      </Button>
+</>
+       
 :
 <TailSpin
   height="40"

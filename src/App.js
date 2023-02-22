@@ -8,6 +8,7 @@ import MainContainer from './MainContainer';
 import Footer from './components/Footer';
 import Cookiepolicy from './components/shared/CookieBanner';
 import Cookies from 'js-cookie';
+import Toast from './components/shared/Toast';
 
 const Root = styled.div`
 
@@ -36,11 +37,12 @@ z-index: 5;
 
 `;
 
+
 function App() {
 
   const [mobileMenu, setMobileMenu] = useState(false);
   const [acceptCookies, setAcceptCookies] = useState(false);
-const{loginAllTabs} = useContext(AuthContext)
+
 
   const OffClick = () => {
     if (mobileMenu == true) {
@@ -68,7 +70,7 @@ const{loginAllTabs} = useContext(AuthContext)
       <Image></Image>
       <Inner>
 
-         
+    <Toast/>
               <NavBar mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} OffClick={OffClick}/>
               <MainContainer />
               <Footer />

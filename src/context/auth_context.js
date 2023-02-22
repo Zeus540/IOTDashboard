@@ -23,8 +23,13 @@ export const AuthProvider = ({ children }) => {
     const { enqueueSnackbar } = useSnackbar()
 
     const navigate = useNavigate()
+    const location = useLocation()
+    
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [auth, setAuth] = useState(false);
+    const [newDiary, setNewDiary] = useState(false);
+    const [newDiaryData, setNewDiaryData] = useState([]);
+    
     const [user, setUser] = useState();
     const [userList, setUserList] = useState();
     
@@ -113,12 +118,21 @@ export const AuthProvider = ({ children }) => {
         if(isConnected){
 
        
+            if(location.pathname !== "/"){
+
+            
         socket.off('diary_added').on('diary_added', (data) => {
             if (data.UserId !== user?.UserId) {
-                enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`, { variant: 'info' })
+                setNewDiary(true)
+                setNewDiaryData(data)
+                setTimeout(() => {
+                    setNewDiary(false)
+                }, 5000);
+
+                //enqueueSnackbar(`New Diary ${data.Title} Added by ${data.UserName}`, { variant: 'info' })
             }
         });
-
+    }
      
         
         
@@ -148,7 +162,7 @@ export const AuthProvider = ({ children }) => {
     })
 
     return (
-        <AuthContext.Provider value={{ auth, logOut, user, socket, setAuthentication,userList }}>
+        <AuthContext.Provider value={{ auth, logOut, user, socket, setAuthentication,userList,newDiary,newDiaryData }}>
             {children}
         </AuthContext.Provider>
     )
