@@ -24,6 +24,7 @@ import ProtectedRoutes from './components/shared/PrivateRoute';
 import Terms from './components/Terms';
 import CookiePolicy from './components/CookiePolicy';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import HomePage from './pages/HomePage';
 
 const MainContainer = (props) => {
     const { auth, userId, setAuth, user, socket } = useContext(AuthContext)
@@ -39,12 +40,12 @@ const MainContainer = (props) => {
 
             <Routes>
 
-                {/* {!user ?
-                     :
+                 {!user ?
+                      <Route path="/" element={<HomePage />} /> :
                     <Route path="/" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
 
-                } */}
-                <Route path="/" element={<DiariesPublic />} />
+                } 
+              
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="/sign-in" element={<Login />} />

@@ -11,7 +11,13 @@ export const AuthContext = createContext();
 
 
 
-const socket = io(`${BASE_URL_PROD_SOCKET}`);
+const socket = io(`${BASE_URL_PROD_SOCKET}`,
+{
+    withCredentials:true
+}
+);
+
+
 
 export const AuthProvider = ({ children }) => {
     const { enqueueSnackbar } = useSnackbar()
