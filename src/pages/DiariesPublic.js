@@ -56,7 +56,7 @@ const MainHeading = styled.h1`
   margin-top: 0px;
   font-weight: bolder;
   margin: 0px 20px;
-  border-bottom: 2px solid #8bab50;
+  //border-bottom: 2px solid #8bab50;
   margin-bottom: 5px;
   @media (max-width: 425px) {
     margin: unset;
@@ -82,7 +82,7 @@ margin: 10px;
 border-radius: 5px;
 
 text-decoration: none;
-color: #596876;
+color: #354f41;
 @media (max-width: 425px) {
   max-width: calc(100% / 1 - 20px);
   width: 100%;
@@ -175,8 +175,8 @@ const SearchType = styled.div`
 `;
 const SearchTypeBlock = styled.p`
 padding: 5px 20px;
-border: 1px solid #596876;
-color:#596876;
+border: 1px solid #354f41;
+color:#354f41;
 margin-right: 10px;
 border-radius: 50px;
 font-size: 14px;
@@ -198,7 +198,7 @@ cursor: pointer;
 
 const SearchTypeBlockActive = styled.p`
 padding: 5px 20px;
-border: 1px solid #596876;
+border: 1px solid #8bab50;
 margin-right: 10px;
 border-radius: 50px;
 color:white!important;
@@ -221,7 +221,7 @@ font-size: 14px;
 
 const Button = styled.button`
 padding: 8px 25px;
-  background: #596876;
+  background: #354f41;
   color: white;
   border: none;
   border-radius: 5px;

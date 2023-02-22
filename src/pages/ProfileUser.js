@@ -64,7 +64,7 @@ const MainHeadingSmall = styled.div`
   }
 `;
 
-const MainHeading = styled.div`
+const MainHeading = styled.h1`
   margin: 0px 0px;
   font-size: 24px;
   margin-top: 0px;
@@ -81,7 +81,7 @@ const MainHeading = styled.div`
 
 const UserInfoTop = styled.div`
 display: flex;
-color: #596876;
+color: #354f41;
 padding: 20px;
 @media (max-width: 425px) {
   flex-direction: column;
@@ -93,7 +93,7 @@ padding: 20px;
 
 const BlockHolder = styled.div`
 display: flex;
-color: #596876;
+color: #354f41;
 padding: 10px 10px;
 flex-wrap: wrap;
 border-radius: 5px;
@@ -118,7 +118,7 @@ justify-content: center;
 `;
 const Block = styled.div`
 display: flex;
-color: #596876;
+color: #354f41;
 padding: 10px 20px;
 
 border-radius: 5px;

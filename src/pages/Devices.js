@@ -140,7 +140,7 @@ width: 100%;
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 20px;
-color: #596876;
+color: #354f41;
 
 `;
 const FormHeadingGroup = styled.div`
@@ -184,7 +184,7 @@ padding: 20px;
 `;
 
 const New = styled.div`
-border: 2px solid #596876;
+border: 2px solid #354f41;
 border-radius: 5px;
 padding: 20px;
 display: flex;

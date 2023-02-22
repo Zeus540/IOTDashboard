@@ -50,7 +50,7 @@ padding: 8px 20px;
 margin: 10px 20px;
 background: #f2f2f2;
 border: none;
-color: #596876;
+color: #354f41;
 border-radius: 5px;
 cursor: pointer;
 `;
@@ -87,7 +87,7 @@ padding: 5px 15px;
 border-radius: 5px 5px 0px 0px;
 justify-content: space-between;
 background: #ffffff;
-    color: #596876;
+    color: #354f41;
 `;
 
 const InputGrp = styled.div`
@@ -100,12 +100,12 @@ display: flex;
 
 `;
 const Label = styled.label`
-color:#596876;
+color:#354f41;
 font-weight:bold;
 `;
 
 const ToggleHolderLabel = styled.label`
-color:#596876;
+color:#354f41;
 
 margin-left: 10px;
 `;

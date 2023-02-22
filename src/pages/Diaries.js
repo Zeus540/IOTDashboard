@@ -70,7 +70,7 @@ const MainHeading2 = styled.h2`
   font-weight: bolder;
   margin: 0px 20px;
   width: max-content;
-  border-bottom: 2px solid #8bab50;
+  //border-bottom: 2px solid #8bab50;
   @media (max-width: 425px) {
     margin: 0px 20px;
     
@@ -99,7 +99,7 @@ margin: 10px;
 border-radius: 5px;
 
 text-decoration: none;
-color: #596876;
+color: #354f41;
 @media (max-width: 425px) {
   max-width: calc(100% / 1 - 20px);
   width: 100%;

@@ -30,7 +30,7 @@ const Flex2 = styled.div`
 `;
 
 const Heading = styled.h4`
-color: #596876;
+color: #354f41;
   text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
@@ -127,7 +127,7 @@ const TextHolderGroup2Inner = styled.div`
 const NoData = styled.div`
   padding: 15px 0px;
   font-size: 18px;
-  color: #596876;
+  color: #354f41;
 `;
 const NoDataHolder = styled.div`
   width: 100%;

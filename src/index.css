@@ -9,15 +9,15 @@
 
 h1,h3,h2,h4,h6{
   font-family: baloonB!important;
-  color: #596876!important;
+  color: #354f41!important;
 }
 p{
   font-family: baloonR!important;
-  color: #596876!important;
+  color: #354f41!important;
   margin: 0px;
 }
 li{
-  color: #596876!important;
+  color: #354f41!important;
 }
 body,button {
   margin: 0;
@@ -102,7 +102,7 @@ border-radius: 5px;
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: #596876;
+  background: #354f41;
 }
 .switch {
   position: relative;
@@ -142,11 +142,11 @@ border-radius: 5px;
 }
 
 input:checked + .slider {
-  background-color: #596876;
+  background-color: #354f41;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #596876;
+  box-shadow: 0 0 1px #354f41;
 }
 
 input:checked + .slider:before {
@@ -178,7 +178,7 @@ border-radius: 5px;
 
 /* Handle on hover */
 .chat::-webkit-scrollbar-thumb:hover {
-  background: #596876;
+  background: #354f41;
 }
 .chat::-webkit-scrollbar {
   width: 10px;

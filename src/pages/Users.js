@@ -50,7 +50,7 @@ const Inner = styled.div`
 
 `;
 
-const MainHeading = styled.div`
+const MainHeading = styled.h1`
   margin: 0px 0px;
   font-size: 24px;
   margin-top: 0px;
@@ -85,7 +85,7 @@ display: flex;
     justify-content: space-between;
 text-decoration: none;
 align-items: center;
-color: #596876;
+color: #354f41;
 
 &:hover {
   background: ghostwhite;
@@ -218,7 +218,7 @@ const Users = () => {
 
   useEffect(() => {
 
-    document.title = "Sweet Leaf - Users" 
+    document.title = "Sweet Leaf - Growers" 
   }, [])
 
   useEffect(() => {
@@ -240,7 +240,7 @@ const Users = () => {
 
       <Inner>
         <Add>
-          <MainHeading>Users</MainHeading>
+          <MainHeading>Growers</MainHeading>
        
         
         </Add>

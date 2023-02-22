@@ -35,7 +35,7 @@ const GalleryHolder = styled.div`
   flex-direction: column;
 `;
 
-const MainHeading = styled.div`
+const MainHeading = styled.h1`
  
  margin: 20px 0px;
  font-size: 18px;

@@ -78,7 +78,7 @@ const Inner = styled.div`
 const TextHeading = styled.div`
   font-size: 18px;
   font-weight: bold;
-  color: #596876;
+  color: #354f41;
 `;
 
 const TextHolderGroup2 = styled.div`
@@ -110,7 +110,7 @@ width: 100%;
 
 const Button = styled.button`
 padding: 8px 25px;
-background: #596876;
+background: #354f41;
 color: white;
 border: none;
 border-radius: 5px;

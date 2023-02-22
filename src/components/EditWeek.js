@@ -36,7 +36,7 @@ flex-wrap: wrap;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: #596876;
+color: #354f41;
 padding: 0px 20px;
 padding-top: 20px;
 
@@ -46,7 +46,7 @@ padding-top: 20px;
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 20px;
-color: #596876;
+color: #354f41;
 
 `;
 const FormHeadingGroup = styled.div`

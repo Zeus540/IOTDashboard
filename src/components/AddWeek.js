@@ -24,7 +24,7 @@ width: 100%;
 const FormHeading = styled.h1`
 margin: 0px;
 font-size: 20px;
-color: #596876;
+color: #354f41;
 
 `;
 const FormHeadingGroup = styled.div`

@@ -48,7 +48,7 @@ display: flex;
 flex-direction: column;
 `;
 const Label = styled.label`
-color:#596876;
+color:#354f41;
 font-weight:bold;
 `;
 const Input = styled(Field)`
@@ -92,7 +92,7 @@ color: #f44336;
 `;
 
 const Help = styled.p`
-color: #596876;
+color: #354f41;
 margin: 0px;
 font-size: 16px;
 text-align: center;

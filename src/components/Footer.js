@@ -8,7 +8,7 @@ const Root = styled.div`
 box-shadow:  0px 0px 20px #00000012;
 margin: 0px;
     background: #ffffff;
-    color: #596876;
+    color: #354f41;
     padding: 0px 0px;
     box-shadow:  0px 0px 20px #00000012;
 
@@ -37,7 +37,7 @@ margin-bottom: 0px;
 
 const MenuLinkMobileHeading = styled.h3`
 margin: 5px 0px;
-border-bottom: 2px solid #8bab50;
+
 width: fit-content;
 `;
 const MenuLinkMobile = styled(NavLink)`
@@ -45,7 +45,7 @@ const MenuLinkMobile = styled(NavLink)`
   padding: 5px 0px;
 
   text-align: center;
-  color: #596876;
+  color: #354f41;
   text-decoration: none;
   background:transparent
   display: block;
@@ -72,10 +72,10 @@ display: flex;
 
 const Section = styled.div`
 width: calc(100% /3);
-padding-bottom: 10px;
+padding: 10px 0px;
 @media (max-width: 768px) {
   width: calc(100% /1);
-  padding-bottom: 10px;
+  padding: 10px 0px;
 }
 `;
 
@@ -89,7 +89,7 @@ const Footer = () => {
         <Inner>
         <SectionHolder>      
     <Section>
-    <MenuLinkMobileHeading>Links</MenuLinkMobileHeading>
+    {/* <MenuLinkMobileHeading>Links</MenuLinkMobileHeading> */}
         <MenuLinkMobile to="/public-journals" >
                      <FlexLink>
                      
@@ -112,10 +112,10 @@ const Footer = () => {
                       My Devices
                      </FlexLink>
                    </MenuLinkMobile>
-                   <MenuLinkMobile to="/users" >
+                   <MenuLinkMobile to="/growers" >
                      <FlexLink>
                      
-                      Users
+                      Growers
                      </FlexLink>
                    </MenuLinkMobile>
                    </>
@@ -123,7 +123,7 @@ const Footer = () => {
       </Section>
 
       <Section>
-    <MenuLinkMobileHeading>Legal</MenuLinkMobileHeading>
+    {/* <MenuLinkMobileHeading>Legal</MenuLinkMobileHeading> */}
     
         <MenuLinkMobile to="/terms" >
                      <FlexLink>

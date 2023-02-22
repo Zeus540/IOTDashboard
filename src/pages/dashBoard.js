@@ -47,7 +47,7 @@ const MenuLinkB = styled(NavLink)`
   margin: 0px 0px;
   padding: 0px 10px;
 
-  color: #596876;
+  color: #354f41;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -205,12 +205,12 @@ const FlexTop = styled.div`
 `;
 
 const Flex3B = styled.div`
-// background: #596876;
+// background: #354f41;
 color:white;
 
 padding-bottom: 0px;
 @media (max-width: 425px) {
-  // background: #596876;
+  // background: #354f41;
   color: white;
 
 }
@@ -233,7 +233,7 @@ const WeekHolder = styled.div`
   cursor: pointer;
 
   display: flex;
-  color: #596876;
+  color: #354f41;
   opacity: 0.5;
   flex-direction: column;
   justify-content: space-between;
@@ -269,7 +269,7 @@ const WeekHolderActive = styled.div`
   min-width: 70px;
   background: #f8f8ff;
   cursor: pointer;
-  color: #596876;
+  color: #354f41;
 
   transition: all 0.2s ease;
   display: flex;
@@ -375,10 +375,10 @@ const TextHolder = styled.div`
 
 const TextHolderHeading = styled.h3`
   margin: 0px;
-  color:#596876;
+  color:#354f41;
 `;
 const DairyHeading = styled.h3`
-color:#596876;
+color:#354f41;
   margin-top: 0px;
   font-size: 30px;
   margin-bottom: 0px;
@@ -387,7 +387,7 @@ color:#596876;
   }
 `;
 const DairyHeadingTitle = styled.p`
-color:#596876;
+color:#354f41;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -398,7 +398,7 @@ color:#596876;
 `;
 
 const DairyHeadingTitleC = styled.p`
-color:#596876;
+color:#354f41;
   margin-top: 0px;
   cursor: pointer;
   font-size: 16px;
@@ -412,7 +412,7 @@ color:#596876;
 
 const DairyViewsSmall = styled.sup`
 display: flex;
-color:  #596876;
+color:  #354f41;
 margin-top: 0px;
 font-size: 16px;
 
@@ -430,7 +430,7 @@ margin-right: 10px;
 `;
 
 const DairyHeadingSmallAccent = styled.span`
-color:#596876;
+color:#354f41;
   margin-top: 0px;
   font-size: 16px;
   margin-bottom: 0px;
@@ -483,7 +483,7 @@ const GalleryImageOverlay = styled.div`
 
   top: 0;
   z-index: 40;
-  color: #596876;
+  color: #354f41;
   padding: 10px;
   font-size: 14px;
   border-radius: 0px 0px  5px 5px;
@@ -622,7 +622,7 @@ const Heading = styled.h4`
   margin-bottom: 30px;
   margin-top: 30px;
   align-items: center;
-  color: #596876;
+  color: #354f41;
   &::before {
     content: "";
     display: block;
@@ -656,7 +656,7 @@ const HeadingC = styled.h4`
   margin-bottom: 40px;
   margin-top: 40px;
   align-items: center;
-  color: #596876;
+  color: #354f41;
   @media (min-width: 0px) and (max-width: 768px) {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -722,7 +722,7 @@ const DayDotInner = styled.div`
   margin: 15px 10px;
   flex-direction: column;
   align-items: center;
-color:#596876
+color:#354f41
 `;
 
 const DayDot = styled.div`
@@ -783,7 +783,7 @@ const DayDotOutter = styled.div`
 
 const Helper = styled.p`
 text-align:center;
-color: #596876;
+color: #354f41;
 margin-top: 0;
 
 `;
@@ -848,7 +848,7 @@ margin: 0;
 `;
 
 const Dot = styled.div`
-  background: ${props => props.index == props.positionIndex ? "#8bab50" : "#596876"};
+  background: ${props => props.index == props.positionIndex ? "#8bab50" : "#354f41"};
   border-radius: 50%;
   height: 10px;
   width: 10px;
@@ -881,7 +881,7 @@ padding: 5px 20px;
 width: fit-content;
 border: none;
 
-color: #596876;
+color: #354f41;
 border-radius: 5px;
 cursor: pointer;
 
@@ -914,7 +914,7 @@ const QuickActionBlock = styled.div`
 padding: 10px 20px;
 background: #f8f8ff;
 margin: 0px 10px;
-color: #596876;
+color: #354f41;
 margin-left: 0px;
 margin-bottom: 10px;
 border-radius: 5px;
@@ -951,19 +951,19 @@ fill: white;
 
 const SvgV = styled.svg`
 width: 20px;
-fill: #596876;
+fill: #354f41;
 margin-right: 10px;
 `;
 
 const SvgL = styled.svg`
 width: 20px;
-fill:#596876;
+fill:#354f41;
 margin-right: 10px;
 `;
 
 const SvgVS = styled.svg`
 width: 15px;
-fill: #596876;
+fill: #354f41;
 margin-right: 10px;
 `;
 
@@ -989,7 +989,7 @@ fill: #8bab50;
 const FormHeadingSmall = styled.h1`
 margin: 0px;
 font-size: 18px;
-color: #596876;
+color: #354f41;
 padding: 0px 0px;
 padding-top: 20px;
 `;
@@ -998,7 +998,7 @@ const SetImageHolder = styled.div`
 position: absolute;
 z-index: 50;
 background: #8bab50;
-color: #596876;
+color: #354f41;
 padding-left: 10px;
 border-radius: 5px 0px 5px 0px;
 display: flex;
@@ -1006,7 +1006,7 @@ display: flex;
 
 const ChatHolder = styled.div`
 position: relative;
-color: #596876;
+color: #354f41;
 min-height: 200px;
 background: #e7e7e7;
 // border: 1px solid #b1b1b1;
@@ -1032,7 +1032,7 @@ margin-bottom: 10px;
 `;
 
 const ChatMsgUser = styled.div`
-color: #596876;
+color: #354f41;
 font-size: 12px;
 :hover{
   color: #8bab50;
@@ -1041,7 +1041,7 @@ font-size: 12px;
 
 const ChatMsgComment = styled.p`
 margin: 0px;
-background: #596876;
+background: #354f41;
 padding: 5px 10px;
 display: flex;
 border-radius: 5px;
@@ -1796,7 +1796,7 @@ const DashBoard = (props) => {
                         </SvgHolder>
 
                         <SvgHolder onClick={() => { handleDiarySettings() }}>
-                          <Cog fill="#596876" />
+                          <Cog fill="#354f41" />
                         </SvgHolder>
 
                         <SvgHolder onClick={() => { handleDeleteDiary() }}>

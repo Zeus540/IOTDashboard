@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import BannerImg from '../assets/unsplash.jpg'
-import Wave from '../assets/wave35.svg'
-import Wave4 from '../assets/wave6.svg'
+import BannerImg from '../assets/back352.jpg'
+import Wave from '../assets/wave2.svg'
+import Back from '../assets/back352.jpg'
 
 import { DiaryContext } from "../context/diary_context";
 import { NavLink } from "react-router-dom";
@@ -10,8 +10,13 @@ import PlaceHolder from "../assets/placeholder.png";
 
 const Root = styled.div`
 
-
-background: whitesmoke;`
+background:url(${BannerImg});
+background-attachment: fixed;
+background-position: center;
+background-size: cover;
+background-color: #5858588c;
+background-blend-mode: overlay;
+`
 
 const Inner = styled.div`
 
@@ -34,23 +39,21 @@ const Inner = styled.div`
 `;
 
 const HeroBanner = styled.div`
-//min-height:30vh;
-//background:url(${BannerImg});
+min-height:40vh;
+
 flex-direction: column;
-background-position: center;
-background-size: cover;
-//background-color: #121b1cc4;
-//background-blend-mode: overlay;
+
 display: flex;
 justify-content: center;
 align-items: center;
 padding: 80px 20px;
 @media (max-width: 425px) {
-    margin: 40px 0px;
+    margin: 0px 0px;
     padding: 40px 20px;
+    min-height:30vh;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    margin: 40px 0px;
+    margin: 0px 0px;
     padding: 40px 40px;
   }
 `;
@@ -59,9 +62,9 @@ padding:10px
 
 `;
 const HeroTextBig = styled.p`
-//color: white!important;
-   
-    font-size: 40px;
+color: white!important;
+text-align: center;
+    font-size: 50px;
     font-family: baloonB!important;
 `;
 
@@ -133,6 +136,7 @@ max-width: 1770px;
 margin: 40px auto;
 box-shadow: 0px 0px 20px 0px #5968765e;
 padding-bottom: 40px;
+margin-top: -65px;
     padding: 20px;
     @media (max-width: 425px) {
         margin: 0px 20px;
@@ -156,6 +160,7 @@ margin:10px;
 
   }
 `;
+
 const FeatureItemSvg = styled.svg`
 
 width: 80px;
@@ -184,7 +189,12 @@ flex-direction: column;
 align-items: center;
 text-align: center;
 width: calc(100% / 3 );
-margin:10px
+margin:10px;
+
+  @media (min-width: 0px) and (max-width: 768px) {
+    width: calc(100% / 1 );
+
+  }
 `;
 
 const MenuLink = styled(NavLink)`
@@ -192,24 +202,26 @@ text-decoration: unset;
 padding: 8px 25px;
 width: fit-content;
 border: none;
-background: #00000000;
-color: #8bab50;
+background: #8bab50;
+color: #ffffff;
 border-radius: 5px;
 cursor: pointer;
 border: 1px #8bab50 solid;
-margin-right: 20px;
+
 `;
 
 const MenuLinkHolder = styled.div`
 
-    padding-top: 40px;
+display: flex;
+justify-content: center;
+
+    padding-top: 20px;
 position: relative;
 z-index: 1;
 `;
 
 const HeroBannerTextHolder = styled.div`
-max-width: 1770px;
-width: 100%;
+
 
 `;
 
@@ -220,7 +232,7 @@ margin: 10px;
 border-radius: 5px;
 
 text-decoration: none;
-color: #596876;
+color: #354f41;
 @media (max-width: 425px) {
   min-width: calc(100% / 1 - 20px);
   width: 100%;
@@ -300,8 +312,38 @@ text-align: left;
 
 `;
 
+const PricingSection = styled.div`
+background: white;
+padding: 40px 0px;
+`;
+
+const PricingSectionHeading = styled.h2`
+text-align: center;
+margin: 0;
+margin-bottom: 20px;
+font-size: 40px;
+
+`;
+const PricingSectionHeadingW = styled.h2`
+text-align: center;
+margin: 0;
+margin-bottom: 20px;
+font-size: 40px;
+color:  white!important;
+`;
+
+const Ul = styled.ul`
+list-style: none;
+padding: 0px;
+`;
+
 const HomePage = () => {
   const { diariesPublic, getPublic, loading } = useContext(DiaryContext);
+
+  useEffect(() => {
+    getPublic()
+  }, [])
+  
   return (
     <Root>
         <Inner>
@@ -311,12 +353,8 @@ const HomePage = () => {
         <HeroTextBig>Welcome to the Sweet Leaf!</HeroTextBig>  
 
         <MenuLinkHolder>
-                <MenuLink to="/sign-up">
-                Create account
-            </MenuLink>
-            <MenuLink to="/sign-in">
-            Sign In
-            </MenuLink>
+           
+        
             </MenuLinkHolder>
             </HeroBannerTextHolder>
 			</HeroBanner>
@@ -331,7 +369,7 @@ const HomePage = () => {
       <HeroText>With Sweet Leaf Grow Journals, our users have a powerful tool that enables them to track their progress, analyze their results, and share their knowledge with the community.<br/> The platform is designed to be user-friendly, flexible, and customizable, allowing growers to tailor it to their unique needs.</HeroText>
 
 
-<HeroText>Our users have documented their grow journey in a variety of ways, from photos and videos to detailed notes and tips.<br/> You'll find diaries covering a wide range of topics, including indoor and outdoor grows, hydroponics, soil, and more.</HeroText>
+<HeroText>Our users have documented their grow journey in a variety of ways, from photos to detailed notes and tips.<br/> You'll find diaries covering a wide range of topics, including indoor and outdoor grows, hydroponics, soil, and more.</HeroText>
       {diariesPublic.length > 0 &&
             <>
               <DiaryHolder>
@@ -367,7 +405,7 @@ const HomePage = () => {
 
 
                 
-                <HeroText>So come on in and explore our collection of grow diaries.<br/> We're sure you'll find something that will inspire you to take your own grow journey to the next level.</HeroText>
+                {/* <HeroText>So come on in and explore our collection of grow diaries.<br/> We're sure you'll find something that will inspire you to take your own grow journey to the next level.</HeroText> */}
 
 
 
@@ -381,17 +419,17 @@ const HomePage = () => {
 		</Section>
 
 		<FeatureSection>
-			
+    <PricingSectionHeadingW>Features</PricingSectionHeadingW>
             <SectionInner >
 			<FeatureItem>
 		
-                <FeatureItemSvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20"><path fill="white" d="M8.75 3.75a2.75 2.75 0 1 0-5.5 0a2.75 2.75 0 0 0 5.5 0Zm-4.5 0a1.75 1.75 0 1 1 3.5 0a1.75 1.75 0 0 1-3.5 0ZM2.5 7.5h4.183c-.164.31-.286.646-.358 1H2.5A.5.5 0 0 0 2 9v.5c0 1.26 1.099 2.614 3.096 2.93c-.322.22-.59.513-.781.854C2.205 12.713 1 11.087 1 9.5V9a1.5 1.5 0 0 1 1.5-1.5Zm5.379 0c.504-.61 1.267-1 2.121-1a2.744 2.744 0 0 1 2.646 2a2.753 2.753 0 0 1-3.893 3.202A2.75 2.75 0 0 1 7.88 7.5Zm.54 1a1.75 1.75 0 1 0 3.164 1.5a1.75 1.75 0 0 0-3.165-1.5Zm7.266 4.784a2.513 2.513 0 0 0-.781-.853C16.9 12.114 18 10.759 18 9.5V9a.5.5 0 0 0-.5-.5h-3.825a3.726 3.726 0 0 0-.357-1H17.5A1.5 1.5 0 0 1 19 9v.5c0 1.587-1.206 3.212-3.315 3.784Zm-1.198.087A1.493 1.493 0 0 0 13.5 13h-7A1.496 1.496 0 0 0 5 14.5v.5c0 1.971 1.86 4 5 4c3.14 0 5-2.029 5-4v-.5c0-.45-.198-.854-.513-1.13ZM6 14.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v.5c0 1.438-1.432 3-4 3s-4-1.562-4-3v-.5ZM14 1a2.75 2.75 0 1 1 0 5.5A2.75 2.75 0 0 1 14 1Zm0 1a1.75 1.75 0 1 0 0 3.5A1.75 1.75 0 0 0 14 2Z"/></FeatureItemSvg>
+      <FeatureItemSvg xmlns="http://www.w3.org/2000/svg"  width="100%" height="100%" viewBox="0 0 32 32"><path fill="white" d="M26 13a4.005 4.005 0 0 0 4-4V6h-3a3.979 3.979 0 0 0-2.747 1.106A6.004 6.004 0 0 0 19 4h-3v3a6.007 6.007 0 0 0 6 6h1v13H11v-5h1a4.005 4.005 0 0 0 4-4v-3h-3a3.979 3.979 0 0 0-2.747 1.106A6.004 6.004 0 0 0 5 12H2v3a6.007 6.007 0 0 0 6 6h1v5H2v2h28v-2h-5V13Zm-1-3a2.002 2.002 0 0 1 2-2h1v1a2.002 2.002 0 0 1-2 2h-1Zm-14 8a2.002 2.002 0 0 1 2-2h1v1a2.002 2.002 0 0 1-2 2h-1Zm-2 1H8a4.005 4.005 0 0 1-4-4v-1h1a4.005 4.005 0 0 1 4 4Zm14-8h-1a4.005 4.005 0 0 1-4-4V6h1a4.005 4.005 0 0 1 4 4Z"/></FeatureItemSvg>
 				<FeatureItemHeading>Track your Grow</FeatureItemHeading>
 				<FeatureItemText>Record and track every step of your grow, from germination to harvest, with our easy-to-use interface.</FeatureItemText>
 			</FeatureItem>
 		
 			<FeatureItem>
-            <FeatureItemSvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20"><path fill="white" d="M8.75 3.75a2.75 2.75 0 1 0-5.5 0a2.75 2.75 0 0 0 5.5 0Zm-4.5 0a1.75 1.75 0 1 1 3.5 0a1.75 1.75 0 0 1-3.5 0ZM2.5 7.5h4.183c-.164.31-.286.646-.358 1H2.5A.5.5 0 0 0 2 9v.5c0 1.26 1.099 2.614 3.096 2.93c-.322.22-.59.513-.781.854C2.205 12.713 1 11.087 1 9.5V9a1.5 1.5 0 0 1 1.5-1.5Zm5.379 0c.504-.61 1.267-1 2.121-1a2.744 2.744 0 0 1 2.646 2a2.753 2.753 0 0 1-3.893 3.202A2.75 2.75 0 0 1 7.88 7.5Zm.54 1a1.75 1.75 0 1 0 3.164 1.5a1.75 1.75 0 0 0-3.165-1.5Zm7.266 4.784a2.513 2.513 0 0 0-.781-.853C16.9 12.114 18 10.759 18 9.5V9a.5.5 0 0 0-.5-.5h-3.825a3.726 3.726 0 0 0-.357-1H17.5A1.5 1.5 0 0 1 19 9v.5c0 1.587-1.206 3.212-3.315 3.784Zm-1.198.087A1.493 1.493 0 0 0 13.5 13h-7A1.496 1.496 0 0 0 5 14.5v.5c0 1.971 1.86 4 5 4c3.14 0 5-2.029 5-4v-.5c0-.45-.198-.854-.513-1.13ZM6 14.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v.5c0 1.438-1.432 3-4 3s-4-1.562-4-3v-.5ZM14 1a2.75 2.75 0 1 1 0 5.5A2.75 2.75 0 0 1 14 1Zm0 1a1.75 1.75 0 1 0 0 3.5A1.75 1.75 0 0 0 14 2Z"/></FeatureItemSvg>
+      <FeatureItemSvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path fill="white" d="M21 20h-1V5a1 1 0 0 0-2 0v15h-2V9a1 1 0 0 0-2 0v11h-2v-7a1 1 0 0 0-2 0v7H8v-3a1 1 0 0 0-2 0v3H4V3a1 1 0 0 0-2 0v18a1 1 0 0 0 1 1h18a1 1 0 0 0 0-2Z"/></FeatureItemSvg>
 				<FeatureItemHeading>Take Progress Photos</FeatureItemHeading>
 				<FeatureItemText>Take and upload photos of your plants to see their progress over time and share with the Sweet Leaf community.</FeatureItemText>
 			</FeatureItem>
@@ -404,33 +442,36 @@ const HomePage = () => {
             </SectionInner >
 		</FeatureSection>
 
-		{/* <Section >
-			<h2>Pricing</h2>
+		<PricingSection >
+			<PricingSectionHeading>Pricing</PricingSectionHeading>
             <SectionInner >
 			<PricingItem class="pricing-item">
 				<h3>Free</h3>
 				<p>$0/month</p>
-				<ul>
-					<li>1 Grow Diary</li>
-					<li>Limited Support</li>
-				</ul>
-				<a href="#" class="btn">Get Free</a>
+				<Ul>
+					<li>3 Grow Journals</li>
+					{/* <li>Limited Support</li> */}
+				</Ul>
+        <MenuLink to="/sign-up">
+                Get Started
+            </MenuLink>
 			</PricingItem>
 			<PricingItem class="pricing-item">
 				<h3>Premium</h3>
 				<p>$9.99/month</p>
-				<ul>
-					<li>Unlimited Grow Diaries</li>
-					<li>Premium Support</li>
-				</ul>
-				<a href="#" class="btn">Get Premium</a>
+				<Ul>
+					<li>Unlimited Grow Journals</li>
+					{/* <li>Premium Support</li> */}
+				</Ul>
+        <MenuLink to="/">
+                Coming Soon
+            </MenuLink>
         </PricingItem>
         </SectionInner>
-
-    </Section> */}
+    </PricingSection> 
 
 		{/* <Section>
-			<h2>What Our Users Say</h2>
+			<h2>What Our Growers Say</h2>
             <SectionInner >
 			<TestimonialItem >
 				

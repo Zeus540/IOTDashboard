@@ -29,7 +29,7 @@ flex-direction: column;
 const Heading = styled.h1`
 margin: 0px;
 font-size: 20px;
-color: #596876;
+color: #354f41;
 
 `;
 const ToggleHolder = styled.div`
@@ -49,13 +49,13 @@ flex-direction: column;
 
 `
 const ToggleHolderLabel = styled.div`
-color:#596876;
+color:#354f41;
 padding: 0px 10px;
 display: flex;
 
 `
 const ToggleHolderLabelLeft = styled.div`
-color:#596876;
+color:#354f41;
 padding: 0px 10px;
 display: flex;
 padding-left: 0px;
@@ -63,7 +63,7 @@ padding-left: 0px;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: #596876;
+fill: #354f41;
 `;
 
 const CheckFlex = styled.div`
@@ -123,7 +123,7 @@ border: none;
 border-bottom: 2px solid #8bab50;
 padding: ${(props) => !props.assignDevice ? "0px" : "5px 5px"};
 width: ${(props) => !props.assignDevice ? "0px" : "unset"};
-color: #596876;
+color: #354f41;
 transition: 0.5s all ease;
 @media (max-width: 425px) {
   width: ${(props) => !props.assignDevice ? "0px" : "100%"};

@@ -76,7 +76,7 @@ padding-left: 20px;
 
 const LogoHolderText = styled.span`
 
-color: #596876;
+color: #354f41;
 font-size: 12px;
 margin-top: -16px;
 display: block;
@@ -115,7 +115,7 @@ const MenuLink = styled(NavLink)`
   margin: 0px 0px;
   padding: 16px 10px;
 
-  color: #596876;
+  color: #354f41;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -127,7 +127,7 @@ const MenuLinkTop = styled(NavLink)`
   margin: 0px 0px;
   padding: 0px 10px;
 
-  color: #596876;
+  color: #354f41;
   align-items: center;
   text-decoration: none;
   display: flex;
@@ -154,7 +154,7 @@ const MenuLinkMobile = styled(NavLink)`
   margin: 0px 0px;
   padding: 15px 15px;
   text-align: center;
-  color: #596876;
+  color: #354f41;
   text-decoration: none;
   background:transparent
 
@@ -177,7 +177,7 @@ const LogOut = styled.p`
   border-bottom: 2px solid transparent;
   color: white;
   &:hover {
-    border-bottom: 2px solid #596876;
+    border-bottom: 2px solid #354f41;
   }
 `;
 const Button = styled.button`
@@ -241,7 +241,7 @@ const IconW = styled.svg`
 const IconB = styled.svg`
   width: 20px;
   margin-right: 15px;
-  fill: #596876;
+  fill: #354f41;
 `;
 
 const LinkHolderM = styled.div`
@@ -260,7 +260,7 @@ flex-direction: column;
 const UserInfoHolder = styled.div`
 display: flex;
 justify-content: space-between;
-background: #596876;
+background: #354f41;
 `;
 
 const UserInfo = styled.div`
@@ -272,7 +272,7 @@ align-items: center;
 
 const UserInfoTop = styled.div`
 display: flex;
-color: #596876;
+color: #354f41;
 padding: 0px 10px;
 align-items: center;
 `;
@@ -310,7 +310,7 @@ padding-top: 20px;
 `;
 const SvgWMenu = styled.svg`
 
-fill: #596876;
+fill: #354f41;
 width: 20px;
 
 
@@ -323,7 +323,7 @@ width: 20px;
 
 const SvgWMenuDraw = styled.svg`
 
-fill: #596876;
+fill: #354f41;
 width: 20px;
 padding-left: 20px;
 
@@ -442,10 +442,10 @@ const NavBar = (props) => {
                 </MenuLinkMobile>
    }
     
-                <MenuLinkMobile to="/users" onClick={() => {  props.setMobileMenu(false); }}>
+                <MenuLinkMobile to="/growers" onClick={() => {  props.setMobileMenu(false); }}>
                 <FlexLink>
 
-                  <div>Users</div>
+                  <div>Growers</div>
                 </FlexLink>
               </MenuLinkMobile>
 

@@ -67,7 +67,7 @@ const MainContainer = (props) => {
                     <Route path="/my-diaries" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
                     <Route path="/my-diaries/overview/:id" element={<DashBoard />} />
                     <Route path="/my-diaries/journal/:id" element={<Notes />} />
-                    <Route path="/users" element={<Users />} />
+                    <Route path="/growers" element={<Users />} />
 
                     <Route path="/profile/:username/:userId" element={<ProfileUser />} />
 

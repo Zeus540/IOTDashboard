@@ -52,11 +52,11 @@ display: flex;
 `;
 
 const Label = styled.label`
-color:#596876;
+color:#354f41;
 font-weight:bold;
 `;
 const LabelT = styled.label`
-color:#596876;
+color:#354f41;
 
 margin-left: 10px;
 `;
