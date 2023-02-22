@@ -12,10 +12,19 @@ const Root = styled.div`
 
 background:url(${BannerImg});
 background-attachment: fixed;
-background-position: center;
+background-position: 100% 6%;
 background-size: cover;
-background-color: #5858588c;
+//background-color: #5858588c;
 background-blend-mode: overlay;
+@media (max-width: 425px) {
+  background-position: 32% 100%;
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  background-position: 32% 100%;
+}
+@media (min-width: 769px) and (max-width: 1770px) {
+  background-position: 32% 100%;
+}
 `
 
 const Inner = styled.div`
@@ -62,7 +71,9 @@ padding:10px
 
 `;
 const HeroTextBig = styled.p`
-color: white!important;
+
+line-height: 50px;
+
 text-align: center;
     font-size: 50px;
     font-family: baloonB!important;
@@ -202,8 +213,8 @@ text-decoration: unset;
 padding: 8px 25px;
 width: fit-content;
 border: none;
-background: #8bab50;
-color: #ffffff;
+background: #fff0;
+color: #8bab50 ;
 border-radius: 5px;
 cursor: pointer;
 border: 1px #8bab50 solid;
@@ -350,7 +361,7 @@ const HomePage = () => {
         <HeroBanner>
        
             <HeroBannerTextHolder>
-        <HeroTextBig>Welcome to the Sweet Leaf!</HeroTextBig>  
+        <HeroTextBig>Welcome to <br/> Sweet Leaf!</HeroTextBig>  
 
         <MenuLinkHolder>
            
