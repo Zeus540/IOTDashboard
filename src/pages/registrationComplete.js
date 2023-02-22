@@ -15,7 +15,7 @@ const Root = styled.div`
 const Inner = styled.div`
   max-width: 480px;
   width: 100%;
-  background-color: #dadada;
+  background-color: white;
   text-align: center;
   padding: 20px;
   align-items: center;

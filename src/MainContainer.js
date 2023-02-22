@@ -50,7 +50,7 @@ const MainContainer = (props) => {
 
                 <Route path="/sign-in" element={<Login />} />
                 <Route path="/sign-up" element={<Register />} />
-                <Route path="/sign-up/:name:surname/:email" element={<RegistrationComplete />} />
+                <Route path="/sign-up/:name/:email" element={<RegistrationComplete />} />
                 <Route path="/verify/:token" element={<VerifyComplete />} />
                 <Route path="/public-journals" element={<DiariesPublic />} />
                 <Route path="/public-journals/overview/:id" element={<DashBoardPublic />} />
