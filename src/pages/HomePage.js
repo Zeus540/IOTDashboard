@@ -148,7 +148,7 @@ margin: 40px auto;
 box-shadow: 0px 0px 20px 0px #5968765e;
 padding-bottom: 40px;
 margin-top: -65px;
-    padding: 20px;
+padding: 10px;
     @media (max-width: 425px) {
         margin: 0px 20px;
         
@@ -377,8 +377,9 @@ const HomePage = () => {
 			<SectionInnerTop class="hero-content">
 			
                 
-      <HeroText>With Sweet Leaf Grow Journals, our users have a powerful tool that enables them to track their progress, analyze their results, and share their knowledge with the community.<br/> The platform is designed to be user-friendly, flexible, and customizable, allowing growers to tailor it to their unique needs.</HeroText>
+      <HeroText>With Sweet Leaf Grow Journals, our users have a powerful tool that enables them to track their progress, analyze their results, and share their knowledge with the community.</HeroText>
 
+      <HeroText>The platform is designed to be user-friendly, flexible, and customizable, allowing growers to tailor it to their unique needs.</HeroText>
 
 <HeroText>Our users have documented their grow journey in a variety of ways, from photos to detailed notes and tips.<br/> You'll find diaries covering a wide range of topics, including indoor and outdoor grows, hydroponics, soil, and more.</HeroText>
       {diariesPublic.length > 0 &&
@@ -440,7 +441,7 @@ const HomePage = () => {
 			</FeatureItem>
 		
 			<FeatureItem>
-      <FeatureItemSvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path fill="white" d="M21 20h-1V5a1 1 0 0 0-2 0v15h-2V9a1 1 0 0 0-2 0v11h-2v-7a1 1 0 0 0-2 0v7H8v-3a1 1 0 0 0-2 0v3H4V3a1 1 0 0 0-2 0v18a1 1 0 0 0 1 1h18a1 1 0 0 0 0-2Z"/></FeatureItemSvg>
+      <FeatureItemSvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path fill="white" d="M6 21q-.425 0-.713-.288T5 20v-1H3q-.825 0-1.413-.588T1 17V6q0-.825.588-1.413T3 4h18q.825 0 1.413.588T23 6v11q0 .825-.588 1.413T21 19h-2v1q0 .425-.288.713T18 21H6Zm-3-4h18V6H3v11Zm2-2h14l-4.5-6l-3.5 4.5l-2.5-3L5 15Zm-2 2V6v11Z"/></FeatureItemSvg>
 				<FeatureItemHeading>Take Progress Photos</FeatureItemHeading>
 				<FeatureItemText>Take and upload photos of your plants to see their progress over time and share with the Sweet Leaf community.</FeatureItemText>
 			</FeatureItem>
