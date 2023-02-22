@@ -90,10 +90,10 @@ const Footer = () => {
         <SectionHolder>      
     <Section>
     <MenuLinkMobileHeading>Links</MenuLinkMobileHeading>
-        <MenuLinkMobile to="/public-diaries" >
+        <MenuLinkMobile to="/public-journals" >
                      <FlexLink>
                      
-                       Public Diaries
+                       Public Journals
                      </FlexLink>
                    </MenuLinkMobile>
 
@@ -103,7 +103,7 @@ const Footer = () => {
                       <MenuLinkMobile to="/my-diaries" >
                      <FlexLink>
                      
-                      My Diaries
+                      My Journals
                      </FlexLink>
                    </MenuLinkMobile>
                    <MenuLinkMobile to="/my-devices" >

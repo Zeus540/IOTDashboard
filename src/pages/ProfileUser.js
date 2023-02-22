@@ -270,7 +270,7 @@ const ProfileUser = () => {
                   <>
                       <BlockHolder>
                       <Block>
-                      <BlockHeading>Diaries</BlockHeading>
+                      <BlockHeading>Journals</BlockHeading>
                         <BlockNum>{info.Amount_Of_Diaries}</BlockNum>
                       </Block>
                     </BlockHolder>

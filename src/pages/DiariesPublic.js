@@ -299,8 +299,8 @@ useEffect(() => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - Public Diaries`}</title>
-        <link rel="canonical" href={`https://sweetleaf.co.za/public-diaries`} />
+        <title>{`Sweet Leaf - Public Journals`}</title>
+        <link rel="canonical" href={`https://sweetleaf.co.za/public-journals`} />
       </Helmet>
 
       
@@ -344,7 +344,7 @@ useEffect(() => {
           {diaryMostViewedList.length > 0 &&
             <>
               <Add>
-                <MainHeading>New Diaries</MainHeading>
+                <MainHeading>New Journals</MainHeading>
 
 
               </Add>
@@ -353,7 +353,7 @@ useEffect(() => {
                 {diaryMostViewedList?.map((d) => {
                   return (
                     <Diary
-                      to={`/public-diaries/overview/${d.DiaryId}`}
+                      to={`/public-journals/overview/${d.DiaryId}`}
                     >
                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
 
@@ -392,7 +392,7 @@ useEffect(() => {
                 {diaryHavestList?.map((d) => {
                   return (
                     <Diary
-                      to={`/public-diaries/overview/${d.DiaryId}`}
+                      to={`/public-journals/overview/${d.DiaryId}`}
                     >
                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
 

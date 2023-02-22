@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import BannerImg from '../assets/unsplash.jpg'
-import Wave from '../assets/wave3.svg'
+import Wave from '../assets/wave35.svg'
+import Wave4 from '../assets/wave6.svg'
+
 import { DiaryContext } from "../context/diary_context";
 import { NavLink } from "react-router-dom";
 import PlaceHolder from "../assets/placeholder.png";
@@ -14,7 +16,7 @@ background: whitesmoke;`
 const Inner = styled.div`
 
 
-  padding: 20px 0px;
+
   padding-top: 0px;
 
   @media (max-width: 425px) {
@@ -32,7 +34,7 @@ const Inner = styled.div`
 `;
 
 const HeroBanner = styled.div`
-min-height:30vh;
+//min-height:30vh;
 //background:url(${BannerImg});
 flex-direction: column;
 background-position: center;
@@ -42,12 +44,14 @@ background-size: cover;
 display: flex;
 justify-content: center;
 align-items: center;
-padding: 0px 20px;
+padding: 80px 20px;
 @media (max-width: 425px) {
-    margin: 0px;
+    margin: 40px 0px;
+    padding: 40px 20px;
   }
   @media (min-width: 426px) and (max-width: 768px) {
-    padding: 0px 40px;
+    margin: 40px 0px;
+    padding: 40px 40px;
   }
 `;
 const HeroText = styled.p`
@@ -96,6 +100,18 @@ bottom: 0px;
     right: 0;
     @media (max-width: 425px) {
         bottom: 0px;
+      }
+      @media (min-width: 426px) and (max-width: 768px) {
+      margin: 0px auto;
+      }
+`;
+const WaveImgTop = styled.img`
+position: absolute;
+top: 0px;
+    left: 0;
+    right: 0;
+    @media (max-width: 425px) {
+      top: 0px;
       }
       @media (min-width: 426px) and (max-width: 768px) {
       margin: 0px auto;
@@ -197,7 +213,7 @@ width: 100%;
 
 `;
 
-const Diary = styled.div`
+const Diary = styled(NavLink)`
 cursor: pointer;
 width: calc(100% / 6 - 20px);
 margin: 10px;
@@ -206,28 +222,42 @@ border-radius: 5px;
 text-decoration: none;
 color: #596876;
 @media (max-width: 425px) {
-  max-width: calc(100% / 1 - 20px);
+  min-width: calc(100% / 1 - 20px);
   width: 100%;
   margin: 10px 10px;
   border-radius: 0px;
 }
 @media (min-width: 426px) and (max-width: 699px) {
-  width: calc(100% / 2 - 20px);
+  min-width: calc(100% / 2 - 20px);
   margin: 10px;
 }
   @media (min-width: 700px) and (max-width: 940px) {
-    width: calc(100% / 2 - 20px);
+    min-width: calc(100% / 2 - 20px);
   }
   @media (min-width: 941px) and (max-width: 1330px) {
-    width: calc(100% / 4 - 20px);
+    min-width: calc(100% / 4 - 20px);
   }
 `;
 
+
 const DiaryHolder = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  padding:0px 10px;
-  margin-top: 10px;
+  overflow: auto;
+  padding:0px ;
+  margin: 40px 0px;
+
+  @media (max-width: 425px) {
+    padding:0px ;
+    overflow: auto;
+    flex-direction: row;
+    flex-wrap: unset;
+  }
+  @media (min-width: 426px) and (max-width: 699px) {
+    padding:0px ;
+    overflow: auto;
+    flex-direction: row;
+    flex-wrap: unset;
+  }
 `;
 
 const DiaryImageHolder = styled.div`
@@ -276,8 +306,9 @@ const HomePage = () => {
     <Root>
         <Inner>
         <HeroBanner>
+       
             <HeroBannerTextHolder>
-        <HeroTextBig>Welcome to the Sweet Leaf Grow Diaries!</HeroTextBig>  
+        <HeroTextBig>Welcome to the Sweet Leaf!</HeroTextBig>  
 
         <MenuLinkHolder>
                 <MenuLink to="/sign-up">
@@ -293,30 +324,21 @@ const HomePage = () => {
 		<Section class="hero">
     
 
+
 			<SectionInnerTop class="hero-content">
 			
-				
-
-                <HeroText>Our website provides a unique platform for growers to share their experiences, techniques and outcomes, creating a vibrant community of passionate and knowledgeable individuals.<br/> Whether you're just starting out or a seasoned grower, there's something for everyone here.</HeroText>
-
-
-                <HeroText>Our users have documented their grow journey in a variety of ways, from photos and videos to detailed notes and tips.<br/> You'll find diaries covering a wide range of topics, including indoor and outdoor grows, hydroponics, soil, and more.</HeroText>
-
                 
-                <HeroText>With Sweet Leaf Grow Diaries, our users have a powerful tool that enables them to track their progress, analyze their results, and share their knowledge with the community.<br/> The platform is designed to be user-friendly, flexible, and customizable, allowing growers to tailor it to their unique needs.</HeroText>
-
-                
-                <HeroText>So come on in and explore our collection of grow diaries.<br/> We're sure you'll find something that will inspire you to take your own grow journey to the next level.<br/> And if you're already a member of our community, we thank you for your contributions and look forward to seeing your future grow diaries!</HeroText>
+      <HeroText>With Sweet Leaf Grow Journals, our users have a powerful tool that enables them to track their progress, analyze their results, and share their knowledge with the community.<br/> The platform is designed to be user-friendly, flexible, and customizable, allowing growers to tailor it to their unique needs.</HeroText>
 
 
-
-                {diariesPublic.length > 0 &&
+<HeroText>Our users have documented their grow journey in a variety of ways, from photos and videos to detailed notes and tips.<br/> You'll find diaries covering a wide range of topics, including indoor and outdoor grows, hydroponics, soil, and more.</HeroText>
+      {diariesPublic.length > 0 &&
             <>
               <DiaryHolder>
                 {diariesPublic?.map((d) => {
                   return (
                     <Diary
-                 
+                    to={`/public-journals/overview/${d.DiaryId}`}
                     >
                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
 
@@ -340,6 +362,16 @@ const HomePage = () => {
                 })}
               </DiaryHolder>
             </>}
+
+
+
+
+                
+                <HeroText>So come on in and explore our collection of grow diaries.<br/> We're sure you'll find something that will inspire you to take your own grow journey to the next level.</HeroText>
+
+
+
+                
 			</SectionInnerTop>
 
        

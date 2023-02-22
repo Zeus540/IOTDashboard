@@ -226,7 +226,7 @@ const Diaries = () => {
 
     Update()
   
-    document.title = "Sweet Leaf - My Diaries" 
+    document.title = "Sweet Leaf - My Journals" 
   }, [])
 
  
@@ -259,7 +259,7 @@ const Diaries = () => {
 
 <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - My Diaries`}</title>
+        <title>{`Sweet Leaf - My Journals`}</title>
         <link rel="canonical" href={`https://sweetleaf.co.za/my-diaries`} />
       </Helmet>
 
@@ -269,7 +269,7 @@ const Diaries = () => {
 
       <Inner>
         <Add>
-          <MainHeading>My Diaries</MainHeading>
+          <MainHeading>My Journals</MainHeading>
           {auth &&   
           <Button
             onClick={() => {

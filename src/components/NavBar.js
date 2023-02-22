@@ -418,10 +418,10 @@ const NavBar = (props) => {
           <LinkHolderM>
         
 
-            <MenuLinkMobile to="/public-diaries" onClick={() => {  props.setMobileMenu(false); }}>
+            <MenuLinkMobile to="/public-journals" onClick={() => {  props.setMobileMenu(false); }}>
               <FlexLink>
 
-                <div>Public Diaries</div>
+                <div>Public Journals</div>
               </FlexLink>
             </MenuLinkMobile>
 
@@ -430,7 +430,7 @@ const NavBar = (props) => {
                 <MenuLinkMobile to="/my-diaries" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
-                    <div>My Diaries</div>
+                    <div>My Journals</div>
                   </FlexLink>
                 </MenuLinkMobile>
                 {user?.UserId == 1 && 

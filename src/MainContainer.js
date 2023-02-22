@@ -52,8 +52,8 @@ const MainContainer = (props) => {
                 <Route path="/sign-up" element={<Register />} />
                 <Route path="/sign-up/:name:surname/:email" element={<RegistrationComplete />} />
                 <Route path="/verify/:token" element={<VerifyComplete />} />
-                <Route path="/public-diaries" element={<DiariesPublic />} />
-                <Route path="/public-diaries/overview/:id" element={<DashBoardPublic />} />
+                <Route path="/public-journals" element={<DiariesPublic />} />
+                <Route path="/public-journals/overview/:id" element={<DashBoardPublic />} />
 
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />
