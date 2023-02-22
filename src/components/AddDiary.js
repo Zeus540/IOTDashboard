@@ -159,6 +159,8 @@ const AddDiary = (props) => {
 useEffect(() => {
   setType("")
   setRoomType("")
+  setLimitedMsg("")
+  setLimitedMsgUpgrade("")
   setErrorType(false)
   if(props.popUpOffset == 0){
     axios.get(`${BASE_URL_PROD}/diaries/types`)
