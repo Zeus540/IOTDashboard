@@ -64,9 +64,9 @@ const MainContainer = (props) => {
 
 
                 <Route element={<ProtectedRoutes />}>
-                    <Route path="/my-diaries" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
-                    <Route path="/my-diaries/overview/:id" element={<DashBoard />} />
-                    <Route path="/my-diaries/notes/:id" element={<Notes />} />
+                    <Route path="/my-journals" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
+                    <Route path="/my-journals/overview/:id" element={<DashBoard />} />
+                    <Route path="/my-journals/notes/:id" element={<Notes />} />
                     <Route path="/growers" element={<Users />} />
 
                     <Route path="/profile/:username/:userId" element={<ProfileUser />} />

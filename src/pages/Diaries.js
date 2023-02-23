@@ -260,7 +260,7 @@ const Diaries = () => {
 <Helmet>
         <meta charSet="utf-8" />
         <title>{`Sweet Leaf - My Journals`}</title>
-        <link rel="canonical" href={`https://sweetleaf.co.za/my-diaries`} />
+        <link rel="canonical" href={`https://sweetleaf.co.za/my-journals`} />
       </Helmet>
 
 <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="addD"/>
@@ -289,7 +289,7 @@ const Diaries = () => {
           {diaryPublicList?.map((d,index) => {
             return (
               <Diary
-          to={`/my-diaries/overview/${d.DiaryId}`}
+          to={`/my-journals/overview/${d.DiaryId}`}
           key={index}
               >
         <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>
@@ -329,7 +329,7 @@ const Diaries = () => {
           {diaryPrivateList?.map((d,index) => {
             return (
               <Diary
-          to={`/my-diaries/overview/${d.DiaryId}`}
+          to={`/my-journals/overview/${d.DiaryId}`}
           key={index}
               >
         <DiaryImageHolder style={{background:`url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})`}}>

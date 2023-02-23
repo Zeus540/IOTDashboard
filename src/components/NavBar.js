@@ -427,7 +427,7 @@ const NavBar = (props) => {
 
             {auth &&
               <>
-                <MenuLinkMobile to="/my-diaries" onClick={() => {  props.setMobileMenu(false); }}>
+                <MenuLinkMobile to="/my-journals" onClick={() => {  props.setMobileMenu(false); }}>
                   <FlexLink>
 
                     <div>My Journals</div>

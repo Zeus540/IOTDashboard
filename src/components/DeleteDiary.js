@@ -74,7 +74,7 @@ const [loading, setLoading] = useState(false)
     axios.post(`${BASE_URL_PROD}/diaries/delete`, data)
       .then(function (response) {
         if (response.data.affectedRows > 0) {
-          navigate('/my-diaries')
+          navigate('/my-journals')
           enqueueSnackbar("Diary Successfully Deleted", { variant: 'success' })
           props.setPopUpOffset(-101);
           setLoading(false)

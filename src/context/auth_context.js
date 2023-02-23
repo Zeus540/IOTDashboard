@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
 
         setUser(await User)
         setAuth(true)
-        navigate('/my-diaries')
+        navigate('/my-journals')
     }
 
 
