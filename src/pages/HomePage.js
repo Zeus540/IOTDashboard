@@ -79,6 +79,24 @@ text-align: center;
     font-family: baloonB!important;
 `;
 
+const HeroTextBigSpan = styled.span`
+
+
+color:#8bab50;
+text-align: center;
+    font-size: 50px;
+    font-family: baloonB!important;
+`;
+
+const HeroTextBigSup = styled.sup`
+
+
+color:#8bab50;
+text-align: center;
+    font-size: 40px;
+    font-family: baloonB!important;
+`;
+
 const Section = styled.div`
 text-align: center;
   padding:20px;
@@ -361,7 +379,7 @@ const HomePage = () => {
         <HeroBanner>
        
             <HeroBannerTextHolder>
-        <HeroTextBig>Welcome to <br/> Sweet Leaf!</HeroTextBig>  
+        <HeroTextBig>Welcome to <br/> Sweet<HeroTextBigSpan>Leaf</HeroTextBigSpan>   <HeroTextBigSup>&#174;</HeroTextBigSup>	</HeroTextBig>  
 
         <MenuLinkHolder>
            
