@@ -276,7 +276,7 @@ const Diaries = () => {
               handleAddPopUp();
             }}
           >
-            Add New Diary
+            Add Journal
           </Button>}
         
         </Add>

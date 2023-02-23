@@ -265,7 +265,7 @@ useEffect(() => {
 
 
           <FormHeadingGroup>
-            <FormHeading>New Diary</FormHeading>
+            <FormHeading>New Journal</FormHeading>
 
             {props.popUpOffset == 0 && 
             <InputHolderTop>
@@ -302,7 +302,7 @@ useEffect(() => {
                       </TypeBlockActive> :
                       <TypeBlock key={index} onClick={() => { handleType(t.Diary_Types_Name) }}>
                         <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
-                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
+                        {/* <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText> */}
                       </TypeBlock>
                     }
                   </>
