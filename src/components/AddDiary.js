@@ -260,7 +260,7 @@ useEffect(() => {
         console.log("values",values)
         break;
     
-        case "litres":
+        case "Litres":
    
         values.pot_Size_Measurment = e.target.value
         console.log("values",values)
@@ -282,7 +282,7 @@ useEffect(() => {
   return (
 
     <Formik
-      initialValues={{ }}
+      initialValues={{ pot_Size_Measurment:'Litres' }}
   
       onSubmit={(values, { setSubmitting }) => {
      
@@ -400,12 +400,12 @@ useEffect(() => {
                 aria-labelledby="demo-radio-buttons-group-label"
                 required
                 name="radio-buttons-group"
-                defaultValue="litres"
+                defaultValue="Litres"
                 onChange={(e, child) => {handleMeasurementUpdate(values,e)}}
               >
-                <Label value="litres" required control={<RadioInput />} label="litres" />
-              <Label value="inchs" required control={<RadioInput />} label="inchs" />
-              <Label value="gallons" required control={<RadioInput />} label="gallons" />
+                <Label value="Litres" required control={<RadioInput />} label="Litres" />
+              <Label value="Inchs" required control={<RadioInput />} label="Inchs" />
+              <Label value="Gallons" required control={<RadioInput />} label="Gallons" />
              </RadioGrouped >
 </div>
 
