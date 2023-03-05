@@ -48,7 +48,7 @@ width: 40%;
 const RadioGrouped = styled(RadioGroup)`
 display: flex;
 flex-direction: unset;
-
+margin-bottom: 10px;
 `;
 const Label = styled(FormControlLabel)`
 margin-left: unset;
@@ -165,6 +165,8 @@ const AddDiary = (props) => {
   const [type, setType] = useState("");
   
   const [roomType, setRoomType] = useState("");
+  const [potType, setPotType] = useState("");
+  
   const [errorType, setErrorType] = useState(false);
   
   const [popUpOffset, setPopUpOffset] = useState(-100);
@@ -177,6 +179,7 @@ const AddDiary = (props) => {
 useEffect(() => {
   setType("")
   setRoomType("")
+  setPotType("")
   setLimitedMsg("")
   setLimitedMsgUpgrade("")
   setErrorType(false)
@@ -204,6 +207,7 @@ useEffect(() => {
     values.Type = type
     values.Date = d.toISOString().split("T")[0]
     values.roomType = roomType
+    values.potType = potType
     console.log(values)
     
 
@@ -241,7 +245,14 @@ useEffect(() => {
   
   }
 
+  
 
+  
+  const handlePotTypeChange = (e, child) => {
+
+    setPotType(e.target.value)
+ 
+  }
 
   const handleRoomTypeChange = (e, child) => {
 
@@ -251,7 +262,7 @@ useEffect(() => {
 
   const handleMeasurementUpdate = (values,e) => {
 
-    let size = values.potSize
+  
 
     switch (e.target.value) {
       case "gallons":
@@ -386,6 +397,22 @@ useEffect(() => {
 {roomType !== "Hydroponics" &&
 <>
 <div>
+
+<Input
+  id="potType"
+  label="Pot Type"
+  value={potType}
+  variant="outlined"
+ 
+  onChange={(e, child) => { handlePotTypeChange(e, child) }}
+  select>
+  <MenuItem value="Air Pot">Air Pot</MenuItem>
+  <MenuItem value="Fabric Pot">Fabric Pot</MenuItem>
+  <MenuItem value="Plastic Pot">Plastic Pot</MenuItem>
+</Input>
+
+{potType &&
+<>
 <Input
   id="potSize"
   label="Pot Size"
@@ -407,6 +434,8 @@ useEffect(() => {
               <Label value="Inchs" required control={<RadioInput />} label="Inchs" />
               <Label value="Gallons" required control={<RadioInput />} label="Gallons" />
              </RadioGrouped >
+</>
+              }
 </div>
 
 </>
