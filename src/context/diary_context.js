@@ -11,6 +11,7 @@ export const DiaryProvider = ({ children }) => {
   const [diaries, setDiaries] = useState([]);
   const [diariesPublic, setDiariesPublic] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingPublic, setLoadingPublic] = useState(true);
   const { auth, user, logOut, socket } = useContext(AuthContext)
   const { enqueueSnackbar } = useSnackbar()
 
@@ -21,6 +22,7 @@ export const DiaryProvider = ({ children }) => {
    
         if (response.data.length > 0) {
           setDiaries(response.data?.sort((a, b) => b.DiaryId - a.DiaryId))
+          setLoading(false)
         } else {
           setDiaries([])
         }
@@ -39,10 +41,12 @@ export const DiaryProvider = ({ children }) => {
     socket.off('public_diaries').on('public_diaries', (data) => {
 
       if (user?.UserId !== undefined) {
+
         setDiariesPublic(data.filter((d) => d.UserId !== user.UserId)?.sort((a, b) => b.DiaryId - a.DiaryId))
-     
+        setLoadingPublic(false)
       } else {
         setDiariesPublic(data?.sort((a, b) => b.DiaryId - a.DiaryId))
+        setLoadingPublic(false)
       }
 
     });
@@ -69,7 +73,7 @@ console.log("updating public")
 
 
   return (
-    <DiaryContext.Provider value={{ diaries, setDiaries, Update, loading, diariesPublic,getPublic }}>
+    <DiaryContext.Provider value={{ diaries, setDiaries, Update, loading,loadingPublic, diariesPublic,getPublic }}>
       {children}
     </DiaryContext.Provider>
   )

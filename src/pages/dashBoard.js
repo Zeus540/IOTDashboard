@@ -1008,8 +1008,8 @@ const ChatHolder = styled.div`
 position: relative;
 color: #354f41;
 min-height: 200px;
-background: #e7e7e7;
-// border: 1px solid #b1b1b1;
+//background: #e7e7e7;
+ border: 1px solid #e7e7e7;
 margin: 0px 20px;
 border-radius: 5px;
 display: flex;
@@ -1027,9 +1027,18 @@ overflow: auto;
 
 const ChatMsgLeft = styled.div`
 color: white;
-width: fit-content;
-margin-bottom: 10px;
+border-bottom: 1px solid #e7e7e7;
+padding: 10px;
+//border-radius: 5px;
 `;
+const ChatMsgLeftMe = styled.div`
+color: white;
+//background:#e7e7e7;
+padding: 10px;
+border-bottom: 1px solid #e7e7e7;
+//border-radius: 5px;
+`;
+
 
 const ChatMsgUser = styled.div`
 color: #354f41;
@@ -1041,12 +1050,12 @@ font-size: 12px;
 
 const ChatMsgComment = styled.p`
 margin: 0px;
-background: #354f41;
-padding: 5px 10px;
+//background: #354f41;
+padding: 5px 0px;
 display: flex;
 border-radius: 5px;
 line-height: 20px;
-color:white!important;
+color: black!important;
 `;
 
 const ChatMsgCommentFlex = styled.div`
@@ -1081,7 +1090,7 @@ padding: 10px 20px;
 border-radius: 0px 0px 0px 5px;
 border: none;
 width: 100%;
-background: whitesmoke;
+
 margin-bottom: 0px;
 min-height:25px;
 border-bottom: 0px;
@@ -1089,7 +1098,7 @@ border-left: 0px;
 `;
 
 const Form = styled.form`
-box-shadow: 0px -6px 7px #00000012;
+border-top: 2px solid #00000012;
 width: 100%;
 display: flex;
 `;
@@ -2228,21 +2237,47 @@ const DashBoard = (props) => {
 
               return (
 
-                <ChatMsgLeft key={index}>
-                  <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
-                    <ChatMsgUser>
-                      {c.Sender_Name}
-                    </ChatMsgUser>
-                  </ChatMsgLeftMenuLink>
-                  <ChatMsgCommentFlex>
-                    <ChatMsgComment>
-                      {c.Comment}
+                <>
+                {c.Sender_Id == user.UserId ? 
 
-                    </ChatMsgComment>
-                    <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
-                  </ChatMsgCommentFlex>
-                </ChatMsgLeft>
+                  <ChatMsgLeftMe key={index}>
+                     <ChatMsgCommentFlex>
+                       <ChatMsgComment>
+                         {c.Comment}
+   
+                       </ChatMsgComment>
+                
+                     </ChatMsgCommentFlex>
+                     <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
+                       <ChatMsgUser>
+                         {c.Sender_Id == user.UserId ? "Me": c.Sender_Name}
+                       </ChatMsgUser>
+                       <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
+                     </ChatMsgLeftMenuLink>
+                   </ChatMsgLeftMe>
+                  
+                  :
 
+                  <ChatMsgLeft key={index}>
+               
+                     <ChatMsgCommentFlex>
+                       <ChatMsgComment>
+                         {c.Comment}
+   
+                       </ChatMsgComment>
+                
+                     </ChatMsgCommentFlex>
+                     <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
+                       <ChatMsgUser>
+                         {c.Sender_Id == user.UserId ? "Me": c.Sender_Name}
+                       </ChatMsgUser>
+                       <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
+                     </ChatMsgLeftMenuLink>
+                   </ChatMsgLeft>
+                   
+                  }
+          
+          </>
               )
 
             })}

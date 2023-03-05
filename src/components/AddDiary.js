@@ -14,6 +14,9 @@ import axios from "../components/shared/axios";
 import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
 import { TailSpin } from  'react-loader-spinner'
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Input = styled(TextField)`
 margin-bottom: 20px;
@@ -36,7 +39,22 @@ padding: 10px 15px;
 padding-bottom: 0px;
 `;
 
+const RadioInput = styled(Radio)`
+flex-direction: column;
+display: flex;
+width: 40%;
 
+`;
+const RadioGrouped = styled(RadioGroup)`
+display: flex;
+flex-direction: unset;
+
+`;
+const Label = styled(FormControlLabel)`
+margin-left: unset;
+margin-right: unset!important;
+width: calc(100% / 2 - 10px);
+`;
 const FormSub = styled.p`
 margin: 0px;
 
@@ -231,11 +249,41 @@ useEffect(() => {
     setErrorType(false)
   }
 
+  const handleMeasurementUpdate = (values,e) => {
+
+    let size = values.potSize
+
+    switch (e.target.value) {
+      case "gallons":
+   
+        values.pot_Size_Measurment = e.target.value
+        console.log("values",values)
+        break;
+    
+        case "litres":
+   
+        values.pot_Size_Measurment = e.target.value
+        console.log("values",values)
+        break;
+
+        case "inch":
+  
+        values.pot_Size_Measurment = e.target.value
+        console.log("values",values)
+        break;
+      default:
+        break;
+    }
+
+
+
+  }
+
   return (
 
     <Formik
-      initialValues={{  }}
-      
+      initialValues={{ }}
+  
       onSubmit={(values, { setSubmitting }) => {
      
         setTimeout(() => {
@@ -341,11 +389,24 @@ useEffect(() => {
 <Input
   id="potSize"
   label="Pot Size"
-  type="potSize"
+  type="number"
+
   variant="outlined"
   onChange={handleChange}
   onBlur={handleBlur}
 />
+
+<RadioGrouped
+                aria-labelledby="demo-radio-buttons-group-label"
+                required
+                name="radio-buttons-group"
+                defaultValue="litres"
+                onChange={(e, child) => {handleMeasurementUpdate(values,e)}}
+              >
+                <Label value="litres" required control={<RadioInput />} label="litres" />
+              <Label value="inchs" required control={<RadioInput />} label="inchs" />
+              <Label value="gallons" required control={<RadioInput />} label="gallons" />
+             </RadioGrouped >
 </div>
 
 </>

@@ -34,7 +34,7 @@ const Heading = styled.h4`
   padding-top: 20px;
   align-items: center;
   &::before {
-  content: "";
+    content: "";
     display: block;
     background: #8bab50;
     height: 4px;
@@ -48,6 +48,7 @@ const Heading = styled.h4`
     background: #8bab50;
     height: 4px;
     border-radius: 50px;
+
     width: 15%;
     margin: 0px 20px;
   },

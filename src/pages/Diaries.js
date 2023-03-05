@@ -14,6 +14,8 @@ import axios from "../components/shared/axios";
 import PopUp from "../components/PopUp";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { TailSpin } from  'react-loader-spinner'
+
 const Root = styled.div`
 
 
@@ -211,6 +213,12 @@ const Holder = styled.div`
   
 
 `;
+const LoadingHolder = styled.div`
+
+    padding: 40px 0px;
+    display: flex;
+    justify-content: center;
+`;
 
 const Diaries = () => {
   const { diaries,Update,loading } = useContext(DiaryContext);
@@ -281,6 +289,9 @@ const Diaries = () => {
         
         </Add>
 
+     
+{!loading ?
+    <>
         {diaryPublicList.length > 0 &&
 <Holder>
 
@@ -361,6 +372,21 @@ const Diaries = () => {
         </DiaryHolder>
         </Holder>
         }
+    </>
+    :
+    <LoadingHolder>
+    <TailSpin
+  height="70"
+  width="70"
+  color="#4fa94d"
+  ariaLabel="tail-spin-loading"
+  radius="1"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+  </LoadingHolder>
+    }
       </Inner>
     </Root>
     </>

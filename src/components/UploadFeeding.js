@@ -203,7 +203,7 @@ const UploadFeeding = (props) => {
     if (props.popUpOffset == 0) {
       axios.get(`${BASE_URL_PROD}/nutrients`)
         .then((response) => {
-          setNutrientsTypes(response.data)
+          setNutrientsTypes(response.data.sort())
           console.log("nutrients", response.data);
         })
         .catch((error) => {

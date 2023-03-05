@@ -41,7 +41,7 @@ color: #354f41;
   margin-top: 30px;
   align-items: center;
   &::before {
-  content: "";
+    content: "";
     display: block;
     background: #8bab50;
     height: 4px;
@@ -55,6 +55,7 @@ color: #354f41;
     background: #8bab50;
     height: 4px;
     border-radius: 50px;
+
     width: 15%;
     margin: 0px 20px;
   },

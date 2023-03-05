@@ -40,7 +40,7 @@ const Heading = styled.h4`
   margin-top: 30px;
   align-items: center;
   &::before {
-  content: "";
+    content: "";
     display: block;
     background: #8bab50;
     height: 4px;
@@ -54,10 +54,10 @@ const Heading = styled.h4`
     background: #8bab50;
     height: 4px;
     border-radius: 50px;
+
     width: 15%;
     margin: 0px 20px;
   },
-
 `;
 
 const Inner = styled.div`
@@ -186,7 +186,7 @@ const Stats = (props) => {
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
     
-            <TextHeading>Strain</TextHeading>
+            <TextHeading>Strains</TextHeading>
                
           <TextHeadingInfo>{activeDiary?.Strain ==  "" || null ? "N/A":activeDiary?.Strain}   </TextHeadingInfo>
             </TextHolderGroup2Inner>
@@ -218,12 +218,18 @@ const Stats = (props) => {
                  <TextHeadingInfo>{activeDiary?.Room_Type ==  "" || null ? "N/A":activeDiary?.Room_Type} </TextHeadingInfo>
           </TextHolderGroup2Inner>
           </TextHolderGroup2>
+
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
-         
-       
+            <TextHeading>Pot Type</TextHeading>
+                 <TextHeadingInfo>{activeDiary?.Pot_Type ==  "" || null ? "N/A":activeDiary?.Pot_Type}</TextHeadingInfo>
+            </TextHolderGroup2Inner>
+          </TextHolderGroup2>
+
+          <TextHolderGroup2>
+          <TextHolderGroup2Inner>
             <TextHeading>Pot Size</TextHeading>
-                 <TextHeadingInfo>{activeDiary?.Pot_Size ==  "" || null ? "N/A":activeDiary?.Pot_Size} </TextHeadingInfo>
+                 <TextHeadingInfo>{activeDiary?.Pot_Size ==  "" || null ? "N/A":activeDiary?.Pot_Size} {activeDiary?.Pot_Size_Measurment} </TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 
