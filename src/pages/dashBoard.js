@@ -2204,7 +2204,7 @@ const DashBoard = (props) => {
 
               {scheduleData.map((d) => {
                 return (
-                  <ChartTextGroup><ChartTextSpan>{d?.Nutrient_Name}</ChartTextSpan> <ChartTextSpan>{d?.Nutrient_Amount}ml/L</ChartTextSpan></ChartTextGroup>
+                  <ChartTextGroup><ChartTextSpan>{d?.Nutrient_Name}</ChartTextSpan> <ChartTextSpan>{d?.Nutrient_Amount} {d?.Nutrient_Measurement}/L</ChartTextSpan></ChartTextGroup>
                 )
               })}
 

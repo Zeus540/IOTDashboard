@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import { TextField } from "@mui/material";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -19,16 +22,42 @@ const Input = styled(TextField)`
 margin-bottom: 20px;
 width: 100%;
 `;
-
+const Label = styled(FormControlLabel)`
+margin-left: unset;
+margin-right: unset!important;
+width: calc(100% / 2 - 10px);
+`;
 const InputA = styled(TextField)`
 
-width: 30%;
+
 `;
+const RadioGrouped = styled(RadioGroup)`
+display: flex;
+flex-direction: unset;
+
+`;
+
 const NutAmountHoler = styled.div`
 justify-content: space-between;
 align-items: center;
 display: flex;
 margin-bottom: 10px;
+`;
+const NutName = styled.div`
+width: 90%;
+`;
+
+const MainNutHolder = styled.div`
+flex-direction: column;
+display: flex;
+
+`;
+
+const RadioInput = styled(Radio)`
+flex-direction: column;
+display: flex;
+width: 40%;
+
 `;
 const InputTop = styled(TextField)`
 margin-bottom: 10px;
@@ -161,7 +190,8 @@ const UploadFeeding = (props) => {
   const [loading, setLoading] = useState(false);
   const [roomType, setRoomType] = useState("");
   const [error, setError] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState(false);
+  
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
   const { auth, authToken, userId, user } = useContext(AuthContext);
@@ -227,6 +257,7 @@ const UploadFeeding = (props) => {
   
 
     }else{
+      e.target.value.Nutrient_Measurement = 'ml'
       e.target.value.DiaryId = props.DiaryId
       e.target.value.WeekId = props.WeekId
       setNutrientsListData([...nutrientsListData, e.target.value])
@@ -239,16 +270,39 @@ const UploadFeeding = (props) => {
  
     if(nutrientsListData.filter((nd) => nd.Nutrient_Id == n.Nutrient_Id)[0]){
       let found = nutrientsListData.filter((nd) => nd.Nutrient_Id == n.Nutrient_Id)[0]
-      found.Nutrient_Amount = e.target.value
+
+      if(found.Nutrient_Measurement == undefined){
+        console.log("err")
+        setErrorMsg(true)
+      }else{
+        found.Nutrient_Amount = e.target.value
+      }
+  
+ 
+  
     }else{
       let found = nutrientsListData.filter((nd) => nd.Nutrient_Id == n.Nutrient_Id)[0]
-      found.Nutrient_Amount = e.target.value
-      
+      if(found.Nutrient_Measurement == undefined){
+        console.log("err")
+        setErrorMsg(true)
+      }else{
+        found.Nutrient_Amount = e.target.value
+      }
+ 
+      console.log(found)
       setNutrientsListData([...nutrientsListData, found])
     }
 
   }
   
+  const handleMeasurementUpdate = (n, e) => {
+ 
+    if(nutrientsListData.filter((nd) => nd.Nutrient_Id == n.Nutrient_Id)[0]){
+      let found = nutrientsListData.filter((nd) => nd.Nutrient_Id == n.Nutrient_Id)[0]
+      found.Nutrient_Measurement = e.target.value
+    }
+
+  }
   const handleRemove = (n, e) => {
    
 
@@ -322,19 +376,33 @@ const UploadFeeding = (props) => {
               {nutrientsListData.length > 0 && nutrientsListData?.map((n) => {
                 return (
                   <NutAmountHoler > 
-                    <div><Close  onClick={(e, child) => {handleRemove(n)}}>X</Close>{n?.Nutrient_Name} </div>
-                  <InputA
+                    <NutName><Close  onClick={(e, child) => {handleRemove(n)}}>X</Close>{n?.Nutrient_Name} </NutName>
+                <MainNutHolder>
+                <InputA
                
-                    label="Amount"
-                
-                    variant="outlined"
-                    required
-                 
-                    onChange={(e, child) => {handleAmountUpdate(n,e)}}
-                    >
-                  
+               label="Amount"
+           
+               variant="outlined"
+               required
+            
+               onChange={(e, child) => {handleAmountUpdate(n,e)}}
+               >
+        
 
-                  </InputA></NutAmountHoler>
+             </InputA>
+             <RadioGrouped
+                aria-labelledby="demo-radio-buttons-group-label"
+                required
+                name="radio-buttons-group"
+                defaultValue="ml"
+                onChange={(e, child) => {handleMeasurementUpdate(n,e)}}
+              >
+              <Label value="ml" required control={<RadioInput />} label="ml" />
+              <Label value="grams" required control={<RadioInput />} label="grams" />
+                
+             </RadioGrouped >
+             </MainNutHolder>
+                  </NutAmountHoler>
                 )
               })}
 

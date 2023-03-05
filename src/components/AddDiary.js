@@ -182,8 +182,9 @@ useEffect(() => {
   const addDiary = (values) => {
     setLoading(true)
 
-
+    const d = new Date()
     values.Type = type
+    values.Date = d.toISOString().split("T")[0]
     values.roomType = roomType
     console.log(values)
     
@@ -221,7 +222,6 @@ useEffect(() => {
     setType(type)
   
   }
-
 
 
 
@@ -302,7 +302,7 @@ useEffect(() => {
                       </TypeBlockActive> :
                       <TypeBlock key={index} onClick={() => { handleType(t.Diary_Types_Name) }}>
                         <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
-                        {/* <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText> */}
+                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText> 
                       </TypeBlock>
                     }
                   </>
