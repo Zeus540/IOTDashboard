@@ -26,6 +26,7 @@ import Stats from "./stats"
 import Cog from '../assets/svg/cog'
 import Bin from "../assets/svg/cog copy";
 import StatsLower from "./statsLower"
+import Paper from "../assets/svg/paper.svg";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -1076,6 +1077,39 @@ width: 20px;
 
 `;
 
+
+const WeekInfoHolderInner = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap:wrap;
+
+  margin: 20px auto;
+
+
+`;
+
+const WeekInfoHeading = styled.h2`
+
+  text-align: center;
+
+  color:black!important;
+
+`;
+
+const WeekInfoImgHolder = styled.div`
+text-align: center;
+
+`;
+
+const WeekInfoText = styled.p`
+
+  margin: 40px auto;
+  text-align: center;
+
+  color:black!important;
+
+`;
+
 const DashBoardPublic = (props) => {
 
   const { enqueueSnackbar } = useSnackbar()
@@ -1097,6 +1131,7 @@ const DashBoardPublic = (props) => {
   const [activeWeek, setActiveWeek] = useState('');
   const [techniques, setTechniques] = useState([]);
   const [scheduleData, setScheduleData] = useState([]);
+  const [weekInfo, setWeekInfo] = useState([]);
   const [colourData, setColourData] = useState([]);
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
@@ -1344,6 +1379,19 @@ const DashBoardPublic = (props) => {
 
         })
         .catch(function (error) {
+          console.log(error);
+        });
+
+        axios
+        .post(`${BASE_URL_PROD}/weeks/information`, nutrientData)
+        .then(function (response) {
+
+          setWeekInfo(response.data)
+
+
+        })
+        .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
     }
@@ -1823,8 +1871,42 @@ const DashBoardPublic = (props) => {
            </NoDataHolder>
            }
 
-          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
+           
+          <div>
+
+            
+        
+{weekInfo?.map((i, index) => {
+      return (
+        <>
+
+        <Heading>Germination Method</Heading>
+                          <WeekInfoHolderInner>
+                            <div>
+                              <WeekInfoHeading>
+                            {i?.Germination_Method}
+                            </WeekInfoHeading>
+                            <WeekInfoImgHolder>
+                            <img src={Paper} width="60%" />
+                            
+                            </WeekInfoImgHolder>
+                            <WeekInfoText>
+                            {i?.Used_By} Growers Use This Method    
+                            </WeekInfoText>
+                            </div>
+                          </WeekInfoHolderInner>
+        </>
+      )
+      })
+      }
+</div>
+      
+
+
           {days.length > 0 &&
+          <>
+          <Heading>Days</Heading>
+          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
             <DayDotHolder>
               {days?.map((d, index) => {
                 return (
@@ -1859,6 +1941,7 @@ const DashBoardPublic = (props) => {
                 );
               })}
             </DayDotHolder>
+            </>
           }
           {!statsLowerHide && <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />}
           
@@ -1984,7 +2067,7 @@ const DashBoardPublic = (props) => {
 
               return (
 <>
-                {c.Sender_Id == user.UserId ? 
+                {c.Sender_Id == user?.UserId ? 
 
                   <ChatMsgLeftMe key={index}>
                      <ChatMsgCommentFlex>
@@ -1996,7 +2079,7 @@ const DashBoardPublic = (props) => {
                      </ChatMsgCommentFlex>
                      <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
                        <ChatMsgUser>
-                         {c.Sender_Id == user.UserId ? "Me": c.Sender_Name}
+                         {c.Sender_Id == user?.UserId ? "Me": c.Sender_Name}
                        </ChatMsgUser>
                        <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
                      </ChatMsgLeftMenuLink>
@@ -2015,7 +2098,7 @@ const DashBoardPublic = (props) => {
                      </ChatMsgCommentFlex>
                      <ChatMsgLeftMenuLink to={`/profile/${c.Sender_Name}/${c.Sender_Id}`} state={location.pathname}>
                        <ChatMsgUser>
-                         {c.Sender_Id == user.UserId ? "Me": c.Sender_Name}
+                         {c.Sender_Id == user?.UserId ? "Me": c.Sender_Name}
                        </ChatMsgUser>
                        <ChatMsgTime>{c.Time.split(":")[0] + ":" + c.Time.split(":")[2]}</ChatMsgTime>
                      </ChatMsgLeftMenuLink>

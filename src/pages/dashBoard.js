@@ -27,6 +27,7 @@ import StatsLower from "./statsLower"
 
 import Cog from '../assets/svg/cog'
 import Bin from "../assets/svg/cog copy";
+import Paper from "../assets/svg/paper.svg";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -611,6 +612,37 @@ const WeekHolderInner = styled.div`
     width: 100%;
   }
 `;
+const WeekInfoHolderInner = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap:wrap;
+
+  margin: 20px auto;
+
+
+`;
+
+const WeekInfoHeading = styled.h2`
+
+  text-align: center;
+
+  color:black!important;
+
+`;
+
+const WeekInfoImgHolder = styled.div`
+text-align: center;
+
+`;
+
+const WeekInfoText = styled.p`
+
+  margin: 40px auto;
+  text-align: center;
+
+  color:black!important;
+
+`;
 
 const Heading = styled.h4`
   text-transform: uppercase;
@@ -1158,6 +1190,8 @@ const DashBoard = (props) => {
   const [activeWeek, setActiveWeek] = useState('');
   const [techniques, setTechniques] = useState([]);
   const [scheduleData, setScheduleData] = useState([]);
+  const [weekInfo, setWeekInfo] = useState([]);
+  
   const [colourData, setColourData] = useState([]);
   const [activeDay, setActiveDay] = useState([]);
   const [mainImage, setMainImage] = useState("");
@@ -1355,6 +1389,7 @@ const DashBoard = (props) => {
     setPosition(0)
     setWeekId(w.WeekId)
     setDayId(undefined)
+
     if (activeWeek !== w) {
       setGalleryData([]);
       setDiaryData('');
@@ -1395,11 +1430,25 @@ const DashBoard = (props) => {
         DiaryId: activeDiary.DiaryId,
         WeekId: w.WeekId
       }
+
       axios
         .post(`${BASE_URL_PROD}/nutrients/feeding_schedule`, nutrientData)
         .then(function (response) {
 
           setScheduleData(response.data)
+
+
+        })
+        .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+          console.log(error);
+        });
+
+        axios
+        .post(`${BASE_URL_PROD}/weeks/information`, nutrientData)
+        .then(function (response) {
+
+          setWeekInfo(response.data)
 
 
         })
@@ -2073,8 +2122,42 @@ const DashBoard = (props) => {
 
           </WeekHolderInner>
 
-          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
+          <div>
+
+            
+        
+          {weekInfo?.map((i, index) => {
+                return (
+                  <>
+
+                  <Heading>Germination Method</Heading>
+                                    <WeekInfoHolderInner>
+                                      <div>
+                                        <WeekInfoHeading>
+                                      {i?.Germination_Method}
+                                      </WeekInfoHeading>
+                                      <WeekInfoImgHolder>
+                                      <img src={Paper} width="60%" />
+                                      
+                                      </WeekInfoImgHolder>
+                                      <WeekInfoText>
+                                      {i?.Used_By} Growers Use This Method    
+                                      </WeekInfoText>
+                                      </div>
+                                    </WeekInfoHolderInner>
+                  </>
+                )
+                })
+                }
+          </div>
+                
+
+      
+       
           {days.length > 0 &&
+          <>
+              <Heading>Days</Heading>
+              {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
             <DayDotHolder>
               {days?.map((d, index) => {
                 return (
@@ -2109,6 +2192,7 @@ const DashBoard = (props) => {
                 );
               })}
             </DayDotHolder>
+            </>
           }
           <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />
         </Flex3B>
