@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
+import VpdChart from '../assets/VpdChart.jpg'
 
 import {useNavigate} from 'react-router-dom'
 import {
@@ -49,6 +50,7 @@ const Root = styled.div`
 `;
 
 const Flex2 = styled.div`
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -173,17 +175,22 @@ const ChartHolder = styled.div`
     margin: 0 20px;
     width: unset;
   }
-
+  @media (min-width: 601px) and (max-width: 768px) {
+    margin: 0 20px;
+    width: unset;
+  }
 `;
 
 const ChartHolderInner = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-  width: calc(100% /3 );
+  width: calc(100% /3 - 40px);
+  margin: 20px;
   @media (max-width: 600px) {
     min-width: calc(100% / 1 );
     margin-bottom: 20px;
+    margin: unset;
   }
   @media (min-width: 601px) and (max-width: 768px) {
     min-width: calc(100% / 2 - 20px);
@@ -204,7 +211,7 @@ const StatsLower = (props) => {
   const { diaries,diariesPublic } = useContext(DiaryContext);
   const [activeDiary, setActiveDiary] = useState([]);
 
-  const [ph, setPh] = useState(null);
+  const [ph, setPh] = useState(0);
   const [temp, setTemp] = useState(0);
   const [tempUnit, setTempunit] = useState(null);
   const [moisture, setMoisture] = useState(null);
@@ -226,18 +233,19 @@ const StatsLower = (props) => {
     if(props.data !== undefined){
    
   
-    let phArr = props?.data?.filter((d)=> d.Ph !== 0).filter((v)=> v !== null).map((d) => d.Ph )
-    let ph = 0
+    let phArr = props?.data?.filter((d)=> d.Ph !== 0).filter((v)=> v.Ph !== null).map((d) => d.Ph )
+    let pha = 0
   
     let tempArr = props?.data?.filter((d)=> d.Temperature !== 0).filter((v)=> v.Temperature !== null).map((d) => d.Temperature )
-    let temp = 0
+    let tempa = 0
 
     console.log("tempArr",tempArr)
     let co2Arr = props?.data?.filter((d)=> d.Co2 !== 0).filter((v)=> v.Co2 !== null).map((d) => d.Co2 )
-    let co2 = 0
+    let co2a = 0
 
     let humidityArr = props?.data?.filter((d)=> d.Humidity !== 0).filter((v)=> v.Humidity !== null).map((d) => d.Humidity )
-    let humidity = 0
+    let humiditya = 0
+
     console.log("humidityArr",humidityArr)
 
     setTempunit(props?.data?.map((d) => d.Temperature_Measurement )[props?.data?.map((d) => d.Temperature_Measurement ).length - 1])
@@ -247,8 +255,9 @@ const StatsLower = (props) => {
   if(phArr.length > 0){
     for (let index = 0; index < phArr?.length; index++) {
       const element = phArr[index];
-      ph =  (ph + parseFloat(element) / phArr?.length) 
-      setPh(Math.round(ph * 100) / 100)
+      pha =  (pha + parseFloat(element) / phArr?.length) 
+      setPh(Math.round(pha * 100) / 100)
+      
     }
   }else{
     setPh(0)
@@ -257,8 +266,8 @@ const StatsLower = (props) => {
   if(tempArr.length > 0){
     for (let index = 0; index < tempArr?.length; index++) {
       const element = tempArr[index];
-      temp =  (temp + parseFloat(element) / tempArr?.length) 
-      setTemp(Math.round(temp * 100) / 100)
+      tempa =  (tempa + parseFloat(element) / tempArr?.length) 
+      setTemp(Math.round(tempa * 100) / 100)
     }
   }else{
     setTemp(0)
@@ -268,9 +277,9 @@ const StatsLower = (props) => {
   if(co2Arr.length > 0 ){
     for (let index = 0; index < co2Arr?.length; index++) {
       const element = co2Arr[index];
-      co2 =  (co2 + parseFloat(element)  / co2Arr?.length   )
-      if(co2 !== NaN){
-        setCo2(Math.round(co2 * 100) / 100)
+      co2a =  (co2a + parseFloat(element)  / co2Arr?.length   )
+      if(co2a !== NaN){
+        setCo2(Math.round(co2a * 100) / 100)
       }else{
         setCo2(0)
       }
@@ -283,8 +292,8 @@ const StatsLower = (props) => {
   if(humidityArr.length > 0){
     for (let index = 0; index < humidityArr?.length; index++) {
       const element = humidityArr[index];
-      humidity =  (humidity + parseFloat(element)  / humidityArr?.length   )
-      setHumidity(Math.round(humidity * 100) / 100)
+      humiditya =  (humiditya + parseFloat(element)  / humidityArr?.length   )
+      setHumidity(Math.round(humiditya * 100) / 100)
     }
   }else{
     setHumidity(0)
@@ -377,10 +386,6 @@ const StatsLower = (props) => {
  
 
 useEffect(() => {
-
-  console.log('temp',temp)
-  console.log('humidity',humidity)
-
   if(temp !== 0 && humidity !== 0){
     calculateVPD(temp,humidity) 
   }else{
@@ -404,7 +409,7 @@ useEffect(() => {
         {chartData && 
         <ChartHolderInner>
       <Line  data={chartDataPh} updateMode="resize"/>
-      
+         <ChartVpd>{ph}</ChartVpd>
       </ChartHolderInner>
       }
   
@@ -421,10 +426,16 @@ useEffect(() => {
 {chartDataCo2 && 
         <ChartHolderInner>
       <Line  data={chartDataCo2} />
+      
+      <ChartVpd>{co2} PPM</ChartVpd>
       </ChartHolderInner>
       }
       </ChartHolder>
 }
+
+{/* <Flex2>
+<img src={VpdChart} width="100%"/>
+</Flex2> */}
         {/* <Flex2>
 
     {(props.weekId !== undefined) ?
