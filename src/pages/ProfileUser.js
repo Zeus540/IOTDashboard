@@ -206,7 +206,7 @@ const ProfileUser = () => {
 
   useEffect(() => {
 
-    document.title = "Sweet Leaf - My Profile" 
+  
   }, [])
 
   useEffect(() => {

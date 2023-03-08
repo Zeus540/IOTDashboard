@@ -6,6 +6,35 @@ import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 
 import {useNavigate} from 'react-router-dom'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
+
+
+
+
+
 
 const Root = styled.div`
 
@@ -135,6 +164,39 @@ const NoDataHolder = styled.div`
   text-align: center;
 `;
 
+const ChartHolder = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 600px) {
+    margin: 0 20px;
+    width: unset;
+  }
+
+`;
+
+const ChartHolderInner = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+  width: calc(100% /3 );
+  @media (max-width: 600px) {
+    min-width: calc(100% / 1 );
+    margin-bottom: 20px;
+  }
+  @media (min-width: 601px) and (max-width: 768px) {
+    min-width: calc(100% / 2 - 20px);
+    margin: 10px;
+    margin-top: 0px;
+  }
+`;
+
+const ChartVpd = styled.h1`
+font-size: 22px;
+ //color:black!important
+`;
+
 const StatsLower = (props) => {
  
 
@@ -143,10 +205,15 @@ const StatsLower = (props) => {
   const [activeDiary, setActiveDiary] = useState([]);
 
   const [ph, setPh] = useState(null);
-  const [temp, setTemp] = useState(null);
+  const [temp, setTemp] = useState(0);
+  const [tempUnit, setTempunit] = useState(null);
   const [moisture, setMoisture] = useState(null);
   const [co2, setCo2] = useState(null);
-  const [humidity, setHumidity] = useState(null);
+  const [humidity, setHumidity] = useState(0);
+  const [chartData, setChartData] = useState(null);
+  const [chartDataPh, setChartDataPh] = useState(null);
+  const [chartDataCo2, setChartDataCo2] = useState(null);
+  const [vpd, setVpd] = useState(null);
   
   const params = useParams();
   const navigate = useNavigate ()
@@ -155,42 +222,46 @@ const StatsLower = (props) => {
 
   useEffect(() => {
  
-  
+
     if(props.data !== undefined){
    
   
-    let phArr = props?.data?.filter((d)=> d.Ph !== null).map((d) => d.Ph )
+    let phArr = props?.data?.filter((d)=> d.Ph !== 0).filter((v)=> v !== null).map((d) => d.Ph )
     let ph = 0
   
-    let tempArr = props?.data?.filter((d)=> d.Temperature !== (null || 0)).map((d) => d.Temperature )
+    let tempArr = props?.data?.filter((d)=> d.Temperature !== 0).filter((v)=> v.Temperature !== null).map((d) => d.Temperature )
     let temp = 0
 
- 
-    let co2Arr = props?.data?.filter((d)=> d.Co2 !== (null || 0)).map((d) => d.Co2 )
-   
+    console.log("tempArr",tempArr)
+    let co2Arr = props?.data?.filter((d)=> d.Co2 !== 0).filter((v)=> v.Co2 !== null).map((d) => d.Co2 )
     let co2 = 0
 
-    let humidityArr = props?.data?.filter((d)=> d.Humidity !== (null || 0)).map((d) => d.Humidity )
+    let humidityArr = props?.data?.filter((d)=> d.Humidity !== 0).filter((v)=> v.Humidity !== null).map((d) => d.Humidity )
     let humidity = 0
+    console.log("humidityArr",humidityArr)
+
+    setTempunit(props?.data?.map((d) => d.Temperature_Measurement )[props?.data?.map((d) => d.Temperature_Measurement ).length - 1])
+ 
+ 
 
   if(phArr.length > 0){
     for (let index = 0; index < phArr?.length; index++) {
       const element = phArr[index];
-      ph =  (ph + parseFloat(element) / phArr?.length   ) 
+      ph =  (ph + parseFloat(element) / phArr?.length) 
       setPh(Math.round(ph * 100) / 100)
     }
   }else{
-    setPh(null)
+    setPh(0)
   }
 
   if(tempArr.length > 0){
     for (let index = 0; index < tempArr?.length; index++) {
       const element = tempArr[index];
-      temp =  (temp + parseFloat(element) / tempArr?.length   ) 
+      temp =  (temp + parseFloat(element) / tempArr?.length) 
       setTemp(Math.round(temp * 100) / 100)
     }
   }else{
-    setTemp(null)
+    setTemp(0)
   }
 
    
@@ -201,12 +272,12 @@ const StatsLower = (props) => {
       if(co2 !== NaN){
         setCo2(Math.round(co2 * 100) / 100)
       }else{
-        setCo2(null)
+        setCo2(0)
       }
     }
 
   }else{
-    setCo2(null)
+    setCo2(0)
   }
 
   if(humidityArr.length > 0){
@@ -216,20 +287,109 @@ const StatsLower = (props) => {
       setHumidity(Math.round(humidity * 100) / 100)
     }
   }else{
-    setHumidity(null)
+    setHumidity(0)
   }
 
-    
 
+
+  const data = {
+    labels: props.days?.map((l) => l.Day.substring(0,3)),
+    datasets: [
+      {
+
+        label: 'Temperature',
+        data: tempArr.filter((v)=> v !== null),
+        borderColor: "#8bab50",
+        backgroundColor: "#8bab50",
+      },
+      {
   
+        label: 'Humidity',
+        data: humidityArr.filter((v)=> v !== null),
+        borderColor: "#5db7ff",
+        backgroundColor: "#5db7ff",
+      },
+    ],
+  };
+
+  const Ph = {
+    labels: props.days?.map((l) => l.Day.substring(0,3)),
+    datasets: [
+      {
+
+        label: 'Ph',
+        data: phArr.filter((v)=> v !== null),
+        borderColor: "#8bab50",
+        backgroundColor: "#8bab50",
+      },
+     
+    ],
+  };
+
+  const Co2 = {
+    labels: props.days?.map((l) => l.Day.substring(0,3)),
+    datasets: [
+      {
+
+        label: 'Co2',
+        data: co2Arr.filter((v)=> v !== null),
+        borderColor: "#1e1a11",
+        backgroundColor: "#1e1a11",
+      },
+     
+    ],
+  };
+  
+
+  setChartData(data)
+  setChartDataPh(Ph)
+  setChartDataCo2(Co2)
+
   }
 
   
-  }, [props.data])
+  }, [props])
 
 
+
+ 
+  function calculateVPD(temperatureIn, humidityIn) {
+    // Constants
+    var A = 17.27;
+    var B = 237.7;
   
+    // Convert temperature from Celsius to Kelvin
+    var T = temperatureIn + 273.15;
   
+    // Calculate saturation vapor pressure (es) in kilopascals (kPa)
+    var es = 0.6108 * Math.exp((A * temperatureIn) / (B + temperatureIn));
+  
+    // Calculate actual vapor pressure (ea) in kilopascals (kPa)
+    var ea = (humidityIn / 100) * es;
+  
+    // Calculate vapor pressure deficit (VPD) in kilopascals (kPa)
+    var VPD = (es - ea).toFixed(2);
+  
+    console.log("calculateVPD",VPD)
+    setVpd(VPD)
+  }
+
+ 
+
+useEffect(() => {
+
+  console.log('temp',temp)
+  console.log('humidity',humidity)
+
+  if(temp !== 0 && humidity !== 0){
+    calculateVPD(temp,humidity) 
+  }else{
+    setVpd(0)
+  }
+
+  //calculateVPD(29, 63.25) 
+}, [temp,humidity])
+
 
   return (
 
@@ -238,18 +398,41 @@ const StatsLower = (props) => {
 
 
       <Inner>
-
+        
+      {props.weekId !== undefined &&
+      <ChartHolder>
+        {chartData && 
+        <ChartHolderInner>
+      <Line  data={chartDataPh} updateMode="resize"/>
       
+      </ChartHolderInner>
+      }
+  
 
-      <Heading> Grow conditions </Heading>
-        <Flex2>
+{chartData && 
+        <ChartHolderInner>
+      <Line  data={chartData} />
+      <ChartVpd>{vpd} kPa</ChartVpd>
+      </ChartHolderInner>
+      }
 
-    {(props.weekId !== undefined && props.dayId !== undefined) ?
+
+
+{chartDataCo2 && 
+        <ChartHolderInner>
+      <Line  data={chartDataCo2} />
+      </ChartHolderInner>
+      }
+      </ChartHolder>
+}
+        {/* <Flex2>
+
+    {(props.weekId !== undefined) ?
     <>
        <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Ph</TextHeading>
-            {ph == (0 || null) ? (
+            {ph == 0 ? (
                <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{ph}</TextHeadingInfo>
@@ -262,10 +445,10 @@ const StatsLower = (props) => {
     <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Temperature</TextHeading>
-            {temp == (0 || null) ? (
+            {temp == 0 ? (
               <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <TextHeadingInfo>{temp} &#8451; </TextHeadingInfo>
+              <TextHeadingInfo>{temp}  {tempUnit} </TextHeadingInfo>
             )}
                   
                 </TextHolderGroup2Inner>
@@ -274,10 +457,10 @@ const StatsLower = (props) => {
           <TextHolderGroup2>
           <TextHolderGroup2Inner>
           <TextHeading>Humidity</TextHeading>
-            {humidity == (0 || null) ? (
+            {humidity == 0 ? (
             <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
-              <TextHeadingInfo>{humidity}  %  </TextHeadingInfo>
+              <TextHeadingInfo>{humidity}  % </TextHeadingInfo>
             )}
               
                 </TextHolderGroup2Inner>
@@ -288,7 +471,7 @@ const StatsLower = (props) => {
           <TextHolderGroup2Inner>
           <TextHeading>Co2</TextHeading>
 
-            {co2 == 0 || null ? (
+            {co2 == 0  ? (
                 <TextHeadingInfo>N/A</TextHeadingInfo>
             ) : (
               <TextHeadingInfo>{co2} PPM</TextHeadingInfo>
@@ -306,7 +489,7 @@ const StatsLower = (props) => {
 
         
 
-        </Flex2>
+        </Flex2> */}
 
       </Inner>
     </Root>

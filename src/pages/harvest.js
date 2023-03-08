@@ -158,7 +158,7 @@ const Harvest = () => {
     if( diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0]){
       filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
-    document.title = "Sweet Leaf - " + filtered?.Title + " Havest" ;
+   
     setActiveDiary(filtered);
   }, [diaries,diariesPublic])
 

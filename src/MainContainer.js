@@ -42,7 +42,7 @@ const MainContainer = (props) => {
 
                  {!user ?
                       <Route path="/" element={<HomePage />} /> :
-                    <Route path="/" element={<Diaries mobileMenu={props.mobileMenu} setMobileMenu={props.setMobileMenu} OffClick={props.OffClick} />} />
+                      <Route path="/" element={<DiariesPublic />} />
 
                 } 
               

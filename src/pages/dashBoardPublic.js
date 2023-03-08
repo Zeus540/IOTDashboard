@@ -1125,7 +1125,7 @@ const DashBoardPublic = (props) => {
   const [days, setDays] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState(undefined);
-  const [activeDiaryDataAll, setActiveDiaryDataAll] = useState(undefined);
+  const [activeDiaryDataConditions, setActiveDiaryDataConditions] = useState(undefined);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
@@ -1331,12 +1331,16 @@ const DashBoardPublic = (props) => {
   const handleGetWeekData = (w) => {
     setPositionIndex(0)
     setPosition(0)
+    setActiveDiaryDataConditions([])
     setWeekId(w.WeekId)
+    setDayId(undefined)
+
     if (activeWeek !== w) {
       setGalleryData([]);
       setDiaryData('');
 
       let dataw = {
+        DiaryId:params.id,
         WeekId: w.WeekId,
       };
 
@@ -1348,6 +1352,18 @@ const DashBoardPublic = (props) => {
           setTechniques(response.data)
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+          console.log(error);
+        });
+
+    
+        axios
+        .post(`${BASE_URL_PROD}/conditions`, dataw)
+        .then(function (response) {
+          setActiveDiaryDataConditions(response.data);
+        })
+        .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
 
@@ -1358,6 +1374,7 @@ const DashBoardPublic = (props) => {
           setDays(response.data);
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
 
@@ -1370,6 +1387,7 @@ const DashBoardPublic = (props) => {
         DiaryId: activeDiary.DiaryId,
         WeekId: w.WeekId
       }
+
       axios
         .post(`${BASE_URL_PROD}/nutrients/feeding_schedule`, nutrientData)
         .then(function (response) {
@@ -1379,6 +1397,7 @@ const DashBoardPublic = (props) => {
 
         })
         .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
 
@@ -1411,9 +1430,9 @@ const DashBoardPublic = (props) => {
   }
 
   const handleGetDayData = (days, day) => {
-    setStatsLowerHide(true)
     setPositionIndex(0)
     setPosition(0)
+    setActiveDiaryDataConditions([])
     if (activeDay !== day) {
 
       setGalleryData([]);
@@ -1430,11 +1449,12 @@ const DashBoardPublic = (props) => {
         setDiaryData(data);
 
         axios
-          .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
+          .post(`${BASE_URL_PROD}/plant_data/by_day`, data)
           .then(function (response) {
 
-            setActiveDiaryData(response.data.latest);
-            setActiveDiaryDataAll(response.data);
+            console.log("response.data.latest",response.data.latest)
+            setActiveDiaryData(response.data);
+            setActiveDiaryDataConditions(response.data.Day);
             setGalleryData(response.data.Day);
 
             axios
@@ -1443,17 +1463,18 @@ const DashBoardPublic = (props) => {
                 setDaysNotes(response.data);
               })
               .catch(function (error) {
+                enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
                 console.log(error);
               });
           })
           .catch(function (error) {
+            enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
             console.log(error);
           });
         preDay = "";
         day.active = true;
       }
       setActiveDay(day)
-      setStatsLowerHide(false)
     }
   };
 
@@ -1609,8 +1630,8 @@ const DashBoardPublic = (props) => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - ${activeDiary?.Title}`}</title>
-        <meta name="description" content={`Sweet Leaf - ${activeDiary?.Title}.${activeDiary?.Strain} "Grow by" ${activeDiary?.UserName}}`} />
+        <title>{`SweetLeaf - ${activeDiary?.Strain} Grow by ${activeDiary?.UserName}`}</title>
+        <meta name="description" content={`SweetLeaf - ${activeDiary?.Title}.${activeDiary?.Strain} Grow by ${activeDiary?.UserName}}`} />
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
@@ -1766,7 +1787,7 @@ const DashBoardPublic = (props) => {
         )}
 
 
-        <Stats dayId={dayId} data={activeDiaryData} dataAll={activeDiaryDataAll?.Day} />
+        <Stats />
 
         <Flex3B>
 
@@ -1943,10 +1964,18 @@ const DashBoardPublic = (props) => {
             </DayDotHolder>
             </>
           }
-          {!statsLowerHide && <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />}
+
           
+<Heading> Grow conditions </Heading>
+      <Flex3BtnHolder>
+        
+                       </Flex3BtnHolder>
+                       <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataConditions} days={days} colourData={colourData}/>
+
         </Flex3B>
 
+
+      
 
 
 

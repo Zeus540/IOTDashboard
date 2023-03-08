@@ -161,7 +161,7 @@ function Login() {
 
          <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - Sign In`}</title>
+        <title>{`SweetLeaf - Sign In`}</title>
         <link rel="canonical" href={`https://sweetleaf.co.za/sign-in`} />
       </Helmet>
 

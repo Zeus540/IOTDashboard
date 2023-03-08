@@ -197,7 +197,7 @@ const addTech = (t)=>{
 
 
     useEffect(() => {
-      console.log("props",props)
+
       if(props.popUpOffset == 0){
       axios.get(`${BASE_URL_PROD}/techniques`)
       .then(function (response) {

@@ -231,10 +231,9 @@ const Diaries = () => {
 
 
   useEffect(() => {
-
     Update()
-  
-    document.title = "Sweet Leaf - My Journals" 
+   
+   
   }, [])
 
  
@@ -242,7 +241,7 @@ const Diaries = () => {
   useEffect(() => {
     setDiaryPublicList(diaries?.filter((d)=> d.Public == 1))
     setDiaryPrivateList(diaries?.filter((d)=> d.Public == 0))
-   console.log("asdasd",diaries)
+
   }, [diaries])
   
 
@@ -267,7 +266,7 @@ const Diaries = () => {
 
 <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - My Journals`}</title>
+        <title>{`SweetLeaf - My Journals`}</title>
         <link rel="canonical" href={`https://sweetleaf.co.za/my-journals`} />
       </Helmet>
 

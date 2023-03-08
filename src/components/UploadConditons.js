@@ -13,6 +13,7 @@ import axios from "../components/shared/axios";
 import { TailSpin } from  'react-loader-spinner'
 import { useSnackbar} from 'notistack';
 import {BASE_URL_PROD} from '../components/shared/Constants'
+import MenuItem from '@mui/material/MenuItem';
 
 const Input = styled(TextField)`
 
@@ -25,6 +26,12 @@ const InputG = styled(TextField)`
 margin: 0px 10px;
 width: 100%;
 min-width: calc(100%  / 2 - 20px);
+`;
+
+const InputGTemp = styled(TextField)`
+margin-right: 10px;
+width: 100%;
+max-width: calc(100%  / 3 - 20px);
 `;
 
 const FormHeading = styled.h1`
@@ -94,10 +101,14 @@ display:flex;
 margin: 15px 5px;
 `;
 
+const InputGroupInner = styled.div`
+display:flex;
+min-width: 50%;
+`;
 
-const UploadImage = (props) => {
+const UploadConditons = (props) => {
   const {enqueueSnackbar} = useSnackbar()
-  const [img, setImg] = useState('');
+
   const [loading, setLoading] = useState(false);
   
   const [ph, setPh] = useState('');
@@ -105,84 +116,58 @@ const UploadImage = (props) => {
   const [humidity, setHumidity] = useState('');
   const [co2, setCo2] = useState('');
 
-  const [imgName, setImgName] = useState('');
-  const [imgBase64, setImgBase64] = useState("");
+  const [tempMeasurement, setTempMeasurement] = useState("");
+
   const { auth,authToken,userId } = useContext(AuthContext);
 
 
   useEffect(() => {
-    setImgBase64("")
-    setImgName("")
-    setImg("")
+
    
   }, [props.popUpOffset])
   
-let base64String = "";
-  
-function imageUploaded() {
-    var file = document.querySelector(
-        'input[type=file]')['files'][0];
-  
-    var reader = new FileReader();
-  
-      
-    reader.onload = function () {
-        base64String = reader.result
-  
-        setImgBase64(base64String)
-     
-    }
-    reader.readAsDataURL(file);
-    setImg(URL.createObjectURL(file));
-
-    let name =  new Date().toLocaleDateString().replaceAll("/","-") + new Date().toLocaleTimeString().replaceAll("PM","").replaceAll("AM","") 
-    // name.trim()+ "." + file.name.split(".")[file.name.split(".").length - 1]
-    setImgName(file.name)
-   
-}
-  
 
 
-function displayString(e) {
-  //console.log(imgBase64)
+function SubmitData(e) {
+
   e.preventDefault()
- if(imgBase64 !== ""){
- 
-  setLoading(true)
+
   let values = {}
 
 if(props.DayId !== ''){
   values = {
-    image:imgBase64,
     DiaryId:props.DiaryId,
     WeekId:props.WeekId,
     DayId:props.DayId,
-    name:imgName,
- 
+
+    ph:parseFloat(ph),
+    temp:parseFloat(temp),
+    tempMeasurement:tempMeasurement,
+    humidity:parseFloat(humidity),
+    co2:parseFloat(co2),
     }
 }else{
   values = {
-    image:imgBase64,
     DiaryId:props.DiaryId,
     WeekId:props.WeekId,
     DayId:null,
-    name:imgName,
-   
+    tempMeasurement:tempMeasurement,
+    ph:parseFloat(ph),
+    temp:parseFloat(temp),
+    humidity:parseFloat(humidity),
+    co2:parseFloat(co2),
     }
 }
 
   
-   axios.post(`${BASE_URL_PROD}/upload/image`,values)
+   axios.post(`${BASE_URL_PROD}/weeks/conditions_add`,values)
    .then(function (response) {
      if(response.status == 200 ){
        props.setPopUpOffset(-101)
-       setImg("");
-       setImgName("")
-       setImgBase64(base64String)
        setLoading(false)
        props.updateDays()
        props.update()
-       enqueueSnackbar("Image Successfully Uploaded",{variant:'success'})
+       enqueueSnackbar("Conditions Successfully Uploaded",{variant:'success'})
      }else{
        enqueueSnackbar(response.status,{variant:'error'})
      }
@@ -196,7 +181,13 @@ if(props.DayId !== ''){
 
 
   
- }
+ 
+}
+
+const handleRoomTypeChange = (e, child) => {
+
+  setTempMeasurement(e.target.value)
+  
 }
 
   return (
@@ -204,31 +195,52 @@ if(props.DayId !== ''){
       <Form  encType="multipart/form-data">
          
          <FormHeadingGroup>
-      <FormHeading>Upload Image</FormHeading>
+      <FormHeading>Upload Conditions</FormHeading>
      
         </FormHeadingGroup>
         <InputHolder>
-        {img !== '' && 
-        <ImgHolder img={img}>
+      
 
-  </ImgHolder>
-  }
-  <InputGroup>
-         <Input type="file" name="" id="fileId" 
-        onChange={()=>{imageUploaded()}}/>
-</InputGroup>
 <InputGroup>
 
+<InputG type="number"  id="fileId"  label='Ph'
+required
+        onChange={(e)=>{setPh(e.target.value)}}/>
 
-     
+        <InputG type="number"  id="fileId" label='Co2' required
+           onChange={(e)=>{setCo2(e.target.value)}}/>
+
 
 </InputGroup>
   
+<InputGroup>
 
+<InputGroupInner>
+<InputG type="number"  id="fileId"  label='Temperature' required
+           onChange={(e)=>{setTemp(e.target.value)}}/>
+
+<InputGTemp
+  id="tempMeasurement"
+  label="Measurement"
+  value={tempMeasurement}
+  variant="outlined"
+  required
+  onChange={(e, child) => { handleRoomTypeChange(e, child) }}
+  select>
+  <MenuItem value="&#8451;">Celsius</MenuItem>
+  <MenuItem value="&#8457;">Fahrenheit</MenuItem>
+</InputGTemp>
+      
+           </InputGroupInner>
+        <InputG type="number"  id="fileId" label='Humidity' required
+         onChange={(e)=>{setHumidity(e.target.value)}}/>
+
+
+</InputGroup>
 
   {!loading ?
-    <Button onClick={(e)=>{displayString(e)}}>
-        Upload Data
+    <Button onClick={(e)=>{SubmitData(e)}}>
+        Submit
     </Button>
 :
 <TailSpin
@@ -248,4 +260,4 @@ if(props.DayId !== ''){
   )
 }
 
-export default UploadImage
+export default UploadConditons

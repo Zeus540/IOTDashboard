@@ -16,6 +16,7 @@ import DiarySettings from './DiarySettings';
 
 
 import UploadImage from './UploadImage';
+import UploadConditons from './UploadConditons';
 
 const PopUpHolder = styled.div`
   background: #121b1cc4 ;
@@ -96,6 +97,10 @@ const PopUp = (props) => {
 {props.type == "uploadImage" && 
     <UploadImage popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update} updateDays={props.updateDays}/>
 }
+{props.type == "uploadConditons" && 
+    <UploadConditons popUpOffset={props.popUpOffset} setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId} DayId={props.DayId}  WeekId={props.WeekId} update={props.update} updateDays={props.updateDays}/>
+}
+
 
 {props.type == "addWeek" && 
     <AddWeek setPopUpOffset={props.setPopUpOffset} DiaryId={props.DiaryId}  />

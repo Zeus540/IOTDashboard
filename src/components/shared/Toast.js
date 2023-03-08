@@ -47,11 +47,12 @@ const [toastPostion, setToastPostion] = useState("-200%")
 
      if(newDiary){
          setToastPostion("0%")
+         console.log("newDiaryData",newDiaryData)
      }else{
          setToastPostion("-200%")
      }
 
-     console.log("newDiaryData",newDiaryData)
+ 
  }, [newDiary])
 
   return (

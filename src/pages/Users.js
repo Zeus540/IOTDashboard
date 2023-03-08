@@ -218,7 +218,7 @@ const Users = () => {
 
   useEffect(() => {
 
-    document.title = "Sweet Leaf - Growers" 
+
   }, [])
 
   useEffect(() => {

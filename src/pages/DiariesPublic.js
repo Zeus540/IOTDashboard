@@ -307,7 +307,7 @@ useEffect(() => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - Public Journals`}</title>
+        <title>{`SweetLeaf - Public Journals`}</title>
         <link rel="canonical" href={`https://sweetleaf.co.za/public-journals`} />
       </Helmet>
 

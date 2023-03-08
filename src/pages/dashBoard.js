@@ -817,6 +817,7 @@ const Helper = styled.p`
 text-align:center;
 color: #354f41;
 margin-top: 0;
+margin-bottom: 15px;
 
 `;
 
@@ -825,7 +826,7 @@ const HelperBtnHolder = styled.div`
 margin-left: 20px;
 display: flex;
 justify-content: end;
-
+margin-bottom: 20px;
    
 `;
 
@@ -834,13 +835,13 @@ display: flex;
 align-items: center;
 text-align: center;
     padding: 2px 20px;
-    background: #f8f8ff00;
+    background: #f44336;
 
 
     border: none;
     color: white;
     border-radius: 5px;
-    margin-bottom: 20px;
+  
     cursor: pointer;
     border: 1px solid #f44336;
 `;
@@ -856,7 +857,7 @@ text-align: center;
     border: none;
     color: white;
     border-radius: 5px;
-    margin-bottom: 20px;
+
     cursor: pointer;
     border: 1px solid #8bab50;
 `;
@@ -874,7 +875,7 @@ margin: 0;
 `;
 
 const HelperBtnTextR = styled.p`
-color: #f44336!important;
+color: white!important;
 padding: 5px 10px;
 margin: 0;
 `;
@@ -1001,7 +1002,7 @@ margin-right: 10px;
 
 const SvgW = styled.svg`
 width: 20px;
-fill: #f44336;
+fill: white;
 `;
 const SvgS = styled.svg`
 width: 20px;
@@ -1184,7 +1185,7 @@ const DashBoard = (props) => {
   const [days, setDays] = useState([]);
   const [activeDiary, setActiveDiary] = useState([]);
   const [activeDiaryData, setActiveDiaryData] = useState(undefined);
-  const [activeDiaryDataAll, setActiveDiaryDataAll] = useState(undefined);
+  const [activeDiaryDataConditions, setActiveDiaryDataConditions] = useState(undefined);
   const [activeDiaryNotes, setActiveDiaryNotes] = useState("");
   const [activeDiaryWeeks, setActiveDiaryWeeks] = useState([]);
   const [activeWeek, setActiveWeek] = useState('');
@@ -1201,6 +1202,8 @@ const DashBoard = (props) => {
   const [position, setPosition] = useState(0);
   const [positionIndex, setPositionIndex] = useState(0);
   const [popUpOffset, setPopUpOffset] = useState(-101);
+  const [popUpConditionOffset, setPopUpConditionOffset] = useState(-101);
+  
   const [popUpOffsetFeeding, setPopUpOffsetFeeding] = useState(-101);
   const [popUpEditWeekOffset, setPopUpEditWeekOffset] = useState(-101);
   const [popUpDeleteWeekOffset, setPopUpDeleteWeekOffset] = useState(-101);
@@ -1277,6 +1280,8 @@ const DashBoard = (props) => {
           console.log(error);
         });
 
+      
+        
       //Get Diary Comments
       axios
         .post(`${BASE_URL_PROD}/diaries/get_comments`, data)
@@ -1387,6 +1392,7 @@ const DashBoard = (props) => {
   const handleGetWeekData = (w) => {
     setPositionIndex(0)
     setPosition(0)
+    setActiveDiaryDataConditions([])
     setWeekId(w.WeekId)
     setDayId(undefined)
 
@@ -1395,6 +1401,7 @@ const DashBoard = (props) => {
       setDiaryData('');
 
       let dataw = {
+        DiaryId:params.id,
         WeekId: w.WeekId,
       };
 
@@ -1404,6 +1411,17 @@ const DashBoard = (props) => {
         .then(function (response) {
 
           setTechniques(response.data)
+        })
+        .catch(function (error) {
+          enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+          console.log(error);
+        });
+
+    
+        axios
+        .post(`${BASE_URL_PROD}/conditions`, dataw)
+        .then(function (response) {
+          setActiveDiaryDataConditions(response.data);
         })
         .catch(function (error) {
           enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
@@ -1490,6 +1508,7 @@ const DashBoard = (props) => {
   const handleGetDayData = (days, day) => {
     setPositionIndex(0)
     setPosition(0)
+
     if (activeDay !== day) {
 
       setGalleryData([]);
@@ -1506,11 +1525,12 @@ const DashBoard = (props) => {
         setDiaryData(data);
 
         axios
-          .post(`${BASE_URL_PROD}/plant_data/lastest`, data)
+          .post(`${BASE_URL_PROD}/plant_data/by_day`, data)
           .then(function (response) {
 
-            setActiveDiaryData(response.data.latest);
-            setActiveDiaryDataAll(response.data);
+            console.log("response.data.latest",response.data.latest)
+            setActiveDiaryData(response.data);
+        
             setGalleryData(response.data.Day);
 
             axios
@@ -1641,6 +1661,14 @@ const DashBoard = (props) => {
     }
   }
 
+  const HandleConditionUpload = () => {
+    if (popUpConditionOffset == -101) {
+      setPopUpConditionOffset(0);
+    } else {
+      setPopUpConditionOffset(-101);
+    }
+  }
+  
   const handleAddWeek = () => {
     if (popUpAddWeekOffset == -101) {
       setPopUpAddWeekOffset(0);
@@ -1788,9 +1816,9 @@ const DashBoard = (props) => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sweet Leaf - ${activeDiary?.Title}`}</title>
-        <meta name="description" content={`Sweet Leaf - ${activeDiary?.Title}.${activeDiary?.Strain} "Grow by" ${activeDiary?.UserName}}`} />
-        <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
+        <title>{`SweetLeaf - ${activeDiary?.Strain} Grow by ${activeDiary?.UserName}`}</title>
+        <meta name="description" content={`SweetLeaf - ${activeDiary?.Title}.${activeDiary?.Strain} "Grow by" ${activeDiary?.UserName}}`} />
+        <link rel="canonical" href={`https://sweetleaf.co.za/my-journals/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
 
 
@@ -1798,7 +1826,8 @@ const DashBoard = (props) => {
 
       <PopUp popUpOffset={popUpOffset} setPopUpOffset={setPopUpOffset} type="uploadImage" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} updateDays={UpdateDays}/>
 
-
+      <PopUp popUpOffset={popUpConditionOffset} setPopUpOffset={setPopUpConditionOffset} type="uploadConditons" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} updateDays={UpdateDays}/>
+      
 
       <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
 
@@ -1993,25 +2022,7 @@ const DashBoard = (props) => {
 
 
 
-              {activeWeek && user?.UserId == activeDiary?.UserId &&
-                <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
-                  <HelperBtn >
-                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                    <HelperBtnText>Upload Data</HelperBtnText>
 
-                  </HelperBtn>
-                </HelperBtnHolder>
-              }
-
-              {activeWeek && user?.UserId == activeDiary?.UserId &&
-                <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
-                  <HelperBtn >
-                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
-                    <HelperBtnText>Nutrients</HelperBtnText>
-
-                  </HelperBtn>
-                </HelperBtnHolder>
-              }
 
               {activeWeek !== "" && <HelperBtnHolder onClick={() => { handleEditWeek() }}>
                 <HelperBtn >
@@ -2072,9 +2083,7 @@ const DashBoard = (props) => {
 
                       </WeekHolder> :
                       <WeekHolderActive
-                        onClick={() => {
-                          handleGetWeekData(w);
-                        }}
+                       
 
                       >
                         <WeekHolderText>
@@ -2193,8 +2202,22 @@ const DashBoard = (props) => {
               })}
             </DayDotHolder>
             </>
-          }
-          <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataAll?.Day} />
+          } 
+
+          
+      <Heading> Grow conditions </Heading>
+      <Flex3BtnHolder>
+        {dayId && user?.UserId == activeDiary?.UserId &&
+                <HelperBtnHolder onClick={() => { HandleConditionUpload() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                    <HelperBtnText>Upload Conditions</HelperBtnText>
+
+                  </HelperBtn>
+                </HelperBtnHolder>
+              }
+                       </Flex3BtnHolder>
+          <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataConditions} days={days} colourData={colourData}/>
         </Flex3B>
 
 
@@ -2207,7 +2230,17 @@ const DashBoard = (props) => {
 
         <Heading>GALLERY</Heading>
 
+        <Flex3BtnHolder>
+        {activeWeek && user?.UserId == activeDiary?.UserId &&
+                <HelperBtnHolder onClick={() => { HandleImageUpload() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                    <HelperBtnText>Upload Image</HelperBtnText>
 
+                  </HelperBtn>
+                </HelperBtnHolder>
+              }
+                       </Flex3BtnHolder>
         <GalleryHolderInnerMain>
 
           <GalleryHolderOutter>
@@ -2236,7 +2269,7 @@ const DashBoard = (props) => {
 
 
                             <GalleryImageOverlayText> Time : {img?.Time.split(":")[0]}:{img?.Time.split(":")[2]} </GalleryImageOverlayText>
-                            <GalleryImageOverlayText> Date : {img?.Date} </GalleryImageOverlayText>
+                            <GalleryImageOverlayText> Date : {img?.Date} </GalleryImageOverlayText> 
 
 
                           </GalleryImageOverlay>
@@ -2287,6 +2320,19 @@ const DashBoard = (props) => {
 
 
         <Heading>NUTRIENTS</Heading>
+
+<Flex3BtnHolder>
+  
+{activeWeek && user?.UserId == activeDiary?.UserId &&
+                <HelperBtnHolder onClick={() => { HandleFeedingUpload() }}>
+                  <HelperBtn >
+                    <SvgB xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" /></SvgB>
+                    <HelperBtnText>Nutrients</HelperBtnText>
+
+                  </HelperBtn>
+                </HelperBtnHolder>
+              }
+  </Flex3BtnHolder>
 
         {scheduleData.length > 0 ?
           <ChartHolderInnerMain>

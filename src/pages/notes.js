@@ -272,7 +272,7 @@ const Notes = () => {
       filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
 
-    document.title = "Sweet Leaf - " + filtered?.Title + "  Notes" ;
+
   
   }, [diaries,diariesPublic])
 
@@ -357,7 +357,7 @@ const Notes = () => {
       <Inner>
  
 
-      <Heading>Journal</Heading>
+      <Heading>Notes</Heading>
 
       
         <Flex2>

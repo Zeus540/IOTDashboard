@@ -202,7 +202,7 @@ const MainPage = () => {
       </Card>
       <Card>
         <CardHeading>
-        Enviroment Tracker
+        Environment Tracker
         </CardHeading>
         <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae elementum libero. Donec congue, ipsum nec tempus semper, orci tortor porttitor urna, at scelerisque odio dui dictum tortor. Nunc tristique luctus mauris vel imperdiet. 

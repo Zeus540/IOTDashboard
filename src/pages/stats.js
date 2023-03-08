@@ -155,7 +155,6 @@ const Stats = (props) => {
       filtered =  diaries?.filter((d) => d.DiaryId == parseInt(params?.id))[0];
     }
 
-    document.title = "Sweet Leaf - " + filtered?.Title + "  Environment" ;
     setActiveDiary(filtered);
 
     
