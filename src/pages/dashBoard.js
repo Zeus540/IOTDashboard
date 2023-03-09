@@ -1036,6 +1036,16 @@ padding-left: 10px;
 border-radius: 5px 0px 5px 0px;
 display: flex;
 `;
+const SetImageDeleteHolder = styled.div`
+position: absolute;
+z-index: 50;
+background: #f44336;
+color: #354f41;
+padding-left: 10px;
+border-radius: 0px 5px 0px 5px;
+display: flex;
+right:0px
+`;
 
 const ChatHolder = styled.div`
 position: relative;
@@ -1504,7 +1514,30 @@ const DashBoard = (props) => {
     });
   }
 
- 
+
+  const handleGetDayDataUpdate = () => {
+  
+    let data = {
+      DiaryId: params?.id,
+      DayId: dayId,
+      WeekId: weekId
+    };
+
+    axios
+    .post(`${BASE_URL_PROD}/plant_data/by_day`, data)
+    .then(function (response) {
+
+      console.log("response.data.latest",response.data.latest)
+  
+      setGalleryData(response.data.Day);
+    })
+    .catch(function (error) {
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+      console.log(error);
+    });
+
+  }
+
   const handleGetDayData = (days, day) => {
     setPositionIndex(0)
     setPosition(0)
@@ -1735,7 +1768,35 @@ const DashBoard = (props) => {
       });
   }
 
+  const handlePlantDataDelete = (DiaryId,Image) => {
 
+    let data = {
+      DiaryId: DiaryId,
+      ImageId: Image
+    }
+
+    axios
+      .post(`${BASE_URL_PROD}/plant_data/delete`, data)
+      .then(function (response) {
+        if (response.status == 200) {
+         
+          enqueueSnackbar("Image Successfully Deleted", { variant: 'success' })
+          handleGetDayDataUpdate()
+
+          HandleBack()
+
+
+        } else {
+          enqueueSnackbar(response.status, { variant: 'error' })
+        }
+      })
+      .catch(function (error) {
+        enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+        console.log(error);
+      });
+  }
+
+  
   const HandleComment = (e) => {
 
     setComment(e.target.value)
@@ -2252,10 +2313,17 @@ const DashBoard = (props) => {
                       <>
 
                         <GalleryImageHolderFlex key={index} >
+                        
                           {activeDiary.UserId == user?.UserId &&
+                          <>
                             <SetImageHolder onClick={() => { handleThumbnailUpdate(img.DiaryId, img?.Image) }}>
                               <SvgS xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M45.6 32C20.4 32 0 52.4 0 77.6V434.4C0 459.6 20.4 480 45.6 480c5.1 0 10-.8 14.7-2.4C74.6 472.8 177.6 440 320 440s245.4 32.8 259.6 37.6c4.7 1.6 9.7 2.4 14.7 2.4c25.2 0 45.6-20.4 45.6-45.6V77.6C640 52.4 619.6 32 594.4 32c-5 0-10 .8-14.7 2.4C565.4 39.2 462.4 72 320 72S74.6 39.2 60.4 34.4C55.6 32.8 50.7 32 45.6 32zM160 160c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm208 0c7.9 0 15.4 3.9 19.8 10.5L512.3 353c5.4 8 5.6 18.4 .4 26.5s-14.7 12.3-24.2 10.7C442.7 382.4 385.2 376 320 376c-65.6 0-123.4 6.5-169.3 14.4c-9.8 1.7-19.7-2.9-24.7-11.5s-4.3-19.4 1.9-27.2L197.3 265c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l26.4 33.1 87-127.6c4.5-6.6 11.9-10.5 19.8-10.5z" /></SvgS>   <HelperBtnTextW>Set Cover</HelperBtnTextW>
                             </SetImageHolder>
+                            <SetImageDeleteHolder onClick={() => { handlePlantDataDelete(img.DiaryId, img?.PlantImgId) }}>
+                            <SvgW xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z" /></SvgW>   <HelperBtnTextW>Delete</HelperBtnTextW>
+                            </SetImageDeleteHolder>
+                          </>
+
                           }
                           <GalleryImageHolder img={img?.Image} onClick={() => {
                             handleLightBox(img?.Image, img);

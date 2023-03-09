@@ -10,7 +10,7 @@ import { DiaryProvider } from '../src/context/diary_context';
 
 ReactDOM.render(
   <BrowserRouter>
-    <SnackbarProvider maxSnack={4} >
+    <SnackbarProvider maxSnack={2} >
       <AuthProvider>
         <DiaryProvider>
           <App />
