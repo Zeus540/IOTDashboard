@@ -239,14 +239,14 @@ const StatsLower = (props) => {
     let tempArr = props?.data?.filter((d)=> d.Temperature !== 0).filter((v)=> v.Temperature !== null).map((d) => d.Temperature )
     let tempa = 0
 
-    console.log("tempArr",tempArr)
+
     let co2Arr = props?.data?.filter((d)=> d.Co2 !== 0).filter((v)=> v.Co2 !== null).map((d) => d.Co2 )
     let co2a = 0
 
     let humidityArr = props?.data?.filter((d)=> d.Humidity !== 0).filter((v)=> v.Humidity !== null).map((d) => d.Humidity )
     let humiditya = 0
 
-    console.log("humidityArr",humidityArr)
+
 
     setTempunit(props?.data?.map((d) => d.Temperature_Measurement )[props?.data?.map((d) => d.Temperature_Measurement ).length - 1])
  
@@ -404,7 +404,7 @@ useEffect(() => {
 
       <Inner>
         
-      {props.weekId !== undefined &&
+      {props.weekId !== undefined ?
       <ChartHolder>
         {chartData && 
         <ChartHolderInner>
@@ -430,7 +430,11 @@ useEffect(() => {
       <ChartVpd>{co2} PPM</ChartVpd>
       </ChartHolderInner>
       }
-      </ChartHolder>
+      </ChartHolder>:
+      
+      <NoDataHolder>
+           <NoData>No Data Available</NoData>
+      </NoDataHolder>
 }
 
 {/* <Flex2>

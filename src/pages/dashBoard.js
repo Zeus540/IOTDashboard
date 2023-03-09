@@ -25,6 +25,11 @@ import { Doughnut } from 'react-chartjs-2';
 import Stats from "./stats"
 import StatsLower from "./statsLower"
 
+
+import pine from '../assets/pine.png'
+import cheese from '../assets/cheese.png'
+import wood from '../assets/wood.png'
+
 import Cog from '../assets/svg/cog'
 import Bin from "../assets/svg/cog copy";
 import Paper from "../assets/svg/paper.svg";
@@ -634,10 +639,56 @@ const WeekInfoImgHolder = styled.div`
 text-align: center;
 
 `;
+const HarvestInfoGrp = styled.div`
+text-align: center;
+display: flex;
+margin: 20px auto;
+justify-content: space-between;
+`;
 
+const HarvestInfoGrpS = styled.div`
+text-align: center;
+display: flex;
+margin: 20px auto;
+justify-content: space-between;
+`;
+
+const HarvestInfoGrpSCard = styled.div`
+width: calc(100% / 3);
+color:#354f41!important;
+background: ghostwhite;
+padding: 18px 0px;
+border-radius: 5px;
+:nth-child(2){
+  margin: 0px 20px;
+}
+`;  
+const HarvestInfoInner = styled.div`
+width: 40%;
+@media (min-width: 0px) and (max-width: 768px) {
+  width: 80%;
+}
+`;
 const WeekInfoText = styled.p`
 
   margin: 40px auto;
+  text-align: center;
+
+  color:black!important;
+
+`;
+
+const HarvestInfoText = styled.p`
+
+
+  text-align: center;
+
+  color:black!important;
+
+`;
+const HarvestInfoTextAmount = styled.p`
+
+
   text-align: center;
 
   color:black!important;
@@ -1405,7 +1456,7 @@ const DashBoard = (props) => {
     setActiveDiaryDataConditions([])
     setWeekId(w.WeekId)
     setDayId(undefined)
-
+    setWeekInfo([])
     if (activeWeek !== w) {
       setGalleryData([]);
       setDiaryData('');
@@ -1456,7 +1507,8 @@ const DashBoard = (props) => {
 
       let nutrientData = {
         DiaryId: activeDiary.DiaryId,
-        WeekId: w.WeekId
+        WeekId: w.WeekId,
+        Stage:w.Stage
       }
 
       axios
@@ -1476,6 +1528,7 @@ const DashBoard = (props) => {
         .post(`${BASE_URL_PROD}/weeks/information`, nutrientData)
         .then(function (response) {
 
+          console.log("response",response)
           setWeekInfo(response.data)
 
 
@@ -2112,6 +2165,7 @@ const DashBoard = (props) => {
                           handleGetWeekData(w);
                         }}
                       >
+                 
                         <WeekHolderText>
 
                           <WeekHolderTextSub>Week</WeekHolderTextSub>
@@ -2194,9 +2248,9 @@ const DashBoard = (props) => {
 
           <div>
 
-            
-        
-          {weekInfo?.map((i, index) => {
+
+          
+          {weekInfo[0]?.Germination_MethodId && weekInfo?.map((i, index) => {
                 return (
                   <>
 
@@ -2219,6 +2273,10 @@ const DashBoard = (props) => {
                 )
                 })
                 }
+
+
+
+              
           </div>
                 
 
@@ -2266,6 +2324,85 @@ const DashBoard = (props) => {
           } 
 
           
+{weekInfo[0]?.HarvestId && weekInfo?.map((i, index) => {
+                return (
+                  <>
+
+                  <Heading>Harvest</Heading>
+                                    <WeekInfoHolderInner>
+                                      <HarvestInfoInner>
+                                      <HarvestInfoGrp>
+                                     
+                                     <HarvestInfoText>
+                                     Total Days
+                                     </HarvestInfoText>
+                                     <HarvestInfoTextAmount>
+                                    {i?.Total_Days} days
+                                     </HarvestInfoTextAmount>
+
+                                     </HarvestInfoGrp>
+
+                                     <HarvestInfoGrp>
+                                     
+                                     <HarvestInfoText>
+                                     Plants Harvested
+                                     </HarvestInfoText>
+                                     <HarvestInfoTextAmount>
+                                    {i?.Plants_Harvested} Plant
+                                     </HarvestInfoTextAmount>
+
+                                     </HarvestInfoGrp>
+
+                                      <HarvestInfoGrp>
+                                     
+                                     <HarvestInfoText>
+                                     Wet Weight
+                                     </HarvestInfoText>
+                                     <HarvestInfoTextAmount>
+                                    {i?.Wet_Weight} grams
+                                     </HarvestInfoTextAmount>
+
+                                     </HarvestInfoGrp>
+                                      <HarvestInfoGrp>
+                                     
+                                      <HarvestInfoText>
+                                      Dry Weight
+                                      </HarvestInfoText>
+                                      <HarvestInfoTextAmount>
+                                     {i?.Dry_Weight} grams
+                                      </HarvestInfoTextAmount>
+
+                                      </HarvestInfoGrp>
+
+
+
+                                      <Heading>SMELLS LIKE</Heading>
+                                      <HarvestInfoGrpS>
+                                     
+                                     <HarvestInfoGrpSCard>
+                                      <img src={wood} width="70px"/>
+                                      <div> {i?.Smells_Like_1}</div>
+                                     </HarvestInfoGrpSCard>
+                                    
+                                     <HarvestInfoGrpSCard>
+                                     <img src={pine} width="70px"/>
+                                    <div> {i?.Smells_Like_2}</div>
+                                     </HarvestInfoGrpSCard>
+
+                                     <HarvestInfoGrpSCard>
+                                     <img src={cheese} width="70px"/>
+                                     <div> {i?.Smells_Like_3}</div>
+                                     </HarvestInfoGrpSCard>
+
+                                     </HarvestInfoGrpS>
+                                      </HarvestInfoInner>
+                                    </WeekInfoHolderInner>
+                  </>
+                )
+                })
+                }
+
+     <>
       <Heading> Grow conditions </Heading>
       <Flex3BtnHolder>
         {dayId && user?.UserId == activeDiary?.UserId &&
@@ -2279,6 +2416,8 @@ const DashBoard = (props) => {
               }
                        </Flex3BtnHolder>
           <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataConditions} days={days} colourData={colourData}/>
+     </>
+            
         </Flex3B>
 
 

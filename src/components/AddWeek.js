@@ -78,6 +78,9 @@ const AddWeek = (props) => {
     const [week, setWeek] = useState("")
     const [loading, setLoading] = useState(false);
 
+
+    
+
     const addWeek = (values)=>{
                 
       setLoading(true)
@@ -204,6 +207,11 @@ const AddWeek = (props) => {
             <MenuItem value="Harvest">Harvest</MenuItem>
         </Input>
     
+    {stage == "Germination" && 
+    <>
+          <FormHeading>Germination Method</FormHeading>
+    </>
+    }
      
  
       
