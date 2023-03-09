@@ -1432,7 +1432,7 @@ const DashBoardPublic = (props) => {
   const handleGetDayData = (days, day) => {
     setPositionIndex(0)
     setPosition(0)
-    setActiveDiaryDataConditions([])
+
     if (activeDay !== day) {
 
       setGalleryData([]);
@@ -1454,7 +1454,7 @@ const DashBoardPublic = (props) => {
 
             console.log("response.data.latest",response.data.latest)
             setActiveDiaryData(response.data);
-            setActiveDiaryDataConditions(response.data.Day);
+        
             setGalleryData(response.data.Day);
 
             axios
