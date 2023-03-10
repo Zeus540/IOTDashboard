@@ -304,7 +304,7 @@ const AddWeek = (props) => {
         >
         </Input>
 
-        <FormHeading>Smell</FormHeading>
+        <FormHeading>Smells Like</FormHeading>
           <InputGrp>
       
         </InputGrp>
