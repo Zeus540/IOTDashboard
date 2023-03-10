@@ -234,6 +234,16 @@ const LoadingHolder = styled.div`
     justify-content: center;
 `;
 
+const NoData = styled.p`
+  padding: 15px 0px;
+  font-size: 18px;
+`;
+
+const NoDataHolder = styled.div`
+  width: 100%;
+  padding:265px 0px;
+  text-align: center;
+`;
 
 
 const Diaries = () => {
@@ -269,11 +279,17 @@ useEffect(() => {
 
   const handleSearch = (type) => {
 
+    if(type.value.length > 1){
     setSearching(true)
     setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.Title.toLowerCase().includes(type.value.toLowerCase()) || d.Strain_1.toLowerCase().includes(type.value.toLowerCase()) ))
     setTimeout(() => {
       setSearching(false)
     }, 400);
+  }else{
+  
+    setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId))
+  }
+
   }
   
 
@@ -301,7 +317,7 @@ useEffect(() => {
          <>
           {!searching  ? <>
           
-          {diaryMostViewedList.length > 0 &&
+          {diaryMostViewedList.length > 0 ?
              <>
                <Add>
                  <MainHeading>New Journals</MainHeading>
@@ -338,6 +354,9 @@ useEffect(() => {
                </DiaryHolder>
  
              </>
+             :           <NoDataHolder>
+             <NoData>Opps Journal Found</NoData>
+           </NoDataHolder>
            }
           
            {diaryHavestList.length > 0 &&
