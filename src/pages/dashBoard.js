@@ -1930,7 +1930,7 @@ const DashBoard = (props) => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`SweetLeaf - ${activeDiary?.Strain} Grow by ${activeDiary?.UserName}`}</title>
+        <title>{`SweetLeaf - ${activeDiary?.Title} Grow by ${activeDiary?.UserName}`}</title>
         <meta name="description" content={`SweetLeaf - ${activeDiary?.Title}.${activeDiary?.Strain} "Grow by" ${activeDiary?.UserName}}`} />
         <link rel="canonical" href={`https://sweetleaf.co.za/my-journals/overview/${activeDiary?.DiaryId}`} />
       </Helmet>
@@ -1943,7 +1943,7 @@ const DashBoard = (props) => {
       <PopUp popUpOffset={popUpConditionOffset} setPopUpOffset={setPopUpConditionOffset} type="uploadConditons" DiaryId={activeDiary?.DiaryId} WeekId={weekId} DayId={dayId} update={Update} updateDays={UpdateDays}/>
       
 
-      <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} />
+      <PopUp popUpOffset={popUpAddWeekOffset} setPopUpOffset={setPopUpAddWeekOffset} type="addWeek" DiaryId={activeDiary?.DiaryId} activeDiary={activeDiary}/>
 
 
 

@@ -19,7 +19,7 @@ import { BASE_URL_PROD } from '../components/shared/Constants'
 import { TailSpin } from  'react-loader-spinner'
 
 const Input = styled(TextField)`
-margin-bottom: 20px;
+margin-bottom: 10px;
 width: 100%;
 `;
 const Label = styled(FormControlLabel)`

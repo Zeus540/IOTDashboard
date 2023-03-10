@@ -134,7 +134,7 @@ const ClosePopUpHolder = styled.div`
   cursor: pointer;
 `;
 const Input = styled(TextField)`
-margin-bottom: 20px;
+margin-bottom: 10px;
 width: 100%;
 `;
 const FormHeading = styled.h1`

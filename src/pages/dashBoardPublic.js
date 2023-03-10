@@ -1684,7 +1684,7 @@ const DashBoardPublic = (props) => {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`SweetLeaf - ${activeDiary?.Strain} Grow by ${activeDiary?.UserName}`}</title>
+        <title>{`SweetLeaf - ${activeDiary?.Title} Grow by ${activeDiary?.UserName}`}</title>
         <meta name="description" content={`SweetLeaf - ${activeDiary?.Title}.${activeDiary?.Strain} Grow by ${activeDiary?.UserName}}`} />
         <link rel="canonical" href={`https://sweetleaf.co.za/overview/${activeDiary?.DiaryId}`} />
       </Helmet>

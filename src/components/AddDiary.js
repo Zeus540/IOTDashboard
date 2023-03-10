@@ -19,7 +19,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Input = styled(TextField)`
-margin-bottom: 10px;
+margin-bottom: 0px;
 width: 100%;
 `;
 const InputG = styled(TextField)`

@@ -17,15 +17,30 @@ import { TailSpin } from  'react-loader-spinner'
 
 
 const Input = styled(TextField)`
-margin-bottom: 20px;
+margin-bottom: 15px;
 width: 100%;
 `;
 
-const FormHeading = styled.h1`
+const InputG = styled(TextField)`
+margin-bottom: 10px;
+width: calc(100% /2 - 8px);
+`;
+const InputGrp = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+const FormHeadingTop = styled.h1`
 margin: 0px;
 font-size: 20px;
 color: #354f41;
 
+`;
+const FormHeading = styled.h1`
+margin: 0px;
+font-size: 20px;
+color: #354f41;
+margin-bottom: 10px;
 `;
 const FormHeadingGroup = styled.div`
 margin: 0px;
@@ -75,11 +90,26 @@ const AddWeek = (props) => {
     const { auth,authToken,userId } = useContext(AuthContext);
     let token = localStorage.getItem("token")
     const [stage, setStage] = useState("")
+    const [germinationMethod, setGerminationMethod] = useState("")
+    const [germination_Methods, setGermination_Methods] = useState([])
     const [week, setWeek] = useState("")
     const [loading, setLoading] = useState(false);
 
 
+    useEffect(() => {
+       console.log(stage)
+      if(stage.toLowerCase() == "germination" )
+      axios.get(`${BASE_URL_PROD}/germination`)
+      .then(function (response) {
+        setGermination_Methods(response.data)
+
+      }).catch((err)=>{
+        console.log(err)
+        enqueueSnackbar(err.status,{variant:'error'})
+      })
     
+    }, [stage])
+  
 
     const addWeek = (values)=>{
                 
@@ -91,15 +121,17 @@ const AddWeek = (props) => {
    var B = dateobj.toISOString();
  
  
-   
+
 
 
       values.DiaryId = props.DiaryId
+      values.Start_Date = props.activeDiary.Start_Date
       values.date = B.split("T")[0]
       values.weekType = stage
+      values.germination_Method = germinationMethod
+      values.Week = parseInt(week)
       values.Week = parseInt(week)
       
-
 
       
         axios.post(`${BASE_URL_PROD}/weeks/add_week`,values)
@@ -110,6 +142,7 @@ const AddWeek = (props) => {
             props.setPopUpOffset(-101);
             setWeek("")
             setStage("")  
+            setGerminationMethod("")  
       setLoading(false)
 
           }else{
@@ -131,6 +164,12 @@ const AddWeek = (props) => {
 
         setStage(e.target.value)
             }
+
+            const handleGerminationChange =(e,child)=>{
+
+              setGerminationMethod(e.target.value)
+                  }
+
             const handleWeekChange =(e)=>{
         
               setWeek(e.target.value)
@@ -176,7 +215,7 @@ const AddWeek = (props) => {
          
 
       <FormHeadingGroup>
-      <FormHeading>Add Week</FormHeading>
+      <FormHeadingTop>Add Week</FormHeadingTop>
 
         </FormHeadingGroup>
         <InputHolder>
@@ -210,9 +249,67 @@ const AddWeek = (props) => {
     {stage == "Germination" && 
     <>
           <FormHeading>Germination Method</FormHeading>
+          <Input 
+        id="GerminationMethod" 
+        label="Germination Method" 
+        required
+        value={germinationMethod}
+        variant="outlined" 
+        onChange={(e,child)=>{handleGerminationChange(e,child)}}
+        select>
+          {germination_Methods.map((m)=>{
+            return(
+              <MenuItem value={m.Germination_MethodId}>{m.Germination_Method}</MenuItem>
+            )
+          })}
+    
+       
+        </Input>
     </>
     }
      
+     {stage == "Harvest" && 
+    <>
+          <FormHeading>Weight</FormHeading>
+          <InputGrp>
+          <InputG 
+        id="Wet_Weight" 
+        label="Wet Weight" 
+ type="number"
+        variant="outlined" 
+        onChange={handleChange}
+       
+        >
+        </InputG>
+
+        <InputG 
+        id="Dry_Weight" 
+        label="Dry Weight"  
+        type="number"
+        variant="outlined" 
+        onChange={handleChange}
+   
+        >
+        </InputG>
+        </InputGrp>
+
+        <FormHeading>Plants Harvested</FormHeading>
+        <Input 
+        id="Plants_Harvested" 
+        label="Plants Harvested"  
+        type="number"
+        variant="outlined" 
+        onChange={handleChange}
+   
+        >
+        </Input>
+
+        <FormHeading>Smell</FormHeading>
+          <InputGrp>
+      
+        </InputGrp>
+    </>
+    }
  
       
         {!loading ?
