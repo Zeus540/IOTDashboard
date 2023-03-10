@@ -394,11 +394,11 @@ const UploadFeeding = (props) => {
                 aria-labelledby="demo-radio-buttons-group-label"
                 required
                 name="radio-buttons-group"
-                defaultValue="ml"
+
                 onChange={(e, child) => {handleMeasurementUpdate(n,e)}}
               >
-              <Label value="ml" required control={<RadioInput />} label="ml" />
-              <Label value="grams" required control={<RadioInput />} label="grams" />
+              <Label value="ml"  control={<RadioInput required/>} label="ml" />
+              <Label value="grams"  control={<RadioInput required/>} label="grams" />
                 
              </RadioGrouped >
              </MainNutHolder>

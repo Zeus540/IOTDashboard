@@ -38,6 +38,7 @@ const Inner = styled.div`
 
   margin: 40px auto;
   max-width: 1770px;
+
   @media (max-width: 425px) {
     margin: 20px;
     padding-top: 0px;
@@ -161,12 +162,13 @@ const Add = styled.div`
 `;
 const SearchType = styled.div`
   display: flex;
-  margin: 0px 0px;
+  margin: 0px 20px;
   //box-shadow: 0px 0px 20px #00000012;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   border-radius: 5px 5px 0px 0px;
   padding-top: 20px;
   align-items: center;
+  justify-content: end;
   @media (max-width: 425px) {
     padding-top: 20px;
     margin-bottom: 0px;
@@ -176,27 +178,12 @@ const SearchType = styled.div`
     margin-bottom: 0px;
   }
 `;
-const SearchTypeBlock = styled.p`
-padding: 5px 20px;
+const SearchTypeInput = styled.input`
+
 border: 1px solid #354f41;
-color:#354f41;
-margin-right: 10px;
+padding: 10px 20px;
 border-radius: 50px;
 font-size: 14px;
-cursor: pointer;
-:nth-child(1){
-  border-radius: 50px;
-  padding: 5px 20px;
-  margin-left: 20px;
-}
-  @media (max-width: 425px) {
-    padding: 5px 20px;
-   
-  }
-  @media (min-width: 426px) and (max-width: 768px) {
-    padding: 5px 20px;
-  
-  }
 `;
 
 const SearchTypeBlockActive = styled.p`
@@ -257,7 +244,7 @@ const Diaries = () => {
   const [diaryMostViewedList, setDiaryMostViewedList] = useState([]);
   const [diaryTypes, setDiaryTypes] = useState([]);
   const [diaryActiveType, setDiaryActiveType] = useState("All");
-  const [popUpOffset, setPopUpOffset] = useState(-101);
+  const [searching, setSearching] = useState(false);
   const navigate = useNavigate();
   const { auth, authToken,socket } = useContext(AuthContext);
   const params = useParams();
@@ -280,26 +267,15 @@ useEffect(() => {
 }, [diariesPublic])
 
 
-  const setFilter = (type) => {
+  const handleSearch = (type) => {
 
-
-    if (type == "All") {
-
-      setDiaryActiveType(type)
-      setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
-      setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.HavestId == null))
-
-    } else {
-      setDiaryActiveType(type)
-      let list = diariesPublic.filter((d) => d.Type == type)
-      setDiaryHavestList(list?.filter((d) => d.HavestId !== null))
-      setDiaryOnGoingList(list.filter((d) => d.HavestId == null))
-      setDiaryMostViewedList(list.filter((d) => d.HavestId == null).sort((a, b) => b.Start_Date - a.Start_Date))
-
-    }
-
+    setSearching(true)
+    setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.Title.toLowerCase().includes(type.value.toLowerCase()) || d.Strain_1.toLowerCase().includes(type.value.toLowerCase()) ))
+    setTimeout(() => {
+      setSearching(false)
+    }, 400);
   }
+  
 
   return (
 
@@ -317,114 +293,106 @@ useEffect(() => {
 
         <Inner>
           <SearchType>
-
-            {diaryActiveType == "All" ?
-
-              <SearchTypeBlockActive onClick={() => { setFilter("All") }}>
-                All
-              </SearchTypeBlockActive>
-              :
-              <SearchTypeBlock onClick={() => { setFilter("All") }}>
-                All
-              </SearchTypeBlock>
-
-            }
-            {diaryTypes.map((d) => {
-              return (
-                <>
-                  {diaryActiveType == d.Type ?
-
-                    <SearchTypeBlockActive onClick={() => { setFilter(d.Type) }}>
-                      {d.Type}
-                    </SearchTypeBlockActive>
-                    :
-                    <SearchTypeBlock onClick={() => { setFilter(d.Type) }}>
-                      {d.Type}
-                    </SearchTypeBlock>
-
-                  }
-
-                </>
-              )
-            })}
+<SearchTypeInput placeholder="Search" onChange={(e)=>{handleSearch(e.target)}}/>
           </SearchType>
-          {!loadingPublic ?
-         <>
-         {diaryMostViewedList.length > 0 &&
-            <>
-              <Add>
-                <MainHeading>New Journals</MainHeading>
-
-
-              </Add>
-
-              <DiaryHolder>
-                {diaryMostViewedList?.map((d) => {
-                  return (
-                    <Diary
-                      to={`/public-journals/overview/${d.DiaryId}`}
-                    >
-                      <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
-
-
-                      </DiaryImageHolder>
-
-                      <DiaryTextHolder>
-
-                        <DiaryText>{d?.Title} </DiaryText>
-                        <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain_1},{d?.Strain_2},{d?.Strain_3},{d?.Strain_4}</Tag>
-
-
-
-                        {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-
-                      </DiaryTextHolder>
-
-                    </Diary>
-                  );
-                })}
-              </DiaryHolder>
-
-            </>
-          }
+          {console.log( !searching  )}
+          {!loadingPublic  ?
          
-          {diaryHavestList.length > 0 &&
-            <>
+         <>
+          {!searching  ? <>
+          
+          {diaryMostViewedList.length > 0 &&
+             <>
+               <Add>
+                 <MainHeading>New Journals</MainHeading>
+ 
+ 
+               </Add>
+ 
+               <DiaryHolder>
+                 {diaryMostViewedList?.map((d) => {
+                   return (
+                     <Diary
+                       to={`/public-journals/overview/${d.DiaryId}`}
+                     >
+                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
+ 
+ 
+                       </DiaryImageHolder>
+ 
+                       <DiaryTextHolder>
+ 
+                         <DiaryText>{d?.Title} </DiaryText>
+                         <Tag> {d?.UserName}</Tag>
+                         <Tag> {d?.Strain_1},{d?.Strain_2},{d?.Strain_3},{d?.Strain_4}</Tag>
+ 
+ 
+ 
+                         {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+ 
+                       </DiaryTextHolder>
+ 
+                     </Diary>
+                   );
+                 })}
+               </DiaryHolder>
+ 
+             </>
+           }
+          
+           {diaryHavestList.length > 0 &&
+             <>
+ 
+ 
+               <Add>
+                 <MainHeading>Havested</MainHeading>
+               </Add>
+ 
+               <DiaryHolder>
+                 {diaryHavestList?.map((d) => {
+                   return (
+                     <Diary
+                       to={`/public-journals/overview/${d.DiaryId}`}
+                     >
+                       <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
+ 
+ 
+                       </DiaryImageHolder>
+ 
+                       <DiaryTextHolder>
+ 
+                         <DiaryText>{d?.Title} </DiaryText>
+                         <Tag> {d?.UserName}</Tag>
+                         <Tag> {d?.Strain_1} {d?.Strain_2} {d?.Strain_3} {d?.Strain_4}</Tag>
+ 
+ 
+ 
+                         {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+ 
+                       </DiaryTextHolder>
+ 
+                     </Diary>
+                   );
+                 })}
+               </DiaryHolder>
+             </>}
+           </>
+           :
+           <LoadingHolder>
+           <TailSpin
+         height="70"
+         width="70"
+         color="#4fa94d"
+         ariaLabel="tail-spin-loading"
+         radius="1"
+         wrapperStyle={{}}
+         wrapperClass=""
+         visible={true}
+       />
+         </LoadingHolder>
+           }
 
 
-              <Add>
-                <MainHeading>Havested</MainHeading>
-              </Add>
-
-              <DiaryHolder>
-                {diaryHavestList?.map((d) => {
-                  return (
-                    <Diary
-                      to={`/public-journals/overview/${d.DiaryId}`}
-                    >
-                      <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
-
-
-                      </DiaryImageHolder>
-
-                      <DiaryTextHolder>
-
-                        <DiaryText>{d?.Title} </DiaryText>
-                        <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain_1} {d?.Strain_2} {d?.Strain_3} {d?.Strain_4}</Tag>
-
-
-
-                        {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-
-                      </DiaryTextHolder>
-
-                    </Diary>
-                  );
-                })}
-              </DiaryHolder>
-            </>}
             </>
          :
          <LoadingHolder>
