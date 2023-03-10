@@ -312,7 +312,7 @@ const Diaries = () => {
       
                   <DiaryText>{d?.Title} </DiaryText>
                   <Tag> {d?.UserName}</Tag>
-                    <Tag> {d?.Strain}</Tag>
+                  <Tag> {d?.Strain_1} {d?.Strain_2} {d?.Strain_3} {d?.Strain_4}</Tag>
                     <UserAvatarHolder>
                     {/* <UserAvatar>
                   {d?.UserName.charAt(0)}
@@ -352,7 +352,7 @@ const Diaries = () => {
       
                   <DiaryText>{d?.Title} </DiaryText>
                   <Tag> {d?.UserName}</Tag>
-                    <Tag> {d?.Strain}</Tag>
+                  <Tag> {d?.Strain_1} {d?.Strain_2} {d?.Strain_3} {d?.Strain_4}</Tag>
                     <UserAvatarHolder>
                     {/* <UserAvatar>
                   {d?.UserName.charAt(0)}

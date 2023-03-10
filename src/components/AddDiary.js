@@ -19,9 +19,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Input = styled(TextField)`
-margin-bottom: 20px;
+margin-bottom: 10px;
 width: 100%;
 `;
+const InputG = styled(TextField)`
+margin-bottom: 10px;
+width: calc(100% /2 - 8px);
+`;
+
 const InputTop = styled(TextField)`
 margin-bottom: 10px;
 width: 100%;
@@ -33,6 +38,13 @@ font-size: 20px;
 color: #354f41;
 
 `;
+const FormHeadingS = styled.h1`
+margin: 0px;
+margin-bottom: 10px;
+font-size: 20px;
+color: #354f41;
+`;
+
 const FormHeadingGroup = styled.div`
 margin: 0px;
 padding: 10px 15px;
@@ -67,7 +79,7 @@ max-height: 80vh;
 
 background: white;
 border-radius: 5px;
-min-width:20%;
+width:50em;
 overflow:auto;
 
 @media (max-width:425px) {
@@ -157,6 +169,77 @@ border-radius: 5px;
 cursor: pointer;
 border: 1px solid #8bab50;
 `;
+
+const AddStrainSvg = styled.svg`
+width: 20px;
+fill: #8bab50;
+`;
+
+const AddStrain = styled.div`
+width: fit-content;
+border-radius: 5px;
+margin: 10px 10px;
+min-width: 70px;
+background: #f8f8ff00;
+cursor: pointer;
+opacity: 0.5;
+display: flex;
+height: 84px;
+border: 1px solid #8bab50;
+justify-content: center;
+  &:hover {
+    opacity: 1;
+ 
+  }
+`;
+
+const StrainHolder = styled.div`
+margin-bottom: 10px;
+display: flex;
+`;
+
+const Strain = styled.div`
+
+padding: 10px 20px;
+background: #f8f8ff;
+color: #354f41;
+border-radius: 50px;
+width: calc(100% / 4 - 20px);
+margin: 0px 10px;
+font-size: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+const AddStrainBtn = styled.div`
+padding: 8px 40px;
+background: #ffffff00;
+color: #8bab50;
+border-radius: 5px;
+cursor: pointer;
+border: 1px solid #8bab50;
+width: fit-content;
+margin-bottom: 18px;
+
+font-size: 13.33px;
+
+`;
+
+
+const InputGrp = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+
+const ErrMsg = styled.p`
+color: #f44336!important;
+    margin: 0px;
+    font-size: 16px;
+    margin-bottom: 10px;
+`;
+
 const AddDiary = (props) => {
 
   const {enqueueSnackbar} = useSnackbar()
@@ -166,8 +249,11 @@ const AddDiary = (props) => {
   
   const [roomType, setRoomType] = useState("");
   const [potType, setPotType] = useState("");
+  const [strainName, setStrainName] = useState("");
   
+  const [strains, setStrains] = useState([]);
   const [errorType, setErrorType] = useState(false);
+
   
   const [popUpOffset, setPopUpOffset] = useState(-100);
   const navigate = useNavigate();
@@ -175,11 +261,22 @@ const AddDiary = (props) => {
   const [loading, setLoading] = useState(false)
   const [limitedMsg, setLimitedMsg] = useState("")
   const [limitedMsgUpgrade, setLimitedMsgUpgrade] = useState("")
+  const [strainErr, setStrainErr] = useState(false)
+  
+
+  useEffect(() => {
+   console.log("strains",strains.length)
+  }, [strains])
+  
+
 
 useEffect(() => {
   setType("")
   setRoomType("")
   setPotType("")
+  setStrains([])
+  setStrainErr(false)
+  setStrainName("")
   setLimitedMsg("")
   setLimitedMsgUpgrade("")
   setErrorType(false)
@@ -201,14 +298,18 @@ useEffect(() => {
 
 
   const addDiary = (values) => {
-    setLoading(true)
+ 
+    console.log(strains.length > 0)
 
+    if(strains.length > 0){
+      setLoading(true)
     const d = new Date()
-    values.Type = type
+   
     values.Date = d.toISOString().split("T")[0]
     values.roomType = roomType
     values.potType = potType
-    console.log(values)
+    values.strain = strains
+
     
 
      axios.post(`${BASE_URL_PROD}/diaries/add`, values, )
@@ -236,7 +337,7 @@ useEffect(() => {
        })
 
   }
-
+}
   const handleType = (type) => {
     if(errorType == true){
       setErrorType(false)
@@ -245,7 +346,34 @@ useEffect(() => {
   
   }
 
+    
+  const handleAddNameStrain = (strain) => {
+
+    let strainObj = {
+      name : strain
+    }
+    setStrainName(strainObj)
+
   
+  }
+  const handleAddStrain = () => {
+
+    console.log('strainName',strainName)
+    if(strains.length < 4 ){
+      if(strainName !== ""){
+        let strainObj = {
+          name : ""
+        }
+    
+        setStrainName(strainObj)
+        setStrains([...strains,strainName])
+         setStrainErr(false)
+      }
+    }
+    
+  
+  }
+
 
   
   const handlePotTypeChange = (e, child) => {
@@ -260,9 +388,9 @@ useEffect(() => {
     setErrorType(false)
   }
 
-  const handleMeasurementUpdate = (values,e) => {
 
   
+  const handleMeasurementUpdate = (values,e) => {
 
     switch (e.target.value) {
       case "gallons":
@@ -294,16 +422,16 @@ useEffect(() => {
 
     <Formik
       initialValues={{ pot_Size_Measurment:'Litres' }}
-  
+  enableReinitialize
       onSubmit={(values, { setSubmitting }) => {
      
         setTimeout(() => {
-       if(type == ""){
-        setErrorType(true)
+       if(strains.length < 1 ){
+        setStrainErr(true)
        }else{
         addDiary(values)
         setSubmitting(false);
-      
+        setStrainErr(false)
        }
 
         }, 400);
@@ -346,34 +474,12 @@ useEffect(() => {
             }
           </FormHeadingGroup>
           <InputHolder>
-            <FormHeading>Type of Diary</FormHeading>
-        {errorType &&   <Error>Select a Type</Error>}
-            <InputHolderType>
+        
 
-
-              {diaryTypes?.map((t,index) => {
-                return (
-                  < >
-                    {type == t.Diary_Types_Name ?
-                      <TypeBlockActive key={index}>
-                        <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
-                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText>
-                      </TypeBlockActive> :
-                      <TypeBlock key={index} onClick={() => { handleType(t.Diary_Types_Name) }}>
-                        <TypeBlockImg src={t.Diary_Types_Img} width="100%" />
-                        <TypeBlockText>{t.Diary_Types_Name}</TypeBlockText> 
-                      </TypeBlock>
-                    }
-                  </>
-
-                )
-              })}
-
-
-            </InputHolderType>
+        
           
-{type !== "" && 
-<>
+
+
 
 <div>
 
@@ -398,7 +504,8 @@ useEffect(() => {
 <>
 <div>
 
-<Input
+<InputGrp>
+<InputG
   id="potType"
   label="Pot Type"
   value={potType}
@@ -409,57 +516,41 @@ useEffect(() => {
   <MenuItem value="Air Pot">Air Pot</MenuItem>
   <MenuItem value="Fabric Pot">Fabric Pot</MenuItem>
   <MenuItem value="Plastic Pot">Plastic Pot</MenuItem>
-</Input>
+</InputG>
 
-{potType &&
-<>
-<Input
+<InputG
   id="potSize"
   label="Pot Size"
   type="number"
-
+required={potType !== "" ? true : false}
   variant="outlined"
   onChange={handleChange}
   onBlur={handleBlur}
 />
+</InputGrp>
+
+{potType &&
+<>
+
 
 <RadioGrouped
                 aria-labelledby="demo-radio-buttons-group-label"
-                required
+                
                 name="radio-buttons-group"
-                defaultValue="Litres"
+              
                 onChange={(e, child) => {handleMeasurementUpdate(values,e)}}
               >
-                <Label value="Litres" required control={<RadioInput />} label="Litres" />
-              <Label value="Inchs" required control={<RadioInput />} label="Inchs" />
-              <Label value="Gallons" required control={<RadioInput />} label="Gallons" />
+                <Label value="Litres" required control={<RadioInput required />} label="Litres" />
+              <Label value="Inchs" required control={<RadioInput required />} label="Inchs" />
+              <Label value="Gallons" required control={<RadioInput required />} label="Gallons" />
              </RadioGrouped >
 </>
               }
-</div>
-
-</>
-}
-
-
-
-<div>
-<Input
-  id="strain"
-  label="Strain"
-  type="strain"
-  required
-  variant="outlined"
-  onChange={handleChange}
-  onBlur={handleBlur}
-/>
-</div>
-
 
 {roomType !== "Outdoor" &&
-<>
-  <div>
-    <Input
+<InputGrp>
+
+    <InputG
       id="lightSchedule"
       label="Light Schedule"
       type="lightSchedule"
@@ -467,10 +558,10 @@ useEffect(() => {
       onChange={handleChange}
       onBlur={handleBlur}
     />
-  </div>
 
-  <div>
-  <Input
+
+
+  <InputG
     id="lightWattage"
     label="Light Wattage"
     type="lightWattage"
@@ -478,10 +569,62 @@ useEffect(() => {
     onChange={handleChange}
     onBlur={handleBlur}
   />
+
+
+</InputGrp>
+}
+
+
 </div>
 
-</>
+
+
+
+
+<div>
+
+<FormHeadingS>Add Up To 4 Strain</FormHeadingS>
+
+
+<>
+<Input
+  id="strain"
+  label="Strain"
+  type="strain"
+  value={strainName?.name}
+  required={strains.length < 1 ? true : false}
+  variant="outlined"
+  onChange={(e)=>[handleAddNameStrain(e.target.value)]}
+  onBlur={handleBlur}
+/>
+
+{strainErr && <ErrMsg>Add A Strain</ErrMsg>}
+{strains.length > 0 && 
+<StrainHolder>
+{strains?.map((s)=>{
+  return(
+    <Strain>
+   {s.name}
+    </Strain>
+  )
+})} 
+</StrainHolder>
 }
+
+<AddStrainBtn onClick={(e)=>[handleAddStrain(values)]}>Add</AddStrainBtn>
+
+</>
+
+
+
+
+
+
+
+</div>
+
+
+
 
 
 </>}

@@ -85,7 +85,7 @@ text-align:center;
 `;
 
 const ErrMsg = styled.p`
-color: #f44336;
+color: #f44336!important;
     margin: 0px;
     font-size: 16px;
     text-align: center;

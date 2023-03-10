@@ -373,7 +373,7 @@ useEffect(() => {
 
                         <DiaryText>{d?.Title} </DiaryText>
                         <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain}</Tag>
+                        <Tag> {d?.Strain_1},{d?.Strain_2},{d?.Strain_3},{d?.Strain_4}</Tag>
 
 
 
@@ -412,7 +412,7 @@ useEffect(() => {
 
                         <DiaryText>{d?.Title} </DiaryText>
                         <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain}</Tag>
+                        <Tag> {d?.Strain_1} {d?.Strain_2} {d?.Strain_3} {d?.Strain_4}</Tag>
 
 
 

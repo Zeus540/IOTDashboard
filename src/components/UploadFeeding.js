@@ -173,7 +173,7 @@ border: 1px solid #8bab50;
 
 const ErrMsg = styled.div`
 padding: 8px 0px;
-color:#f44336;
+color: #f44336!important;
 padding-top: 0px;
 cursor: pointer;
 

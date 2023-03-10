@@ -187,7 +187,7 @@ const Stats = (props) => {
     
             <TextHeading>Strains</TextHeading>
                
-          <TextHeadingInfo>{activeDiary?.Strain ==  "" || null ? "N/A":activeDiary?.Strain}   </TextHeadingInfo>
+          <TextHeadingInfo>{ activeDiary?.Strain_1 && ` ${activeDiary?.Strain_1}`} { activeDiary?.Strain_2 && `, ${activeDiary?.Strain_2}`} { activeDiary?.Strain_3 && `, ${activeDiary?.Strain_3}`} {activeDiary?.Strain_4 && `, ${activeDiary?.Strain_4}`}  </TextHeadingInfo>
             </TextHolderGroup2Inner>
           </TextHolderGroup2>
 
