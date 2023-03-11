@@ -228,7 +228,7 @@ const Harvest = () => {
 
 
         
-        <Heading>Smells Like </Heading>
+        <Heading>Taste Like </Heading>
         <Flex2>
       
           

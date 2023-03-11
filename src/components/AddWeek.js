@@ -103,17 +103,19 @@ text-align: center;
 }
 `;
 const SmellMain = styled.div`
-padding: 10px 20px;
+
 
 color: #354f41;
 border-radius: 5px;
-width: calc(100% / 3 - 60px);
+width: calc(100% / 3 - 20px);
 margin: 0px 10px;
 flex-direction: column;
 font-size: 14px;
 display: flex;
 align-items: center;
 justify-content: space-between;
+overflow: hidden;
+    background: ghostwhite;
 @media (max-width:425px) {
   margin: 10px;
 }
@@ -123,7 +125,7 @@ justify-content: space-between;
 `;
 
 const SmellRemove = styled.div`
-padding-bottom: 10px;
+padding: 10px 0px;
 color: #F44336;
 `;
 const AddWeek = (props) => {
@@ -235,7 +237,7 @@ const AddWeek = (props) => {
                   const handleSmellChange =(e,child)=>{
 
                     let obj = child.props.value
-                    if(selectedSmells.length < 4){
+                    if(selectedSmells.length < 3){
                       setSelectedSmells([...selectedSmells,obj])
                  
                       setSmell(e.target.value)
@@ -395,7 +397,7 @@ const AddWeek = (props) => {
   value="2"
 
 /> */}
-        <FormHeading>Smells Like</FormHeading>
+        <FormHeading>Taste Like</FormHeading>
         
           <Input 
         id="SmellsLike" 
@@ -411,7 +413,7 @@ const AddWeek = (props) => {
             )
           })}
              </Input >
-
+             {selectedSmells.length > 0 &&
              <InputGrpSmells>
              {selectedSmells.map((s)=>{
             return(
@@ -425,6 +427,7 @@ const AddWeek = (props) => {
             )
           })}
               </InputGrpSmells>
+}
        
     </>
     }
