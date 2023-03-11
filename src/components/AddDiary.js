@@ -22,6 +22,12 @@ const Input = styled(TextField)`
 margin-bottom: 15px;
 width: 100%;
 `;
+const MenuItemFlex = styled(MenuItem)`
+
+width: 100%;
+display: block;
+`;
+
 const InputG = styled(TextField)`
 margin-bottom: 15px;
 width: calc(100% /2 - 8px);
@@ -262,11 +268,14 @@ const AddDiary = (props) => {
   const [limitedMsg, setLimitedMsg] = useState("")
   const [limitedMsgUpgrade, setLimitedMsgUpgrade] = useState("")
   const [strainErr, setStrainErr] = useState(false)
+  const [strainList, setStrainList] = useState([])
+  const [strainSelect, setStrainSelect] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
   
 
   useEffect(() => {
-   console.log("strains",strains.length)
-  }, [strains])
+   console.log("strainList",strainList)
+  }, [strainList])
   
 
 
@@ -284,6 +293,17 @@ useEffect(() => {
     axios.get(`${BASE_URL_PROD}/diaries/types`)
     .then((response) => {
       setDiaryTypes(response.data)
+ 
+    })
+    .catch((error) => {
+
+      enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
+      console.log(error);
+    })
+
+    axios.get(`${BASE_URL_PROD}/strains`)
+    .then((response) => {
+      setStrainList(response.data)
  
     })
     .catch((error) => {
@@ -349,10 +369,23 @@ useEffect(() => {
     
   const handleAddNameStrain = (strain) => {
 
-    let strainObj = {
-      name : strain
+    if(strain == "Other"){
+      console.log("strain")
+      setStrainSelect(false)
+      let strainObj = {
+        name : ""
+      }
+      setStrainName(strainObj)
+    }else{
+      let strainObj = {
+        name : strain
+      }
+      setStrainName(strainObj)
     }
-    setStrainName(strainObj)
+
+    
+
+   
 
   
   }
@@ -364,7 +397,7 @@ useEffect(() => {
         let strainObj = {
           name : ""
         }
-    
+        setStrainSelect(true)
         setStrainName(strainObj)
         setStrains([...strains,strainName])
          setStrainErr(false)
@@ -387,7 +420,13 @@ useEffect(() => {
     setRoomType(e.target.value)
     setErrorType(false)
   }
+  const handleStrainSearch = (e, child) => {
 
+console.log(    strainList.filter((s)=> s.Name.includes(e?.target?.value)))
+    // setStrainList()
+       setSearchTerm(e?.target?.value)
+ 
+  }
 
   
   const handleMeasurementUpdate = (values,e) => {
@@ -594,10 +633,29 @@ required={potType !== "" ? true : false}
   value={strainName?.name}
   required={strains.length < 1 ? true : false}
   variant="outlined"
-  onChange={(e)=>[handleAddNameStrain(e.target.value)]}
+  onChange={(e)=>{handleAddNameStrain(e.target.value)}}
   onBlur={handleBlur}
-/>
+select={strainSelect}
+  
+>
 
+               
+             
+  
+
+{strainList?.map((s)=>{
+  return(
+    <MenuItemFlex value={s?.Name}>
+      <div>{s?.Name} </div>
+      {/* <div>{s?.Parent1} x {s?.Parent2}</div> */}
+    </MenuItemFlex>
+  )
+})} 
+<MenuItem value="Other">
+    Other
+    </MenuItem>
+
+  </Input>
 {strainErr && <ErrMsg>Add A Strain</ErrMsg>}
 {strains.length > 0 && 
 <StrainHolder>
