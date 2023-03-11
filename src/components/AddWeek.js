@@ -137,7 +137,7 @@ const AddWeek = (props) => {
         axios.post(`${BASE_URL_PROD}/weeks/add_week`,values)
         .then(function (response) {
           if(response.data.insertId !== undefined){
-            //Update()
+            Update()
             enqueueSnackbar("Week Successfully Added",{variant:'success'})
             props.setPopUpOffset(-101);
             setWeek("")
