@@ -273,9 +273,7 @@ const AddDiary = (props) => {
   const [searchTerm, setSearchTerm] = useState("")
   
 
-  useEffect(() => {
-   console.log("strainList",strainList)
-  }, [strainList])
+
   
 
 
@@ -303,7 +301,7 @@ useEffect(() => {
 
     axios.get(`${BASE_URL_PROD}/strains`)
     .then((response) => {
-      setStrainList(response.data)
+      setStrainList(response.data?.sort((a, b) => a.Name?.localeCompare(b.Name)))
  
     })
     .catch((error) => {
