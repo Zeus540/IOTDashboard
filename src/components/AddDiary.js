@@ -19,11 +19,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Input = styled(TextField)`
-margin-bottom: 0px;
+margin-bottom: 15px;
 width: 100%;
 `;
 const InputG = styled(TextField)`
-margin-bottom: 10px;
+margin-bottom: 15px;
 width: calc(100% /2 - 8px);
 `;
 
@@ -86,7 +86,7 @@ overflow:auto;
   width: 90%;
 }
 @media (min-width: 426px) and (max-width: 970px) {
-  width: 60%;
+  width: 90%;
 }
 `;
 const InputHolder = styled.div`

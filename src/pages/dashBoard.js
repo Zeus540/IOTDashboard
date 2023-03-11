@@ -2348,7 +2348,7 @@ const DashBoard = (props) => {
                                      Plants Harvested
                                      </HarvestInfoText>
                                      <HarvestInfoTextAmount>
-                                    {i?.Plants_Harvested} Plant
+                                    {i?.Plants_Harvested < 2 ? `${i?.Plants_Harvested} Plant`:`${i?.Plants_Harvested} Plants`} 
                                      </HarvestInfoTextAmount>
 
                                      </HarvestInfoGrp>
@@ -2379,20 +2379,26 @@ const DashBoard = (props) => {
                                       <Heading>SMELLS LIKE</Heading>
                                       <HarvestInfoGrpS>
                                      
+                                     {i?.Smells_Like_1 !== null &&
                                      <HarvestInfoGrpSCard>
-                                      <img src={wood} width="70px"/>
+                                  
                                       <div> {i?.Smells_Like_1}</div>
                                      </HarvestInfoGrpSCard>
-                                    
-                                     <HarvestInfoGrpSCard>
-                                     <img src={pine} width="70px"/>
-                                    <div> {i?.Smells_Like_2}</div>
-                                     </HarvestInfoGrpSCard>
+                                     }
 
+                                           {i?.Smells_Like_2 !== null &&
                                      <HarvestInfoGrpSCard>
-                                     <img src={cheese} width="70px"/>
-                                     <div> {i?.Smells_Like_3}</div>
+                                  
+                                      <div> {i?.Smells_Like_2}</div>
                                      </HarvestInfoGrpSCard>
+                                     }
+
+{i?.Smells_Like_3 !== null &&
+                                     <HarvestInfoGrpSCard>
+                                  
+                                      <div> {i?.Smells_Like_3}</div>
+                                     </HarvestInfoGrpSCard>
+                                     }
 
                                      </HarvestInfoGrpS>
                                       </HarvestInfoInner>

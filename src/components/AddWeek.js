@@ -1,7 +1,7 @@
 import React, { useContext, useState,useEffect } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
-import { TextField } from "@mui/material";
+import { TextField,Rating } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +28,11 @@ width: calc(100% /2 - 8px);
 const InputGrp = styled.div`
 display: flex;
 justify-content: space-between;
+`;
+const InputGrpSmells = styled.div`
+display: flex;
+flex-wrap: wrap;
+margin-bottom: 15px;
 `;
 
 const FormHeadingTop = styled.h1`
@@ -60,10 +65,13 @@ max-height: 80vh;
 
 background: white;
 border-radius: 5px;
-width:20%;
+width:50em;
 overflow:auto;
 
-@media (max-width: 768px) {
+@media (max-width:425px) {
+  width: 90%;
+}
+@media (min-width: 426px) and (max-width: 970px) {
   width: 90%;
 }
 `;
@@ -82,6 +90,42 @@ cursor: pointer;
 border: 1px solid #8bab50;
 `;
 
+const Smell = styled.div`
+padding: 10px 20px;
+background: ${(props) => props.back};
+width: 100%;
+text-align: center;
+@media (max-width:425px) {
+  margin: 10px;
+}
+@media (min-width: 426px) and (max-width: 970px) {
+  margin: 10px;
+}
+`;
+const SmellMain = styled.div`
+padding: 10px 20px;
+
+color: #354f41;
+border-radius: 5px;
+width: calc(100% / 3 - 60px);
+margin: 0px 10px;
+flex-direction: column;
+font-size: 14px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+@media (max-width:425px) {
+  margin: 10px;
+}
+@media (min-width: 426px) and (max-width: 970px) {
+  margin: 10px;
+}
+`;
+
+const SmellRemove = styled.div`
+padding-bottom: 10px;
+color: #F44336;
+`;
 const AddWeek = (props) => {
   const {enqueueSnackbar} = useSnackbar()
     const { diaries,Update } = useContext(DiaryContext);
@@ -92,22 +136,40 @@ const AddWeek = (props) => {
     const [stage, setStage] = useState("")
     const [germinationMethod, setGerminationMethod] = useState("")
     const [germination_Methods, setGermination_Methods] = useState([])
+    const [smells, setSmells] = useState([])
+    const [selectedSmells, setSelectedSmells] = useState([])
+    const [smell, setSmell] = useState("")
     const [week, setWeek] = useState("")
     const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
        console.log(stage)
-      if(stage.toLowerCase() == "germination" )
-      axios.get(`${BASE_URL_PROD}/germination`)
-      .then(function (response) {
-        setGermination_Methods(response.data)
 
-      }).catch((err)=>{
-        console.log(err)
-        enqueueSnackbar(err.status,{variant:'error'})
-      })
-    
+      if(stage.toLowerCase() == "germination" ){
+        axios.get(`${BASE_URL_PROD}/germination`)
+        .then(function (response) {
+          setGermination_Methods(response.data)
+  
+        }).catch((err)=>{
+          console.log(err)
+          enqueueSnackbar(err.status,{variant:'error'})
+        })
+      }
+      
+      if(stage.toLowerCase() == "harvest" ){
+        axios.get(`${BASE_URL_PROD}/smells`)
+        .then(function (response) {
+          setSmells(response.data)
+  
+        }).catch((err)=>{
+          console.log(err)
+          enqueueSnackbar(err.status,{variant:'error'})
+        })
+      }
+  
+
+      
     }, [stage])
   
 
@@ -130,7 +192,7 @@ const AddWeek = (props) => {
       values.weekType = stage
       values.germination_Method = germinationMethod
       values.Week = parseInt(week)
-      values.Week = parseInt(week)
+      values.selectedSmells = selectedSmells
       
 
       
@@ -170,6 +232,30 @@ const AddWeek = (props) => {
               setGerminationMethod(e.target.value)
                   }
 
+                  const handleSmellChange =(e,child)=>{
+
+                    let obj = child.props.value
+                    if(selectedSmells.length < 4){
+                      setSelectedSmells([...selectedSmells,obj])
+                 
+                      setSmell(e.target.value)
+                    }
+              
+                        
+                  }
+
+                  const handleSmellRemove =(s)=>{
+
+                    let obj = s
+
+                   
+
+                    setSelectedSmells( selectedSmells.filter((ss)=> ss !== obj))
+                   
+              
+                        
+                  }
+                  
             const handleWeekChange =(e)=>{
         
               setWeek(e.target.value)
@@ -303,11 +389,43 @@ const AddWeek = (props) => {
    
         >
         </Input>
+{/* 
+        <Rating
+  name="simple-controlled"
+  value="2"
 
+/> */}
         <FormHeading>Smells Like</FormHeading>
-          <InputGrp>
+        
+          <Input 
+        id="SmellsLike" 
+        label="Smells Like" 
       
-        </InputGrp>
+        value={smell}
+        variant="outlined" 
+        onChange={(e,child)=>{handleSmellChange(e,child)}}
+        select>
+          {smells.map((s)=>{
+            return(
+              <MenuItem value={s}>{s?.Smell_Profile_Name}</MenuItem>
+            )
+          })}
+             </Input >
+
+             <InputGrpSmells>
+             {selectedSmells.map((s)=>{
+            return(
+              <SmellMain>
+              <SmellRemove onClick={()=>{handleSmellRemove(s)}}>X</SmellRemove>
+              <Smell back={s?.Smell_Profile_Color}>
+           <div>{s?.Smell_Profile_Name}</div>
+      
+               </Smell>
+            </SmellMain>
+            )
+          })}
+              </InputGrpSmells>
+       
     </>
     }
  

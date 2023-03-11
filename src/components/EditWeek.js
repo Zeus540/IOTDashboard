@@ -64,20 +64,20 @@ color:white
 const Form = styled.form`
 
 `;
-const Root = styled.div`
+const Root = styled.form`
 overflow: auto;
 max-height: 80vh;
 
 background: white;
 border-radius: 5px;
-width:20%;
+width:50em;
 overflow:auto;
 
-@media (max-width: 768px) {
+@media (max-width:425px) {
   width: 90%;
 }
-@media (min-width: 769px) and (max-width: 1333px) {
-  width: 50%;
+@media (min-width: 426px) and (max-width: 970px) {
+  width: 90%;
 }
 `;
 

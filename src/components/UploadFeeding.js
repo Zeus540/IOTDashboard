@@ -89,14 +89,14 @@ max-height: 80vh;
 
 background: white;
 border-radius: 5px;
-min-width:20%;
+width:40em;
 overflow:auto;
 
 @media (max-width:425px) {
   width: 90%;
 }
 @media (min-width: 426px) and (max-width: 970px) {
-  width: 60%;
+  width: 90%;
 }
 `;
 const InputHolder = styled.div`
