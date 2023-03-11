@@ -1312,7 +1312,7 @@ const DashBoard = (props) => {
     setPosition(0)
 
     setActiveDiary(filtered);
-
+    setWeekInfo([])
 
 
   }, [diaries])

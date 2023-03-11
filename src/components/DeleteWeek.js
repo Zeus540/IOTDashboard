@@ -91,7 +91,7 @@ const DeleteWeek = (props) => {
         .then(function (response) {
           if(response.data.affectedRows == 1){
             enqueueSnackbar("Week Successfully Deleted",{variant:'success'})
-            //Update()
+            Update()
             props.setPopUpOffset(-101);
             props.setDays([])
             props.setGalleryData([])
