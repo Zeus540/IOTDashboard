@@ -64,7 +64,7 @@ color:white
 const Form = styled.form`
 
 `;
-const Root = styled.form`
+const Root = styled.div`
 overflow: auto;
 max-height: 80vh;
 

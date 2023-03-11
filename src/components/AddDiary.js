@@ -27,6 +27,11 @@ const MenuItemFlex = styled(MenuItem)`
 width: 100%;
 display: block;
 `;
+const MenuItemFlexSmall = styled.span`
+font-size: 12px;
+width: 100%;
+display: block;
+`;
 
 const InputG = styled(TextField)`
 margin-bottom: 15px;
@@ -373,12 +378,12 @@ useEffect(() => {
       let strainObj = {
         name : ""
       }
-      setStrainName(strainObj)
+      setStrainName(strain)
     }else{
       let strainObj = {
         name : strain
       }
-      setStrainName(strainObj)
+      setStrainName(strain)
     }
 
     
@@ -643,8 +648,9 @@ select={strainSelect}
 
 {strainList?.map((s)=>{
   return(
-    <MenuItemFlex value={s?.Name}>
-      <div>{s?.Name} </div>
+    <MenuItemFlex value={s}>
+       
+      <div>{s?.Name}  <MenuItemFlexSmall>by {s.Seedbank} </MenuItemFlexSmall></div>
       {/* <div>{s?.Parent1} x {s?.Parent2}</div> */}
     </MenuItemFlex>
   )
@@ -660,7 +666,8 @@ select={strainSelect}
 {strains?.map((s)=>{
   return(
     <Strain>
-   {s.name}
+   {s.Name}
+   {console.log("s",s)}
     </Strain>
   )
 })} 
