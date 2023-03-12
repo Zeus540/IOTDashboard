@@ -5,6 +5,7 @@ import axios from "../components/shared/axios";
 import { DiaryContext } from "../context/diary_context";
 import IndoorIcon from "../assets/sweetleaf-icons/indoors.svg"
 import VpdChart from '../assets/VpdChart.jpg'
+import useMediaQuery from "../components/shared/useMediaQuery";
 
 import {useNavigate} from 'react-router-dom'
 import {
@@ -36,7 +37,6 @@ ChartJS.register(
 
 
 
-
 const Root = styled.div`
 
   display: flex;
@@ -46,6 +46,7 @@ const Root = styled.div`
     margin: 0px 0px;
     margin-top: 0px;
     padding-bottom: 0px;
+
   }
 `;
 
@@ -102,8 +103,11 @@ const Inner = styled.div`
   padding: 0px 0px;
   padding-top:0px;
   margin: 0px auto;
-  @media (max-width: 425px) {
+  transition: all 0.2s ease;
+  @media (max-width: 1316px) {
     margin: 0px auto;
+    height: ${(props) => props.openPosition == 0 ? "250px" : `${props.openPosition}%`};
+    overflow: hidden;
   }
   @media (min-width: 426px) and (max-width: 768px) {
     margin: 0px auto;
@@ -171,6 +175,7 @@ const ChartHolder = styled.div`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   @media (max-width: 600px) {
     margin: 0 20px;
     width: unset;
@@ -187,16 +192,24 @@ flex-direction: column;
 align-items: center;
   width: calc(100% /3 - 40px);
   margin: 20px;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     min-width: calc(100% / 1 );
     margin-bottom: 20px;
     margin: unset;
   }
-  @media (min-width: 601px) and (max-width: 768px) {
-    min-width: calc(100% / 2 - 20px);
+
+  
+  @media (min-width: 769px) and (max-width: 1023px) {
+    min-width: calc(100% / 1 - 20px);
     margin: 10px;
     margin-top: 0px;
   }
+  @media (min-width: 1024px) and (max-width: 1658px) {
+    min-width: calc(100% / 3 - 20px);
+    margin: 10px;
+    margin-top: 0px;
+  }
+  
 `;
 
 const ChartVpd = styled.h1`
@@ -204,6 +217,27 @@ font-size: 22px;
  //color:black!important
 `;
 
+const Svg = styled.svg`
+width: 20px;
+fill: green;
+transform: rotateZ(${(props) => props.openPosition == 0 ? "180deg" : `0deg`});
+transition: all 0.2s ease;
+
+`;
+
+const Btn = styled.div`
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+`;
+
+const BtnText = styled.p`
+
+
+`;
 const StatsLower = (props) => {
  
 
@@ -221,10 +255,16 @@ const StatsLower = (props) => {
   const [chartDataPh, setChartDataPh] = useState(null);
   const [chartDataCo2, setChartDataCo2] = useState(null);
   const [vpd, setVpd] = useState(null);
+  const [openPosition, setOpenPosition] = useState(0);
+  const [btnToggle, setBtnToggle] = useState(false);
   
   const params = useParams();
   const navigate = useNavigate ()
 
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const isTablet = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+  const isLaptop = useMediaQuery('(min-width: 601px) and (max-width: 1023px)');
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
 
   useEffect(() => {
@@ -396,16 +436,43 @@ useEffect(() => {
 }, [temp,humidity])
 
 
+const handleDropDown = ()=>{
+  if(openPosition == 100){
+    setOpenPosition(0)
+  }else{
+    setOpenPosition(100)
+  }
+
+}
+
+
+useEffect(() => {
+  if (isDesktop) {
+    setOpenPosition(100)
+    setBtnToggle(false)
+  }
+  if (isTablet) {
+    setOpenPosition(0)
+    setBtnToggle(true)
+  }
+  if (isMobile) {
+    setOpenPosition(0)
+    setBtnToggle(true)
+  }
+}, [isDesktop,isTablet,isMobile])
+
+
   return (
 
   
     <Root>
 
 
-      <Inner>
+      <Inner >
         
       {props.weekId !== undefined ?
       <ChartHolder>
+
         {chartData && 
         <ChartHolderInner>
       <Line  data={chartDataPh} updateMode="resize"/>
@@ -413,7 +480,8 @@ useEffect(() => {
       </ChartHolderInner>
       }
   
-
+{openPosition !== 0 &&
+<>
 {chartData && 
         <ChartHolderInner>
       <Line  data={chartData} />
@@ -430,6 +498,8 @@ useEffect(() => {
       <ChartVpd>{co2} PPM</ChartVpd>
       </ChartHolderInner>
       }
+</>
+       }
       </ChartHolder>:
       
       <NoDataHolder>
@@ -437,76 +507,15 @@ useEffect(() => {
       </NoDataHolder>
 }
 
-{/* <Flex2>
-<img src={VpdChart} width="100%"/>
-</Flex2> */}
-        {/* <Flex2>
-
-    {(props.weekId !== undefined) ?
-    <>
-       <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>Ph</TextHeading>
-            {ph == 0 ? (
-               <TextHeadingInfo>N/A</TextHeadingInfo>
-            ) : (
-              <TextHeadingInfo>{ph}</TextHeadingInfo>
-            )}
-                  
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-
-
-    <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>Temperature</TextHeading>
-            {temp == 0 ? (
-              <TextHeadingInfo>N/A</TextHeadingInfo>
-            ) : (
-              <TextHeadingInfo>{temp}  {tempUnit} </TextHeadingInfo>
-            )}
-                  
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>Humidity</TextHeading>
-            {humidity == 0 ? (
-            <TextHeadingInfo>N/A</TextHeadingInfo>
-            ) : (
-              <TextHeadingInfo>{humidity}  % </TextHeadingInfo>
-            )}
-              
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-
-
-          <TextHolderGroup2>
-          <TextHolderGroup2Inner>
-          <TextHeading>Co2</TextHeading>
-
-            {co2 == 0  ? (
-                <TextHeadingInfo>N/A</TextHeadingInfo>
-            ) : (
-              <TextHeadingInfo>{co2} PPM</TextHeadingInfo>
-            )}
-              
-                </TextHolderGroup2Inner>
-          </TextHolderGroup2>
-    </>:
-    <NoDataHolder>
-         <NoData>No Data Available</NoData>
-    </NoDataHolder>
-    }
-
-          
-
-        
-
-        </Flex2> */}
 
       </Inner>
+
+      {btnToggle && 
+      <Btn onClick={()=>{handleDropDown()}} >
+        <BtnText> {openPosition == 0 ? 'View More': "View Less"}</BtnText>
+      <Svg openPosition={openPosition} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 173.3 54.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></Svg>
+      </Btn>
+      }
     </Root>
    
   );

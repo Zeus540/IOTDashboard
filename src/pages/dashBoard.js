@@ -518,9 +518,16 @@ display: flex;
 justify-content: center;
 max-width: 40%;
 margin: 0 auto;
+
 @media (max-width: 600px) {
   flex-direction: column;
   max-width: 70%;
+  align-items: center;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  flex-direction: column;
+  max-width: 70%;
+  align-items: center;
 }
 `;
 const ChartHolder = styled.div`
@@ -528,16 +535,21 @@ const ChartHolder = styled.div`
 
 width: calc(100% / 2);
 @media (max-width: 600px) {
-  width: unset;
+  width: 100%;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  width:  70%;;
 }
 `;
 const ChartHolderText = styled.div`
 padding: 20px;
 width: calc(100% / 2);
 @media (max-width: 600px) {
-  width: unset;
+  width: 100%;
 }
-
+@media (min-width: 601px) and (max-width: 1024px) {
+  width:  70%;;
+}
 `;
 
 const ChartTextGroup = styled.div`
@@ -729,6 +741,40 @@ const Heading = styled.h4`
 
 `;
 
+const HeadingT = styled.h4`
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  align-items: center;
+  color: #354f41;
+  &::before {
+    content: "";
+    display: block;
+    background: #8bab50;
+    height: 4px;
+    border-radius: 50px;
+
+    width: 15%;
+    margin: 0px 20px;
+  }
+  &::after {
+    content: "";
+    display: block;
+    background: #8bab50;
+    height: 4px;
+    border-radius: 50px;
+
+    width: 15%;
+    margin: 0px 20px;
+  },
+
+`;
+
 const HeadingC = styled.h4`
   text-transform: uppercase;
   font-size: 18px;
@@ -796,7 +842,7 @@ const NoDataHolder = styled.div`
 const DayDotHolder = styled.div`
   display: flex;
   justify-content: center;
-  margin: 15px 0px;
+  margin: 0px 0px;
 `;
 
 const DayDotInner = styled.div`
@@ -1524,6 +1570,10 @@ const DashBoard = (props) => {
           console.log(error);
         });
 
+        console.log("w.Stage",w.Stage !== "VEG" && w.Stage !== "FLO")
+        if(w.Stage !== "VEG" && w.Stage !== "FLO" ){
+
+        
         axios
         .post(`${BASE_URL_PROD}/weeks/information`, nutrientData)
         .then(function (response) {
@@ -1537,6 +1587,7 @@ const DashBoard = (props) => {
           enqueueSnackbar(`${error.response.status} ${error.response.statusText}`,{variant:'error'})
           console.log(error);
         });
+      }
     }
 
   };
@@ -2035,42 +2086,7 @@ const DashBoard = (props) => {
           <div>{activeDiary?.Start_Date?.split("T")[0]}</div> */}
                 </IntroHolder>
 
-                {techniques.length > 0 &&
-                  <TextHolder>
-                    <FormHeadingSmall>Grow Techniques</FormHeadingSmall>
-                    <QuickActionBlockFlex>
-
-                      {techniques?.map((t, index) => {
-                        return (
-
-                          <QuickActionBlock key={index}>
-                            {t?.Technique_Name == "Main-Lining" &&
-                              <> <QuickActionBlockIcon src={Mainline} />{t?.Technique_Name}</>
-                            }
-                            {t?.Technique_Name == "Topping" &&
-                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
-                            }
-                            {t?.Technique_Name == "LST" &&
-                              <> <QuickActionBlockIcon src={LST} />{t?.Technique_Name}</>
-                            }
-                            {t?.Technique_Name == "HST" &&
-                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
-                            }
-                            {t?.Technique_Name == "Defoliation" &&
-                              <> <QuickActionBlockIcon src={Defoliation} />{t?.Technique_Name}</>
-                            }
-                            {t?.Technique_Name == "Feeding" &&
-                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
-                            }
-                          </QuickActionBlock>
-
-                        )
-                      })}
-
-                    </QuickActionBlockFlex>
-
-                  </TextHolder>
-                }
+            
 
 
 {(weekId !== undefined && dayId !== undefined) && 
@@ -2279,50 +2295,55 @@ const DashBoard = (props) => {
               
           </div>
                 
-
-      
-       
-          {days.length > 0 &&
-          <>
-              <Heading>Days</Heading>
-              {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
-            <DayDotHolder>
-              {days?.map((d, index) => {
-                return (
-                  <DayDotInner key={index}>
-                    {activeDay !== d ?
-                      <DayDotOutter
-                        onClick={(e) => {
-                          handleGetDayData(days, d);
-
-                        }}
-                      >
-                        <DayDot
+{weekId && 
 
 
-                        ></DayDot>
-                        {d.Day.slice(0, 3)}
-                      </DayDotOutter>
-                      :
-                      <DayDotOutter
-                        onClick={(e) => {
-                          handleGetDayData(days, d);
+       <>
+          <Heading> Grow Techniques </Heading>
+          <WeekHolderInner>   
+          {techniques.length > 0 ?
+                  <TextHolder>
+              
+                    <QuickActionBlockFlex>
 
-                        }}
-                      >
-                        <DayDotActive
-                          key={index}
+                      {techniques?.map((t, index) => {
+                        return (
 
-                        ></DayDotActive>
-                        {d.Day.slice(0, 3)}
-                      </DayDotOutter>}
-                  </DayDotInner>
-                );
-              })}
-            </DayDotHolder>
-            </>
-          } 
+                          <QuickActionBlock key={index}>
+                            {t?.Technique_Name == "Main-Lining" &&
+                              <> <QuickActionBlockIcon src={Mainline} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Topping" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "LST" &&
+                              <> <QuickActionBlockIcon src={LST} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "HST" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Defoliation" &&
+                              <> <QuickActionBlockIcon src={Defoliation} />{t?.Technique_Name}</>
+                            }
+                            {t?.Technique_Name == "Feeding" &&
+                              <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                            }
+                          </QuickActionBlock>
 
+                        )
+                      })}
+
+                    </QuickActionBlockFlex>
+
+                  </TextHolder>
+                  :
+                  <NoDataHolder>
+                  <NoData>No Data Available</NoData>
+                </NoDataHolder>
+                }
+</WeekHolderInner>
+       </>
+        }
           
 {weekInfo[0]?.HarvestId && weekInfo?.map((i, index) => {
                 return (
@@ -2407,7 +2428,7 @@ const DashBoard = (props) => {
                 )
                 })
                 }
-
+{weekId && 
      <>
       <Heading> Grow conditions </Heading>
       <Flex3BtnHolder>
@@ -2423,7 +2444,7 @@ const DashBoard = (props) => {
                        </Flex3BtnHolder>
           <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataConditions} days={days} colourData={colourData}/>
      </>
-            
+      }      
         </Flex3B>
 
 
@@ -2447,6 +2468,49 @@ const DashBoard = (props) => {
                 </HelperBtnHolder>
               }
                        </Flex3BtnHolder>
+
+        {days.length > 0 &&
+          <>
+         
+              {/* {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>} */}
+            <DayDotHolder>
+              {days?.map((d, index) => {
+                return (
+                  <DayDotInner key={index}>
+                    {activeDay !== d ?
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleGetDayData(days, d);
+
+                        }}
+                      >
+                        <DayDot
+
+
+                        ></DayDot>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>
+                      :
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleGetDayData(days, d);
+
+                        }}
+                      >
+                        <DayDotActive
+                          key={index}
+
+                        ></DayDotActive>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>}
+                  </DayDotInner>
+                );
+              })}
+            </DayDotHolder>
+            </>
+          } 
+
+   
         <GalleryHolderInnerMain>
 
           <GalleryHolderOutter>

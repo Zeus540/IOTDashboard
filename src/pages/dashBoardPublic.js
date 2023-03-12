@@ -504,9 +504,16 @@ display: flex;
 justify-content: center;
 max-width: 40%;
 margin: 0 auto;
+
 @media (max-width: 600px) {
   flex-direction: column;
   max-width: 70%;
+  align-items: center;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  flex-direction: column;
+  max-width: 70%;
+  align-items: center;
 }
 `;
 const ChartHolder = styled.div`
@@ -514,16 +521,21 @@ const ChartHolder = styled.div`
 
 width: calc(100% / 2);
 @media (max-width: 600px) {
-  width: unset;
+  width: 100%;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  width:  70%;;
 }
 `;
 const ChartHolderText = styled.div`
 padding: 20px;
 width: calc(100% / 2);
 @media (max-width: 600px) {
-  width: unset;
+  width: 100%;
 }
-
+@media (min-width: 601px) and (max-width: 1024px) {
+  width:  70%;;
+}
 `;
 
 const ChartTextGroup = styled.div`
@@ -1976,48 +1988,56 @@ const DashBoardPublic = (props) => {
       }
 </div>
       
+{weekId && 
 
 
-          {days.length > 0 &&
-          <>
-          <Heading>Days</Heading>
-          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>}
-            <DayDotHolder>
-              {days?.map((d, index) => {
-                return (
-                  <DayDotInner key={index}>
-                    {activeDay !== d ?
-                      <DayDotOutter
-                        onClick={(e) => {
-                          handleGetDayData(days, d);
+<>
+   <Heading> Grow Techniques </Heading>
+   <WeekHolderInner>   
+   {techniques.length > 0 ?
+           <TextHolder>
+       
+             <QuickActionBlockFlex>
 
-                        }}
-                      >
-                        <DayDot
+               {techniques?.map((t, index) => {
+                 return (
 
+                   <QuickActionBlock key={index}>
+                     {t?.Technique_Name == "Main-Lining" &&
+                       <> <QuickActionBlockIcon src={Mainline} />{t?.Technique_Name}</>
+                     }
+                     {t?.Technique_Name == "Topping" &&
+                       <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                     }
+                     {t?.Technique_Name == "LST" &&
+                       <> <QuickActionBlockIcon src={LST} />{t?.Technique_Name}</>
+                     }
+                     {t?.Technique_Name == "HST" &&
+                       <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                     }
+                     {t?.Technique_Name == "Defoliation" &&
+                       <> <QuickActionBlockIcon src={Defoliation} />{t?.Technique_Name}</>
+                     }
+                     {t?.Technique_Name == "Feeding" &&
+                       <> <QuickActionBlockIcon src={Topping} />{t?.Technique_Name}</>
+                     }
+                   </QuickActionBlock>
 
-                        ></DayDot>
-                        {d.Day.slice(0, 3)}
-                      </DayDotOutter>
-                      :
-                      <DayDotOutter
-                        onClick={(e) => {
-                          handleGetDayData(days, d);
+                 )
+               })}
 
-                        }}
-                      >
-                        <DayDotActive
-                          key={index}
+             </QuickActionBlockFlex>
 
-                        ></DayDotActive>
-                        {d.Day.slice(0, 3)}
-                      </DayDotOutter>}
-                  </DayDotInner>
-                );
-              })}
-            </DayDotHolder>
-            </>
-          }
+           </TextHolder>
+           :
+           <NoDataHolder>
+           <NoData>No Data Available</NoData>
+         </NoDataHolder>
+         }
+</WeekHolderInner>
+</>
+ }
+
 
 {weekInfo[0]?.HarvestId && weekInfo?.map((i, index) => {
                 return (
@@ -2097,13 +2117,15 @@ const DashBoardPublic = (props) => {
                 })
                 }
 
-          
+          {weekId &&
+<>
 <Heading> Grow conditions </Heading>
       <Flex3BtnHolder>
         
                        </Flex3BtnHolder>
                        <StatsLower weekId={weekId} dayId={dayId} data={activeDiaryDataConditions} days={days} colourData={colourData}/>
-
+</>
+                      }
         </Flex3B>
 
 
@@ -2118,6 +2140,48 @@ const DashBoardPublic = (props) => {
 
         <Heading>GALLERY</Heading>
 
+
+        {days.length > 0 &&
+          <>
+          {/* <Heading>Days</Heading>
+          {days.length > 0 && galleryData.length == 0 && <Helper>Select a Day Below</Helper>} */}
+            <DayDotHolder>
+              {days?.map((d, index) => {
+                return (
+                  <DayDotInner key={index}>
+                    {activeDay !== d ?
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleGetDayData(days, d);
+
+                        }}
+                      >
+                        <DayDot
+
+
+                        ></DayDot>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>
+                      :
+                      <DayDotOutter
+                        onClick={(e) => {
+                          handleGetDayData(days, d);
+
+                        }}
+                      >
+                        <DayDotActive
+                          key={index}
+
+                        ></DayDotActive>
+                        {d.Day.slice(0, 3)}
+                      </DayDotOutter>}
+                  </DayDotInner>
+                );
+              })}
+            </DayDotHolder>
+            </>
+          }
+          
 
         <GalleryHolderInnerMain>
 
