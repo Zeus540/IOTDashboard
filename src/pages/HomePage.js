@@ -10,14 +10,15 @@ import PlaceHolder from "../assets/placeholder.png";
 
 const Root = styled.div`
 
-background:url(${BannerImg});
-background-attachment: fixed;
+
 background-position: 100% 6%;
 background-size: cover;
-//background-color: #5858588c;
+background-color: #f3f4f6;
 background-blend-mode: overlay;
 @media (max-width: 425px) {
   background-position: 32% 100%;
+   background:url(${BannerImg});
+ background-attachment: fixed;
 }
 @media (min-width: 426px) and (max-width: 768px) {
   background-position: 32% 100%;
@@ -48,7 +49,7 @@ const Inner = styled.div`
 `;
 
 const HeroBanner = styled.div`
-min-height:40vh;
+min-height:20vh;
 
 flex-direction: column;
 
@@ -257,6 +258,7 @@ const HeroBannerTextHolder = styled.div`
 const Diary = styled(NavLink)`
 cursor: pointer;
 width: calc(100% / 6 - 20px);
+min-width: calc(100% / 6 - 20px);
 margin: 10px;
 border-radius: 5px;
 
@@ -367,11 +369,9 @@ padding: 0px;
 `;
 
 const HomePage = () => {
-  const { diariesPublic, getPublic, loading } = useContext(DiaryContext);
+  const { diariesPublic, UpdatePublic, loading } = useContext(DiaryContext);
 
-  useEffect(() => {
-    getPublic()
-  }, [])
+
   
   return (
     <Root>
@@ -403,30 +403,33 @@ const HomePage = () => {
       {diariesPublic.length > 0 &&
             <>
               <DiaryHolder>
-                {diariesPublic?.map((d) => {
-                  return (
-                    <Diary
-                    to={`/public-journals/overview/${d.DiaryId}`}
-                    >
-                      <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
-
-
-                      </DiaryImageHolder>
-
-                      <DiaryTextHolder>
-
-                        <DiaryText>{d?.Title} </DiaryText>
-                        <Tag> {d?.UserName}</Tag>
-                        <Tag> {d?.Strain}</Tag>
-
-
-
-                        {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
-
-                      </DiaryTextHolder>
-
-                    </Diary>
-                  );
+                {diariesPublic?.map((d,index) => {
+                  if(index < 6){
+                    return (
+                      <Diary
+                      to={`/public-journals/overview/${d.DiaryId}`} key={index}
+                      >
+                        <DiaryImageHolder style={{ background: `url(${d?.ThumbNail == "" ? PlaceHolder : d?.ThumbNail})` }}>
+  
+  
+                        </DiaryImageHolder>
+  
+                        <DiaryTextHolder>
+  
+                          <DiaryText>{d?.Title} </DiaryText>
+                          <Tag> {d?.UserName}</Tag>
+                          <Tag> {d?.Strain}</Tag>
+  
+  
+  
+                          {/* <Tag> {d?.Start_Date?.split("T")[0]}</Tag> */}
+  
+                        </DiaryTextHolder>
+  
+                      </Diary>
+                    );
+                  }
+                
                 })}
               </DiaryHolder>
             </>}

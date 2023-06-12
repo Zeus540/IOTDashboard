@@ -1526,7 +1526,7 @@ const DashBoard = (props) => {
 
     
         axios
-        .post(`${BASE_URL_PROD}/conditions`, dataw)
+        .post(`${BASE_URL_PROD}/journal_data/conditions`, dataw)
         .then(function (response) {
           setActiveDiaryDataConditions(response.data);
         })
@@ -1628,7 +1628,7 @@ const DashBoard = (props) => {
     };
 
     axios
-    .post(`${BASE_URL_PROD}/plant_data/by_day`, data)
+    .post(`${BASE_URL_PROD}/journal_data/by_day`, data)
     .then(function (response) {
 
       console.log("response.data.latest",response.data.latest)
@@ -1662,7 +1662,7 @@ const DashBoard = (props) => {
         setDiaryData(data);
 
         axios
-          .post(`${BASE_URL_PROD}/plant_data/by_day`, data)
+          .post(`${BASE_URL_PROD}/journal_data/by_day`, data)
           .then(function (response) {
 
             console.log("response.data.latest",response.data.latest)
@@ -1880,7 +1880,7 @@ const DashBoard = (props) => {
     }
 
     axios
-      .post(`${BASE_URL_PROD}/plant_data/delete`, data)
+      .post(`${BASE_URL_PROD}/journal_data/delete`, data)
       .then(function (response) {
         if (response.status == 200) {
          

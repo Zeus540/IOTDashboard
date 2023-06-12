@@ -71,7 +71,7 @@ const [loading, setLoading] = useState(false)
     }
 
    
-    axios.post(`${BASE_URL_PROD}/diaries/delete`, data)
+    axios.delete(`${BASE_URL_PROD}/diaries/delete`, { data: data })
       .then(function (response) {
         if (response.data.affectedRows > 0) {
           navigate('/my-journals')

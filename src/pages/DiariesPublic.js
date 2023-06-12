@@ -252,7 +252,8 @@ const Diaries = () => {
   const [diaryHavestList, setDiaryHavestList] = useState([]);
   const [diaryOnGoingList, setDiaryOnGoingList] = useState([]);
   const [diaryMostViewedList, setDiaryMostViewedList] = useState([]);
-  const [diaryTypes, setDiaryTypes] = useState([]);
+  const [mostViewedList, setMostViewedList] = useState([]);
+ 
   const [diaryActiveType, setDiaryActiveType] = useState("All");
   const [searching, setSearching] = useState(false);
   const navigate = useNavigate();
@@ -262,17 +263,11 @@ const Diaries = () => {
 useEffect(() => {
   setDiaryHavestList(diariesPublic.filter((d) => d.HavestId !== null))
   setDiaryOnGoingList(diariesPublic.filter((d) => d.HavestId == null))
+  setMostViewedList(diariesPublic?.sort((a, b) => a.Views - b.Views))
+
+  console.log("asssd",diariesPublic?.sort((a, b) => b.Views - a.Views))
+
   setDiaryMostViewedList(diariesPublic.sort((a, b) => b.DiaryId - a.DiaryId).filter((d) => d.HavestId == null))
-
-  let types = diariesPublic.filter((value, index, self) =>
-    index === self.findIndex((t) => (
-      t.Type === value.Type
-    ))
-  )
-  setDiaryTypes(types)
-
-
-
 
 }, [diariesPublic])
 
@@ -311,12 +306,16 @@ useEffect(() => {
           <SearchType>
 <SearchTypeInput placeholder="Search" onChange={(e)=>{handleSearch(e.target)}}/>
           </SearchType>
-          {console.log( !searching  )}
+         
+
+          
           {!loadingPublic  ?
          
          <>
           {!searching  ? <>
           
+            
+
           {diaryMostViewedList.length > 0 ?
              <>
                <Add>

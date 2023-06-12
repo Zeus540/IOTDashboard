@@ -163,7 +163,7 @@ if(props.DayId !== ''){
 }
 
   
-   axios.post(`${BASE_URL_PROD}/weeks/conditions_add`,values)
+   axios.post(`${BASE_URL_PROD}/journal_data/conditions_add`,values)
    .then(function (response) {
      if(response.status == 200 ){
        props.setPopUpOffset(-101)

@@ -60,7 +60,7 @@ const MainContainer = (props) => {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
                 <Route path="/harvest/:id" element={<Harvest />} />
-
+                <Route path="/ai" element={<UploadImage />} />
 
 
                 <Route element={<ProtectedRoutes />}>
