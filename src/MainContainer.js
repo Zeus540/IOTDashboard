@@ -25,6 +25,7 @@ import Terms from './components/Terms';
 import CookiePolicy from './components/CookiePolicy';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import HomePage from './pages/HomePage';
+import Form from './components/Form';
 
 const MainContainer = (props) => {
     const { auth, userId, setAuth, user, socket } = useContext(AuthContext)
@@ -60,7 +61,7 @@ const MainContainer = (props) => {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
                 <Route path="/harvest/:id" element={<Harvest />} />
-                <Route path="/ai" element={<UploadImage />} />
+                <Route path="/ai" element={<Form />} />
 
 
                 <Route element={<ProtectedRoutes />}>
