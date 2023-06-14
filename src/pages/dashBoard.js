@@ -467,15 +467,19 @@ flex-direction: column;
 `;
 
 const GalleryImageHolder = styled.div`
+line-height: 0px;
 
-background-image: ${props => `url(${props.img})`};
 
 border-radius: 5px 5px  0px 0px;
 position: relative;
 cursor:pointer;
-height: 300px;
+
 background-size: cover;
 background-position: center;
+`;
+const GalleryImageHolderImg = styled.img`
+aspect-ratio: 16/12;
+object-fit: cover;
 `;
 
 const GalleryImageOverlay = styled.div`
@@ -2537,7 +2541,7 @@ const DashBoard = (props) => {
                           <GalleryImageHolder img={img?.Image} onClick={() => {
                             handleLightBox(img?.Image, img);
                           }}>
-
+<GalleryImageHolderImg src={img?.Image} width="100%"/>
 
 
                           </GalleryImageHolder>
